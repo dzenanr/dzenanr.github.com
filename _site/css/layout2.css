@@ -9,20 +9,9 @@
     Created:                 2006-09-03
     Updated:                 2007-10-28
 */
+       
         
-/* ===[ 2 columns layout: version 1 ]=== */
-        
-    .left {
-        float: left;
-        width: 58%;
-    }
-        
-    .right {
-        float: right;
-        width: 40%;
-    }
-        
-/* ===[ 2 columns layout: version 2 ]=== */
+/* ===[ 2 columns layout]=== */
         
         .content {
                 float: left;
