@@ -1,7 +1,2 @@
 pygments: true
-markdown: kramdown
-permalink: pretty
-paginate: 10
 
-kramdown:
-  entity_output: symbolic
