@@ -3,11 +3,21 @@ layout: default
 title: On Dart
 ---
 
-{% for post in site.posts limit:5 %}
-  <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-  {{ post.content}}
-  <em>Posted on {{ post.date | date_to_long_string }}</em>
-{% endfor %}
+<section>
+    {% for post in site.posts limit:5 %}
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        {{ post.content}}
+        <em>Posted on {{ post.date | date_to_long_string }}</em>
+    {% endfor %}
+</section>
 
-
-
+<section>
+    <header>
+        <h2>All Posts</h2>
+        <!-- -->
+    </header>  
+    {% for post in site.posts %}
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        <em>Posted on {{ post.date | date_to_string }}</em>
+    {% endfor %}
+</section>

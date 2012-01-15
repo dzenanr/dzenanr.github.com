@@ -6,5 +6,10 @@ http://blog.envylabs.com/2009/08/publishing-a-blog-with-github-pages-and-jekyll/
 
 http://dzenanr.github.com/
 
+Steps
+
+cd blogs/dzenanr.github.com
+jekyll --pygments
+
 
 

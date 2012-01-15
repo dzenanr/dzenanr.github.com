@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="author" content="Dzenan Ridjanovic"/>
-        <title>On Dart</title> 
+        <title>Dart Example</title> 
         <link rel="stylesheet" href="/css/code.css"/>  
         <link rel="stylesheet" href="/css/layout.css"/>
         <link rel="stylesheet" href="/css/link.css"/>
@@ -17,7 +17,7 @@
         <header>  
             <h1>
                 <a href="http://www.ondart.info/"><img src="/img/ondartb1.png"/></a>
-               On Dart
+               Dart Example
                <!--  -->
             </h1>
         </header>
@@ -55,10 +55,7 @@
         </nav>
 
         <section>
-            <section>
-    
-        <h2><a href="/2012/01/15/third-post/">Dart Example</a></h2>
-        <p>The class Item belongs to the MagicBoxes project (highlight javascript used).</p>
+            <p>The class Item belongs to the MagicBoxes project (highlight javascript used).</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="kr">class</span> <span class="nx">Item</span> <span class="p">{</span>
   
@@ -89,67 +86,6 @@
 </code></pre>
 </div>
 
-
-        <em>Posted on 15 January 2012</em>
-    
-        <h2><a href="/2012/01/14/second-post/">Dart Example</a></h2>
-        <p>The class Item belongs to the MagicBoxes project (highlight java used).</p>
-
-<div class="highlight"><pre><code class="java"><span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
-  
-  <span class="kd">final</span> <span class="n">Box</span> <span class="n">box</span><span class="o">;</span>
-  
-  <span class="kt">int</span> <span class="n">sequence</span><span class="o">;</span> <span class="c1">// sequence number within the box: 10, 20, ...</span>
-  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-  <span class="n">String</span> <span class="n">category</span><span class="o">;</span> <span class="c1">// attribute, guid, identifier, required</span>
-  <span class="n">String</span> <span class="n">init</span> <span class="o">=</span> <span class="err">&#39;&#39;</span><span class="o">;</span>
-  
-  <span class="n">Item</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">box</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">category</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">category</span> <span class="o">=</span> <span class="n">category</span><span class="o">;</span>
-    <span class="n">sequence</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="na">findLastItemSequence</span><span class="o">()</span> <span class="o">+</span> <span class="mi">10</span><span class="o">;</span>
-    <span class="n">box</span><span class="o">.</span><span class="na">items</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-  <span class="o">}</span>
-  
-  <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">toJson</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">itemMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
-    <span class="n">itemMap</span><span class="o">[</span><span class="s">&quot;sequence&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">;</span>
-    <span class="n">itemMap</span><span class="o">[</span><span class="s">&quot;name&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="n">itemMap</span><span class="o">[</span><span class="s">&quot;category&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">category</span><span class="o">;</span> 
-    <span class="n">itemMap</span><span class="o">[</span><span class="s">&quot;init&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">init</span><span class="o">;</span>
-    <span class="k">return</span> <span class="n">itemMap</span><span class="o">;</span>
-  <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre>
-</div>
-
-
-        <em>Posted on 14 January 2012</em>
-    
-        <h2><a href="/2012/01/14/first-post/">First Post</a></h2>
-        <p>On this blog I will present my learning and development experience on Dart.</p>
-
-        <em>Posted on 14 January 2012</em>
-    
-</section>
-
-<section>
-    <header>
-        <h2>All Posts</h2>
-        <!-- -->
-    </header>  
-    
-        <h2><a href="/2012/01/15/third-post/">Dart Example</a></h2>
-        <em>Posted on 15 Jan 2012</em>
-    
-        <h2><a href="/2012/01/14/second-post/">Dart Example</a></h2>
-        <em>Posted on 14 Jan 2012</em>
-    
-        <h2><a href="/2012/01/14/first-post/">First Post</a></h2>
-        <em>Posted on 14 Jan 2012</em>
-    
-</section>
 
         </section>
 
