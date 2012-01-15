@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Dart Example: highlight javascript used
+title: Dart Example (highlight javascript used)
 ---
 
 The class Item belongs to the MagicBoxes project.
