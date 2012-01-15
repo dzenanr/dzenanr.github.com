@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Dart Example
+title: Dart Example: highlight javascript used
 ---
 
-The class Item belongs to the MagicBoxes project (highlight javascript used).
+The class Item belongs to the MagicBoxes project.
 
 {% highlight javascript %}
 
