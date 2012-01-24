@@ -13,5 +13,11 @@ Search for terminal.
 cd blogs/dzenanr.github.com
 jekyll --pygments
 
+git add .
+git rm file.ext
+git commit -m "blog post: from s00 to s01"
+git status
+
+git push origin master
 
 
