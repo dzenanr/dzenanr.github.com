@@ -8,6 +8,8 @@ http://dzenanr.github.com/
 
 Steps
 
+Search for terminal.
+
 cd blogs/dzenanr.github.com
 jekyll --pygments
 
