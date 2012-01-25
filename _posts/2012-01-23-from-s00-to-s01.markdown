@@ -3,8 +3,7 @@ layout: default
 title: From Spiral00 To Spiral01
 ---
 
-From Spiral 00 To Spiral 01
-===========================
+
 
 The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). 
 You can execute the code by selecting the spiral number in the MagicBoxes menu at the beginning of the post.
