@@ -1,0 +1,227 @@
+---
+layout: default
+title: From Spiral01 To Spiral02
+---
+
+
+
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps. For example, to explain a transition from Spiral 01 to Spiral 02 (01-02), the transition is decomposed into small changes (01, 02, ...).
+
+In Spiral 01, two static boxes were displayed on the board. In Spiral 02, three boxes may be moved within the board.
+
+The document global variable represents the HTML page. The page is part of a window. Thus, from the document objet, the window object may be reached (document.window). The setInterval method on the window object defines what method will be run (the first argument) and how frequently (the second argument).  This means that the redraw method of the Board class will be called every 10 milliseconds (ms).
+
+**Code 01-02.01**: Interval.
+
+{% highlight java %}
+
+  Board(CanvasElement canvas) {
+    context = canvas.getContext("2d");
+    width = canvas.width;
+    height = canvas.height;
+    border();
+    init();
+    // Redraw every 10 ms.
+    document.window.setInterval(redraw, 10);
+  }
+
+{% endhighlight %}
+
+In the Box class, a mouse move event is defined. The event is detailed in the onMouseMove method. 
+
+**Code 01-02.02**: Destination of the mouse move event.
+
+{% highlight java %}
+
+  // Change a position of the box with mouse mouvements.
+  void onMouseMove(MouseEvent event) {
+    x = event.offsetX;
+    y = event.offsetY;
+  }
+
+{% endhighlight %}
+
+The method is added in the constructor of the Box class to the document.on.mouseMove object. The mouse move event will be watched by the document and the onMouseMove method will be executed with each move of the mouse.
+
+**Code 01-02.03**: Source of the mouse move event.
+
+{% highlight java %}
+
+  Box(this.board, this.x, this.y, this.width, this.height) {
+    draw();
+    document.on.mouseMove.add(onMouseMove);
+  }
+
+{% endhighlight %}
+
+The onMouseMove method has the event parameter, of the MountEvent class, which is supplied by Dart. The offsetX attribute of the event object gives an x coordinate of the mouse.  The offset is calculated relative to the x = 0 coordinate of the board (canvas) object. The offset attribute of the event object gives a y coordinate of the mouse.  The offset is calculated relative to the y = 0 coordinate of the board (canvas) object. With each mouse move, one of boxes will change its position with the update of its x and y coordinates (the attributes of the Box class).  Since the board will be redrawn very quickly, each new position of the same box will appear as a new box (Figure 01-02.01).
+
+![Alt Figure 01-02.01: “Many” boxes](/img/s01s02/ManyBoxes.png)
+
+**Figure 01-02.01**: “Many” boxes.
+
+In order to show only new positions of boxes, the board must be cleared from the previous positions. Note that there are now three boxes (two horizontal boxes and one vertical box) on the board.
+
+**Code 01-02.04**: Clearing the board.
+
+{% highlight java %}
+
+class Board {
+  
+  final int INTERVAL = 10; // ms
+ 
+  int width;
+  int height;
+  
+  CanvasRenderingContext2D context;
+  
+  Box box1;
+  Box box2;
+  Box box3;
+  
+  Board(CanvasElement canvas) {
+    context = canvas.getContext("2d");
+    width = canvas.width;
+    height = canvas.height;
+    border();
+    init();
+    // Redraw every INTERVAL ms.
+    document.window.setInterval(redraw, INTERVAL);
+  }
+  
+  void init() {
+    box1 = new Box(this, 20, 20, 80, 40);
+    box2 = new Box(this, 120, 220, 40, 80);
+    box3 = new Box(this, 60, 80, 80, 40);
+  }
+  
+  void border() {
+    context.beginPath();
+    context.rect(0, 0, width, height);
+    context.closePath();
+    context.stroke();
+  }
+  
+  void clear() {
+    context.clearRect(0, 0, width, height);
+    border();
+  } 
+  
+  void redraw() {
+    clear(); 
+    box1.draw();
+    box2.draw();
+    box3.draw();
+  }
+
+}
+
+{% endhighlight %}
+
+The clear method clears the rectangle that is occupied by the context of the canvas, and the border is drawn again. The clear method is called in the redraw method before the three boxes are drawn. The interval of redrawing the board is still 10 ms, but it is defined at the beginning of the Board class as the **final** integer. The final value cannot be changed, representing a constant. A name of a constant is expressed in capital letters. The INTERVAL constant, with the value of 10, is used in the setInterval method.
+
+When the code is run in the Chrome browser, one of horizontal boxes is “eaten” by the other horizontal box, and the vertical box is captured as a prisoner of the two horizontal boxes.
+
+The isPointInside method returns **true**, if the (x, y) point is inside the current box.
+
+**Code 01-02.05**: Is point inside of the current box?
+
+{% highlight java %}
+
+  bool isPointInside(int px, int py) {
+    if ((px > x && px < x + width) && (py > y && py < y + height))
+      return true;
+  }
+
+{% endhighlight %}
+
+The Boolean method checks if a position of the mouse is inside the box of interest, and only then the box will “move”. However, the box may be moved only down and right.
+
+**Code 01-02.06**: Is mouse inside of the current box?
+
+{% highlight java %}
+
+  // Change a position of the box with mouse mouvements.
+  void onMouseMove(MouseEvent event) {
+    if (isPointInside(event.offsetX, event.offsetY)) {
+      x = event.offsetX;
+      y = event.offsetY;
+    }
+  }
+
+{% endhighlight %}
+
+The new position of the current box will be now in the middle of the box. This allows a user to move the box also up and left. However, the box may be moved outside the board. 
+
+**Code 01-02.07**: Box center.
+
+{% highlight java %}
+
+  // Change a position of the box with mouse mouvements.
+  void onMouseMove(MouseEvent event) {
+    if (isPointInside(event.offsetX, event.offsetY)) {
+      x = event.offsetX - width / 2;
+      y = event.offsetY - height / 2;
+    }
+  }
+
+{% endhighlight %}
+
+The upper left corner of a box (x, y) is displayed close to that corner, so that you can check the exact positions of boxes (Figure 01-02.02) .
+
+![Alt Figure 01-02.02: (x, y) displayed.](/img/s01s02/xyDisplayed.png)
+
+**Figure 01-02.02**: (x, y) displayed.
+
+**Code 01-02.08**: x, y displayed in the upper left corner.
+
+{% highlight java %}
+
+  void draw() {
+    board.context.beginPath();
+    board.context.rect(x, y, width, height);
+    board.context.fillText(
+      x.toString() + ',' + y.toString(), x + 1, y + 10);
+    board.context.closePath();
+    board.context.stroke();
+  }
+
+{% endhighlight %}
+
+In order to keep boxes inside the board, a new position of the current box is brought back to the board, if it was found outside the board.
+
+**Code 01-02.09**: Back to board.
+
+{% highlight java %}
+
+  // Change a position of the box with mouse mouvements.
+  void onMouseMove(MouseEvent event) {
+    if (isPointInside(event.offsetX, event.offsetY)) {
+      x = event.offsetX - width / 2;
+      if (x < 0) x = 1;
+      if (x > board.width - width) x = board.width - width - 1;
+      y = event.offsetY - height / 2;
+      if (y < 0) y = 1;
+      if (y > board.height - height) y = board.height - height - 1;
+    }
+  }
+
+{% endhighlight %}
+
+Since there is only one statement in the body of ifs inside the outer if of the onMouseMove method, there is no need to use {}.
+
+Explain what happens if the following code is used instead.
+
+**Code 01-02.10**: Different coordinates.
+
+{% highlight java %}
+
+      if (x < 0) x = 0;
+      if (x > board.width - width) x = board.width - width;
+      …
+      if (y < 0) y = 0;
+      if (y > board.height - height) y = board.height - height;
+
+{% endhighlight %}
+
+

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Dzenan Ridjanovic"/>
+        <title>From Spiral01 To Spiral02</title> 
+        <link rel="stylesheet" href="/css/code.css"/>  
+        <link rel="stylesheet" href="/css/layout.css"/>
+        <link rel="stylesheet" href="/css/link.css"/>
+        <link rel="stylesheet" href="/css/list.css"/>
+        <link rel="stylesheet" href="/css/menu.css"/>
+        <link rel="stylesheet" href="/css/page.css"/>
+    </head>
+
+    <body>
+        <header>  
+            <h1>
+                <a href="http://www.ondart.info/"><img src="/img/ondartb1.png"/></a>
+               From Spiral01 To Spiral02
+               <!--  -->
+            </h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li>Dart
+                    <ul>
+                        <li>
+                            <a href="http://www.dartlang.org/">Dart</a>
+                        </li>
+                        <li>
+                            <a href="http://try.dartlang.org/">Dart Console</a>
+                        </li>
+                    </ul>  
+                </li>
+                <li>Magic Boxes
+                    <ul>
+                        <li>
+                            <a href="http://goo.gl/I72z1">Browse Code</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s11/MagicBoxes/MagicBoxes.html">Design Model</a> 
+                        </li>
+                        <li>
+                            <a href="https://github.com/dzenanr/MagicBoxes">Get Git</a> 
+                        </li>
+                        <li>
+                            <a href="https://github.com/dzenanr/MagicBoxes/tags">Get Spirals</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s00/MagicBoxes/MagicBoxes.html">Spiral 00</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s01/MagicBoxes/MagicBoxes.html">Spiral 01</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s02/MagicBoxes/MagicBoxes.html">Spiral 02</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s03/MagicBoxes/MagicBoxes.html">Spiral 03</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s04/MagicBoxes/MagicBoxes.html">Spiral 04</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s05/MagicBoxes/MagicBoxes.html">Spiral 05</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s06/MagicBoxes/MagicBoxes.html">Spiral 06</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s07/MagicBoxes/MagicBoxes.html">Spiral 07</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s08/MagicBoxes/MagicBoxes.html">Spiral 08</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s09/MagicBoxes/MagicBoxes.html">Spiral 09</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s10/MagicBoxes/MagicBoxes.html">Spiral 10</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s11/MagicBoxes/MagicBoxes.html">Spiral 11</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s12/MagicBoxes/MagicBoxes.html">Spiral 12</a> 
+                        </li>
+                    </ul>  
+                </li>
+                <li>On Dart
+                    <ul>
+                        <li>
+                            <a href="https://plus.google.com/u/0/b/113649577593294551754/113649577593294551754/posts">Google+ Page</a> 
+                        </li>
+                    </ul>  
+                </li>
+                <li>About
+                    <ul>
+                        <li>
+                            <a href="/doc/DzenanRidjanovicCV.pdf">Dzenan Ridjanovic (pdf)</a> 
+                        </li>
+                    </ul>  
+                </li>
+            </ul>
+        </nav>
+
+        <section>
+            <p>The code for the MagicBoxes project is at <a href='https://github.com/dzenanr/MagicBoxes'>MagicBoxes on GitHub</a>. The code for the mb project is at <a href='https://github.com/dzenanr/mb'>mb on GitHub</a>. For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps. For example, to explain a transition from Spiral 01 to Spiral 02 (01-02), the transition is decomposed into small changes (01, 02, &#8230;).</p>
+
+<p>In Spiral 01, two static boxes were displayed on the board. In Spiral 02, three boxes may be moved within the board.</p>
+
+<p>The document global variable represents the HTML page. The page is part of a window. Thus, from the document objet, the window object may be reached (document.window). The setInterval method on the window object defines what method will be run (the first argument) and how frequently (the second argument). This means that the redraw method of the Board class will be called every 10 milliseconds (ms).</p>
+
+<p><strong>Code 01-02.01</strong>: Interval.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>context</span> <span class='o'>=</span> <span class='n'>canvas</span><span class='o'>.</span><span class='na'>getContext</span><span class='o'>(</span><span class='s'>&quot;2d&quot;</span><span class='o'>);</span>
+    <span class='n'>width</span> <span class='o'>=</span> <span class='n'>canvas</span><span class='o'>.</span><span class='na'>width</span><span class='o'>;</span>
+    <span class='n'>height</span> <span class='o'>=</span> <span class='n'>canvas</span><span class='o'>.</span><span class='na'>height</span><span class='o'>;</span>
+    <span class='n'>border</span><span class='o'>();</span>
+    <span class='n'>init</span><span class='o'>();</span>
+    <span class='c1'>// Redraw every 10 ms.</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>window</span><span class='o'>.</span><span class='na'>setInterval</span><span class='o'>(</span><span class='n'>redraw</span><span class='o'>,</span> <span class='mi'>10</span><span class='o'>);</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>In the Box class, a mouse move event is defined. The event is detailed in the onMouseMove method.</p>
+
+<p><strong>Code 01-02.02</strong>: Destination of the mouse move event.</p>
+<div class='highlight'><pre><code class='java'>  <span class='c1'>// Change a position of the box with mouse mouvements.</span>
+  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>x</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>;</span>
+    <span class='n'>y</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The method is added in the constructor of the Box class to the document.on.mouseMove object. The mouse move event will be watched by the document and the onMouseMove method will be executed with each move of the mouse.</p>
+
+<p><strong>Code 01-02.03</strong>: Source of the mouse move event.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>x</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>y</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>width</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>height</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>draw</span><span class='o'>();</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseMove</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseMove</span><span class='o'>);</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The onMouseMove method has the event parameter, of the MountEvent class, which is supplied by Dart. The offsetX attribute of the event object gives an x coordinate of the mouse. The offset is calculated relative to the x = 0 coordinate of the board (canvas) object. The offset attribute of the event object gives a y coordinate of the mouse. The offset is calculated relative to the y = 0 coordinate of the board (canvas) object. With each mouse move, one of boxes will change its position with the update of its x and y coordinates (the attributes of the Box class). Since the board will be redrawn very quickly, each new position of the same box will appear as a new box (Figure 01-02.01).</p>
+
+<p><img src='/img/s01s02/ManyBoxes.png' alt='Alt Figure 01-02.01: “Many” boxes' /></p>
+
+<p><strong>Figure 01-02.01</strong>: “Many” boxes.</p>
+
+<p>In order to show only new positions of boxes, the board must be cleared from the previous positions. Note that there are now three boxes (two horizontal boxes and one vertical box) on the board.</p>
+
+<p><strong>Code 01-02.04</strong>: Clearing the board.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Board</span> <span class='o'>{</span>
+  
+  <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>INTERVAL</span> <span class='o'>=</span> <span class='mi'>10</span><span class='o'>;</span> <span class='c1'>// ms</span>
+ 
+  <span class='kt'>int</span> <span class='n'>width</span><span class='o'>;</span>
+  <span class='kt'>int</span> <span class='n'>height</span><span class='o'>;</span>
+  
+  <span class='n'>CanvasRenderingContext2D</span> <span class='n'>context</span><span class='o'>;</span>
+  
+  <span class='n'>Box</span> <span class='n'>box1</span><span class='o'>;</span>
+  <span class='n'>Box</span> <span class='n'>box2</span><span class='o'>;</span>
+  <span class='n'>Box</span> <span class='n'>box3</span><span class='o'>;</span>
+  
+  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>context</span> <span class='o'>=</span> <span class='n'>canvas</span><span class='o'>.</span><span class='na'>getContext</span><span class='o'>(</span><span class='s'>&quot;2d&quot;</span><span class='o'>);</span>
+    <span class='n'>width</span> <span class='o'>=</span> <span class='n'>canvas</span><span class='o'>.</span><span class='na'>width</span><span class='o'>;</span>
+    <span class='n'>height</span> <span class='o'>=</span> <span class='n'>canvas</span><span class='o'>.</span><span class='na'>height</span><span class='o'>;</span>
+    <span class='n'>border</span><span class='o'>();</span>
+    <span class='n'>init</span><span class='o'>();</span>
+    <span class='c1'>// Redraw every INTERVAL ms.</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>window</span><span class='o'>.</span><span class='na'>setInterval</span><span class='o'>(</span><span class='n'>redraw</span><span class='o'>,</span> <span class='n'>INTERVAL</span><span class='o'>);</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>init</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>box1</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='mi'>20</span><span class='o'>,</span> <span class='mi'>20</span><span class='o'>,</span> <span class='mi'>80</span><span class='o'>,</span> <span class='mi'>40</span><span class='o'>);</span>
+    <span class='n'>box2</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='mi'>120</span><span class='o'>,</span> <span class='mi'>220</span><span class='o'>,</span> <span class='mi'>40</span><span class='o'>,</span> <span class='mi'>80</span><span class='o'>);</span>
+    <span class='n'>box3</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='mi'>60</span><span class='o'>,</span> <span class='mi'>80</span><span class='o'>,</span> <span class='mi'>80</span><span class='o'>,</span> <span class='mi'>40</span><span class='o'>);</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>border</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='mi'>0</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>clear</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>clearRect</span><span class='o'>(</span><span class='mi'>0</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
+    <span class='n'>border</span><span class='o'>();</span>
+  <span class='o'>}</span> 
+  
+  <span class='kt'>void</span> <span class='nf'>redraw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>clear</span><span class='o'>();</span> 
+    <span class='n'>box1</span><span class='o'>.</span><span class='na'>draw</span><span class='o'>();</span>
+    <span class='n'>box2</span><span class='o'>.</span><span class='na'>draw</span><span class='o'>();</span>
+    <span class='n'>box3</span><span class='o'>.</span><span class='na'>draw</span><span class='o'>();</span>
+  <span class='o'>}</span>
+
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>The clear method clears the rectangle that is occupied by the context of the canvas, and the border is drawn again. The clear method is called in the redraw method before the three boxes are drawn. The interval of redrawing the board is still 10 ms, but it is defined at the beginning of the Board class as the <strong>final</strong> integer. The final value cannot be changed, representing a constant. A name of a constant is expressed in capital letters. The INTERVAL constant, with the value of 10, is used in the setInterval method.</p>
+
+<p>When the code is run in the Chrome browser, one of horizontal boxes is “eaten” by the other horizontal box, and the vertical box is captured as a prisoner of the two horizontal boxes.</p>
+
+<p>The isPointInside method returns <strong>true</strong>, if the (x, y) point is inside the current box.</p>
+
+<p><strong>Code 01-02.05</strong>: Is point inside of the current box?</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='nf'>isPointInside</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>px</span><span class='o'>,</span> <span class='kt'>int</span> <span class='n'>py</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>((</span><span class='n'>px</span> <span class='o'>&gt;</span> <span class='n'>x</span> <span class='o'>&amp;&amp;</span> <span class='n'>px</span> <span class='o'>&lt;</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span><span class='o'>)</span> <span class='o'>&amp;&amp;</span> <span class='o'>(</span><span class='n'>py</span> <span class='o'>&gt;</span> <span class='n'>y</span> <span class='o'>&amp;&amp;</span> <span class='n'>py</span> <span class='o'>&lt;</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span><span class='o'>))</span>
+      <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The Boolean method checks if a position of the mouse is inside the box of interest, and only then the box will “move”. However, the box may be moved only down and right.</p>
+
+<p><strong>Code 01-02.06</strong>: Is mouse inside of the current box?</p>
+<div class='highlight'><pre><code class='java'>  <span class='c1'>// Change a position of the box with mouse mouvements.</span>
+  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isPointInside</span><span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>x</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>;</span>
+      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The new position of the current box will be now in the middle of the box. This allows a user to move the box also up and left. However, the box may be moved outside the board.</p>
+
+<p><strong>Code 01-02.07</strong>: Box center.</p>
+<div class='highlight'><pre><code class='java'>  <span class='c1'>// Change a position of the box with mouse mouvements.</span>
+  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isPointInside</span><span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>x</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
+      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The upper left corner of a box (x, y) is displayed close to that corner, so that you can check the exact positions of boxes (Figure 01-02.02) .</p>
+
+<p><img src='/img/s01s02/xyDisplayed.png' alt='Alt Figure 01-02.02: (x, y) displayed.' /></p>
+
+<p><strong>Figure 01-02.02</strong>: (x, y) displayed.</p>
+
+<p><strong>Code 01-02.08</strong>: x, y displayed in the upper left corner.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span>
+      <span class='n'>x</span><span class='o'>.</span><span class='na'>toString</span><span class='o'>()</span> <span class='o'>+</span> <span class='sc'>&#39;,&#39;</span> <span class='o'>+</span> <span class='n'>y</span><span class='o'>.</span><span class='na'>toString</span><span class='o'>(),</span> <span class='n'>x</span> <span class='o'>+</span> <span class='mi'>1</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='mi'>10</span><span class='o'>);</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>In order to keep boxes inside the board, a new position of the current box is brought back to the board, if it was found outside the board.</p>
+
+<p><strong>Code 01-02.09</strong>: Back to board.</p>
+<div class='highlight'><pre><code class='java'>  <span class='c1'>// Change a position of the box with mouse mouvements.</span>
+  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isPointInside</span><span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>x</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>Since there is only one statement in the body of ifs inside the outer if of the onMouseMove method, there is no need to use {}.</p>
+
+<p>Explain what happens if the following code is used instead.</p>
+
+<p><strong>Code 01-02.10</strong>: Different coordinates.</p>
+<div class='highlight'><pre><code class='java'>      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span><span class='o'>;</span>
+      <span class='err'>…</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span><span class='o'>;</span>
+</code></pre>
+</div>
+        </section>
+
+        <section>
+     
+        </section>
+
+        <footer>
+      
+        </footer>
+
+    </body>
+</html>
+
+
