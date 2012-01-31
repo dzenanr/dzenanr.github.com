@@ -6,6 +6,14 @@ http://blog.envylabs.com/2009/08/publishing-a-blog-with-github-pages-and-jekyll/
 
 http://dzenanr.github.com/
 
+Jekyll
+
+http://ostatic.com/blog/build-your-site-with-jekyll
+
+https://github.com/mojombo/jekyll/wiki/
+
+http://www.theleagueofpaul.com/jekyll-windows.html
+
 Steps
 
 Search for terminal.
@@ -19,5 +27,10 @@ git commit -m "blog post: from s00 to s01"
 git status
 
 git push origin master
+
+Local Server
+
+The last step in building the site is to test it all locally by running jekyll --server, and then browsing to http://localhost:4000. Jekyll will build the new site, and start it's own web server using the _site directory as the document root.
+
 
 
