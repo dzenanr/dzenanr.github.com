@@ -23,6 +23,7 @@
         In Spiral 01, two static boxes were displayed on the board. 
         In Spiral 02, three boxes may be moved within the board.
       </description>
+      <pubDate>Tue, 31 Jan 2012 11:48:00 +0100</pubDate>
     </item>
 
     <item>
@@ -33,6 +34,7 @@
           The &quot;Hello World!&quot; text is displayed in a web page. 
         In Spiral 01, the code from Spiral 00 is changed to display two rectangles (boxes).
       </description>
+      <pubDate>Mon, 23 Jan 2012 17:55:00 +0100</pubDate>
     </item>
 
     <item>
@@ -41,6 +43,7 @@
       <description>
         On Dart Blog: To help you learn Dart in order to develop Web software.
       </description>
+      <pubDate>Sat, 14 Jan 2012 11:31:00 +0100</pubDate>
     </item>
 
   </channel>
