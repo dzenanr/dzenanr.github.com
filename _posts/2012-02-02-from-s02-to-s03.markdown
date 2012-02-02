@@ -1,0 +1,369 @@
+---
+layout: default
+title: From Spiral02 To Spiral03
+---
+
+
+
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+
+In Spiral 02, three boxes may be moved within the board. In Spiral 03, a box may be created by clicking on an empty space in the board, selected and then moved.
+
+In order to create many boxes, the [List](http://api.dartlang.org/dart_core/List.html) data structure is added to the Board class as a new attribute.  List is a part of the Collection library of Dart that includes different ways to organize data. List is an indexable collection of objects that may be sorted. In our example (Code 02-03.01), the List has the Box class as a parameter. As a consequence, the boxes attribute may accept only objects of the Box class.
+
+**Code 02-03.01**: The boxes attribute of the List type.
+
+{% highlight java %}
+
+class Board {
+    
+  final int INTERVAL = 10; // ms
+ 
+  int width;
+  int height;
+  
+  CanvasRenderingContext2D context;
+  
+  List<Box> boxes;
+  Board(CanvasElement canvas) {
+    context = canvas.getContext("2d");
+    width = canvas.width;
+    height = canvas.height;
+    border();
+    boxes = new List();
+    document.on.mouseDown.add(onMouseDown);
+    // Redraw every INTERVAL ms.
+    document.window.setInterval(redraw, INTERVAL);
+  }
+  …
+}
+
+{% endhighlight %}
+
+The boxes attribute is created in the constructor of the Board class. After the creation, the list of boxes is empty. A new box will be created by clicking on the board. This event will be implemented by the onMouseDown method (Code 02-03.02) of the Board class. This method is added to the on mouse down events of the document object. Thus, the document is a listener of events. When a mouse down event happens, a listener of that event is informed by Dart and the registered (added) method is executed by Dart with the event argument (of the MouseEvent type) prepared by Dart.
+
+**Code 02-03.02**: The onMouseDown method of the Board class.
+
+{% highlight java %}
+
+  // Create a box in the position of the mouse click on the board.
+  void onMouseDown(MouseEvent event) {
+    Box box = new Box(this, event.offsetX, event.offsetY, 60, 100);
+    boxes.add(box);
+  }
+
+{% endhighlight %}
+
+A new box created by the constructor of the Box class is added to the boxes attribute. The add method belongs to the [List interface](http://api.dartlang.org/dart_core/List.html). An interface is a type that defines what methods a class, which implements the interface, provides. All types in Dart are either interfaces or classes. 
+The redraw method is changed to traverse (iterate over) the list of created boxes and to display all of them (Figure 02-03.01). 
+
+![Alt Figure 02-03.01: Creating boxes by clicking on the board](/img/s02s03/CreatedBoxes.png)
+
+**Figure 02-03.01**: Creating boxes by clicking on the board.
+
+The iteration is done by the **for** loop (statement). Each box of the Box type in the boxes attribute is visited and then drawn.
+
+**Code 02-03.03**: The redraw method of the Board class.
+
+{% highlight java %}
+
+  void redraw() {
+    clear(); 
+    for (Box box in boxes) {
+      box.draw();
+    }
+  }
+
+{% endhighlight %}
+
+If a Web browser does not support the canvas element of HTML5, the message about that fact will be displayed. The message is placed between the opening and closing canvas tags.
+
+**Code 02-03.04**: A canvas message if canvas is not supported by a browser.
+
+{% highlight html %}
+
+      <canvas id="canvas" width="600" height="400">
+        Canvas is not supported in your browser.
+      </canvas>
+
+{% endhighlight %}
+
+A new box may be created only if a user clicks on an empty space on the board.  This check is done by traversing boxes and verifying if the event’s click is done within an existing box. If so, the **for** iteration is interrupted by the **break** statement and the execution of the code is continued immediately after the **for** loop. 
+The negation symbol (!) is used to switch the Boolean (bool) value of the clickedOnExistingBox variable. If that variable is **false**, and it is false only if no box was clicked on, the switch will produce **true**, which will allow the new box to be added to the boxes attribute.
+
+**Code 02-03.05**: A new box cannot be created by clicking on an existing box.
+
+{% highlight java %}
+
+  // Create a box in the position of the mouse click on the board, 
+  // but not on an existing box.
+  void onMouseDown(MouseEvent event) {
+    Box box = new Box(this, event.offsetX, event.offsetY, 60, 100);
+    bool clickedOnExistingBox = false;
+    for (Box box in boxes) {
+      if (box.contains(event.offsetX, event.offsetY)) {
+        clickedOnExistingBox = true;
+        break;
+      }
+    }
+    if (!clickedOnExistingBox) {
+      boxes.add(box);
+    }
+  }
+
+{% endhighlight %}
+
+The isPointInside method of the Box class is renamed to the contains verb in order to provide smother reading of the code. It is more natural to ask if a box contains a point than to state if a point, which is represented as a pair of x and y arguments, is inside a box.
+
+**Code 02-03.06**: The contains method of the Box class.
+
+{% highlight java %}
+
+  bool contains(int px, int py) {
+    if ((px > x && px < x + width) && (py > y && py < y + height))
+      return true;
+  }
+
+{% endhighlight %}
+
+If, during a new box creation, a mouse click is close to the west or to the south border of the board (or even outside the border), so that the new box would be positioned outside the border, its position is brought back to the board. The mouse event object has the offset attributes that position a mouse click with respect to the canvas object. In order to understand better a difference between x and y of a box and different positions of a mouse event, display different points within a box, but only after increasing the box size.
+
+**Code 02-03.07**: A new box stays within the board on the west or south side.
+
+{% highlight java %}
+
+  void onMouseDown(MouseEvent event) {
+    Box box = new Box(this, event.offsetX, event.offsetY, 60, 100);
+    bool clickedOnExistingBox = false;
+    for (Box box in boxes) {
+      if (box.contains(event.offsetX, event.offsetY)) {
+        clickedOnExistingBox = true;
+        break;
+      }
+    }
+    if (!clickedOnExistingBox) {
+      if (event.offsetX + box.width > width) box.x = width - box.width;
+      if (event.offsetY + box.height > height) box.y = 
+        height - box.height;
+      boxes.add(box);
+    }
+  }
+
+{% endhighlight %}
+
+A new box, by default, is not selected. The Box class has a new attribute called selected, which is initialized to the **false** value.
+
+A box may be selected by clicking on it and releasing the mouse. The selection event will be implemented by the onMouseUp method of the Box class. This method is added to the on mouse up events of the document object.
+
+**Code 02-03.08**: The selected attribute and the constructor with event registrations.
+
+{% highlight java %}
+
+  bool selected = false;
+  
+  Box(this.board, this.x, this.y, this.width, this.height) {
+    draw();
+    document.on.mouseMove.add(onMouseMove);
+    document.on.mouseUp.add(onMouseUp);
+  }
+
+{% endhighlight %}
+
+The onMouseUp method checks if the box contains the point of the click and if so, a value of the selected property is changed by the negation symbol.
+
+**Code 02-03.09**: The onMouseUp method of the Box class.
+
+{% highlight java %}
+
+  void onMouseUp(MouseEvent event) {
+    if (contains(event.offsetX, event.offsetY)) selected = !selected;
+  }
+
+{% endhighlight %}
+
+The redraw method of the Board class displays all boxes, selected or not (Figure 02-03.02). The actual drawing of each box is delegated to the draw method of the Box class.
+
+![Alt Figure 02-03.02: Selected box with selection rectangles](/img/s02s03/SelectedBoxes.png)
+
+**Figure 02-03.02**: Selected box with selection rectangles.
+
+It is the draw method of the Box class that checks if a box is selected. If selected, small rectangles are positioned in each corner of the box (Code 02-03.10).
+
+**Code 02-03.10**: The selection rectangles.
+
+{% highlight java %}
+
+  void draw() {
+    board.context.beginPath();
+    board.context.rect(x, y, width, height);
+    if (selected) {
+      board.context.rect(x, y, 6, 6);
+      board.context.rect(x + width - 6, y, 6, 6);
+      board.context.rect(x + width - 6, y + height - 6, 6, 6);
+      board.context.rect(x, y + height - 6, 6, 6);
+    } 
+    board.context.closePath();
+    board.context.stroke();
+  }
+
+{% endhighlight %}
+
+The draw method uses the number 6 many times. This number represents the size of a selection rectangle in pixels. If we want to change the size from 6 to 8 pixels, we will need to change it many times. Thus, the SSS constant is declared at the beginning of the Box class (Code 02-03.11). 
+It is recommended by [Dart Style Guide](http://www.dartlang.org/articles/style-guide/) that a constant name is in capital letters. 
+
+**Code 02-03.11**: The SSS constant.
+
+{% highlight java %}
+
+class Box {
+  
+  static final SSS = 6; // selection square size
+  
+  …
+  
+  void draw() {
+    board.context.beginPath();
+    board.context.rect(x, y, width, height);
+    if (selected) {
+      board.context.rect(x, y, SSS, SSS);
+      board.context.rect(x + width - SSS, y, SSS, SSS);
+      board.context.rect(x + width - SSS, y + height - SSS, SSS, SSS);
+      board.context.rect(x, y + height - SSS, SSS, SSS);
+    } 
+    board.context.closePath();
+    board.context.stroke();
+  }
+
+{% endhighlight %}
+
+The constant has the **final** keyword, which forbids a change of its value. The **static** keyword indicates that the constant value is not repeated with each new box as is the case with regular attributes. The constant definition exists only at the class level and not at the level of objects.
+
+Only selected boxes may be moved now.
+
+**Code 02-03.12**: Is box selected?
+
+{% highlight java %}
+
+class Box {
+  
+  // Change a position of the box with mouse mouvements.
+  void onMouseMove(MouseEvent event) {
+    if (selected && contains(event.offsetX, event.offsetY)) {
+      x = event.offsetX - width / 2;
+      if (x < 0) x = 1;
+      if (x > board.width - width) x = board.width - width - 1;
+      y = event.offsetY - height / 2;
+      if (y < 0) y = 1;
+      if (y > board.height - height) y = board.height - height - 1;
+    }
+  }
+
+{% endhighlight %}
+
+The board attribute of the Box class references the parent object of a box. It is important to be able to have access to the board object from a box (the board argument is provided in the Board class to the Box constructor), so that the attributes and methods of the Board class are reachable within the Box class. This is how a box is drawn – the context of the board is used to draw rectangles. The parent of a box is the board, one and only board where boxes are created, selected and moved. This parent will not be changed and the **final** keyword underlines that fact.
+
+**Code 02-03.13**: The **final** board.
+
+{% highlight java %}
+
+class Box {
+  
+  static final SSS = 6; // selection square size
+  
+  final Board board;
+
+{% endhighlight %}
+
+The selected attribute of the Box class has four corresponding methods that show how this attribute may be changed and used. These methods carry more action oriented meaning than the attribute itself.
+
+**Code 02-03.14**: The corresponding methods of the selected attribute.
+
+{% highlight java %}
+
+  void select() {
+    selected = true;
+  }
+  
+  void deselect() {
+    selected = false;
+  }
+  
+  void toggleSelection() {
+    selected = !selected;
+  }
+  
+  bool isSelected() {
+    return selected;
+  }
+
+{% endhighlight %}
+
+The draw method of the Box class uses now the isSelected method.
+
+**Code 02-03.15**: The corresponding methods of the selected attribute.
+
+{% highlight java %}
+
+  void draw() {
+    board.context.beginPath();
+    board.context.rect(x, y, width, height);
+    if (isSelected()) {
+      board.context.rect(x, y, SSS, SSS);
+      board.context.rect(x + width - SSS, y, SSS, SSS);
+      board.context.rect(x + width - SSS, y + height - SSS, SSS, SSS);
+      board.context.rect(x, y + height - SSS, SSS, SSS);
+    } 
+    board.context.closePath();
+    board.context.stroke();
+  }
+
+{% endhighlight %}
+
+In the same way, the onMouseMove method of the Box class uses the isSelected method and not the selected attribute.
+
+The onMouseUp method of the Box class uses the toggleSelection method.
+
+**Code 02-03.16**: The use of the toggleSelection method.
+
+{% highlight java %}
+
+  void onMouseUp(MouseEvent event) {
+    if (contains(event.offsetX, event.offsetY)) toggleSelection();
+  }
+
+{% endhighlight %}
+
+The onMouseDown method is added to the on mouse down events of the document object. 
+
+**Code 02-03.17**: Mouse events.
+
+{% highlight java %}
+
+  Box(this.board, this.x, this.y, this.width, this.height) {
+    draw();
+    document.on.mouseDown.add(onMouseDown);
+    document.on.mouseUp.add(onMouseUp);
+    document.on.mouseMove.add(onMouseMove);
+  }
+
+{% endhighlight %}
+
+However, the method body is put under the comment to allow you to easily explore differences between events.
+
+**Code 02-03.18**: The onMouseDown method of the Box class.
+
+{% highlight java %}
+
+  void onMouseDown(MouseEvent event) {
+    // if (contains(event.offsetX, event.offsetY)) toggleSelection();
+  }
+
+{% endhighlight %}
+
+What happened to that bad habit of eating boxes by moving monsters?
+
+
+
+
+
+
