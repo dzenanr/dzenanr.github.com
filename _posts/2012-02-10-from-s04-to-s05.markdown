@@ -445,7 +445,7 @@ If the button elements of the tool bar are positioned after the script element, 
 
 The last changes in this spiral are related to the Web page presentation defined by Cascading Styles Sheets (Figure 04-05.02). While HTML provides the content, the CSS defines the presentation style of that content.
 
-![Alt Figure 04-05.02: CSS presentation of the page](/img/s04s05/ToolBarWithCSS64p.png)
+![Alt Figure 04-05.02: CSS presentation of the page](/img/s04s05/ToolBarWithCSS.png)
 
 **Figure 04-05.02**: CSS presentation of the page.
 
