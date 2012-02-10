@@ -14,6 +14,10 @@ Here is a Markdown link to [Warped](http://warpedvisions.org).
 
 Now some inline markup like _italics_,  **bold**. 
 
+To produce a literal asterisk or underscore at a position where it would otherwise be used as an emphasis delimiter, you can backslash escape it:
+
+\*this text is surrounded by literal asterisks\*
+
 ![Alt text](img/photo.png)
 
 > Blockquotes are like quoted text in email replies

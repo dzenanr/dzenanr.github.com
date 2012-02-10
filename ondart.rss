@@ -17,6 +17,18 @@
   </image>
 
   <item>
+    <title>From Spiral04 To Spiral05</title>
+    <link>http://dzenanr.github.com/2012/02/10/from-s04-to-s05.html</link>
+    <guid>http://dzenanr.github.com/2012/02/10/from-s04-to-s05.html</guid>
+    <description>
+      In Spiral 04, each box has a title with the sequential number and (x, y) coordinates, and the same four items. 
+      In Spiral 05, boxes have the same appearance, but there is a tool bar that provides a new way of creating, selecting and moving boxes.   
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Fri, 10 Feb 2012 17:09:00 +0100</pubDate>
+  </item>
+
+  <item>
     <title>From Spiral03 To Spiral04</title>
     <link>http://dzenanr.github.com/2012/02/07/from-s03-to-s04.html</link>
     <guid>http://dzenanr.github.com/2012/02/07/from-s03-to-s04.html</guid>

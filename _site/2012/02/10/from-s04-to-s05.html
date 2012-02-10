@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Dzenan Ridjanovic"/>
+        <title>From Spiral04 To Spiral05</title> 
+        <link rel="stylesheet" href="/css/code.css"/>  
+        <link rel="stylesheet" href="/css/layout.css"/>
+        <link rel="stylesheet" href="/css/link.css"/>
+        <link rel="stylesheet" href="/css/list.css"/>
+        <link rel="stylesheet" href="/css/menu.css"/>
+        <link rel="stylesheet" href="/css/page.css"/>
+    </head>
+
+    <body>
+        <header>  
+            <h1>
+                <a href="http://www.ondart.info/"><img src="/img/ondartb1.png"/></a>
+               From Spiral04 To Spiral05
+               <!--  -->
+            </h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li>Dart
+                    <ul>
+                        <li>
+                            <a href="http://www.dartlang.org/">Dart</a>
+                        </li>
+                        <li>
+                            <a href="http://try.dartlang.org/">Dart Console</a>
+                        </li>
+                    </ul>  
+                </li>
+                <li>Magic Boxes
+                    <ul>
+                        <li>
+                            <a href="http://goo.gl/I72z1">Browse Code</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s11/MagicBoxes/MagicBoxes.html">Design Model</a> 
+                        </li>
+                        <li>
+                            <a href="https://github.com/dzenanr/MagicBoxes">Get Git</a> 
+                        </li>
+                        <li>
+                            <a href="https://github.com/dzenanr/MagicBoxes/tags">Get Spirals</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s00/MagicBoxes/MagicBoxes.html">Spiral 00</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s01/MagicBoxes/MagicBoxes.html">Spiral 01</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s02/MagicBoxes/MagicBoxes.html">Spiral 02</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s03/MagicBoxes/MagicBoxes.html">Spiral 03</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s04/MagicBoxes/MagicBoxes.html">Spiral 04</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s05/MagicBoxes/MagicBoxes.html">Spiral 05</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s06/MagicBoxes/MagicBoxes.html">Spiral 06</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s07/MagicBoxes/MagicBoxes.html">Spiral 07</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s08/MagicBoxes/MagicBoxes.html">Spiral 08</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s09/MagicBoxes/MagicBoxes.html">Spiral 09</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s10/MagicBoxes/MagicBoxes.html">Spiral 10</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s11/MagicBoxes/MagicBoxes.html">Spiral 11</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s12/MagicBoxes/MagicBoxes.html">Spiral 12</a> 
+                        </li>
+                    </ul>  
+                </li>
+                <li>On Dart
+                    <ul>
+                        <li>
+                            <a href="https://plus.google.com/u/0/b/113649577593294551754/113649577593294551754/posts">Google+ Page</a> 
+                        </li>
+                    </ul>  
+                </li>
+                <li>Posts
+                    <ul>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/01/23/from-s00-to-s01.html">From Spiral00 To Spiral01</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/01/31/from-s01-to-s02.html">From Spiral01 To Spiral02</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/02/from-s02-to-s03.html">From Spiral02 To Spiral03</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/07/from-s03-to-s04.html">From Spiral03 To Spiral04</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/10/from-s04-to-s05.html">From Spiral04 To Spiral05</a> 
+                        </li>
+                        <li>
+                            &nbsp; 
+                        </li>
+                    </ul>  
+                </li>
+                <li>About
+                    <ul>
+                        <li>
+                            <a href="http://goo.gl/f1F2e">D. R. (CV in PDF)</a> 
+                        </li>
+                    </ul>  
+                </li>
+            </ul>
+        </nav>
+
+        <section>
+            <p>The code for the MagicBoxes project is at <a href='https://github.com/dzenanr/MagicBoxes'>MagicBoxes on GitHub</a>. The code for the mb project is at <a href='https://github.com/dzenanr/mb'>mb on GitHub</a>. For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.</p>
+
+<p>In Spiral 04, each box has a title with the sequential number and (x, y) coordinates, and the same four items. In Spiral 05, boxes have the same appearance, but there is a tool bar that provides a new way of creating, selecting and moving boxes.</p>
+
+<p>First changes are small but many, in order to standardize the code.</p>
+
+<p>An HTML document loaded into a Web browser becomes a document object. The document object provides access to all HTML elements in the page. The document object is a part of the window object and can also be reached through the window.document property.</p>
+
+<p>The query method of the document object is used to find the canvas element within the document and attach events directly to the canvas object.</p>
+
+<p><strong>Code 04-05.01</strong>: Canvas events in the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='c1'>// Canvas event</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>canvas</span><span class='err'>&#39;</span><span class='o'>).</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseDown</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseDown</span><span class='o'>);</span>
+    <span class='c1'>// Redraw every INTERVAL ms.</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>window</span><span class='o'>.</span><span class='na'>setInterval</span><span class='o'>(</span><span class='n'>redraw</span><span class='o'>,</span> <span class='n'>INTERVAL</span><span class='o'>);</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>A click (a mouse down event in the Board class) outside the canvas (or the board) on the Web page does not cause any events.</p>
+
+<p><strong>Code 04-05.02</strong>: Canvas events in the Box class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>x</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>y</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>width</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>height</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='c1'>// Box events (actually, canvas events).</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>canvas</span><span class='err'>&#39;</span><span class='o'>).</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseDown</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseDown</span><span class='o'>);</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>canvas</span><span class='err'>&#39;</span><span class='o'>).</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseUp</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseUp</span><span class='o'>);</span>
+    <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>canvas</span><span class='err'>&#39;</span><span class='o'>).</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseMove</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseMove</span><span class='o'>);</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The Box class has now two constants that determine the box size.</p>
+
+<p><strong>Code 04-05.03</strong>: Box size constants.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Box</span> <span class='o'>{</span>
+  
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>DEFAULT_WIDTH</span> <span class='o'>=</span> <span class='mi'>100</span><span class='o'>;</span>
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>DEFAULT_HEIGHT</span> <span class='o'>=</span> <span class='mi'>100</span><span class='o'>;</span>
+</code></pre>
+</div>
+<p>The constants are used in the onMouseDown method of the Board class.</p>
+
+<p><strong>Code 04-05.04</strong>: Changes in the onMouseDown method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='c1'>// Create a box in the position of the mouse click on the board, </span>
+  <span class='c1'>// but not on an existing box.</span>
+  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>bool</span> <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+        <span class='k'>break</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnBox</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>,</span> 
+        <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>);</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>&gt;</span> <span class='n'>width</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>box</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='o'>}</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>&gt;</span> <span class='n'>height</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>box</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>=</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='o'>}</span>
+      <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>A new box creation is moved to the if statement that allows for the construction of a box only if a mouse down event happens on an empty space of the board. The name of the clickedOnExistingBox is shortened to clickedOnBox without the loss of any signification. The name of the event parameter becomes e, to make the length of arguments in the Box constructor more reasonable. The if statements use now the curly brackets even if there is only one statement in their bodies. This will avoid potential problems in future when if bodies become more complex and the use of curly brackets become oversight.</p>
+
+<p><strong>Code 04-05.05</strong>: if () {}.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>int</span> <span class='nf'>countSelectedBoxesContain</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>pointX</span><span class='o'>,</span> <span class='kt'>int</span> <span class='n'>pointY</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>count</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>()</span> <span class='o'>&amp;&amp;</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>pointX</span><span class='o'>,</span> <span class='n'>pointY</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='n'>count</span><span class='o'>++;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='n'>count</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The name of the countSelectedBoxesThatContain method is shorter for the “That” word.</p>
+
+<p>The boolean attributes in the Box class are initialized to <strong>false</strong> to be, for comprehension purposes, explicit with initial values of attributes.</p>
+
+<p><strong>Code 04-05.06</strong>: Explicit initialization.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span> 
+  <span class='n'>bool</span> <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+</code></pre>
+</div>
+<p>Several methods in the Box class are updated to follow decisions made in this spiral.</p>
+
+<p><strong>Code 04-05.07</strong>: New forms of methods in the Box class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='nf'>contains</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>pointX</span><span class='o'>,</span> <span class='kt'>int</span> <span class='n'>pointY</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>((</span><span class='n'>pointX</span> <span class='o'>&gt;</span> <span class='n'>x</span> <span class='o'>&amp;&amp;</span> <span class='n'>pointX</span> <span class='o'>&lt;</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span><span class='o'>)</span> 
+        <span class='o'>&amp;&amp;</span> <span class='o'>(</span><span class='n'>pointY</span> <span class='o'>&gt;</span> <span class='n'>y</span> <span class='o'>&amp;&amp;</span> <span class='n'>pointY</span> <span class='o'>&lt;</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    <span class='k'>else</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>toggleSelection</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>onMouseUp</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='c1'>// Change a position of the box with mouse mouvements.</span>
+  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>)</span> <span class='o'>&amp;&amp;</span> <span class='n'>isSelected</span><span class='o'>()</span> <span class='o'>&amp;&amp;</span> <span class='n'>_mouseDown</span> <span class='o'>&amp;&amp;</span> 
+        <span class='n'>board</span><span class='o'>.</span><span class='na'>countSelectedBoxesContain</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>)</span> <span class='o'>&lt;</span> <span class='mi'>2</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>x</span> <span class='o'>=</span>  <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='o'>}</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>x</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='o'>}</span>
+      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='o'>}</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>y</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>With a tool bar, which provides a new way to create and select boxes, MagicBoxes start to look as a tool (Figure 04-05.01).</p>
+
+<p><img src='/img/s04s05/ToolBarWithoutCSS.png' alt='Alt Figure 04-05.01: Simple tool bar' /></p>
+
+<p><strong>Figure 04-05.01</strong>: Simple tool bar.</p>
+
+<p>A tool bar has two buttons, an arrow button for selection and a box button for creation. The selection button is on by default. Thus, in order to create a box, the creation button must be clicked on first. By clicking on an empty space of the board, a new box appears in that position, and the selection tool is on again. In order to create several boxes, the box tool must be double-clicked to stay active. To return to the select mode, the arrow button must be double-clicked.</p>
+
+<p>There is a new class to represent the tool bar concept. The class is appropriately named ToolBar.</p>
+
+<p><strong>Code 04-05.08</strong>: The ToolBar class.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>ToolBar</span> <span class='o'>{</span>
+  
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>SELECT</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>BOX</span> <span class='o'>=</span> <span class='mi'>2</span><span class='o'>;</span>
+  
+  <span class='kd'>final</span> <span class='n'>Board</span> <span class='n'>board</span><span class='o'>;</span>
+  
+  <span class='kt'>int</span> <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+  <span class='n'>bool</span> <span class='n'>_boxToolDblClicked</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='err'>…</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>The ToolBar class has two constants to represent two different states: SELECT and BOX. The class has a parent attribute to provide the reference to the context where the tool bar is created, which is the board. There are also two private attributes to indicate which tool is currently on and if the box tool is double-clicked.</p>
+
+<p>In the constructor of the ToolBar class, the parent argument is accepted by the board parameter, which is immediately assigned to the board attribute of the class.</p>
+
+<p><strong>Code 04-05.09</strong>: The constructor of the ToolBar class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>ToolBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>ButtonElement</span> <span class='n'>selectButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>select</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>ButtonElement</span> <span class='n'>boxButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>box</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='c1'>// Tool bar events.</span>
+    <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+      <span class='n'>_boxToolDblClicked</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>BOX</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>BOX</span><span class='o'>;</span>
+      <span class='n'>_boxToolDblClicked</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='o'>});</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>Two buttons of the ButtonElement type are obtained by the query method on the document object. The two buttons are identified by their ids that come from the mb.html file (Code 04-05.10). The two png images are located in the img folder of the mb project.</p>
+
+<p>Each button will listen for the click and double-click (dblClick) events. In the case of the click event, the _onTool attribute of the class accepts the corresponding state constant. When the double-click event happens, the _onTool attribute accepts the corresponding state constant and the _boxToolDblClicked attributes becomes <strong>true</strong> for the BOX state and <strong>false</strong> for the SELECT state.</p>
+
+<p><strong>Code 04-05.10</strong>: Two button elements in the mb.html file.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section&gt;</span> 
+      <span class='nt'>&lt;canvas</span> <span class='na'>id=</span><span class='s'>&quot;canvas&quot;</span> <span class='na'>width=</span><span class='s'>&quot;800&quot;</span> <span class='na'>height=</span><span class='s'>&quot;600&quot;</span><span class='nt'>&gt;</span>
+        Canvas is not supported in your browser.
+      <span class='nt'>&lt;/canvas&gt;</span>
+      <span class='nt'>&lt;footer&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;select&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/select.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;box&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/box.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+      <span class='nt'>&lt;/footer&gt;</span>
+      <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;mb.dart.app.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>Up to now, reactions of events have been defined in methods with appropriate names. For example, a click on the canvas of the board is handled in the onMouseDown method of the Board class. In the ToolBar class, events are registered and responses to them are defined at the same time in methods without names.</p>
+
+<p><strong>Code 04-05.11</strong>: A method without a name but with the parameter and the statement body.</p>
+<div class='highlight'><pre><code class='java'>    <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+    <span class='o'>});</span>
+</code></pre>
+</div>
+<p>The toolbar attribute of the Board class is created in the constructor of the Board class.</p>
+
+<p><strong>Code 04-05.12</strong>: Tool bar creation.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>ToolBar</span> <span class='n'>toolBar</span><span class='o'>;</span>
+  
+  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='n'>toolBar</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>ToolBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>);</span>
+    <span class='err'>…</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>In the on mouse down event of the Board class, several methods of the ToolBar class are used on the toolBar attribute.</p>
+
+<p><strong>Code 04-05.13</strong>: Box selection and creation on the board.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>bool</span> <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span> 
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+        <span class='k'>break</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isSelectToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnBox</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>deselectBoxes</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isBoxToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnBox</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>,</span> 
+          <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>);</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>&gt;</span> <span class='n'>width</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>box</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>&gt;</span> <span class='n'>height</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>box</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>=</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+        <span class='n'>toolBar</span><span class='o'>.</span><span class='na'>selectToolOn</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span> 
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>If the selection tool is on, a box cannot be created. However, a box can be selected by clicking on it (or deselected if it is already selected). If there are selected boxes (one or more), all selected boxes are deselected by clicking on an empty space of the board. This is done by the deselectBoxes method of the Board class (Code 04-05.14).</p>
+
+<p>If the box tool is on, a new box is created by clicking on an empty space of the board. After the box creation, the select(ion) tool is activated. If the box tool is on and a box is clicked on, test what happens and comment if that is desirable behavior.</p>
+
+<p>Double-click on a tool bar tool keeps the tool on.</p>
+
+<p><strong>Code 04-05.14</strong>: Deselecting boxes.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deselectBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>box</span><span class='o'>.</span><span class='na'>deselect</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The methods of the ToolBar class that start with is return a boolean value. They check what tool is on and return <strong>true</strong> if that tool is active. The selectToolOn method activates the select tool, but only if the box tool has not been double-clicked.</p>
+
+<p><strong>Code 04-05.15</strong>: Tool bar methods.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='nf'>isSelectToolOn</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>_onTool</span> <span class='o'>==</span> <span class='n'>SELECT</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span> 
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='n'>bool</span> <span class='nf'>isBoxToolOn</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>_onTool</span> <span class='o'>==</span> <span class='n'>BOX</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span> 
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>selectToolOn</span><span class='o'>()</span>  <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>_boxToolDblClicked</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>There are three methods in the Board class that are not used in this spiral. All three methods handle a collection of boxes. Many boxes may be created, selected and deleted by these methods. Find a way to use (test) them.</p>
+
+<p><strong>Code 04-05.16</strong>: Unused methods of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>createBoxes</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>n</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span> <span class='kt'>int</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='kt'>int</span> <span class='n'>i</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span> <span class='n'>i</span> <span class='o'>&lt;</span> <span class='n'>n</span><span class='o'>;</span> <span class='n'>i</span><span class='o'>++)</span> <span class='o'>{</span>
+      <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> 
+        <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>));</span>
+      <span class='n'>x</span> <span class='o'>=</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>;</span>
+      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>deleteBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>boxes</span><span class='o'>.</span><span class='na'>clear</span><span class='o'>();</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>selectBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>box</span><span class='o'>.</span><span class='na'>select</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>Several constants in the Box class have now an explicit type.</p>
+
+<p><strong>Code 04-05.17</strong>: Explicit int type of constants.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>SSS</span> <span class='o'>=</span> <span class='mi'>6</span><span class='o'>;</span> <span class='c1'>// selection square size</span>
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>TBH</span> <span class='o'>=</span> <span class='mi'>20</span><span class='o'>;</span> <span class='c1'>// title box height</span>
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>TOS</span> <span class='o'>=</span> <span class='mi'>4</span><span class='o'>;</span> <span class='c1'>// text offset size</span>
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>IOS</span> <span class='o'>=</span> <span class='n'>TBH</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>;</span> <span class='c1'>// item offset size</span>
+</code></pre>
+</div>
+<p>Note that there is a slight difference between the code in the draw method of the Box class of the MagicBoxes project and the mb project. However, this difference is not reflected in the Web application.</p>
+
+<p><strong>Code 04-05.18</strong>: A slight difference in code.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+    <span class='err'>…</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+  <span class='o'>}</span>
+
+  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+    <span class='err'>…</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>If the button elements of the tool bar are positioned after the script element, boxes cannot be created. This is reported by Chris Buckett as a bug in Dart. Just to be on the safe side, keep the script element closer to the end of the html code.</p>
+
+<p><strong>Code 04-05.19</strong>: Boxes cannot be created.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section&gt;</span> 
+      <span class='nt'>&lt;canvas</span> <span class='na'>id=</span><span class='s'>&quot;canvas&quot;</span> <span class='na'>width=</span><span class='s'>&quot;800&quot;</span> <span class='na'>height=</span><span class='s'>&quot;600&quot;</span><span class='nt'>&gt;</span>
+        Canvas is not supported in your browser.
+      <span class='nt'>&lt;/canvas&gt;</span>
+      <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;mb.dart.app.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+      <span class='nt'>&lt;footer&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;select&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/select.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;box&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/box.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+      <span class='nt'>&lt;/footer&gt;</span>
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>The last changes in this spiral are related to the Web page presentation defined by Cascading Styles Sheets (Figure 04-05.02). While HTML provides the content, the CSS defines the presentation style of that content.</p>
+
+<p><img src='/img/s04s05/ToolBarWithCSS64p.png' alt='Alt Figure 04-05.02: CSS presentation of the page' /></p>
+
+<p><strong>Figure 04-05.02</strong>: CSS presentation of the page.</p>
+
+<p>The mb.html file has links to CSS definitions in different files that are located in the css sub-folder of the project.</p>
+
+<p><strong>Code 04-05.20</strong>: CSS links.</p>
+<div class='highlight'><pre><code class='html'>  <span class='nt'>&lt;head&gt;</span>
+    <span class='nt'>&lt;meta</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;meta</span> <span class='na'>name=</span><span class='s'>&quot;author&quot;</span> <span class='na'>content=</span><span class='s'>&quot;Dzenan Ridjanovic&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;title&gt;</span>mb<span class='nt'>&lt;/title&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/layout.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/layout2c.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/link.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/page.css&quot;</span><span class='nt'>/&gt;</span>
+  <span class='nt'>&lt;/head&gt;</span>
+</code></pre>
+</div>
+<p>There are 2 sections in the page: the main section with the board and tool bar (Code 04-05.21), and the right section with text only (Code 04-05.22). The canvas size is reduced from 800x600 to 630x580 pixels to accommodate the new section to the right of the main section.</p>
+
+<p><strong>Code 04-05.21</strong>: The main section of the page.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section</span> <span class='na'>id=</span><span class='s'>&quot;main&quot;</span><span class='nt'>&gt;</span> 
+      <span class='nt'>&lt;canvas</span> <span class='na'>id=</span><span class='s'>&quot;canvas&quot;</span> <span class='na'>width=</span><span class='s'>&quot;630&quot;</span> <span class='na'>height=</span><span class='s'>&quot;580&quot;</span><span class='nt'>&gt;</span>
+        Canvas is not supported in your browser.
+      <span class='nt'>&lt;/canvas&gt;</span>
+      <span class='nt'>&lt;footer&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;select&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/select.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;box&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/box.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+      <span class='nt'>&lt;/footer&gt;</span>
+      <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;mb.dart.app.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>The page has a title, and the right section has a sub-title.</p>
+
+<p><strong>Code 04-05.22</strong>: The right section of the page.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section</span> <span class='na'>id=</span><span class='s'>&quot;right&quot;</span><span class='nt'>&gt;</span> 
+      <span class='nt'>&lt;header&gt;</span>
+        <span class='nt'>&lt;h3&gt;</span>Creating and Moving Boxes<span class='nt'>&lt;/h3&gt;</span>
+      <span class='nt'>&lt;/header&gt;</span>
+      <span class='nt'>&lt;p&gt;</span>
+        Click the box tool (button), in the tool bar, each time you  
+        want to create a box, by clicking on an empty space in the 
+        board.
+      <span class='nt'>&lt;/p&gt;</span>
+      <span class='nt'>&lt;p&gt;</span>
+        To move a non selected box, click the box and keep the mouse 
+        down while moving it. 
+        A selected box cannot be moved.
+      <span class='nt'>&lt;/p&gt;</span>
+      <span class='nt'>&lt;p&gt;</span>
+        Click the box to select it. Click again to deselect it. 
+        If there are several selected boxes, you may deselect them all 
+        by clicking on an empty space in the board.
+      <span class='nt'>&lt;/p&gt;</span>
+      <span class='nt'>&lt;p&gt;</span>
+        If you want to create several boxes, double-click the box tool 
+        to stay on. 
+        To return to the select mode double-click the select tool.
+      <span class='nt'>&lt;/p&gt;</span>
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>The basic layout of the page is defined in the layout.css file (Code 04-05.23), while the layout with two columns is detailed in the layout2c.css file (Code 04-05.24).</p>
+
+<p>While HTML has elements with opening and closing tags, CSS has selectors with properties in curly brackets. A property has a value that is separated from its name by two columns. The property value is ended by a semi-column.</p>
+
+<p>CSS selectors that are named as HTML elements, provide property definitions of those elements. Thus, the presentation of a header element used in the page is defined by property values of the header selector in the style sheet. The names of CSS properties are almost self-explanatory; for details see <a href='http://dochub.io/#css/'>dochub/CSS</a>. The CSS definitions used in the MagicBoxes project are influenced by <a href='http://simplebits.com/'>SimpleBits</a>. The comments used before and after CSS selectors should be self-evident.</p>
+
+<p><strong>Code 04-05.23</strong>: The basic layout of the page.</p>
+<div class='highlight'><pre><code class='css'><span class='c'>/* layout.css */</span>
+
+<span class='c'>/* ===[ begin ]=== */</span>
+
+<span class='c'>/*</span>
+<span class='c'>  Title:                   Basic Layout Design Style</span>
+<span class='c'>  Author:                  Dzenan Ridjanovic</span>
+<span class='c'>  Influenced By:           http://www.simplebits.com/</span>
+<span class='c'>  Created:                 2006-09-03</span>
+<span class='c'>  Updated:                 2011-12-08</span>
+<span class='c'>*/</span>
+
+  <span class='nt'>header</span> <span class='p'>{</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#708491</span><span class='p'>;</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>6px</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#d7e9f7</span><span class='p'>;</span>
+    <span class='k'>text-align</span><span class='o'>:</span> <span class='k'>center</span><span class='p'>;</span>
+  <span class='p'>}</span>
+    	
+  <span class='nt'>footer</span> <span class='p'>{</span>
+    <span class='k'>clear</span><span class='o'>:</span> <span class='k'>both</span><span class='p'>;</span>
+    <span class='k'>font-family</span><span class='o'>:</span> <span class='n'>arial</span><span class='o'>,</span> <span class='k'>sans-serif</span><span class='p'>;</span>
+    <span class='k'>font-size</span><span class='o'>:</span> <span class='m'>12px</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#fffff0</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#4b91d1</span><span class='p'>;</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>10px</span><span class='p'>;</span>
+    <span class='k'>border-top</span><span class='o'>:</span> <span class='m'>2px</span> <span class='k'>solid</span> <span class='m'>#999999</span><span class='p'>;</span>
+  <span class='p'>}</span>
+    		
+<span class='c'>/* ===[ end ]=== */</span>
+</code></pre>
+</div>
+<p>User defined and named selectors that start with the hash character are called identifiers (id selectors). They are referred in HTML elements by id attributes.</p>
+
+<p><strong>Code 04-05.24</strong>: The 2 column layout of the page.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nf'>#main</span> <span class='p'>{</span>
+    <span class='k'>float</span><span class='o'>:</span> <span class='k'>left</span><span class='p'>;</span>
+    <span class='k'>width</span><span class='o'>:</span> <span class='m'>70</span><span class='o'>%</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+<p>The main selector is used in the web page as the id attribute of the first section.</p>
+
+<p><strong>Code 04-05.25</strong>: The main section.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section</span> <span class='na'>id=</span><span class='s'>&quot;main&quot;</span><span class='nt'>&gt;</span> 
+      …
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>The float property of the main selector positions the first section on the left of the page, while the width property reserves the 70% of the page. The next section that has the id attribute with the right value flows to the right of the first section. However, there is no right selector in the css files of this spiral, because there was no need to be more precise with the presentation style of the right section. As a consequence, the second section is displayed in the same way even without the id attribute.</p>
+
+<p>CSS selectors from the link.css file are not used currently, because there is no a tag in the page.</p>
+
+<p>How the page body, sections and paragraphs are presented is defined in the page.css file.</p>
+
+<p><strong>Code 04-05.26</strong>: The basic page element selectors.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nt'>body</span> <span class='p'>{</span>
+    <span class='k'>font-family</span><span class='o'>:</span> <span class='n'>verdana</span><span class='o'>,</span> <span class='n'>arial</span><span class='o'>,</span> <span class='n'>helvetica</span><span class='o'>,</span> <span class='k'>sans-serif</span><span class='p'>;</span>
+    <span class='k'>font-size</span><span class='o'>:</span> <span class='m'>14px</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#d7e9f7</span><span class='p'>;</span>
+    <span class='k'>width</span><span class='o'>:</span><span class='m'>900px</span><span class='p'>;</span>
+    <span class='k'>margin-left</span><span class='o'>:</span> <span class='m'>100px</span><span class='p'>;</span>
+    <span class='k'>margin-right</span><span class='o'>:</span> <span class='m'>100px</span><span class='p'>;</span>
+    <span class='k'>padding</span><span class='o'>:</span><span class='m'>10px</span><span class='p'>;</span> 
+  <span class='p'>}</span>
+
+  <span class='nt'>section</span> <span class='p'>{</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>4px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>p</span> <span class='p'>{</span>
+    <span class='k'>line-height</span><span class='o'>:</span> <span class='m'>1.5em</span><span class='p'>;</span>
+    <span class='k'>text-align</span><span class='o'>:</span> <span class='k'>justify</span><span class='p'>;</span>
+    <span class='k'>margin-left</span><span class='o'>:</span> <span class='m'>2px</span><span class='p'>;</span>
+    <span class='k'>margin-right</span><span class='o'>:</span> <span class='m'>2px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+        </section>
+
+        <section>
+     
+        </section>
+
+        <footer>
+          <a href="http://dzenanr.github.com/ondart.rss">
+            <img src="/img/xml.gif" width=36 height=14 alt="RSS feed for this site" border=0>
+          </a>
+        </footer>
+
+    </body>
+</html>
+
+
