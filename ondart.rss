@@ -17,6 +17,20 @@
   </image>
 
   <item>
+    <title>From Spiral05 To Spiral06</title>
+    <link>http://dzenanr.github.com/2012/02/15/from-s05-to-s06.html</link>
+    <guid>http://dzenanr.github.com/2012/02/15/from-s05-to-s06.html</guid>
+    <description> 
+      In Spiral 05, there is a tool bar that provides a new way of creating, selecting and moving boxes. 
+      In Spiral 06, a menu bar provides four buttons to select all boxes, to delete selected boxes, 
+      to hide selected boxes and to show hidden boxes. A line tool in the tool bar, 
+      allows a line creation between the last two clicked boxes.   
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Wed, 15 Feb 2012 17:47:00 +0100</pubDate>
+  </item>
+
+  <item>
     <title>From Spiral04 To Spiral05</title>
     <link>http://dzenanr.github.com/2012/02/10/from-s04-to-s05.html</link>
     <guid>http://dzenanr.github.com/2012/02/10/from-s04-to-s05.html</guid>

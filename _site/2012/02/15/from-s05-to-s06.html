@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Dzenan Ridjanovic"/>
+        <title>From Spiral05 To Spiral06</title> 
+        <link rel="stylesheet" href="/css/code.css"/>  
+        <link rel="stylesheet" href="/css/layout.css"/>
+        <link rel="stylesheet" href="/css/link.css"/>
+        <link rel="stylesheet" href="/css/list.css"/>
+        <link rel="stylesheet" href="/css/menu.css"/>
+        <link rel="stylesheet" href="/css/page.css"/>
+    </head>
+
+    <body>
+        <header>  
+            <h1>
+                <a href="http://www.ondart.info/"><img src="/img/ondartb1.png"/></a>
+               From Spiral05 To Spiral06
+               <!--  -->
+            </h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li>Dart
+                    <ul>
+                        <li>
+                            <a href="http://www.dartlang.org/">Dart</a>
+                        </li>
+                        <li>
+                            <a href="http://try.dartlang.org/">Dart Console</a>
+                        </li>
+                    </ul>  
+                </li>
+                <li>Magic Boxes
+                    <ul>
+                        <li>
+                            <a href="http://goo.gl/I72z1">Browse Code</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s11/MagicBoxes/MagicBoxes.html">Design Model</a> 
+                        </li>
+                        <li>
+                            <a href="https://github.com/dzenanr/MagicBoxes">Get Git</a> 
+                        </li>
+                        <li>
+                            <a href="https://github.com/dzenanr/MagicBoxes/tags">Get Spirals</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s00/MagicBoxes/MagicBoxes.html">Spiral 00</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s01/MagicBoxes/MagicBoxes.html">Spiral 01</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s02/MagicBoxes/MagicBoxes.html">Spiral 02</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s03/MagicBoxes/MagicBoxes.html">Spiral 03</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s04/MagicBoxes/MagicBoxes.html">Spiral 04</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s05/MagicBoxes/MagicBoxes.html">Spiral 05</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s06/MagicBoxes/MagicBoxes.html">Spiral 06</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s07/MagicBoxes/MagicBoxes.html">Spiral 07</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s08/MagicBoxes/MagicBoxes.html">Spiral 08</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s09/MagicBoxes/MagicBoxes.html">Spiral 09</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s10/MagicBoxes/MagicBoxes.html">Spiral 10</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s11/MagicBoxes/MagicBoxes.html">Spiral 11</a> 
+                        </li>
+                        <li>
+                            <a href="/mb/spirals/s12/MagicBoxes/MagicBoxes.html">Spiral 12</a> 
+                        </li>
+                    </ul>  
+                </li>
+                <li>On Dart
+                    <ul>
+                        <li>
+                            <a href="https://plus.google.com/u/0/b/113649577593294551754/113649577593294551754/posts">Google+ Page</a> 
+                        </li>
+                    </ul>  
+                </li>
+                <li>Posts
+                    <ul>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/01/23/from-s00-to-s01.html">From Spiral00 To Spiral01</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/01/31/from-s01-to-s02.html">From Spiral01 To Spiral02</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/02/from-s02-to-s03.html">From Spiral02 To Spiral03</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/07/from-s03-to-s04.html">From Spiral03 To Spiral04</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/10/from-s04-to-s05.html">From Spiral04 To Spiral05</a> 
+                        </li>
+                        <li>
+                            <a href="http://dzenanr.github.com/2012/02/15/from-s05-to-s06.html">From Spiral05 To Spiral06</a> 
+                        </li>
+                        <li>
+                            &nbsp; 
+                        </li>
+                    </ul>  
+                </li>
+                <li>About
+                    <ul>
+                        <li>
+                            <a href="http://goo.gl/f1F2e">D. R. (CV in PDF)</a> 
+                        </li>
+                    </ul>  
+                </li>
+            </ul>
+        </nav>
+
+        <section>
+            <p>The code for the MagicBoxes project is at <a href='https://github.com/dzenanr/MagicBoxes'>MagicBoxes on GitHub</a>. The code for the mb project is at <a href='https://github.com/dzenanr/mb'>mb on GitHub</a>. For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.</p>
+
+<p>In Spiral 05, there is a tool bar that provides a new way of creating, selecting and moving boxes. In Spiral 06, a menu bar provides four buttons to select all boxes, to delete selected boxes, to hide selected boxes and to show hidden boxes. A line tool in the tool bar, allows a line creation between the last two clicked boxes.</p>
+
+<p>A simple menu bar provides two buttons to create 6 boxes and to delete all boxes (Figure 05-06.01).</p>
+
+<p><img src='/img/s05s06/SimpleMenuBar.png' alt='Alt Figure 05-06.01: Simple menu bar' /></p>
+
+<p><strong>Figure 05-06.01</strong>: Simple menu bar.</p>
+
+<p>The new MenuBar class has two button attributes of the ButtonElement type. The class has also the board attribute, to have access to methods of the Board class.</p>
+
+<p><strong>Code 05-06.01</strong>: The MenuBar class.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>MenuBar</span> <span class='o'>{</span>
+  
+  <span class='kd'>final</span> <span class='n'>Board</span> <span class='n'>board</span><span class='o'>;</span>
+  
+  <span class='n'>ButtonElement</span> <span class='n'>createBoxesButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>deleteBoxesButton</span><span class='o'>;</span>
+  
+  <span class='n'>MenuBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>createBoxesButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>create</span><span class='o'>-</span><span class='n'>boxes</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>deleteBoxesButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>delete</span><span class='o'>-</span><span class='n'>boxes</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='c1'>// Menu bar events.</span>
+    <span class='n'>createBoxesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>createBoxes</span><span class='o'>(</span><span class='mi'>6</span><span class='o'>);</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>deleteBoxesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>deleteBoxes</span><span class='o'>();</span>
+    <span class='o'>});</span>
+  <span class='o'>}</span>
+
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>In the constructor of the MenuBar class the two button elements are found in the document by using the query method and element ids. The buttons are linked to click events in order to create 6 boxes by the first button and to delete all boxes by the second button.</p>
+
+<p><strong>Code 05-06.02</strong>: The two methods of the MenuBar class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>createBoxes</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>n</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span> <span class='kt'>int</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='kt'>int</span> <span class='n'>i</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span> <span class='n'>i</span> <span class='o'>&lt;</span> <span class='n'>n</span><span class='o'>;</span> <span class='n'>i</span><span class='o'>++)</span> <span class='o'>{</span>
+      <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> 
+        <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>));</span>
+      <span class='n'>x</span> <span class='o'>=</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>;</span>
+      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>deleteBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>boxes</span><span class='o'>.</span><span class='na'>clear</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The for loop in the createBoxes method is initialized with the i variable of the int type. The loop is terminated when the value of the I variable becomes n. With each iteration the i variable is incremented by 1.</p>
+
+<p>The menu bar is represented in the mb.html file by the nav element of HTML5, which defines a section of navigation links.</p>
+
+<p><strong>Code 05-06.03</strong>: The navigation section.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;nav</span> <span class='na'>id=</span><span class='s'>&quot;menu&quot;</span> <span class='na'>class=</span><span class='s'>&quot;menu&quot;</span><span class='nt'>&gt;</span>
+      <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;create-boxes&quot;</span><span class='nt'>&gt;</span>Create Boxes<span class='nt'>&lt;/button&gt;</span>
+      <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;delete-boxes&quot;</span><span class='nt'>&gt;</span>Delete Boxes<span class='nt'>&lt;/button&gt;</span>
+    <span class='nt'>&lt;/nav&gt;</span>
+</code></pre>
+</div>
+<p>The presentation of the nav element is determined by the CSS class called menu. This user defined class is a CSS selector placed in the menu.css file, located in the css sub-folder of the project. The class name is prefixed with a dot. This name does not have to be unique, as an identifier name, within a page.</p>
+
+<p><strong>Code 05-06.04</strong>: The menu class of CSS.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nc'>.menu</span> <span class='p'>{</span>
+    <span class='k'>margin</span><span class='o'>:</span> <span class='m'>0px</span><span class='p'>;</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>0px</span> <span class='m'>0px</span> <span class='m'>0px</span> <span class='m'>0px</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#fffff0</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+<p>The menu bar is an attribute of the Board class. It is created in the constructor of the Board class.</p>
+
+<p><strong>Code 05-06.05</strong>: The menu bar attribute.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Board</span> <span class='o'>{</span>
+  <span class='err'>…</span>
+  <span class='n'>MenuBar</span> <span class='n'>menuBar</span><span class='o'>;</span>
+  <span class='err'>…</span>
+  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='n'>menuBar</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>MenuBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>);</span>
+</code></pre>
+</div>
+<p>The MenuBar class is updated to have four buttons to select all boxes, to delete selected boxes, to hide selected boxes and to show hidden boxes (Figure 05-06.02).</p>
+
+<p><img src='/img/s05s06/MenuBar.png' alt='Alt Figure 05-06.02: Menu bar' /></p>
+
+<p><strong>Figure 05-06.02</strong>: Menu bar.</p>
+
+<p>The MenuBar class is completely changed to contain the four new buttons of the ButtonElement type. In the constructor of the class, the four buttons are obtained by the query method, and click events are linked to the buttons. A click on a button, triggers a corresponding action (a method of the Board class).</p>
+
+<p><strong>Code 05-06.06</strong>: The menu bar with four buttons.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>MenuBar</span> <span class='o'>{</span>
+  
+  <span class='kd'>final</span> <span class='n'>Board</span> <span class='n'>board</span><span class='o'>;</span>
+  
+  <span class='n'>ButtonElement</span> <span class='n'>selectBoxesButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>deleteSelectedBoxesButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>hideSelectedBoxesButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>showHiddenBoxesButton</span><span class='o'>;</span>
+  
+  <span class='n'>MenuBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>selectBoxesButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>select</span><span class='o'>-</span><span class='n'>boxes</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>deleteSelectedBoxesButton</span> <span class='o'>=</span> 
+      <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>delete</span><span class='o'>-</span><span class='n'>selected</span><span class='o'>-</span><span class='n'>boxes</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>hideSelectedBoxesButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>hide</span><span class='o'>-</span><span class='n'>selected</span><span class='o'>-</span><span class='n'>boxes</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>showHiddenBoxesButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>show</span><span class='o'>-</span><span class='n'>hidden</span><span class='o'>-</span><span class='n'>boxes</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='c1'>// Menu bar events.</span>
+    <span class='n'>selectBoxesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>selectBoxes</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>deleteSelectedBoxesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>deleteSelectedBoxes</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>hideSelectedBoxesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>hideSelectedBoxes</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>showHiddenBoxesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>showHiddenBoxes</span><span class='o'>();</span>
+    <span class='o'>});</span>
+  <span class='o'>}</span>
+
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>The selectBoxes method of the Board class is similar to the deselectBoxes method. As the deselectBoxes does not verify if a box is selected before it is deselected, the selectBoxes method does not check if a box is not selected before selecting it.</p>
+
+<p><strong>Code 05-06.07</strong>: The selectBoxes method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>selectBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>box</span><span class='o'>.</span><span class='na'>select</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>In a for loop over the boxes attribute, if a box is selected it is removed from the boxes attribute. To remove the box, its index (a sequential integer starting with zero for the first box in the boxes attribute) is found by the indexOf method of the List type. The box is removed by the removeRange method of the List type, which requires the index argument of the first object in the given range size, which is in our case 1.</p>
+
+<p><strong>Code 05-06.08</strong>: The deleteSelectedMethod of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteSelectedBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='kt'>int</span> <span class='n'>index</span> <span class='o'>=</span> <span class='n'>boxes</span><span class='o'>.</span><span class='na'>indexOf</span><span class='o'>(</span><span class='n'>box</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>);</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>removeRange</span><span class='o'>(</span><span class='n'>index</span><span class='o'>,</span> <span class='mi'>1</span><span class='o'>);</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>However, only half of the boxes are removed from the list. From the ten selected boxes in Figure 05-06.03,</p>
+
+<p><img src='/img/s05s06/SelectedBoxes.png' alt='Alt Figure 05-06.03: Ten selected boxes' /></p>
+
+<p><strong>Figure 05-06.03</strong>: Ten selected boxes.</p>
+
+<p>there are five boxes in Figure 05-06.04, which are left on the board after a click on the Delete Selected Boxes button.</p>
+
+<p><img src='/img/s05s06/HalfDeletedBoxes.png' alt='Alt Figure 05-06.04: Five boxes left after deleting all selected boxes' /></p>
+
+<p><strong>Figure 05-06.04</strong>: Five boxes left after deleting all selected boxes.</p>
+
+<p>Obviously, this is a problem that will be resolved in the next step.</p>
+
+<p>The hideSelectedBoxes and showHiddenBoxes of the Board class delegate the tasks to the Box class.</p>
+
+<p><strong>Code 05-06.09</strong>: To hide and show selected boxes.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>hideSelectedBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>box</span><span class='o'>.</span><span class='na'>hide</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>showHiddenBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isHidden</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>box</span><span class='o'>.</span><span class='na'>show</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The private _hidden attribute is initialized to <strong>false</strong>. The hide method changes a value of the attribute to <strong>true</strong>, while the show method assigns <strong>false</strong> to the attribute. The isHidden method returns a boolean value of the private attribute.</p>
+
+<p><strong>Code 05-06.10</strong>: To hide and show a box.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Box</span> <span class='o'>{</span>
+  <span class='err'>…</span>
+  <span class='n'>bool</span> <span class='n'>_hidden</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  
+  <span class='n'>hide</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_hidden</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+  <span class='n'>show</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_hidden</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='n'>bool</span> <span class='nf'>isHidden</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_hidden</span><span class='o'>;</span>
+</code></pre>
+</div>
+<p>The draw method does its job only if a box is not hidden.</p>
+
+<p><strong>Code 05-06.11</strong>: The draw method of the Box.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>isHidden</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+      <span class='err'>…</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The menu bar gets a new look with the help of the button selector in the link.css file.</p>
+
+<p><strong>Code 05-06.12</strong>: The class selector with the button name.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nc'>.button</span> <span class='p'>{</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>1px</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#ffcc99</span><span class='p'>;</span> 
+    <span class='k'>border-right</span><span class='o'>:</span> <span class='m'>1px</span> <span class='k'>solid</span> <span class='m'>#999</span><span class='p'>;</span>
+    <span class='k'>border-bottom</span><span class='o'>:</span> <span class='m'>1px</span> <span class='k'>solid</span> <span class='m'>#999</span><span class='p'>;</span>
+    <span class='k'>border-style</span><span class='o'>:</span> <span class='k'>outset</span><span class='p'>;</span>
+    <span class='k'>border-color</span><span class='o'>:</span> <span class='m'>#d7b9c9</span><span class='p'>;</span> 
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>text-align</span><span class='o'>:</span> <span class='k'>center</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+<p>The for button elements are embedded within the nav element.</p>
+
+<p><strong>Code 05-06.13</strong>: The navigation section with the button class.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;nav</span> <span class='na'>id=</span><span class='s'>&quot;menu&quot;</span> <span class='na'>class=</span><span class='s'>&quot;menu&quot;</span><span class='nt'>&gt;</span>
+      <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;select-boxes&quot;</span> <span class='na'>class=</span><span class='s'>&quot;button&quot;</span><span class='nt'>&gt;</span>
+        Select All Boxes
+      <span class='nt'>&lt;/button&gt;</span>
+      <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;delete-selected-boxes&quot;</span> <span class='na'>class=</span><span class='s'>&quot;button&quot;</span><span class='nt'>&gt;</span>
+        Delete Selected Boxes
+      <span class='nt'>&lt;/button&gt;</span>
+      <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;hide-selected-boxes&quot;</span> <span class='na'>class=</span><span class='s'>&quot;button&quot;</span><span class='nt'>&gt;</span>
+        Hide Selected Boxes
+      <span class='nt'>&lt;/button&gt;</span>
+      <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;show-hidden-boxes&quot;</span> <span class='na'>class=</span><span class='s'>&quot;button&quot;</span><span class='nt'>&gt;</span>
+        Show Hidden Boxes
+      <span class='nt'>&lt;/button&gt;</span>
+    <span class='nt'>&lt;/nav&gt;</span>
+</code></pre>
+</div>
+<p>The problem of removing every second box from the list of boxes is resolved by making the deleteSelectedBoxes method of the Board class recursive. The method calls itself at the end of its body. When there are no more selected boxes to remove, the method terminates its action by the <strong>return</strong> statement.</p>
+
+<p><strong>Code 05-06.14</strong>: The recursive method.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteSelectedBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>countSelectedBoxes</span><span class='o'>()</span> <span class='o'>==</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>deleteBox</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='n'>deleteSelectedBoxes</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The deleteSelectedBoxes method starts with counting selected boxes by the countSelectedBoxes method of the Board class and comparing the count with zero. If the count is equal to zero, the task of removing all selected boxes is successfully done.</p>
+
+<p><strong>Code 05-06.15</strong>: Counting selected boxes.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>int</span> <span class='nf'>countSelectedBoxes</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>count</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>count</span><span class='o'>++;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='n'>count</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>A single box is removed from the boxes attribute by the deleteBox method of the Board class.</p>
+
+<p><strong>Code 05-06.16</strong>: Removing a box from boxes.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteBox</span><span class='o'>(</span><span class='n'>Box</span> <span class='n'>boxToDelete</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span> <span class='o'>==</span> <span class='n'>boxToDelete</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='kt'>int</span> <span class='n'>index</span> <span class='o'>=</span> <span class='n'>boxes</span><span class='o'>.</span><span class='na'>indexOf</span><span class='o'>(</span><span class='n'>box</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>);</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>removeRange</span><span class='o'>(</span><span class='n'>index</span><span class='o'>,</span> <span class='mi'>1</span><span class='o'>);</span>
+        <span class='k'>return</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>A for loop iterates over all boxes. In a single iteration, if a box to be deleted is equal to the box of that iteration, the sequential index of the box, which starts with 0 with the first box in the list, is found by the indexOf method of the List type. This index number of the int (integer) type is used to remove objects from the range of objects that starts with that index. The range size is 1. Thus, only one box is removed from boxes by the removeRange method of the List type.</p>
+
+<p>In addition to boxes, lines may be now created between boxes (Figure 05-06.05). A new line is created first by selecting the line tool in the tool bar, second by clicking on two different boxes, then by clicking on an empty space in the board. A line may also be created by clicking on two different boxes, then by selecting the line tool in the tool bar, and finally by clicking on an empty space in the board. The line tool may be double-clicked to keep it active in order to create more than one line. The select tool must be double-clicked to return to the select mode.</p>
+
+<p><img src='/img/s05s06/Lines.png' alt='Alt Figure 05-06.05: Boxes and lines' /></p>
+
+<p><strong>Figure 05-06.05</strong>: Boxes and lines.</p>
+
+<p>The ToolBar class is updated to accommodate the LINE tool. A boolean private attribute _selectToolDblClicked replaced the _boxToolDblClicked attribute.</p>
+
+<p><strong>Code 05-06.17</strong>: Line button in the tool bar.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>ToolBar</span> <span class='o'>{</span>
+  <span class='err'>…</span>
+  <span class='kd'>static</span> <span class='kd'>final</span> <span class='kt'>int</span> <span class='n'>LINE</span> <span class='o'>=</span> <span class='mi'>3</span><span class='o'>;</span>
+  <span class='err'>…</span>
+  <span class='n'>bool</span> <span class='n'>_selectToolDblClicked</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+  
+  <span class='n'>ToolBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='n'>ButtonElement</span> <span class='n'>lineButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>line</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='c1'>// Tool bar events.</span>
+    <span class='err'>…</span>
+    <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>LINE</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>LINE</span><span class='o'>;</span>
+      <span class='n'>_selectToolDblClicked</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='o'>});</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The isLineToolOn method is added to the ToolBar class, and the selectToolOn method is updated.</p>
+
+<p><strong>Code 05-06.18</strong>: Two methods of the ToolBar class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='nf'>isLineToolOn</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>_onTool</span> <span class='o'>==</span> <span class='n'>LINE</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span> 
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>selectToolOn</span><span class='o'>()</span>  <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>_selectToolDblClicked</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The Line class represents the line concept. It constructor accepts the board and two boxes as line ends. The line will be drawn between centers of the boxes. The moveTo method positions an imaginary pen to the center of the first box, while the lineTo method moves the pen to the center of the second box.</p>
+
+<p><strong>Code 05-06.19</strong>: The Line class.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Line</span> <span class='o'>{</span>
+  
+  <span class='kd'>final</span> <span class='n'>Board</span> <span class='n'>board</span><span class='o'>;</span>
+  
+  <span class='n'>Box</span> <span class='n'>box1</span><span class='o'>;</span>
+  <span class='n'>Box</span> <span class='n'>box2</span><span class='o'>;</span>
+  
+  <span class='n'>Line</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>box1</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>box2</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>draw</span><span class='o'>();</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>moveTo</span><span class='o'>(</span>
+      <span class='n'>box1</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> <span class='n'>box1</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>,</span> <span class='n'>box1</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> <span class='n'>box1</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>);</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineTo</span><span class='o'>(</span>
+      <span class='n'>box2</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> <span class='n'>box2</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>,</span> <span class='n'>box2</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> <span class='n'>box2</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>);</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+  <span class='o'>}</span>
+
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>The lines attribute of the Board class is of the List type. The type is parameterized to accept only objects of the Line class.</p>
+
+<p><strong>Code 05-06.20</strong>: The lines attribute.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Board</span> <span class='o'>{</span>
+  <span class='err'>…</span>
+  <span class='n'>List</span><span class='o'>&lt;</span><span class='n'>Line</span><span class='o'>&gt;</span> <span class='n'>lines</span><span class='o'>;</span>
+  
+  <span class='n'>Box</span> <span class='n'>beforeLastBoxClicked</span><span class='o'>;</span>
+  <span class='n'>Box</span> <span class='n'>lastBoxClicked</span><span class='o'>;</span>
+  <span class='err'>…</span>
+  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='n'>lines</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>List</span><span class='o'>();</span>
+</code></pre>
+</div>
+<p>There are also two box attributes that make references to two boxes that are last clicked on. Their values are determined in the onMouseDown method of the Box class.</p>
+
+<p><strong>Code 05-06.21</strong>: The last box clicked on.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>board</span><span class='o'>.</span><span class='na'>toolBar</span><span class='o'>.</span><span class='na'>isSelectToolOn</span><span class='o'>()</span> 
+      <span class='o'>&amp;&amp;</span> <span class='n'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>toggleSelection</span><span class='o'>();</span>
+    <span class='o'>}</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>beforeLastBoxClicked</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>lastBoxClicked</span><span class='o'>;</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>lastBoxClicked</span> <span class='o'>=</span> <span class='k'>this</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The main work of managing events conditionally on the active tool of the tool bar is done in the onMouseDown method of the Board class. If a click does not hit an existing box, three different modes are handled: select, box and line. If the tool bar is in the line mode, a new line is constructed, but only if there are boxes (different from <strong>null</strong>) to be connected by the line. The <strong>null</strong> symbol represents a non-existence of an object. If a variable is not (!) <strong>null</strong>, it means that it references an existing object.</p>
+
+<p><strong>Code 05-06.22</strong>: Managing events based on the active tool.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>bool</span> <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span> 
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+        <span class='k'>break</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnBox</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isSelectToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>deselectBoxes</span><span class='o'>();</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isBoxToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>,</span> 
+          <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>);</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>&gt;</span> <span class='n'>width</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>box</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>&gt;</span> <span class='n'>height</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>box</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>=</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+        <span class='n'>toolBar</span><span class='o'>.</span><span class='na'>selectToolOn</span><span class='o'>();</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isLineToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>beforeLastBoxClicked</span> <span class='o'>!=</span> <span class='kc'>null</span> <span class='o'>&amp;&amp;</span> <span class='n'>lastBoxClicked</span> <span class='o'>!=</span> <span class='kc'>null</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>Line</span> <span class='n'>line</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Line</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>beforeLastBoxClicked</span><span class='o'>,</span> 
+            <span class='n'>lastBoxClicked</span><span class='o'>);</span>
+          <span class='n'>lines</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>line</span><span class='o'>);</span>
+        <span class='o'>}</span>
+        <span class='n'>toolBar</span><span class='o'>.</span><span class='na'>selectToolOn</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The line button element is added to the footer of the main section of the page. The line.png image is located in the img folder of the application.</p>
+
+<p><strong>Code 05-06.23</strong>: The line button.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section</span> <span class='na'>id=</span><span class='s'>&quot;main&quot;</span><span class='nt'>&gt;</span> 
+      <span class='nt'>&lt;canvas</span> <span class='na'>id=</span><span class='s'>&quot;canvas&quot;</span> <span class='na'>width=</span><span class='s'>&quot;630&quot;</span> <span class='na'>height=</span><span class='s'>&quot;580&quot;</span><span class='nt'>&gt;</span>
+        Canvas is not supported in your browser.
+      <span class='nt'>&lt;/canvas&gt;</span>
+      <span class='nt'>&lt;footer&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;select&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/select.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;box&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/box.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+        <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;line&quot;</span><span class='nt'>&gt;&lt;img</span> <span class='na'>src=</span><span class='s'>&quot;img/line.png&quot;</span><span class='nt'>/&gt;&lt;/button&gt;</span>
+      <span class='nt'>&lt;/footer&gt;</span>
+      <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;mb.dart.app.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>The tool buttons in the tool bar have a visual sign (Figure 05-06.06) which one is active (on). The active tool has a black border, while off buttons have a grey border.</p>
+
+<p><img src='/img/s05s06/ToolBarOnBorder.png' alt='Alt Figure 05-06.06: Active tool in the tool bar has a black border' /></p>
+
+<p><strong>Figure 05-06.06</strong>: Active tool in the tool bar has a black border.</p>
+
+<p>The ToolBar class has now the three buttons as attributes.</p>
+
+<p><strong>Code 05-06.24</strong>: The tool buttons as attributes.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>ToolBar</span> <span class='o'>{</span>
+  <span class='err'>…</span>
+  <span class='kt'>int</span> <span class='n'>_onTool</span><span class='o'>;</span>
+  <span class='n'>bool</span> <span class='n'>_selectToolDblClicked</span><span class='o'>;</span>
+  
+  <span class='n'>ButtonElement</span> <span class='n'>selectButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>boxButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>lineButton</span><span class='o'>;</span>
+</code></pre>
+</div>
+<p>The button attributes are used in the new onTool method to change the color of button elements depending on the active tool.</p>
+
+<p><strong>Code 05-06.25</strong>: The active button changes its border color to black.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>onTool</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>tool</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>_onTool</span> <span class='o'>=</span> <span class='n'>tool</span><span class='o'>;</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>_onTool</span> <span class='o'>==</span> <span class='n'>SELECT</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#000000&quot;</span><span class='o'>;</span> <span class='c1'>// black</span>
+      <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#808080&quot;</span><span class='o'>;</span> <span class='c1'>// grey</span>
+      <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#808080&quot;</span><span class='o'>;</span> <span class='c1'>// grey</span>
+    <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>_onTool</span> <span class='o'>==</span> <span class='n'>BOX</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#808080&quot;</span><span class='o'>;</span> <span class='c1'>// grey</span>
+      <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#000000&quot;</span><span class='o'>;</span> <span class='c1'>// black</span>
+      <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#808080&quot;</span><span class='o'>;</span> <span class='c1'>// grey</span>
+    <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>_onTool</span> <span class='o'>==</span> <span class='n'>LINE</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#808080&quot;</span><span class='o'>;</span> <span class='c1'>// grey</span>
+      <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#808080&quot;</span><span class='o'>;</span> <span class='c1'>// grey</span>
+      <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>style</span><span class='o'>.</span><span class='na'>borderColor</span> <span class='o'>=</span> <span class='s'>&quot;#000000&quot;</span><span class='o'>;</span> <span class='c1'>// black</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The onTool method is called in the constructor of the ToolBar class. Note that the _onTool and _selectToolDblClicked private attributes are now initialized in the constructor.</p>
+
+<p><strong>Code 05-06.26</strong>: The use of the onTool method to put a tool on.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>ToolBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>selectButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>select</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>boxButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>box</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>lineButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>line</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='c1'>// Tool bar events.</span>
+    <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+    <span class='o'>});</span>
+    <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+      <span class='n'>_selectToolDblClicked</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>BOX</span><span class='o'>);</span>
+    <span class='o'>});</span>
+    <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>BOX</span><span class='o'>);</span>
+      <span class='n'>_selectToolDblClicked</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span> 
+    <span class='o'>});</span>
+    
+    <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>LINE</span><span class='o'>);</span>
+    <span class='o'>});</span>
+    <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>LINE</span><span class='o'>);</span>
+      <span class='n'>_selectToolDblClicked</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+    <span class='n'>_selectToolDblClicked</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The onTool method is also called in the selectToolOn method of the ToolBar class.</p>
+
+<p><strong>Code 05-06.27</strong>: The select tool becomes active.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>selectToolOn</span><span class='o'>()</span>  <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>_selectToolDblClicked</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>In the right section of the page there is a new paragraph with two Web links.</p>
+
+<p><strong>Code 05-06.28</strong>: The two Web links.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;section</span> <span class='na'>id=</span><span class='s'>&quot;right&quot;</span><span class='nt'>&gt;</span> 
+      <span class='nt'>&lt;header&gt;</span>
+        <span class='nt'>&lt;h3&gt;</span>Creating and Moving Boxes and Lines<span class='nt'>&lt;/h3&gt;</span>
+      <span class='nt'>&lt;/header&gt;</span>
+        …
+      <span class='nt'>&lt;p&gt;</span>
+        The 
+        <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;https://github.com/dzenanr/MagicBoxes&quot;</span><span class='nt'>&gt;</span>
+          code
+        <span class='nt'>&lt;/a&gt;</span> 
+        is kept at 
+        <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;https://github.com/&quot;</span><span class='nt'>&gt;</span>
+          GitHub
+        <span class='nt'>&lt;/a&gt;</span>.
+      <span class='nt'>&lt;/p&gt;</span>
+    <span class='nt'>&lt;/section&gt;</span>
+</code></pre>
+</div>
+<p>The two links are styled with link selectors in the link.css file. A Web link may have four different states: unvisited, visited, active and hoover. These four links states are controlled by pseudo classes of CSS, which are used to add special effects to some selectors.</p>
+
+<p><strong>Code 05-06.29</strong>: The Web link CSS selectors.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nt'>a</span><span class='nd'>:link</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#003366</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>a</span><span class='nd'>:visited</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#c50000</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>a</span><span class='nd'>:hover</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#ffffee</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#336799</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>a</span><span class='nd'>:active</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#ff9911</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+<p>The mb.html file uses a new style in the list.css file.</p>
+
+<p><strong>Code 05-06.30</strong>: The list style CSS link.</p>
+<div class='highlight'><pre><code class='html'>  <span class='nt'>&lt;head&gt;</span>
+    <span class='nt'>&lt;meta</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;meta</span> <span class='na'>name=</span><span class='s'>&quot;author&quot;</span> <span class='na'>content=</span><span class='s'>&quot;Dzenan Ridjanovic&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;title&gt;</span>mb<span class='nt'>&lt;/title&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/layout.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/layout2c.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/link.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/list.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/menu.css&quot;</span><span class='nt'>/&gt;</span>
+    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>href=</span><span class='s'>&quot;css/page.css&quot;</span><span class='nt'>/&gt;</span>
+  <span class='nt'>&lt;/head&gt;</span>
+</code></pre>
+</div>
+<p>The Web links use the link class to provide additional style.</p>
+
+<p><strong>Code 05-06.31</strong>: The link class.</p>
+<div class='highlight'><pre><code class='html'>      <span class='nt'>&lt;p&gt;</span>
+        The 
+        <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;https://github.com/dzenanr/MagicBoxes&quot;</span> <span class='na'>class=</span><span class='s'>&quot;link&quot;</span><span class='nt'>&gt;</span>
+          code
+        <span class='nt'>&lt;/a&gt;</span> 
+        is kept at 
+        <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;https://github.com/&quot;</span> <span class='na'>class=</span><span class='s'>&quot;link&quot;</span><span class='nt'>&gt;</span>
+          GitHub
+        <span class='nt'>&lt;/a&gt;</span>.
+      <span class='nt'>&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>The link class is defined in the list.css file.</p>
+
+<p><strong>Code 05-06.32</strong>: The unordered list (ul) style.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nt'>ul</span> <span class='p'>{</span>
+    <span class='k'>list-style</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>2px</span><span class='p'>;</span>
+    <span class='k'>text-align</span><span class='o'>:</span> <span class='k'>left</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>li</span> <span class='p'>{</span>
+    <span class='k'>padding-top</span><span class='o'>:</span> <span class='m'>1px</span><span class='p'>;</span>
+    <span class='k'>padding-bottom</span><span class='o'>:</span> <span class='m'>1px</span><span class='p'>;</span>
+    <span class='k'>padding-left</span><span class='o'>:</span> <span class='m'>18px</span><span class='p'>;</span>
+  <span class='p'>}</span>	
+    
+  <span class='nc'>.link</span> <span class='nt'>li</span> <span class='p'>{</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='sx'>url(img/arrow-right.gif)</span> <span class='k'>no-repeat</span> <span class='m'>0</span> <span class='m'>50</span><span class='o'>%</span><span class='p'>;</span>
+    <span class='k'>padding-top</span><span class='o'>:</span> <span class='m'>1px</span><span class='p'>;</span>
+    <span class='k'>padding-bottom</span><span class='o'>:</span> <span class='m'>1px</span><span class='p'>;</span>
+    <span class='k'>padding-left</span><span class='o'>:</span> <span class='m'>18px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+<p>Since the two Web links used in the HTML page are not put within the unordered list, this new style does not have any effect. In addition, the arrow-right.gif image cannot be found within the img folder. This is an example of what should not have been included in the current spiral. The spiral approach does not hide mistakes made. They may be corrected in one of future spirals.</p>
+        </section>
+
+        <section>
+     
+        </section>
+
+        <footer>
+          <a href="http://dzenanr.github.com/ondart.rss">
+            <img src="/img/xml.gif" width=36 height=14 alt="RSS feed for this site" border=0>
+          </a>
+        </footer>
+
+    </body>
+</html>
+
+
