@@ -117,6 +117,9 @@
                             <a href="http://dzenanr.github.com/2012/02/15/from-s05-to-s06.html">From Spiral05 To Spiral06</a> 
                         </li>
                         <li>
+                            <a href="http://dzenanr.github.com/2012/02/21/from-s06-to-s07.html">From Spiral06 To Spiral07</a> 
+                        </li>
+                        <li>
                             &nbsp; 
                         </li>
                     </ul>  
@@ -133,6 +136,765 @@
 
         <section>
             <section>
+    
+        <h2><a href="/2012/02/21/from-s06-to-s07.html">From Spiral06 To Spiral07</a></h2>
+        <p>The code for the MagicBoxes project is at <a href='https://github.com/dzenanr/MagicBoxes'>MagicBoxes on GitHub</a>. The code for the mb project is at <a href='https://github.com/dzenanr/mb'>mb on GitHub</a>. For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.</p>
+
+<p>In Spiral 06, a line tool in the tool bar, allows a line creation between the last two clicked boxes.</p>
+
+<p>In Spiral 07, a line may be selected and deleted. A menu bar has Edit, View and Create menus. The Edit menu has menu items for selecting all boxes and lines, and for deleting selected boxes and lines. The View menu has menu items for hiding and showing selected boxes and lines. The Create menu has menu items for generating boxes in a diagonal and as tiles.</p>
+
+<p>The MenuBar class has a new content with six buttons.</p>
+
+<p><strong>Code 06-07.01</strong>: The MenuBar class with six buttons.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>MenuBar</span> <span class='o'>{</span>
+  
+  <span class='kd'>final</span> <span class='n'>Board</span> <span class='n'>board</span><span class='o'>;</span>
+  
+  <span class='c1'>// Edit</span>
+  <span class='n'>ButtonElement</span> <span class='n'>selectAllButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>deleteSelectionButton</span><span class='o'>;</span>
+  
+  <span class='c1'>// View</span>
+  <span class='n'>ButtonElement</span> <span class='n'>hideSelectionButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>showHiddenSelectionButton</span><span class='o'>;</span>
+  
+  <span class='c1'>// Creaete</span>
+  <span class='n'>ButtonElement</span> <span class='n'>createBoxesInDiagonalButton</span><span class='o'>;</span>
+  <span class='n'>ButtonElement</span> <span class='n'>createBoxesAsTilesButton</span><span class='o'>;</span>
+  
+  <span class='n'>MenuBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>selectAllButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>select</span><span class='o'>-</span><span class='n'>all</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>deleteSelectionButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>delete</span><span class='o'>-</span><span class='n'>selection</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='n'>hideSelectionButton</span> <span class='o'>=</span> <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>hide</span><span class='o'>-</span><span class='n'>selection</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>showHiddenSelectionButton</span> <span class='o'>=</span> 
+      <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>show</span><span class='o'>-</span><span class='n'>hidden</span><span class='o'>-</span><span class='n'>selection</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='n'>createBoxesInDiagonalButton</span> <span class='o'>=</span> 
+      <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>create</span><span class='o'>-</span><span class='n'>boxes</span><span class='o'>-</span><span class='n'>in</span><span class='o'>-</span><span class='n'>diagonal</span><span class='err'>&#39;</span><span class='o'>);</span>
+    <span class='n'>createBoxesAsTilesButton</span> <span class='o'>=</span> 
+      <span class='n'>document</span><span class='o'>.</span><span class='na'>query</span><span class='o'>(</span><span class='err'>&#39;#</span><span class='n'>create</span><span class='o'>-</span><span class='n'>boxes</span><span class='o'>-</span><span class='n'>as</span><span class='o'>-</span><span class='n'>tiles</span><span class='err'>&#39;</span><span class='o'>);</span>
+    
+    <span class='c1'>// Menu bar events.</span>
+    <span class='n'>selectAllButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>select</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    <span class='n'>deleteSelectionButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>deleteSelection</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>hideSelectionButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>hideSelection</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    <span class='n'>showHiddenSelectionButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>showHiddenSelection</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>createBoxesInDiagonalButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>createBoxesInDiagonal</span><span class='o'>();</span>
+    <span class='o'>});</span>
+    <span class='n'>createBoxesAsTilesButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>click</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>createBoxesAsTiles</span><span class='o'>();</span>
+    <span class='o'>});</span>
+  <span class='o'>}</span>
+
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>The Board class has changed to provide methods used in the MenuBar class. The select method select s boxes only. The line selection will be done in one of the next steps towards the Spiral 07.</p>
+
+<p><strong>Code 06-07.02</strong>: The select method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>select</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>selectBoxes</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>Similarly, the deleteSelection, hideSelection and showHiddenSelection methods do not yet handle selected lines.</p>
+
+<p><strong>Code 06-07.03</strong>: The deleteSelection method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>deleteSelectedBoxes</span><span class='o'>();</span>
+  <span class='o'>}</span>
+
+  <span class='kt'>void</span> <span class='nf'>hideSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>hideSelectedBoxes</span><span class='o'>();</span>
+  <span class='o'>}</span>
+    
+  <span class='kt'>void</span> <span class='nf'>showHiddenSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>showHiddenBoxes</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The createBoxesInDiagonal method of the Board class generates boxes in a diagonal (Figure 06-07.01). The initialization of the x and y local variables is done in a single line of code. The <strong>while</strong> loop may seem to iterate forever, because its condition to loop is <strong>true</strong>. However, the <strong>false</strong> condition of the <strong>if</strong> statement enters the <strong>else</strong> part and the <strong>return</strong> statement stops the iterations by exiting the method. If the next box may be positioned diagonally within the board, the box is created in that position. The x and y variables are incremented by the two constants from the Box class before the next iteration.</p>
+
+<p><strong>Code 06-07.04</strong>: Boxes created in a diagonal.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>createBoxesInDiagonal</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span> <span class='kt'>int</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>while</span> <span class='o'>(</span><span class='kc'>true</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span> 
+          <span class='o'>&amp;&amp;</span> <span class='n'>y</span> <span class='o'>&lt;=</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> 
+          <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>);</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+        <span class='n'>x</span> <span class='o'>=</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>;</span>
+        <span class='n'>y</span> <span class='o'>=</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>;</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+        <span class='k'>return</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p><img src='/img/s06s07/BoxesInDiagonal.png' alt='Alt Figure 06-07.01: Five boxes created in a diagonal' /></p>
+
+<p><strong>Figure 06-07.01</strong>: Five boxes created in a diagonal.</p>
+
+<p>The createBoxesAsTiles method of the Board class generates boxes as tiles (Figure 06-07.02). If a new box may be positioned as a tile within the board, the box is created in that position. It is a value of the y variable that determines when the method will be returned to a caller.</p>
+
+<p><strong>Code 06-07.05</strong>: Boxes created as tiles.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>createBoxesAsTiles</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span> <span class='kt'>int</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>while</span> <span class='o'>(</span><span class='kc'>true</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> 
+          <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>);</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+        <span class='n'>x</span> <span class='o'>=</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span> <span class='o'>*</span> <span class='mi'>2</span><span class='o'>;</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+        <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+        <span class='n'>y</span> <span class='o'>=</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span> <span class='o'>*</span> <span class='mi'>2</span><span class='o'>;</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&gt;</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='k'>return</span><span class='o'>;</span>
+        <span class='o'>}</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p><img src='/img/s06s07/BoxesAsTiles.png' alt='Alt Figure 06-07.02: Twelve boxes created as tiles' /></p>
+
+<p><strong>Figure 06-07.02</strong>: Twelve boxes created as tiles.</p>
+
+<p>The nav element of HTML5 contains an unordered list of items that are menus. Each menu contains another unordered list of items that are menu items.</p>
+
+<p><strong>Code 06-07.06</strong>: The navigation section of HTML5.</p>
+<div class='highlight'><pre><code class='html'>    <span class='nt'>&lt;nav&gt;</span>
+     <span class='nt'>&lt;ul&gt;</span>
+       <span class='nt'>&lt;li&gt;</span>File
+         <span class='nt'>&lt;ul&gt;</span>
+           <span class='nt'>&lt;li&gt;&lt;/li&gt;</span>
+         <span class='nt'>&lt;/ul&gt;</span>  
+       <span class='nt'>&lt;/li&gt;</span>
+       <span class='nt'>&lt;li&gt;</span>Edit
+         <span class='nt'>&lt;ul&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>
+             <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;select-all&quot;</span><span class='nt'>&gt;</span>
+               Select All
+             <span class='nt'>&lt;/button&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>
+             <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;delete-selection&quot;</span><span class='nt'>&gt;</span>
+               Delete Selection
+             <span class='nt'>&lt;/button&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+         <span class='nt'>&lt;/ul&gt;</span>
+       <span class='nt'>&lt;/li&gt;</span>
+       <span class='nt'>&lt;li&gt;</span>View
+         <span class='nt'>&lt;ul&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>
+             <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;hide-selection&quot;</span><span class='nt'>&gt;</span>
+               Hide Selection
+             <span class='nt'>&lt;/button&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>
+             <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;show-hidden-selection&quot;</span><span class='nt'>&gt;</span>
+               Show Selection
+             <span class='nt'>&lt;/button&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+         <span class='nt'>&lt;/ul&gt;</span>
+       <span class='nt'>&lt;/li&gt;</span>
+       <span class='nt'>&lt;li&gt;</span>Create
+         <span class='nt'>&lt;ul&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>
+             <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;create-boxes-in-diagonal&quot;</span><span class='nt'>&gt;</span>
+               Boxes in Diagonal
+             <span class='nt'>&lt;/button&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>
+             <span class='nt'>&lt;button</span> <span class='na'>id=</span><span class='s'>&quot;create-boxes-as-tiles&quot;</span><span class='nt'>&gt;</span>
+               Boxes As Tiles
+             <span class='nt'>&lt;/button&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+         <span class='nt'>&lt;/ul&gt;</span>
+       <span class='nt'>&lt;/li&gt;</span>
+       <span class='nt'>&lt;li&gt;</span>About
+         <span class='nt'>&lt;ul&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>Magic Boxes in 
+             <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;http://www.dart.org/&quot;</span><span class='nt'>&gt;</span>Dart<span class='nt'>&lt;/a&gt;</span>
+           <span class='nt'>&lt;/li&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>Spiral 07<span class='nt'>&lt;/li&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>2011-12-23<span class='nt'>&lt;/li&gt;</span>
+           <span class='nt'>&lt;li&gt;</span>Dzenan Ridjanovic<span class='nt'>&lt;/li&gt;</span>
+         <span class='nt'>&lt;/ul&gt;</span>   
+       <span class='nt'>&lt;/li&gt;</span>
+     <span class='nt'>&lt;/ul&gt;</span>
+    <span class='nt'>&lt;/nav&gt;</span>
+</code></pre>
+</div>
+<p>The menu.css file has selectors that present the navigation section of the mb.html file as a menu bar with menus and drop down menu items.</p>
+
+<p><strong>Code 06-07.07</strong>: CSS presentation of drop down menus.</p>
+<div class='highlight'><pre><code class='css'>  <span class='nt'>nav</span> <span class='p'>{</span>
+    <span class='k'>width</span><span class='o'>:</span> <span class='m'>100</span><span class='o'>%</span><span class='p'>;</span>
+    <span class='k'>height</span><span class='o'>:</span> <span class='m'>30px</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#ffffff</span><span class='p'>;</span>
+    <span class='k'>background-color</span><span class='o'>:</span> <span class='m'>#663117</span><span class='p'>;</span>
+    <span class='k'>border-top</span><span class='o'>:</span> <span class='m'>2px</span> <span class='k'>solid</span> <span class='m'>#999999</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>ul</span> <span class='p'>{</span>
+    <span class='k'>margin</span><span class='o'>:</span> <span class='m'>0px</span><span class='p'>;</span> 
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>0px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>ul</span> <span class='nt'>li</span> <span class='p'>{</span>
+    <span class='k'>display</span><span class='o'>:</span> <span class='k'>inline</span><span class='p'>;</span> 
+    <span class='k'>height</span><span class='o'>:</span> <span class='m'>30px</span><span class='p'>;</span> 
+    <span class='k'>float</span><span class='o'>:</span> <span class='k'>left</span><span class='p'>;</span> 
+    <span class='k'>list-style</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>margin-left</span><span class='o'>:</span> <span class='m'>15px</span><span class='p'>;</span>
+    <span class='k'>position</span><span class='o'>:</span> <span class='k'>relative</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>ul</span> <span class='nt'>li</span><span class='nd'>:hover</span> <span class='p'>{</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#d9ece2</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>ul</span> <span class='p'>{</span>
+    <span class='k'>margin</span><span class='o'>:</span> <span class='m'>0px</span><span class='p'>;</span>
+    <span class='k'>padding-top</span><span class='o'>:</span> <span class='m'>8px</span><span class='p'>;</span>
+    <span class='k'>display</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>position</span><span class='o'>:</span> <span class='k'>absolute</span><span class='p'>;</span>
+    <span class='k'>left</span><span class='o'>:</span> <span class='m'>0px</span><span class='p'>;</span>
+    <span class='k'>top</span><span class='o'>:</span> <span class='m'>20px</span><span class='p'>;</span>
+    <span class='k'>font-size</span><span class='o'>:</span> <span class='m'>14px</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#d9ece2</span><span class='p'>;</span>
+    <span class='k'>background-color</span><span class='o'>:</span> <span class='m'>#663117</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span><span class='nd'>:hover</span> <span class='nt'>ul</span> <span class='p'>{</span>
+    <span class='k'>display</span><span class='o'>:</span> <span class='k'>block</span><span class='p'>;</span>
+    <span class='k'>width</span><span class='o'>:</span> <span class='m'>180px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>li</span> <span class='p'>{</span>
+    <span class='k'>padding</span><span class='o'>:</span> <span class='m'>0px</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#ffffff</span><span class='p'>;</span>
+    <span class='k'>list-style</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>display</span><span class='o'>:</span> <span class='k'>list-item</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>li</span> <span class='nt'>a</span><span class='nd'>:link</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#e6ffc8</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>li</span> <span class='nt'>a</span><span class='nd'>:visited</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#f2e1fb</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>li</span> <span class='nt'>a</span><span class='nd'>:hover</span> <span class='p'>{</span>
+    <span class='k'>text-decoration</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#663117</span><span class='p'>;</span>
+    <span class='k'>background</span><span class='o'>:</span> <span class='m'>#d9ece2</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>li</span> <span class='nt'>button</span> <span class='p'>{</span>
+    <span class='k'>color</span><span class='o'>:</span> <span class='m'>#663117</span><span class='p'>;</span>
+    <span class='k'>font-size</span><span class='o'>:</span> <span class='m'>14px</span><span class='p'>;</span>
+    <span class='k'>font-weight</span><span class='o'>:</span> <span class='k'>bold</span><span class='p'>;</span>
+    <span class='k'>background-color</span><span class='o'>:</span> <span class='m'>#ffffff</span><span class='p'>;</span>
+  <span class='p'>}</span>
+
+  <span class='nt'>nav</span> <span class='nt'>li</span> <span class='nt'>li</span> <span class='nt'>button</span><span class='nd'>:hover</span> <span class='p'>{</span>
+    <span class='k'>background-color</span><span class='o'>:</span> <span class='m'>#d9ece2</span><span class='p'>;</span>
+  <span class='p'>}</span>
+</code></pre>
+</div>
+<p>Lines may be selected (Figure 06-07.03) and then hidden. The Line class two private attributes initialized both to <strong>false</strong> to state that a new line is neither selected nor hidden. A default line width is borrowed in the constructor of the Line class from the context attribute of the board. In the same constructor in Spiral 07 there is a double use of the draw method. The error is not repeated in this step.</p>
+
+<p><strong>Code 06-07.08</strong>: New attributes in the Line class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='n'>bool</span> <span class='n'>_hidden</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  
+  <span class='n'>num</span> <span class='n'>defaultLineWidth</span><span class='o'>;</span>
+  
+  <span class='n'>Line</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>box1</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>box2</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>defaultLineWidth</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineWidth</span><span class='o'>;</span>
+    <span class='n'>draw</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The line selection appears in the title of the Web page.</p>
+
+<p><img src='/img/s06s07/LineSelection.png' alt='Alt Figure 06-07.03: Selected lines have a bigger width' /></p>
+
+<p><strong>Figure 06-07.03</strong>: Selected lines have a bigger width.</p>
+
+<p>The draw method of the Line class draws a line if it is not hidden. The width of a selected line is bigger for 2 pixels than the default width.</p>
+
+<p><strong>Code 06-07.09</strong>: The draw method of the Line class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>isHidden</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>moveTo</span><span class='o'>(</span><span class='n'>box1</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> <span class='n'>box1</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>,</span> 
+        <span class='n'>box1</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> <span class='n'>box1</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>);</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineTo</span><span class='o'>(</span><span class='n'>box2</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> <span class='n'>box2</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>,</span> 
+        <span class='n'>box2</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> <span class='n'>box2</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>);</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>setLineWidth</span><span class='o'>(</span><span class='n'>defaultLineWidth</span> <span class='o'>+</span> <span class='mi'>2</span><span class='o'>);</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+        <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>setLineWidth</span><span class='o'>(</span><span class='n'>defaultLineWidth</span><span class='o'>);</span>
+      <span class='o'>}</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The methods for the two private attributes are expressed in short notation.</p>
+
+<p><strong>Code 06-07.10</strong>: Short notation used in select, hide and their related methods.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>select</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+  <span class='n'>deselect</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='n'>toggleSelection</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='o'>!</span><span class='n'>_selected</span><span class='o'>;</span>
+  <span class='n'>bool</span> <span class='nf'>isSelected</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span><span class='o'>;</span>
+  
+  <span class='n'>hide</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_hidden</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+  <span class='n'>show</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_hidden</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='n'>bool</span> <span class='nf'>isHidden</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_hidden</span><span class='o'>;</span>
+</code></pre>
+</div>
+<p>The contains method of the Line class returns true if the given point is on the line between the centers of the two boxes with the error of delta in pixels. The method uses the Point class of Dart.</p>
+
+<p><strong>Code 06-07.11</strong>: The contains method of the Line class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='nf'>contains</span><span class='o'>(</span><span class='n'>Point</span> <span class='n'>point</span><span class='o'>,</span> <span class='n'>Point</span> <span class='n'>delta</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>box1</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span><span class='o'>,</span> <span class='n'>point</span><span class='o'>.</span><span class='na'>y</span><span class='o'>)</span> <span class='o'>||</span> 
+        <span class='n'>box2</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span><span class='o'>,</span> <span class='n'>point</span><span class='o'>.</span><span class='na'>y</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    
+    <span class='n'>Point</span> <span class='n'>pointDif</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Point</span><span class='o'>(</span><span class='mi'>0</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>);</span>
+    <span class='n'>bool</span> <span class='n'>inLineRectX</span><span class='o'>,</span> <span class='n'>inLineRectY</span><span class='o'>,</span> <span class='n'>inLineRect</span><span class='o'>;</span>
+    <span class='kt'>double</span> <span class='n'>coord</span><span class='o'>;</span>
+    
+    <span class='n'>Point</span> <span class='n'>beginPoint</span> <span class='o'>=</span> <span class='n'>box1</span><span class='o'>.</span><span class='na'>center</span><span class='o'>();</span>
+    <span class='n'>Point</span> <span class='n'>endPoint</span> <span class='o'>=</span> <span class='n'>box2</span><span class='o'>.</span><span class='na'>center</span><span class='o'>();</span>
+    
+    <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>=</span> <span class='n'>endPoint</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>-</span> <span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>x</span><span class='o'>;</span>
+    <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>=</span> <span class='n'>endPoint</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>-</span> <span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>y</span><span class='o'>;</span>
+    
+    <span class='c1'>// Rapid test: Verify if the point is in the line rectangle.</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>pointDif</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>&gt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>inLineRectX</span> <span class='o'>=</span> <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>&gt;=</span> <span class='o'>(</span><span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>-</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>x</span><span class='o'>))</span> <span class='o'>&amp;&amp;</span> 
+      <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>&lt;=</span> <span class='o'>(</span><span class='n'>endPoint</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>x</span><span class='o'>));</span>
+    <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+      <span class='n'>inLineRectX</span> <span class='o'>=</span> <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>&gt;=</span> <span class='o'>(</span><span class='n'>endPoint</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>-</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>x</span><span class='o'>))</span> <span class='o'>&amp;&amp;</span> 
+      <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>&lt;=</span> <span class='o'>(</span><span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>x</span><span class='o'>));</span>
+    <span class='o'>}</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>pointDif</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>&gt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>inLineRectY</span> <span class='o'>=</span> <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>&gt;=</span> <span class='o'>(</span><span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>-</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>y</span><span class='o'>))</span> <span class='o'>&amp;&amp;</span> 
+      <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>&lt;=</span> <span class='o'>(</span><span class='n'>endPoint</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>y</span><span class='o'>));</span>
+    <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+      <span class='n'>inLineRectY</span> <span class='o'>=</span> <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>&gt;=</span> <span class='o'>(</span><span class='n'>endPoint</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>-</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>y</span><span class='o'>))</span> <span class='o'>&amp;&amp;</span> 
+      <span class='o'>(</span><span class='n'>point</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>&lt;=</span> <span class='o'>(</span><span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>y</span><span class='o'>));</span>
+    <span class='o'>}</span>
+    <span class='n'>inLineRect</span> <span class='o'>=</span> <span class='n'>inLineRectX</span> <span class='o'>&amp;&amp;</span> <span class='n'>inLineRectY</span><span class='o'>;</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>inLineRect</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    
+    <span class='c1'>// If the line is horizontal or vertical </span>
+    <span class='c1'>// there is no need to continue.</span>
+    <span class='k'>if</span> <span class='o'>((</span><span class='n'>pointDif</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>==</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>||</span> <span class='o'>(</span><span class='n'>pointDif</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>==</span> <span class='mi'>0</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>pointDif</span><span class='o'>.</span><span class='na'>x</span><span class='o'>.</span><span class='na'>abs</span><span class='o'>()</span> <span class='o'>&gt;</span> <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>y</span><span class='o'>.</span><span class='na'>abs</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='n'>coord</span> <span class='o'>=</span> <span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>+</span> 
+      <span class='o'>(((</span><span class='n'>point</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>-</span> <span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>x</span><span class='o'>)</span> <span class='o'>*</span> <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>y</span><span class='o'>)</span> <span class='o'>/</span> <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>x</span><span class='o'>)</span> <span class='o'>-</span> <span class='n'>point</span><span class='o'>.</span><span class='na'>y</span><span class='o'>;</span>
+      <span class='k'>return</span> <span class='n'>coord</span><span class='o'>.</span><span class='na'>abs</span><span class='o'>()</span> <span class='o'>&lt;=</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>y</span><span class='o'>;</span>
+    <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+      <span class='n'>coord</span> <span class='o'>=</span> <span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>+</span> 
+      <span class='o'>(((</span><span class='n'>point</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>-</span> <span class='n'>beginPoint</span><span class='o'>.</span><span class='na'>y</span><span class='o'>)</span> <span class='o'>*</span> <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>x</span><span class='o'>)</span> <span class='o'>/</span> <span class='n'>pointDif</span><span class='o'>.</span><span class='na'>y</span><span class='o'>)</span> <span class='o'>-</span> <span class='n'>point</span><span class='o'>.</span><span class='na'>x</span><span class='o'>;</span>
+      <span class='k'>return</span> <span class='n'>coord</span><span class='o'>.</span><span class='na'>abs</span><span class='o'>()</span> <span class='o'>&lt;=</span> <span class='n'>delta</span><span class='o'>.</span><span class='na'>x</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>There are many additions and changes in the Board class to support different actions on lines.</p>
+
+<p><strong>Code 06-07.12</strong>: Methods on lines in the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>lines</span><span class='o'>.</span><span class='na'>clear</span><span class='o'>();</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>deleteLine</span><span class='o'>(</span><span class='n'>Line</span> <span class='n'>lineToDelete</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span> <span class='o'>==</span> <span class='n'>lineToDelete</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='kt'>int</span> <span class='n'>index</span> <span class='o'>=</span> <span class='n'>lines</span><span class='o'>.</span><span class='na'>indexOf</span><span class='o'>(</span><span class='n'>line</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>);</span>
+        <span class='n'>lines</span><span class='o'>.</span><span class='na'>removeRange</span><span class='o'>(</span><span class='n'>index</span><span class='o'>,</span> <span class='mi'>1</span><span class='o'>);</span>
+        <span class='k'>return</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>deleteSelectedLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>countSelectedLines</span><span class='o'>()</span> <span class='o'>==</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>deleteLine</span><span class='o'>(</span><span class='n'>line</span><span class='o'>);</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='n'>deleteSelectedLines</span><span class='o'>();</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>deleteSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>deleteSelectedLines</span><span class='o'>();</span>
+    <span class='n'>deleteSelectedBoxes</span><span class='o'>();</span>
+  <span class='o'>}</span>
+    
+  <span class='kt'>void</span> <span class='nf'>selectLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>line</span><span class='o'>.</span><span class='na'>select</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>select</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>selectBoxes</span><span class='o'>();</span>
+    <span class='n'>selectLines</span><span class='o'>();</span>
+  <span class='o'>}</span>
+    
+  <span class='kt'>void</span> <span class='nf'>deselectLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>line</span><span class='o'>.</span><span class='na'>deselect</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>deselect</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>deselectBoxes</span><span class='o'>();</span>
+    <span class='n'>deselectLines</span><span class='o'>();</span>
+  <span class='o'>}</span>
+    
+  <span class='kt'>void</span> <span class='nf'>hideSelectedLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>line</span><span class='o'>.</span><span class='na'>hide</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>hideSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>hideSelectedBoxes</span><span class='o'>();</span>
+    <span class='n'>hideSelectedLines</span><span class='o'>();</span>
+  <span class='o'>}</span>
+    
+  <span class='kt'>void</span> <span class='nf'>showHiddenLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span><span class='o'>.</span><span class='na'>isHidden</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>line</span><span class='o'>.</span><span class='na'>show</span><span class='o'>();</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>showHiddenSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>showHiddenBoxes</span><span class='o'>();</span>
+    <span class='n'>showHiddenLines</span><span class='o'>();</span>
+  <span class='o'>}</span>
+
+  <span class='kt'>int</span> <span class='nf'>countSelectedLines</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='kt'>int</span> <span class='n'>count</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>count</span><span class='o'>++;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='n'>count</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>int</span> <span class='nf'>countSelectedLinesContain</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>pointX</span><span class='o'>,</span> <span class='kt'>int</span> <span class='n'>pointY</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>Point</span> <span class='n'>delta</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Point</span><span class='o'>(</span><span class='n'>DELTA</span><span class='o'>,</span> <span class='n'>DELTA</span><span class='o'>);</span>
+    <span class='kt'>int</span> <span class='n'>count</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>()</span> 
+          <span class='o'>&amp;&amp;</span> <span class='n'>line</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>Point</span><span class='o'>(</span><span class='n'>pointX</span><span class='o'>,</span> <span class='n'>pointY</span><span class='o'>),</span> <span class='n'>delta</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='n'>count</span><span class='o'>++;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='n'>count</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='n'>Line</span> <span class='nf'>_lineContains</span><span class='o'>(</span><span class='n'>Point</span> <span class='n'>point</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>Point</span> <span class='n'>delta</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Point</span><span class='o'>(</span><span class='n'>DELTA</span><span class='o'>,</span> <span class='n'>DELTA</span><span class='o'>);</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Line</span> <span class='n'>line</span> <span class='n'>in</span> <span class='n'>lines</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>point</span><span class='o'>,</span> <span class='n'>delta</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='k'>return</span> <span class='n'>line</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The DELTA constant of the Board class has the value of 8 pixels. This means that within the 8 pixels surrounding a line, a click will select the line. The private lineContains method of the Board class returns a line that contains the given point with the DELTA error.</p>
+
+<p>In the onMouseMethod of the Board class, if a click happens outside of an existing box and the select tool is on, the click point is passed to the private lineContains method. If the method returns a line, the toggleSelection method is applied to the line. Otherwise, selected boxes and lines are deselected.</p>
+
+<p><strong>Code 06-07.13</strong>: The active select tool part of the onMouseDown method.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnBox</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isSelectToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>Point</span> <span class='n'>clickedPoint</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Point</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>);</span>
+        <span class='n'>Line</span> <span class='n'>line</span> <span class='o'>=</span> <span class='n'>_lineContains</span><span class='o'>(</span><span class='n'>clickedPoint</span><span class='o'>);</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span> <span class='o'>!=</span> <span class='kc'>null</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='c1'>// Select or deselect the existing line.</span>
+          <span class='n'>line</span><span class='o'>.</span><span class='na'>toggleSelection</span><span class='o'>();</span>
+        <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+          <span class='c1'>// Deselect all.</span>
+          <span class='n'>deselect</span><span class='o'>();</span>
+        <span class='o'>}</span>
+      <span class='o'>}</span> <span class='err'>…</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The draw method of the Box class must use the default line width in order draw the current box properly. Without the setLineWidth method, after a line is selected, the boxes may have the same line width as the selected line.</p>
+
+<p><strong>Code 06-07.14</strong>: The defaultLineWidth attribute of the Box class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>num</span> <span class='n'>defaultLineWidth</span><span class='o'>;</span>
+  
+  <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>x</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>y</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>width</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>height</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>titleNo</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>nextBoxNo</span><span class='o'>;</span>
+    <span class='n'>defaultLineWidth</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineWidth</span><span class='o'>;</span>
+    <span class='n'>draw</span><span class='o'>();</span>
+    <span class='err'>…</span>
+  <span class='o'>}</span>
+
+  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>isHidden</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+      <span class='err'>…</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>setLineWidth</span><span class='o'>(</span><span class='n'>defaultLineWidth</span><span class='o'>);</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The Board class has also the defaultLineWidth attribute that is used in drawing a border.</p>
+
+<p><strong>Code 06-07.15</strong>: The defaultLineWidth attribute of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>num</span> <span class='n'>defaultLineWidth</span><span class='o'>;</span>
+  
+  <span class='n'>Board</span><span class='o'>(</span><span class='n'>CanvasElement</span> <span class='n'>canvas</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='n'>defaultLineWidth</span> <span class='o'>=</span> <span class='n'>context</span><span class='o'>.</span><span class='na'>lineWidth</span><span class='o'>;</span>
+    <span class='n'>border</span><span class='o'>();</span>
+    <span class='err'>…</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The defaultLineWidth attribute is used in drawing the diagram border.</p>
+
+<p><strong>Code 06-07.16</strong>: The border has the default width.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>border</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='mi'>0</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>setLineWidth</span><span class='o'>(</span><span class='n'>defaultLineWidth</span><span class='o'>);</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
+    <span class='n'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>When deleting a box, if the box is one of the last two clicked boxes referenced by the lastBoxClicked attribute or the beforeLastBoxClicked attribute, the corresponding attribute must reference <strong>null</strong> instead of the deleted box. Otherwise, a new line may be created that is hanging in the air.</p>
+
+<p><strong>Code 06-07.17</strong>: Nullifying one of the last two clicked boxes.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteBox</span><span class='o'>(</span><span class='n'>Box</span> <span class='n'>boxToDelete</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span> <span class='o'>==</span> <span class='n'>boxToDelete</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='kt'>int</span> <span class='n'>index</span> <span class='o'>=</span> <span class='n'>boxes</span><span class='o'>.</span><span class='na'>indexOf</span><span class='o'>(</span><span class='n'>box</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>);</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>removeRange</span><span class='o'>(</span><span class='n'>index</span><span class='o'>,</span> <span class='mi'>1</span><span class='o'>);</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span> <span class='o'>==</span> <span class='n'>beforeLastBoxClicked</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>beforeLastBoxClicked</span> <span class='o'>==</span> <span class='kc'>null</span><span class='o'>;</span>
+        <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span> <span class='o'>==</span> <span class='n'>lastBoxClicked</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>lastBoxClicked</span> <span class='o'>==</span> <span class='kc'>null</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='k'>return</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The delete method of the Board class must delete all lines and boxes and the fixed tool should return to select.</p>
+
+<p><strong>Code 06-07.18</strong>: The delete method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>delete</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>deleteLines</span><span class='o'>();</span>
+    <span class='n'>deleteBoxes</span><span class='o'>();</span>
+    <span class='n'>toolBar</span><span class='o'>.</span><span class='na'>backToSelectAsFixedTool</span><span class='o'>();</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The private selectToolDblClicked attribute of the bool type is replaced by the private fixedTool attribute of the int type in the ToolBar class. This is done to resolve the problem of keeping the line tool active even without double-clicking on it. A tool may be on (active) after a click on it. Its active status determines the next action. However, after the action is done, the fixed tool becomes active. A tool becomes fixed after a double-click on it.</p>
+
+<p><strong>Code 06-07.19</strong>: The ToolBar class with private onTool and fixedTool attributes.</p>
+<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>ToolBar</span> <span class='o'>{</span> 
+  <span class='err'>…</span>
+  <span class='kt'>int</span> <span class='n'>_onTool</span><span class='o'>;</span>
+  <span class='kt'>int</span> <span class='n'>_fixedTool</span><span class='o'>;</span>
+  <span class='err'>…</span>
+  <span class='n'>ToolBar</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='err'>…</span>
+    <span class='n'>selectButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+      <span class='n'>_fixedTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    <span class='err'>…</span>
+    <span class='n'>boxButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>BOX</span><span class='o'>);</span>
+      <span class='n'>_fixedTool</span> <span class='o'>=</span> <span class='n'>BOX</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    <span class='err'>…</span>
+    <span class='n'>lineButton</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>dblClick</span><span class='o'>.</span><span class='na'>add</span><span class='o'>((</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>LINE</span><span class='o'>);</span>
+      <span class='n'>_fixedTool</span> <span class='o'>=</span> <span class='n'>LINE</span><span class='o'>;</span>
+    <span class='o'>});</span>
+    
+    <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+    <span class='n'>_fixedTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+  <span class='err'>…</span>
+  
+  <span class='kt'>void</span> <span class='nf'>backToFixedTool</span><span class='o'>()</span>  <span class='o'>{</span>
+      <span class='n'>onTool</span><span class='o'>(</span><span class='n'>_fixedTool</span><span class='o'>);</span>
+  <span class='o'>}</span>
+  
+  <span class='kt'>void</span> <span class='nf'>backToSelectAsFixedTool</span><span class='o'>()</span>  <span class='o'>{</span>
+    <span class='n'>onTool</span><span class='o'>(</span><span class='n'>SELECT</span><span class='o'>);</span>
+    <span class='n'>_fixedTool</span> <span class='o'>=</span> <span class='n'>SELECT</span><span class='o'>;</span>
+  <span class='o'>}</span>
+  
+<span class='o'>}</span>
+</code></pre>
+</div>
+<p>After a selection of boxes and lines is deleted, a diagram may be empty. In that case the fixed tool must return to select.</p>
+
+<p><strong>Code 06-07.20</strong>: When deleting a selection of all boxes and lines.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>deleteSelection</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='n'>deleteSelectedLines</span><span class='o'>();</span>
+    <span class='n'>deleteSelectedBoxes</span><span class='o'>();</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isEmpty</span><span class='o'>())</span> <span class='o'>{</span>
+      <span class='n'>toolBar</span><span class='o'>.</span><span class='na'>backToSelectAsFixedTool</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+  
+  <span class='n'>bool</span> <span class='nf'>isEmpty</span><span class='o'>()</span> <span class='o'>{</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>boxes</span><span class='o'>.</span><span class='na'>length</span> <span class='o'>==</span> <span class='mi'>0</span> <span class='o'>&amp;&amp;</span> <span class='n'>lines</span><span class='o'>.</span><span class='na'>length</span> <span class='o'>==</span> <span class='mi'>0</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>The private boxExists method of the Board class returns <strong>true</strong> if the given box is a member of the boxes attribute.</p>
+
+<p><strong>Code 06-07.21</strong>: The private boxExists method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='n'>bool</span> <span class='nf'>_boxExists</span><span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>b</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>b</span> <span class='o'>==</span> <span class='n'>box</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='k'>return</span> <span class='kc'>true</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    <span class='k'>return</span> <span class='kc'>false</span><span class='o'>;</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>This method is called in the onMouseDown method to check if the last two boxes clicked used in a new line creation do actually exist. After one of actions is done by the onMouseDown method, the fixed tool is back.</p>
+
+<p><strong>Code 06-07.22</strong>: The onMouseDown method of the Board class.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>bool</span> <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span> 
+    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+        <span class='c1'>// Clicked on the existing box.</span>
+        <span class='n'>clickedOnBox</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+        <span class='k'>break</span><span class='o'>;</span>
+      <span class='o'>}</span>
+    <span class='o'>}</span>
+    
+    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnBox</span><span class='o'>)</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isSelectToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='n'>Point</span> <span class='n'>clickedPoint</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Point</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>);</span>
+        <span class='n'>Line</span> <span class='n'>line</span> <span class='o'>=</span> <span class='n'>_lineContains</span><span class='o'>(</span><span class='n'>clickedPoint</span><span class='o'>);</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>line</span> <span class='o'>!=</span> <span class='kc'>null</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='c1'>// Select or deselect the existing line.</span>
+          <span class='n'>line</span><span class='o'>.</span><span class='na'>toggleSelection</span><span class='o'>();</span>
+        <span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
+          <span class='c1'>// Deselect all.</span>
+          <span class='n'>deselect</span><span class='o'>();</span>
+        <span class='o'>}</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isBoxToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='c1'>// Create a box in the position of the mouse click on the board.</span>
+        <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>,</span> 
+          <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_WIDTH</span><span class='o'>,</span> <span class='n'>Box</span><span class='o'>.</span><span class='na'>DEFAULT_HEIGHT</span><span class='o'>);</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>&gt;</span> <span class='n'>width</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>box</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>&gt;</span> <span class='n'>height</span><span class='o'>)</span> <span class='o'>{</span>
+          <span class='n'>box</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>=</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
+        <span class='o'>}</span>
+        <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
+      <span class='o'>}</span> <span class='k'>else</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>toolBar</span><span class='o'>.</span><span class='na'>isLineToolOn</span><span class='o'>())</span> <span class='o'>{</span>
+        <span class='c1'>// Create a line between the last two clicked boxes.</span>
+        <span class='k'>if</span> <span class='o'>(</span><span class='n'>beforeLastBoxClicked</span> <span class='o'>!=</span> <span class='kc'>null</span> <span class='o'>&amp;&amp;</span> <span class='n'>lastBoxClicked</span> <span class='o'>!=</span> <span class='kc'>null</span> <span class='o'>&amp;&amp;</span> 
+            <span class='n'>_boxExists</span><span class='o'>(</span><span class='n'>beforeLastBoxClicked</span><span class='o'>)</span> <span class='o'>&amp;&amp;</span> 
+            <span class='n'>_boxExists</span><span class='o'>(</span><span class='n'>lastBoxClicked</span><span class='o'>))</span> <span class='o'>{</span>  
+          <span class='n'>Line</span> <span class='n'>line</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Line</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>beforeLastBoxClicked</span><span class='o'>,</span> 
+            <span class='n'>lastBoxClicked</span><span class='o'>);</span>
+          <span class='n'>lines</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>line</span><span class='o'>);</span>
+        <span class='o'>}</span>
+      <span class='o'>}</span>
+      <span class='n'>toolBar</span><span class='o'>.</span><span class='na'>backToFixedTool</span><span class='o'>();</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+<p>In the onMouseDown method of the Box class, when a box is clicked on, before it becomes the last box clicked, the actual last box clicked first becomes the box clicked before the last one, but only if it is not <strong>null</strong> and if it is different from the current box.</p>
+
+<p><strong>Code 06-07.23</strong>: Updating the two last boxes clicked.</p>
+<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>e</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>board</span><span class='o'>.</span><span class='na'>toolBar</span><span class='o'>.</span><span class='na'>isSelectToolOn</span><span class='o'>()</span> <span class='o'>&amp;&amp;</span> 
+        <span class='n'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='n'>toggleSelection</span><span class='o'>();</span>
+    <span class='o'>}</span>
+    <span class='k'>if</span> <span class='o'>(</span><span class='n'>contains</span><span class='o'>(</span><span class='n'>e</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>e</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
+      <span class='k'>if</span> <span class='o'>(</span><span class='n'>board</span><span class='o'>.</span><span class='na'>lastBoxClicked</span> <span class='o'>!=</span> <span class='kc'>null</span> <span class='o'>&amp;&amp;</span> 
+          <span class='n'>board</span><span class='o'>.</span><span class='na'>lastBoxClicked</span> <span class='o'>!=</span> <span class='k'>this</span><span class='o'>)</span> <span class='o'>{</span>
+        <span class='n'>board</span><span class='o'>.</span><span class='na'>beforeLastBoxClicked</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>lastBoxClicked</span><span class='o'>;</span>
+      <span class='o'>}</span>
+      <span class='n'>board</span><span class='o'>.</span><span class='na'>lastBoxClicked</span> <span class='o'>=</span> <span class='k'>this</span><span class='o'>;</span>
+    <span class='o'>}</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+        <em>Posted on 21 February 2012</em>
     
         <h2><a href="/2012/02/15/from-s05-to-s06.html">From Spiral05 To Spiral06</a></h2>
         <p>The code for the MagicBoxes project is at <a href='https://github.com/dzenanr/MagicBoxes'>MagicBoxes on GitHub</a>. The code for the mb project is at <a href='https://github.com/dzenanr/mb'>mb on GitHub</a>. For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.</p>
@@ -1300,283 +2062,6 @@
 </div>
         <em>Posted on 10 February 2012</em>
     
-        <h2><a href="/2012/02/07/from-s03-to-s04.html">From Spiral03 To Spiral04</a></h2>
-        <p>The code for the MagicBoxes project is at <a href='https://github.com/dzenanr/MagicBoxes'>MagicBoxes on GitHub</a>. The code for the mb project is at <a href='https://github.com/dzenanr/mb'>mb on GitHub</a>. For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.</p>
-
-<p>In Spiral 03, a box may be created by clicking on an empty space in the board, selected and then moved. In Spiral 04, each box has a title and the same four items. A box title has an incremental number and its (x, y) coordinates within the board. A box is moved only if it is selected and if the mouse is pressed down.</p>
-
-<p>The first step towards Spiral 04 is to display a box title with an incremental number (Figure 03-04.01).</p>
-
-<p><img src='/img/s03s04/BoxesWithTitle.png' alt='Alt Figure 03-04.01: Boxes with title' /></p>
-
-<p><strong>Figure 03-04.01</strong>: Boxes with title.</p>
-
-<p>A box is divided into sections. A smaller section is dedicated to a box title. A box title consists of the Box word and the box number. The first box created has the number 1 in its title. For each new box, this number is incremented by 1.</p>
-
-<p>The title section height is determined by the TBH constant of 20 pixels. The title is displayed with the offset of 4 pixels. The font size is 12. The title number is obtained at the beginning of the constructor from the nextBoxNo property of the board.</p>
-
-<p><strong>Code 03-04.01</strong>: Box title preparations.</p>
-<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Box</span> <span class='o'>{</span>
-  
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>SSS</span> <span class='o'>=</span> <span class='mi'>6</span><span class='o'>;</span> <span class='c1'>// selection square size</span>
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>TBH</span> <span class='o'>=</span> <span class='mi'>20</span><span class='o'>;</span> <span class='c1'>// title section height</span>
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>TOS</span> <span class='o'>=</span> <span class='mi'>4</span><span class='o'>;</span> <span class='c1'>// text offset size</span>
-  
-  <span class='err'>…</span>
-  
-  <span class='n'>String</span> <span class='n'>textFontSize</span> <span class='o'>=</span> <span class='mi'>12</span><span class='o'>;</span>
-  <span class='n'>String</span> <span class='n'>title</span> <span class='o'>=</span> <span class='s'>&quot;Box&quot;</span><span class='o'>;</span>
-  <span class='kt'>int</span> <span class='n'>titleNo</span><span class='o'>;</span>
-  
-  <span class='err'>…</span>
-  
-  <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>.</span><span class='na'>board</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>x</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>y</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>width</span><span class='o'>,</span> <span class='k'>this</span><span class='o'>.</span><span class='na'>height</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='n'>titleNo</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>nextBoxNo</span><span class='o'>;</span>
-    <span class='n'>draw</span><span class='o'>();</span>
-    <span class='n'>document</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseDown</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseDown</span><span class='o'>);</span>
-    <span class='n'>document</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseUp</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseUp</span><span class='o'>);</span>
-    <span class='n'>document</span><span class='o'>.</span><span class='na'>on</span><span class='o'>.</span><span class='na'>mouseMove</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>onMouseMove</span><span class='o'>);</span>
-  <span class='o'>}</span>
-  <span class='err'>…</span>
-<span class='o'>}</span>
-</code></pre>
-</div>
-<p>There is no attribute with the nextBoxNo name in the Board class. However, there is a method with the nextBoxNo name and no parameters, with the <strong>get</strong> keyword in front of the method name. This method represents a derived property of the Board class that may be referenced as if it was an attribute of the class. The <strong>get</strong> keyword allows a retrieval of a value that is obtained from the length of the boxes attribute incremented by 1. Without the <strong>get</strong> keyword, we could not make a simple reference to board.nextBoxNo. Without the <strong>get</strong> keyword, the next box number could have been obtained by board.nextBoxNo().</p>
-
-<p><strong>Code 03-04.02</strong>: The nextBoxNo derived property of the Board class.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>int</span> <span class='n'>get</span> <span class='nf'>nextBoxNo</span><span class='o'>()</span> <span class='o'>{</span>
-    <span class='k'>return</span> <span class='n'>boxes</span><span class='o'>.</span><span class='na'>length</span> <span class='o'>+</span> <span class='mi'>1</span><span class='o'>;</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>After the rectangle of a box is prepared, the line that separates the title from the rest of the box is defined. First, the drawing cursor is moved to the beginning of a line position – the same x, but y is down for the TBH constant. Second, the lineTo method is led to the end of the line position. The font attribute specifies the font of the title. The textAlign attribute determines the horizontal alignment of the text. The textBaseline attribute specifies the vertical alignment of the title. The fillText method prepares the text to be drawn, together with everything else defined between the beginPath and closePath methods, by the stroke method. The fillText method accepts three arguments: the text to display, and the (x,y) coordinates to define where to render it. The fourth argument is optional. It is the maximum width of the text.</p>
-
-<p><strong>Code 03-04.03</strong>: The title section drawing.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>moveTo</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineTo</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>font</span> <span class='o'>=</span> <span class='s'>&quot;bold &quot;</span> <span class='o'>+</span> <span class='n'>textFontSize</span> <span class='o'>+</span> <span class='s'>&quot;px sans-serif&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>textAlign</span> <span class='o'>=</span> <span class='s'>&quot;start&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>textBaseline</span> <span class='o'>=</span> <span class='s'>&quot;top&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>title</span> <span class='o'>+</span> <span class='s'>&quot; &quot;</span> <span class='o'>+</span> <span class='n'>titleNo</span><span class='o'>,</span> 
-      <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-    <span class='o'>}</span> 
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>The property getter is shortened in the Board class from the previous version that is put under the /* … */ comment, so that the whole method becomes one liner. The expression after the =&gt; sign is evaluated and its result is returned to a caller of the method.</p>
-
-<p><strong>Code 03-04.04</strong>: The shorthand notation for methods.</p>
-<div class='highlight'><pre><code class='java'>  <span class='cm'>/*</span>
-<span class='cm'>  int get nextBoxNo() {</span>
-<span class='cm'>    return boxes.length + 1;</span>
-<span class='cm'>  }</span>
-<span class='cm'>  */</span> 
-  <span class='kt'>int</span> <span class='n'>get</span> <span class='nf'>nextBoxNo</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>boxes</span><span class='o'>.</span><span class='na'>length</span> <span class='o'>+</span> <span class='mi'>1</span><span class='o'>;</span>
-</code></pre>
-</div>
-<p>The size of a new box is changed from 60 by 100 to 100 by 100 pixels (Code 03-04.05), so that a new title with box coordinates may be displayed within the box (Figure 03-04.02).</p>
-
-<p><img src='/img/s03s04/BoxesWithCoordinates.png' alt='Alt Figure 03-04.02: Boxes with coordinates in title' /></p>
-
-<p><strong>Figure 03-04.02</strong>: Boxes with coordinates in title.</p>
-
-<p>If a new box is positioned outside the west and south borders of the board, the box is moved back to the board. This time, the updated x and y coordinates are smaller for 1 pixel in order to see the moved back box in full.</p>
-
-<p><strong>Code 03-04.05</strong>: Small changes in the onMouseDown method.</p>
-<div class='highlight'><pre><code class='java'>  <span class='c1'>// Create a box in the position of the mouse click on the board, </span>
-  <span class='c1'>// but not on an existing box.</span>
-  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='n'>Box</span> <span class='n'>box</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Box</span><span class='o'>(</span><span class='k'>this</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>,</span> <span class='mi'>100</span><span class='o'>,</span> <span class='mi'>100</span><span class='o'>);</span>
-    <span class='n'>bool</span> <span class='n'>clickedOnExistingBox</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
-    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='o'>{</span>
-        <span class='n'>clickedOnExistingBox</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
-        <span class='k'>break</span><span class='o'>;</span>
-      <span class='o'>}</span>
-    <span class='o'>}</span>
-    <span class='k'>if</span> <span class='o'>(!</span><span class='n'>clickedOnExistingBox</span><span class='o'>)</span> <span class='o'>{</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>&gt;</span> <span class='n'>width</span><span class='o'>)</span> 
-        <span class='n'>box</span><span class='o'>.</span><span class='na'>x</span> <span class='o'>=</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>+</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>&gt;</span> <span class='n'>height</span><span class='o'>)</span> 
-        <span class='n'>box</span><span class='o'>.</span><span class='na'>y</span> <span class='o'>=</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='n'>boxes</span><span class='o'>.</span><span class='na'>add</span><span class='o'>(</span><span class='n'>box</span><span class='o'>);</span>
-    <span class='o'>}</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>The selected attribute of the Box class has a new name. It is now _selected to indicate that it should not be used directly from outside of the Box class. The private _selected attribute is not initialized to the <strong>false</strong> value, since Boolean variables are by default <strong>false</strong>.</p>
-
-<p><strong>Code 03-04.06</strong>: The private attributes.</p>
-<div class='highlight'><pre><code class='java'>  <span class='c1'>// bool default is false.</span>
-  <span class='n'>bool</span> <span class='n'>_selected</span><span class='o'>;</span>
-  <span class='n'>bool</span> <span class='n'>_mouseDown</span><span class='o'>;</span>
-</code></pre>
-</div>
-<p>In addition, a new private attribute _mouseDown is defined to keep the mouse down state. A box may be moved only if it is selected and if the mouse is pressed down within the box and kept pressed down while moving the box.</p>
-
-<p><strong>Code 03-04.07</strong>: Mouse down state for moving a box.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseDown</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='k'>if</span> <span class='o'>(</span><span class='n'>contains</span><span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>))</span> <span class='n'>toggleSelection</span><span class='o'>();</span>
-    <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
-  <span class='o'>}</span>
-  
-  <span class='kt'>void</span> <span class='nf'>onMouseUp</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='n'>_mouseDown</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
-  <span class='o'>}</span>
-  
-  <span class='c1'>// Change a position of the box with mouse mouvements.</span>
-  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isSelected</span><span class='o'>()</span> <span class='o'>&amp;&amp;</span> <span class='n'>contains</span><span class='o'>(</span><span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>,</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>)</span> 
-      <span class='o'>&amp;&amp;</span> <span class='n'>_mouseDown</span><span class='o'>)</span> <span class='o'>{</span>
-      <span class='n'>x</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
-    <span class='o'>}</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>The selection methods from the previous spiral are now condensed into 4 lines of code.</p>
-
-<p><strong>Code 03-04.08</strong>: The shorthand notation for selection and string methods.</p>
-<div class='highlight'><pre><code class='java'>  <span class='n'>select</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='kc'>true</span><span class='o'>;</span>
-  <span class='n'>deselect</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='kc'>false</span><span class='o'>;</span>
-  <span class='n'>toggleSelection</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span> <span class='o'>=</span> <span class='o'>!</span><span class='n'>_selected</span><span class='o'>;</span>
-  <span class='n'>bool</span> <span class='nf'>isSelected</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='n'>_selected</span><span class='o'>;</span>
-  
-  <span class='n'>String</span> <span class='nf'>toString</span><span class='o'>()</span> <span class='o'>=&gt;</span> <span class='err'>&#39;</span><span class='n'>$title$titleNo</span> <span class='o'>(</span><span class='n'>$x</span><span class='o'>,</span> <span class='n'>$y</span><span class='o'>)</span><span class='err'>&#39;</span><span class='o'>;</span>
-</code></pre>
-</div>
-<p>Similarly, the toString method of the Box class returns the text by combining values of the four variables into a title, which is then used in the fillText method.</p>
-
-<p><strong>Code 03-04.09</strong>: The box title with coordinates.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>moveTo</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineTo</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>font</span> <span class='o'>=</span> <span class='s'>&quot;bold &quot;</span> <span class='o'>+</span> <span class='n'>textFontSize</span> <span class='o'>+</span> <span class='s'>&quot;px sans-serif&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>textAlign</span> <span class='o'>=</span> <span class='s'>&quot;start&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>textBaseline</span> <span class='o'>=</span> <span class='s'>&quot;top&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>toString</span><span class='o'>(),</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-    <span class='o'>}</span> 
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>The canvas size is increased to 800 by 600 pixels in the mb.html file. This increase allows for more boxes to be drawn on the board.</p>
-
-<p><strong>Code 03-04.10</strong>: The increased canvas size.</p>
-<div class='highlight'><pre><code class='html'>      <span class='nt'>&lt;canvas</span> <span class='na'>id=</span><span class='s'>&quot;canvas&quot;</span> <span class='na'>width=</span><span class='s'>&quot;800&quot;</span> <span class='na'>height=</span><span class='s'>&quot;600&quot;</span><span class='nt'>&gt;</span>
-        Canvas is not supported in your browser.
-      <span class='nt'>&lt;/canvas&gt;</span>
-</code></pre>
-</div>
-<p>In addition to a title with the sequential number and (x, y) coordinates, each new box has 4 items displayed in the second section of the box. Item names are, for the time being, the same in all boxes (Figure 03-04.03).</p>
-
-<p><img src='/img/s03s04/BoxesWithItems.png' alt='Alt Figure 03-04.03: Boxes with items' /></p>
-
-<p><strong>Figure 03-04.03</strong>: Boxes with items.</p>
-
-<p>The new item attribute is initialized to the “Item” value.</p>
-
-<p><strong>Code 03-04.11</strong>: Item preparations.</p>
-<div class='highlight'><pre><code class='java'><span class='kd'>class</span> <span class='nc'>Box</span> <span class='o'>{</span>
-  
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>SSS</span> <span class='o'>=</span> <span class='mi'>6</span><span class='o'>;</span> <span class='c1'>// selection square size</span>
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>TBH</span> <span class='o'>=</span> <span class='mi'>20</span><span class='o'>;</span> <span class='c1'>// title box height</span>
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>TOS</span> <span class='o'>=</span> <span class='mi'>4</span><span class='o'>;</span> <span class='c1'>// text offset size</span>
-  <span class='kd'>static</span> <span class='kd'>final</span> <span class='n'>IOS</span> <span class='o'>=</span> <span class='n'>TBH</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>;</span> <span class='c1'>// item offset size</span>
-  <span class='err'>…</span>
-  <span class='n'>String</span> <span class='n'>item</span> <span class='o'>=</span> <span class='s'>&quot;Item&quot;</span><span class='o'>;</span>
-</code></pre>
-</div>
-<p>The IOS constant is used to draw the four items properly.</p>
-
-<p><strong>Code 03-04.12</strong>: Item drawing.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>draw</span><span class='o'>()</span> <span class='o'>{</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>beginPath</span><span class='o'>();</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>height</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>moveTo</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>lineTo</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>font</span> <span class='o'>=</span> <span class='s'>&quot;bold &quot;</span> <span class='o'>+</span> <span class='n'>textFontSize</span> <span class='o'>+</span> <span class='s'>&quot;px sans-serif&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>textAlign</span> <span class='o'>=</span> <span class='s'>&quot;start&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>textBaseline</span> <span class='o'>=</span> <span class='s'>&quot;top&quot;</span><span class='o'>;</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>toString</span><span class='o'>(),</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>item</span> <span class='o'>+</span> <span class='mi'>1</span><span class='o'>,</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span> <span class='o'>+</span> <span class='n'>TBH</span><span class='o'>,</span> 
-      <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>item</span> <span class='o'>+</span> <span class='mi'>2</span><span class='o'>,</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span> <span class='o'>+</span> <span class='n'>TBH</span> <span class='o'>+</span> <span class='n'>IOS</span><span class='o'>,</span> 
-      <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>item</span> <span class='o'>+</span> <span class='mi'>3</span><span class='o'>,</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span> <span class='o'>+</span> <span class='n'>TBH</span> <span class='o'>+</span> <span class='mi'>2</span> <span class='o'>*</span> <span class='n'>IOS</span><span class='o'>,</span>
-      <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>fillText</span><span class='o'>(</span><span class='n'>item</span> <span class='o'>+</span> <span class='mi'>4</span><span class='o'>,</span> <span class='n'>x</span> <span class='o'>+</span> <span class='n'>TOS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>TOS</span> <span class='o'>+</span> <span class='n'>TBH</span> <span class='o'>+</span> <span class='mi'>3</span> <span class='o'>*</span> <span class='n'>IOS</span><span class='o'>,</span> 
-      <span class='n'>width</span> <span class='o'>-</span> <span class='n'>TOS</span><span class='o'>);</span>
-    <span class='k'>if</span> <span class='o'>(</span><span class='n'>isSelected</span><span class='o'>())</span> <span class='o'>{</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>y</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span> <span class='o'>+</span> <span class='n'>width</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-      <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>rect</span><span class='o'>(</span><span class='n'>x</span><span class='o'>,</span> <span class='n'>y</span> <span class='o'>+</span> <span class='n'>height</span> <span class='o'>-</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>,</span> <span class='n'>SSS</span><span class='o'>);</span>
-    <span class='o'>}</span> 
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>closePath</span><span class='o'>();</span>
-    <span class='n'>board</span><span class='o'>.</span><span class='na'>context</span><span class='o'>.</span><span class='na'>stroke</span><span class='o'>();</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>When a selected box is moved over another selected box, its movement is stopped to prevent the moving box to become a monster. This is accomplished by using the countSelectedBoxesThatContain method (Code 03-04.13) of the Board class in the onMouseMove method (Code 03-04.14) of the Box class.</p>
-
-<p><strong>Code 03-04.13</strong>: Counting selected boxes.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>int</span> <span class='nf'>countSelectedBoxesThatContain</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>px</span><span class='o'>,</span> <span class='kt'>int</span> <span class='n'>py</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='kt'>int</span> <span class='n'>count</span> <span class='o'>=</span> <span class='mi'>0</span><span class='o'>;</span>
-    <span class='k'>for</span> <span class='o'>(</span><span class='n'>Box</span> <span class='n'>box</span> <span class='n'>in</span> <span class='n'>boxes</span><span class='o'>)</span> <span class='o'>{</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>box</span><span class='o'>.</span><span class='na'>isSelected</span><span class='o'>()</span> <span class='o'>&amp;&amp;</span> <span class='n'>box</span><span class='o'>.</span><span class='na'>contains</span><span class='o'>(</span><span class='n'>px</span><span class='o'>,</span> <span class='n'>py</span><span class='o'>))</span> <span class='n'>count</span><span class='o'>++;</span>
-    <span class='o'>}</span>
-    <span class='k'>return</span> <span class='n'>count</span><span class='o'>;</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>The countSelectedBoxesThatContain method counts the number of selected boxes that contain a given point. This point becomes the event offset in the onMouseMove method. If there is no other selected box that contains the same point, the current box is moved freely.</p>
-
-<p><strong>Code 03-04.14</strong>: Selected boxes counted.</p>
-<div class='highlight'><pre><code class='java'>  <span class='kt'>void</span> <span class='nf'>onMouseMove</span><span class='o'>(</span><span class='n'>MouseEvent</span> <span class='n'>event</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='kt'>int</span> <span class='n'>ex</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetX</span><span class='o'>;</span> 
-    <span class='kt'>int</span> <span class='n'>ey</span> <span class='o'>=</span> <span class='n'>event</span><span class='o'>.</span><span class='na'>offsetY</span><span class='o'>;</span>
-    <span class='k'>if</span> <span class='o'>(</span><span class='n'>contains</span><span class='o'>(</span><span class='n'>ex</span><span class='o'>,</span> <span class='n'>ey</span><span class='o'>)</span> <span class='o'>&amp;&amp;</span> <span class='n'>isSelected</span><span class='o'>()</span> <span class='o'>&amp;&amp;</span> <span class='n'>_mouseDown</span> 
-        <span class='o'>&amp;&amp;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>countSelectedBoxesThatContain</span><span class='o'>(</span><span class='n'>ex</span><span class='o'>,</span> <span class='n'>ey</span><span class='o'>)</span> <span class='o'>&lt;</span> <span class='mi'>2</span><span class='o'>)</span> <span class='o'>{</span>
-      <span class='n'>x</span> <span class='o'>=</span>  <span class='n'>ex</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>x</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span><span class='o'>)</span> <span class='n'>x</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>width</span> <span class='o'>-</span> <span class='n'>width</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='n'>y</span> <span class='o'>=</span> <span class='n'>ey</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&lt;</span> <span class='mi'>0</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='mi'>1</span><span class='o'>;</span>
-      <span class='k'>if</span> <span class='o'>(</span><span class='n'>y</span> <span class='o'>&gt;</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span><span class='o'>)</span> <span class='n'>y</span> <span class='o'>=</span> <span class='n'>board</span><span class='o'>.</span><span class='na'>height</span> <span class='o'>-</span> <span class='n'>height</span> <span class='o'>-</span> <span class='mi'>1</span><span class='o'>;</span>
-    <span class='o'>}</span>
-  <span class='o'>}</span>
-</code></pre>
-</div>
-<p>However, if there is another selected box that contains the same mouse event point, the current box cannot move over the other box in order to prevent that the two boxes overlap each other and move together as one (Figure 03-04.04).</p>
-
-<p><img src='/img/s03s04/TwoSelectedBoxes.png' alt='Alt Figure 03-04.04: Two selected boxes cannot overlap each other' /></p>
-
-<p><strong>Figure 03-04.04</strong>: Two selected boxes cannot overlap each other.</p>
-        <em>Posted on 07 February 2012</em>
-    
 </section>
 
 <section>
@@ -1584,6 +2069,9 @@
         <h2>All Posts</h2>
         <!-- -->
     </header>  
+    
+        <h2><a href="/2012/02/21/from-s06-to-s07.html">From Spiral06 To Spiral07</a></h2>
+        <em>Posted on 21 February 2012</em>
     
         <h2><a href="/2012/02/15/from-s05-to-s06.html">From Spiral05 To Spiral06</a></h2>
         <em>Posted on 15 February 2012</em>

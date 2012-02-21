@@ -17,6 +17,22 @@
   </image>
 
   <item>
+    <title>From Spiral06 To Spiral07</title>
+    <link>http://dzenanr.github.com/2012/02/21/from-s06-to-s07.html</link>
+    <guid>http://dzenanr.github.com/2012/02/21/from-s06-to-s07.html</guid>
+    <description>
+      In Spiral 06, a line tool in the tool bar, allows a line creation between the last two clicked boxes. 
+      In Spiral 07, a line may be selected and deleted. 
+      A menu bar has Edit, View and Create menus. 
+      The Edit menu has menu items for selecting all boxes and lines, and for deleting selected boxes and lines. 
+      The View menu has menu items for hiding and showing selected boxes and lines. 
+      The Create menu has menu items for generating boxes in a diagonal and as tiles.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Tue, 21 Feb 2012 13:52:00 +0100</pubDate>
+  </item>
+
+  <item>
     <title>From Spiral05 To Spiral06</title>
     <link>http://dzenanr.github.com/2012/02/15/from-s05-to-s06.html</link>
     <guid>http://dzenanr.github.com/2012/02/15/from-s05-to-s06.html</guid>
