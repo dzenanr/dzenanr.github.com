@@ -8,7 +8,7 @@ Code
 
 The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
-The use of the script element in the MagicBoxes.html file of Spiral 12 has changed from
+The use of the script element in the MagicBoxes.html file has changed from
 
 {% highlight html %}
 
@@ -29,7 +29,7 @@ to
 
 This change requires the Internet access when you run code in the Dart Editor.
 
-If you use Spirals 00 … 11 locally, checkout branches s00a … s11a (for s11a: git checkout s11a), where changes have been made.
+If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
 
 Overview
 --------
