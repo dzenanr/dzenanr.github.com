@@ -21,20 +21,15 @@ to
 {% highlight html %}
 
 <script type="application/dart" src="MagicBoxes.dart"></script>
-<script       src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
+<script
+  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
 </script>
 
 {% endhighlight %}
 
 This change requires the Internet access when you run code in the Dart Editor.
 
-If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
-
-{% highlight git %}
-
-git checkout s11a
-
-{% endhighlight %}
+If you use Spirals 00 … 11 locally, checkout branches s00a … s11a (for s11a: git checkout s11a), where changes have been made.
 
 Overview
 --------
