@@ -22,6 +22,10 @@
     <guid>http://dzenanr.github.com/2012/02/29/from-s08-to-s09.html</guid>
     <description>
       In Spiral 08, for the last selected box, its title may be changed and an item may be added.
+      In Spiral 09, line min..max cardinalities may be changed by getting the selected line with 
+      a click on the Get button in the tool bar, making changes and setting them with a click on the Set button. 
+      Line direction names may be added. 
+      A line direction with 1..1 cardinalities may become a part of the identifier of the source concept.
     </description>
     <author>Dzenan Ridjanovic</author>
     <pubDate>Wed, 29 Feb 2012 13:55:00 +0100</pubDate>
