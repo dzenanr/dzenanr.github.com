@@ -1,0 +1,846 @@
+---
+layout: default
+title: From Spiral08 To Spiral09
+---
+
+Code
+----
+
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+
+The use of the script element in the MagicBoxes.html file has changed from
+
+{% highlight html %}
+
+<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
+
+{% endhighlight %}
+
+to
+
+{% highlight html %}
+
+<script type="application/dart" src="MagicBoxes.dart"></script>
+<script
+  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
+</script>
+
+{% endhighlight %}
+
+This change requires the Internet access when you run code in the Dart Editor.
+
+If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
+
+Overview
+--------
+
+In Spiral 08, for the last selected box, its title may be changed and an item may be added.
+
+In Spiral 09, line min..max cardinalities may be changed by getting the selected line with a click on the Get button in the tool bar, making changes and setting them with a click on the Set button. Line direction names may be added. A line direction with 1..1 cardinalities may become a part of the identifier of the source concept.
+
+Box sizes may be changed by using the View menu. There are menu items for increasing or decreasing the height, the width and the size of selected boxes.
+
+Even a meta model, as one in Figure 08-09.01, may be designed with this spiral. The meta model represents what the MagicBoxes project tries to accomplish at the data level. Within a domain, there may be multiple models. A model may have several concepts. A concept consists of properties and neighbors. A concept may have several graphical representations (boxes), usually only one. A box may not be related to a concept (the minimum cardinality of zero from Box to Concept). The relationship direction from Concept to Box is named views. A property may have a type, which is a part of the parent domain.
+
+![Alt Figure 08-09.01: Meta model](/img/s08s09/MetaModel.png)
+
+**Figure 08-09.01**: Meta model.
+
+In a many-to-many relationship (Figure 08-09.02), between the Course and Student concepts, the third concept is introduced. The Enrollment concept breaks the many-to-many relationship into two one-to-many relationships with named directions. The (user oriented) identifier of the Enrollment concept consists of the two neighbor concepts. All these changes are done by selecting a relationship, getting it in the tool bar, making changes and then setting the relationship.
+
+![Alt Figure 08-09.02: A many-to-many relationship](/img/s08s09/ManyToMany.png)
+
+**Figure 08-09.02**: A many-to-many relationship.
+
+Steps
+-----
+
+The menu bar has six new button elements.
+
+**Code 08-09.01**: View menu items.
+
+{% highlight java %}
+
+class MenuBar {
+  …
+  // View
+  ButtonElement increaseSelectionHeightButton;
+  ButtonElement decreaseSelectionHeightButton;
+  ButtonElement increaseSelectionWidthButton;
+  ButtonElement decreaseSelectionWidthButton;
+  ButtonElement increaseSelectionSizeButton;
+  ButtonElement decreaseSelectionSizeButton;
+
+{% endhighlight %}
+
+In the constructor of the MenuBar class, the button elements are initialized by the query method of the document representing the Web page. In addition, their click events are defined by unnamed methods. The reactions to clicks on the buttons are handled by methods in the Board class.
+
+**Code 08-09.02**: Reactions to click events of the View menu items.
+
+{% highlight java %}
+
+  MenuBar(this.board) {
+    …
+    increaseSelectionHeightButton = 
+      document.query('#increase-selection-height');
+    decreaseSelectionHeightButton = 
+      document.query('#decrease-selection-height');
+    increaseSelectionWidthButton = 
+      document.query('#increase-selection-width');
+    decreaseSelectionWidthButton = 
+      document.query('#decrease-selection-width');
+    increaseSelectionSizeButton = 
+      document.query('#increase-selection-size');
+    decreaseSelectionSizeButton = 
+      document.query('#decrease-selection-size');
+    …
+    // Menu bar events.
+    …
+    increaseSelectionHeightButton.on.click.add((MouseEvent e) {
+      board.increaseHeightOfSelectedBoxes();
+    });
+    decreaseSelectionHeightButton.on.click.add((MouseEvent e) {
+      board.decreaseHeightOfSelectedBoxes();
+    });
+    increaseSelectionWidthButton.on.click.add((MouseEvent e) {
+      board.increaseWidthOfSelectedBoxes();
+    });
+    decreaseSelectionWidthButton.on.click.add((MouseEvent e) {
+      board.decreaseWidthOfSelectedBoxes();
+    });
+    increaseSelectionSizeButton.on.click.add((MouseEvent e) {
+      board.increaseSizeOfSelectedBoxes();
+    });
+    decreaseSelectionSizeButton.on.click.add((MouseEvent e) {
+      board.decreaseSizeOfSelectedBoxes();
+    });
+    …
+  }
+
+{% endhighlight %}
+
+Those methods change the size of selected boxes.
+
+**Code 08-09.03**: Change size methods of the Board class.
+
+{% highlight java %}
+
+  void increaseHeightOfSelectedBoxes() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        box.height = box.height + Box.DEFAULT_INCREMENT;
+      }
+    }
+  }
+  
+  void decreaseHeightOfSelectedBoxes() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        box.height = box.height - Box.DEFAULT_INCREMENT;
+      }
+    }
+  }
+  
+  void increaseWidthOfSelectedBoxes() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        box.width = box.width + Box.DEFAULT_INCREMENT;
+      }
+    }
+  }
+  
+  void decreaseWidthOfSelectedBoxes() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        box.width = box.width - Box.DEFAULT_INCREMENT;
+      }
+    }
+  }
+  
+  void increaseSizeOfSelectedBoxes() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        box.height = box.height + Box.DEFAULT_INCREMENT;
+        box.width = box.width + Box.DEFAULT_INCREMENT;
+      }
+    }
+  }
+  
+  void decreaseSizeOfSelectedBoxes() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        box.height = box.height - Box.DEFAULT_INCREMENT;
+        box.width = box.width - Box.DEFAULT_INCREMENT;
+      }
+    }
+  }
+
+{% endhighlight %}
+
+The incremental change in the size of boxes is defined by the constant in the Box class.
+
+**Code 08-09.04**: The box size change constant.
+
+{% highlight java %}
+
+class Box {
+  …
+  static final int DEFAULT_INCREMENT = 20;
+
+{% endhighlight %}
+
+The button elements with their corresponding ids are added to the View menu of the Web page.
+
+**Code 08-09.05**: Menu item buttons in HTML.
+
+{% highlight html %}
+
+       <li>View
+         <ul>
+           <li>
+             <button id="increase-selection-height">
+               + Selection height
+             </button>
+           </li>
+           <li>
+             <button id="decrease-selection-height">
+               - Selection height
+             </button>
+           </li>
+           <li>
+             <button id="increase-selection-width">
+               + Selection width
+             </button>
+           </li>
+           <li>
+             <button id="decrease-selection-width">
+               - Selection width
+             </button>
+           </li>
+           <li><button id="increase-selection-size">
+             + Selection size
+           </button>
+           </li>
+           <li>
+             <button id="decrease-selection-size">
+               - Selection size
+             </button>
+           </li>
+
+{% endhighlight %}
+
+The Figure 08-09.03 shows three boxes with different sizes.
+
+![Alt Figure 08-09.03: Boxes with different sizes](/img/s08s09/BoxSizes.png)
+
+**Figure 08-09.03**: Boxes with different sizes.
+
+There is a small change in the Board class to introduce the canvas attribute and its initialization by the constructor parameter with the same name.
+
+**Code 08-09.06**: The canvas attribute.
+
+{% highlight java %}
+
+class Board {
+  …
+  CanvasElement canvas;
+  …
+  Board(this.canvas) {
+
+{% endhighlight %}
+
+The most recently selected line is kept in the corresponding attribute of the Board class.
+
+**Code 08-09.07**: Last line selected attribute.
+
+{% highlight java %}
+
+class Board {
+  …
+  Line lastLineSelected;
+
+{% endhighlight %}
+
+There are new attributes in the Line class for direction names and ids.
+
+**Code 08-09.08**: Line direction names and ids.
+
+{% highlight java %}
+
+class Line {
+  …
+  String box1box2Name; // name from box1 to box2
+  String box1box2Min; // min cardinality from box1 to box2
+  String box1box2Max; // max cardinality from box1 to box2
+  bool box1box2Id; // id from box1 to box2 
+  
+  String box2box1Name; // name from box2 to box1
+  String box2box1Min; // min cardinality from box2 to box1
+  String box2box1Max; // max cardinality from box2 to box1
+  bool box2box1Id; // id from box2 to box1
+
+{% endhighlight %}
+
+The new attributes are initialized in the constructor.
+
+**Code 08-09.09**: Default values for the line directions.
+
+{% highlight java %}
+
+Line(this.board, this.box1, this.box2) {
+    box1box2Name = '';
+    box1box2Min = '0';
+    box1box2Max = 'N';
+    box1box2Id = false;
+    box2box1Name = '';
+    box2box1Min = '1';
+    box2box1Max = '1';
+    box2box1Id = false;
+    draw();
+    defaultLineWidth = board.context.lineWidth;
+  }
+
+{% endhighlight %}
+
+In addition to min..max cardinalities, the line direction names and ids are displayed by the draw method of the Line class. 
+
+**Code 08-09.10**: Drawing line directions.
+
+{% highlight java %}
+
+void draw() {
+    if (!isHidden()) {
+      board.context.beginPath();
+      board.context.moveTo(box1.x + box1.width / 2, box1.y + box1.height / 2);
+      board.context.lineTo(box2.x + box2.width / 2, box2.y + box2.height / 2);
+      if (isSelected()) {
+        board.context.setLineWidth(defaultLineWidth + 2);
+      } else {
+        board.context.setLineWidth(defaultLineWidth);
+      }
+      Point box1box2MinMaxPoint = 
+        calculateMinMaxPointCloseToBeginBox(box1, box2);
+      Point box2box1MinMaxPoint = 
+        calculateMinMaxPointCloseToBeginBox(box2, box1);
+      Point box1box2NamePoint = calculateNamePointCloseToBeginBox(box1, box2);
+      Point box2box1NamePoint = calculateNamePointCloseToBeginBox(box2, box1);
+      String box1box2MinMax = box1box2Min + '..' + box1box2Max;
+      String box2box1MinMax = box2box1Min + '..' + box2box1Max;
+      if (box1box2Id) {
+        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+      } else if (box1box2Min != '0') {
+        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+      } else {
+        board.context.font = '' + textFontSize + 'px sans-serif';
+      }
+      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, 
+        box1box2MinMaxPoint.y);
+      board.context.fillText(box1box2Name, box1box2NamePoint.x, 
+        box1box2NamePoint.y);
+      if (box2box1Id) {
+        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+      } else if (box2box1Min != '0') {
+        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+      } else {
+        board.context.font = '' + textFontSize + 'px sans-serif';
+      }
+      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, 
+        box2box1MinMaxPoint.y);
+      board.context.fillText(box2box1Name, box2box1NamePoint.x, 
+        box2box1NamePoint.y);
+      board.context.closePath();
+      board.context.stroke();
+    }
+  }
+
+{% endhighlight %}
+
+The selection methods of the Line class handle the lastLineSelected attribute of the Board class.
+
+**Code 08-09.11**: The last line selected.
+
+{% highlight java %}
+
+  void select() {
+    _selected = true;
+    board.lastLineSelected = this;
+  }
+  
+  void deselect() {
+    _selected = false;
+    board.lastLineSelected = null;
+  }
+  
+  void toggleSelection() { 
+    _selected = !_selected;
+    if (_selected) {
+      board.lastLineSelected = this;
+    } else {
+      board.lastLineSelected = null;
+    }
+  }
+
+{% endhighlight %}
+
+A line direction name is placed close to its line and the begin box. This location is determined by the calculateNamePointCloseToBeginBox method of the Line class. 
+
+**Code 08-09.12**: Location for a line direction name.
+
+{% highlight java %}
+
+  Point calculateNamePointCloseToBeginBox(Box beginBox, Box endBox) {
+    int x = 0;
+    int y = 0;
+    
+    Point lineBeginPoint = beginBox.center();
+    Point lineEndPoint = endBox.center();
+    Point beginPoint = beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
+    Point endPoint = endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
+    
+    int x1 = beginPoint.x;
+    int y1 = beginPoint.y;
+    int x2 = endPoint.x;
+    int y2 = endPoint.y;
+    
+    if (x1 <= x2) {
+      x = x1 + 3 * ((x2 - x1) / 8);
+      if (y1 <= y2) {
+          y = y1 + 3 * ((y2 - y1) / 8);
+      } else {
+          y = y2 + 5 * ((y1 - y2) / 8);
+      }
+    } else {
+      x = x2 + 5 * ((x1 - x2) / 8);
+      if (y1 <= y2) {
+          y = y1 + 3 * ((y2 - y1) / 8);
+      } else {
+          y = y2 + 5 * ((y1 - y2) / 8);
+      }
+    }
+    return new Point(x, y);
+  }
+
+{% endhighlight %}
+
+The line direction elements are declared as attributes in the ToolBar class.
+
+**Code 08-09.13**: Line direction elements as attributes.
+
+{% highlight java %}
+
+class ToolBar {
+  …
+  LabelElement line12Box1Label;
+  LabelElement line12Box2Label;
+  InputElement line12MinInput;
+  InputElement line12MaxInput;
+  InputElement line12IdCheckbox;
+  InputElement line12NameInput;
+  
+  LabelElement line21Box2Label;
+  LabelElement line21Box1Label;
+  InputElement line21MinInput;
+  InputElement line21MaxInput;
+  InputElement line21IdCheckbox;
+  InputElement line21NameInput;
+  
+  ButtonElement getLineButton;
+  ButtonElement setLineButton;
+
+{% endhighlight %}
+
+The line direction attributes are initialized in the constructor of the ToolBar class.
+
+**Code 08-09.14**: Initialization of the line direction attributes.
+
+{% highlight java %}
+
+    line12Box1Label = document.query('#line12Box1');
+    line12Box2Label = document.query('#line12Box2');
+    line12MinInput = document.query('#line12Min');
+    line12MaxInput = document.query('#line12Max');
+    line12IdCheckbox = document.query('#line12Id');
+    line12NameInput = document.query('#line12Name');
+    
+    line21Box2Label = document.query('#line21Box2');
+    line21Box1Label = document.query('#line21Box1');
+    line21MinInput = document.query('#line21Min');
+    line21MaxInput = document.query('#line21Max');
+    line21IdCheckbox = document.query('#line21Id');
+    line21NameInput = document.query('#line21Name');
+
+{% endhighlight %}
+
+The get line button element reacts in the constructor of the ToolBar class to the click event by obtaining the last selected line.
+
+**Code 08-09.15**: Getting the last selected line.
+
+{% highlight java %}
+
+    getLineButton = document.query('#getLine');
+    getLineButton.on.click.add((MouseEvent e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        line12Box1Label.text = line.box1.title;
+        line12Box2Label.text = line.box2.title;
+        line12MinInput.value = line.box1box2Min;
+        line12MaxInput.value = line.box1box2Max;
+        line12IdCheckbox.checked = line.box1box2Id;
+        line12NameInput.value = line.box1box2Name;
+        
+        line21Box2Label.text = line.box2.title;
+        line21Box1Label.text = line.box1.title;
+        line21MinInput.value = line.box2box1Min;
+        line21MaxInput.value = line.box2box1Max;
+        line21IdCheckbox.checked = line.box2box1Id;
+        line21NameInput.value = line.box2box1Name;
+      }
+    });
+
+{% endhighlight %}
+
+The set line button element reacts in the constructor of the ToolBar class to the click event by accepting changes of the last selected line.
+
+**Code 08-09.16**: Accepting changes of the last selected line.
+
+{% highlight java %}
+
+    setLineButton = document.query('#setLine');
+    setLineButton.on.click.add((MouseEvent e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        line.box1box2Min = line12MinInput.value.trim();
+        line.box1box2Max = line12MaxInput.value.trim();
+        if (line.box1box2Min == '1' && line.box1box2Max == '1') {
+          line.box1box2Id = line12IdCheckbox.checked;
+        } else {
+          line12IdCheckbox.checked = false;
+          line.box1box2Id = false;
+        }
+        line.box1box2Name = line12NameInput.value.trim();
+        
+        line.box2box1Min = line21MinInput.value.trim();
+        line.box2box1Max = line21MaxInput.value.trim();
+        if (line.box2box1Min == '1' && line.box2box1Max == '1') {
+          line.box2box1Id = line21IdCheckbox.checked;
+        } else {
+          line21IdCheckbox.checked = false;
+          line.box2box1Id = false;
+        }  
+        line.box2box1Name = line21NameInput.value.trim();
+      }
+    });
+
+{% endhighlight %}
+
+The line elements have their HTML representation in the mb.html file.
+
+**Code 08-09.17**: Tool bar section with line elements.
+
+{% highlight html %}
+
+    <section> 
+      <canvas id="canvas" width="990" height="560">
+        Canvas is not supported in your browser.
+      </canvas>
+      <footer>
+        …
+        <br/><br/>       
+        <label id="line12Box1">Box1</label> ->
+        <label id="line12Box2">Box2</label>
+        <input type="text" id="line12Min" size="1"/> ..
+        <input type="text" id="line12Max" size="1"/>
+        <label for="line12Id">Id</label>
+        <input type="checkbox" id="line12Id"/>
+        <label for="line12Name">Name</label>
+        <input type="text" id="line12Name"/> |
+        <button id="getLine">Get</button>
+        <br/>
+        <label id="line21Box2">Box2</label> ->
+        <label id="line21Box1">Box1</label>
+        <input type="text" id="line21Min" size="1"/> ..
+        <input type="text" id="line21Max" size="1"/>
+        <label for="line21Id">Id</label>
+        <input type="checkbox" id="line21Id"/>
+        <label for="line21Name">Name</label>
+        <input type="text" id="line21Name"/> |   
+        <button id="setLine">Set</button>
+      </footer>
+      …
+    </section>
+
+{% endhighlight %}
+
+In the page.css file, the width property of the body selector is updated to 1000 pixels.
+
+**Code 08-09.18**: Width of 1000 pixels.
+
+{% highlight css %}
+
+  body {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 16px;
+    background: #d9ece2;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:10px; 
+  }
+
+{% endhighlight %}
+
+The new width provides a better display of the tool bar in Figure 08-09.04. The figure shows the Order Items model.
+
+![Alt Figure 08-09.04: Order items model](/img/s08s09/Orders.png)
+
+**Figure 08-09.04**: Order items model.
+
+In the Board class, the saveAsPng method finds the model image element in the document and converts the canvas object to the PNG  image.
+
+**Code 08-09.19**: Saving a model as a png image element.
+
+{% highlight java %}
+
+  void saveAsPng() {
+    ImageElement modelImage = document.query('#modelImage');
+    modelImage.src = canvas.toDataURL("image/png");
+  }
+
+{% endhighlight %}
+
+The image object is represented in HTML as the img element. The modelImage id is used to connect the image object in Dart with the image element in HTML.
+
+**Code 08-09.20**: Model displayed as an image in the Your Model section of the Web page.
+
+{% highlight html %}
+
+    <section>
+      <header>
+        <h3>Your Model</h3>
+      </header>
+      <p>
+        In the File menu, save your model as a .png image:
+      </p>
+      <img alt="Your model saved as .png." id="modelImage"/>
+      <p>
+        You may save the model image as the model.png file in the mb/img directory.
+      </p>
+    </section>
+
+{% endhighlight %}
+
+The button element attribute is used in the MenuBar class to provide a way for a user to save a model as a PNG image.
+
+**Code 08-09.21**: File menu item as the button element attribute.
+
+{% highlight java %}
+
+class MenuBar {
+  …
+  // File
+  ButtonElement saveAsPngButton;
+
+{% endhighlight %}
+
+The button element attribute is initialized in the constructor of the MenuBar class.
+
+**Code 08-09.22**: Initializing the save as button.
+
+{% highlight java %}
+
+  MenuBar(this.board) {
+    saveAsPngButton = document.query('#save-as-png');
+
+{% endhighlight %}
+
+After the initialization of the button element attribute, the click event is defined.
+
+**Code 08-09.23**: Reacting to the button click.
+
+{% highlight java %}
+
+    saveAsPngButton.on.click.add((MouseEvent e) {
+      board.saveAsPng();
+    });
+
+{% endhighlight %}
+
+A model may be saved as an image file by using the File menu. The model appears first within the Web page (Figure 08-09.05) where it can be saved by using the right button of the mouse.
+
+![Alt Figure 08-09.05: Place where a model will appear after the save](/img/s08s09/PlaceForModel.png)
+
+**Figure 08-09.05**: Place where a model will appear after the save.
+
+In the mb.html file, the button element is added as the File menu item.
+
+**Code 08-09.24**: File menu item.
+
+{% highlight html %}
+
+       <li>File
+         <ul>
+           <li>
+             <button id="save-as-png">
+               Save as .png
+             </button>
+           </li>
+         </ul>   
+       </li>
+
+{% endhighlight %}
+
+There is also the About menu that is defined only in HTML. The About menu was introduced in one of the earlier spirals.
+
+**Code 08-09.25**: About menu.
+
+{% highlight html %}
+
+       <li>About 
+         <ul>
+           <li>Magic Boxes in <a href="http://www.dart.org/">Dart</a></li>
+           <li>Spiral 09</li>
+           <li>2012-01-02</li>
+           <li>Dzenan Ridjanovic</li>
+           <li><img src="img/ondart0.png"/></li>
+         </ul>   
+       </li>
+
+{% endhighlight %}
+
+There are changes related to box items in the ToolBar class that should have been reported earlier. After an item of the last selected box is obtained based on its entered name, a value of the item option element is updated to a category of the item.
+
+**Code 08-09.26**: Getting the item.
+
+{% highlight java %}
+
+    getItemButton = document.query('#getItem');
+    getItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        Item item = box.findItem(itemNameInput.value);
+        if (item != null) {
+          currentItem = item;
+          itemNameInput.value = item.name;
+          itemOption.value = item.category;
+          itemNameInput.select();
+        } else {
+          currentItem = null;
+        }
+      }
+    });
+
+{% endhighlight %}
+
+After changing the item of the last selected box, the category of the current item is updated.
+
+**Code 08-09.27**: Setting the item.
+
+{% highlight java %}
+
+    setItemButton = document.query('#setItem');
+    setItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          currentItem.name = itemNameInput.value;
+          currentItem.category = itemOption.value;
+          itemNameInput.select();
+        }
+      }
+    });
+
+{% endhighlight %}
+
+After removing the item of the last selected box, the value of the item option comes back to the attribute default value.
+
+**Code 08-09.28**: Removing the item.
+
+{% highlight java %}
+
+    removeItemButton = document.query('#removeItem');
+    removeItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          if (box.removeItem(currentItem)) {
+            currentItem = null;
+            itemNameInput.value = '';
+            itemOption.value = 'attribute';
+          }
+        }
+      }
+    });
+
+{% endhighlight %}
+
+In the Box class of Spiral 09, there are warnings in the getIntersectionPoint method: local variables x and y hide the x and y fields (attributes).
+
+**Code 08-09.29**: Local variables x and y have the same names as the x and y attributes.
+
+{% highlight java %}
+
+  Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
+    int x1 = lineBeginPoint.x;
+    int y1 = lineBeginPoint.y;
+    int x2 = lineEndPoint.x;
+    int y2 = lineEndPoint.y;
+    if (x2 == x1) /* vertical line */
+      return new Point(x2, (y2 < y1 ? this.y : this.y + this.height));
+    if (y2 == y1) /* horizontal line */
+      return new Point((x2 < x1 ? this.x : this.x + this.width), y2);
+
+    double m = (y2 - y1) / (x2 - x1);
+    int x = (x2 < x1 ? this.x : this.x + this.width);
+    double fy = m * (x - x2) + y2;
+    int y;
+    /* float comparison, because fy may be bigger than the biggest integer */
+    if (fy >= this.y && fy <= this.y + this.height) {
+      y = fy.toInt();
+    } else {
+      y = (y2 < y1 ? this.y : this.y + this.height);
+      x = ((fy - y2) / m).toInt() + x2;
+    }
+    return new Point(x, y);
+  }
+
+{% endhighlight %}
+
+After the local x and y variables are replaced by the new intersectionX and intersectionY variables, a problem is introduced. After creating two boxes with a line between them, moving one of the boxes jumps the box. Try to find out what the problem is?
+
+**Code 08-09.30**: Local variables intersectionX and intersectionY used.
+
+{% highlight java %}
+
+  Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
+    int x1 = lineBeginPoint.x;
+    int y1 = lineBeginPoint.y;
+    int x2 = lineEndPoint.x;
+    int y2 = lineEndPoint.y;
+    if (x2 == x1) {
+      /* vertical line */
+      return new Point(x2, (y2 < y1 ? y : y + height));
+    } 
+    if (y2 == y1) {
+      /* horizontal line */
+      return new Point((x2 < x1 ? x : x + width), y2);
+    } 
+      
+    double m = (y2 - y1) / (x2 - x1);
+    int intersectionX = (x2 < x1 ? x : x + width);
+    double fy = m * (intersectionX - x2) + y2;
+    int intersectionY;
+    /* float comparison, because fy may be bigger than the biggest integer */
+    if (fy >= y && fy <= y + height) {
+      intersectionY = fy.toInt();
+    } else {
+      y = (y2 < y1 ? y : y + height);
+      x = ((fy - y2) / m).toInt() + x2;
+    }
+    return new Point(intersectionX, intersectionY);
+  }
+
+{% endhighlight %}
+
+
+ 
+
