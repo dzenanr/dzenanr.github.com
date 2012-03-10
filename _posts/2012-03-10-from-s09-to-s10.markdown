@@ -1,0 +1,1421 @@
+---
+layout: default
+title: From Spiral09 To Spiral10
+---
+
+Code
+----
+
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+
+The use of the script element in the MagicBoxes.html file has changed from
+
+{% highlight html %}
+
+<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
+
+{% endhighlight %}
+
+to
+
+{% highlight html %}
+
+<script type="application/dart" src="MagicBoxes.dart"></script>
+<script
+  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
+</script>
+
+{% endhighlight %}
+
+This change requires the Internet access when you run code in the Dart Editor.
+
+If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
+
+Overview
+--------
+
+In Spiral 09, line min..max cardinalities may be changed by getting the selected line with a click on the Get button in the tool bar, making changes and setting them with a click on the Set button. Line direction names may be added. A line direction with 1..1 cardinalities may become a part of the identifier of the source concept.
+
+In Spiral 10, a relationship created between two concepts, may be changed to inheritance or is-a relationship, first by selecting the relationship line, second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. Two relationships between the same two concepts will split apart when becoming twins.
+
+A meta-model of domain models is shown in Figure 09-10.01. The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts. 
+
+![Alt Figure 09-10.01: Meta-model of domain models](/img/s09s10/MetaModel.png)
+
+**Figure 09-10.01**: Meta-model of domain models.
+
+The meta-model has also concepts that are modelling tool oriented. Thus, a concept is represented as a box, an attribute as an item, and a neighbor as a line. A model with its concepts and properties is related to a board.
+
+Steps
+-----
+
+The Board class has two new constants that determine the minimal size of the diagram.
+
+**Code 09-10.01**: Board size constants.
+
+{% highlight java %}
+
+class Board {
+  
+  static final int MIN_WIDTH = 990;
+  static final int MIN_HEIGHT = 580;
+
+{% endhighlight %}
+
+There are two private attributes that contain the actual width and height of the diagram.
+
+**Code 09-10.02**: Board size private attributes.
+
+{% highlight java %}
+
+  int _width;
+  int _height;
+
+{% endhighlight %}
+
+The two private attributes are initialized in the constructor of the Board class.
+
+**Code 09-10.03**: Initialization of the private attributes.
+
+{% highlight java %}
+
+  Board(this.canvas) {
+    …
+    _width = canvas.width;
+    _height = canvas.height;
+
+{% endhighlight %}
+
+The width and height properties are defined on the two private attributes.
+
+**Code 09-10.04**: Board size properties.
+
+{% highlight java %}
+
+  void set width(int width) {
+    _width = width;
+    canvas.width = width;
+  }
+  
+  int get width() {
+    return _width;
+  }
+  
+  void set height(int height) {
+    _height = height;
+    canvas.height = height;
+  }
+  
+  int get height() {
+    return _height;
+  }
+
+{% endhighlight %}
+
+The canvas element of HTML5 is placed with the div element that has the scrollpane id.
+
+**Code 09-10.05**: The scrollpane div element.
+
+{% highlight html %}
+
+    <section> 
+      <div id="scrollpane">
+        <canvas id="canvas" width="990" height="580">
+          Canvas is not supported in your browser.
+        </canvas>  
+      </div>
+      <footer>
+        …
+      </footer>
+      …
+    </section>
+
+{% endhighlight %}
+
+The scrollpane selector is defined in the layout.css file of the project. This definition provides scrolling capabilities for the contained canvas ().
+
+**Code 09-10.06**: The scrollpane CSS selector.
+
+{% highlight css %}
+
+  #scrollpane {
+    width: 990px;
+    height: 580px;
+    overflow: auto;
+    border: solid 1px white;
+    background-color: white;
+  }
+
+{% endhighlight %}
+
+![Alt Figure 09-10.02: Scrolling](/img/s09s10/BoardSize.png)
+
+**Figure 09-10.02**: Scrolling.
+
+The menu bar has rearranged menus. The Edit menu offers a deletion of a selection, while the Select menu has different menu items, each providing a different selection. There are two new selections. For selected boxes, all lines that are connected to them may be selected (Figure 09-10.03). For selected boxes, only lines that connect them may be selected (Figure 09-10.04).
+
+**Code 09-10.07**: Menu bar.
+
+{% highlight java %}
+
+class MenuBar {
+  
+  final Board board;
+  
+  // File
+  ButtonElement saveAsPngButton;
+  
+  // Edit
+  ButtonElement deleteSelectionButton;
+  
+  // Select
+  ButtonElement selectAllButton;
+  ButtonElement selectBoxesButton;
+  ButtonElement selectLinesButton;
+  ButtonElement selectBoxLinesButton;
+  ButtonElement selectLinesBetweenBoxesButton;
+  
+  // View
+  ButtonElement increaseSelectionHeightButton;
+  ButtonElement decreaseSelectionHeightButton;
+  ButtonElement increaseSelectionWidthButton;
+  ButtonElement decreaseSelectionWidthButton;
+  ButtonElement increaseSelectionSizeButton;
+  ButtonElement decreaseSelectionSizeButton;
+  ButtonElement hideSelectionButton;
+  ButtonElement showHiddenSelectionButton;
+  
+  // Create
+  ButtonElement createBoxesInDiagonalButton;
+  ButtonElement createBoxesAsTilesButton;
+
+{% endhighlight %}
+
+![Alt Figure 09-10.03: Selected lines of selected boxes](/img/s09s10/BoxLines.png)
+
+**Figure 09-10.03**: Selected lines of selected boxes.
+
+![Alt Figure 09-10.04: Selected lines between selected boxes](/img/s09s10/LinesBetweenBoxes.png)
+
+**Figure 09-10.04**: Selected lines between selected boxes.
+
+The constructor of the MenuBar class starts with finding HTML elements and assigning them to menu item buttons.
+
+**Code 09-10.08**: Menu bar constructor.
+
+{% highlight java %}
+
+  MenuBar(this.board) {
+    saveAsPngButton = document.query('#save-as-png');
+    
+    deleteSelectionButton = document.query('#delete-selection');
+    
+    selectAllButton = document.query('#select-all');
+    selectBoxesButton = document.query('#select-boxes');
+    selectLinesButton = document.query('#select-lines');
+    selectBoxLinesButton = document.query('#select-box-lines');
+    selectLinesBetweenBoxesButton = document.query('#select-lines-between-boxes');
+    
+    increaseSelectionHeightButton = document.query('#increase-selection-height');
+    decreaseSelectionHeightButton = document.query('#decrease-selection-height');
+    increaseSelectionWidthButton = document.query('#increase-selection-width');
+    decreaseSelectionWidthButton = document.query('#decrease-selection-width');
+    increaseSelectionSizeButton = document.query('#increase-selection-size');
+    decreaseSelectionSizeButton = document.query('#decrease-selection-size');
+    hideSelectionButton = document.query('#hide-selection');
+    showHiddenSelectionButton = document.query('#show-hidden-selection');
+    
+    createBoxesInDiagonalButton = document.query('#create-boxes-in-diagonal');
+    createBoxesAsTilesButton = document.query('#create-boxes-as-tiles');
+
+{% endhighlight %}
+
+In the constructor of the MenuBar class, click events on menu item buttons are defined.
+
+**Code 09-10.09**: Menu bar events.
+
+{% highlight java %}
+
+    saveAsPngButton.on.click.add((MouseEvent e) {
+      board.saveAsPng();
+    });
+    
+    deleteSelectionButton.on.click.add((MouseEvent e) {
+      board.deleteSelection();
+    });
+    
+    selectAllButton.on.click.add((MouseEvent e) {
+      board.select();
+    });
+    selectBoxesButton.on.click.add((MouseEvent e) {
+      board.selectBoxes();
+    });
+    selectLinesButton.on.click.add((MouseEvent e) {
+      board.selectLines();
+    });
+    selectBoxLinesButton.on.click.add((MouseEvent e) {
+      board.selectBoxLines();
+    });
+    selectLinesBetweenBoxesButton.on.click.add((MouseEvent e) {
+      board.selectLinesBetweenBoxes();
+    });
+    
+    increaseSelectionHeightButton.on.click.add((MouseEvent e) {
+      board.increaseHeightOfSelectedBoxes();
+    });
+    decreaseSelectionHeightButton.on.click.add((MouseEvent e) {
+      board.decreaseHeightOfSelectedBoxes();
+    });
+    increaseSelectionWidthButton.on.click.add((MouseEvent e) {
+      board.increaseWidthOfSelectedBoxes();
+    });
+    decreaseSelectionWidthButton.on.click.add((MouseEvent e) {
+      board.decreaseWidthOfSelectedBoxes();
+    });
+    increaseSelectionSizeButton.on.click.add((MouseEvent e) {
+      board.increaseSizeOfSelectedBoxes();
+    });
+    decreaseSelectionSizeButton.on.click.add((MouseEvent e) {
+      board.decreaseSizeOfSelectedBoxes();
+    });
+    hideSelectionButton.on.click.add((MouseEvent e) {
+      board.hideSelection();
+    });
+    showHiddenSelectionButton.on.click.add((MouseEvent e) {
+      board.showHiddenSelection();
+    });
+    
+    createBoxesInDiagonalButton.on.click.add((MouseEvent e) {
+      board.createBoxesInDiagonal();
+      //board.printBoxNames();
+    });
+    createBoxesAsTilesButton.on.click.add((MouseEvent e) {
+      board.createBoxesAsTiles();
+    });
+
+{% endhighlight %}
+
+In the Board class, lines of the selected boxes are selected by verifying if a line in a list of lines is connected to the selected box.
+
+**Code 09-10.10**: Selecting lines of the selected boxes.
+
+{% highlight java %}
+
+  void selectBoxLines() {
+    for (Box box in boxes) {
+      if (box.isSelected()) {
+        for (Line line in lines) {
+          if (line.box1 == box || line.box2 == box) {
+            line.select();
+          }
+        }
+      }
+    }
+  }
+
+{% endhighlight %}
+
+If two boxes of a line are selected, the line is selected as well.
+
+**Code 09-10.11**: Selecting lines between the selected boxes.
+
+{% highlight java %}
+
+void selectLinesBetweenBoxes() {
+    for (Line line in lines) {
+      if (line.box1.isSelected() && line.box2.isSelected()) {
+        line.select();
+      }
+    }
+  }
+
+{% endhighlight %}
+
+The nav (navigator) section of HTML5 contains menus and menu items.
+ 
+**Code 09-10.12**: Menus and menu items in HTML.
+
+{% highlight html %}
+
+    <nav>
+     <ul>
+       <li>File
+         <ul>
+           <li><button id="save-as-png">As .png</button></li>
+         </ul>  
+       </li>
+       <li>Edit
+         <ul>
+           <li><button id="delete-selection">Delete</button></li>
+         </ul>
+       </li>
+       <li>Select
+         <ul>
+           <li><button id="select-all">All</button></li>
+           <li><button id="select-boxes">Boxes</button></li>
+           <li><button id="select-lines">Lines</button></li>
+           <li><button id="select-box-lines">Box lines</button></li>
+           <li><button id="select-lines-between-boxes">Between boxes</button></li>
+         </ul>
+       </li>
+       <li>View
+         <ul>
+           <li><button id="increase-selection-height">+ Height</button></li>
+           <li><button id="decrease-selection-height">- Height</button></li>
+           <li><button id="increase-selection-width">+ Width</button></li>
+           <li><button id="decrease-selection-width">-Width</button></li>
+           <li><button id="increase-selection-size">+ Size</button></li>
+           <li><button id="decrease-selection-size">- Size</button></li>
+           <li><button id="hide-selection">Hide</button></li>
+           <li><button id="show-hidden-selection">Show</button></li>
+         </ul>
+       </li>
+       <li>Create
+         <ul>
+           <li><button id="create-boxes-in-diagonal">Diagonal</button></li>
+           <li><button id="create-boxes-as-tiles">Tiles</button></li>
+         </ul>
+       </li>
+       <li>About 
+         <ul>
+           <li>Magic Boxes in <a href="http://www.dart.org/">Dart</a></li>
+           <li>Spiral 10</li>
+           <li>2012-01-04</li>
+           <li>Dzenan Ridjanovic</li>
+           <li><img src="img/ondart0.png"/></li>
+         </ul>   
+       </li>
+     </ul>
+    </nav>
+
+{% endhighlight %}
+
+The ToolBar class has two input element that provide a change of the board size by a user.
+
+**Code 09-10.13**: Board size input elements.
+
+{% highlight java %}
+
+class ToolBar {
+  …
+  InputElement canvasWidthInput;
+  InputElement canvasHeightInput;
+
+{% endhighlight %}
+
+The change of the board size is supported in the constructor of the ToolBar class. First, the input elements show the actual board size. Second, values entered by a user become the new board size.
+
+**Code 09-10.14**: Board size changes.
+
+{% highlight java %}
+
+  ToolBar(this.board) {
+    …
+    canvasWidthInput = document.query('#canvasWidth');
+    canvasHeightInput = document.query('#canvasHeight');
+    canvasWidthInput.valueAsNumber = board.width;
+    canvasWidthInput.on.input.add((Event e) {
+      board.width = canvasWidthInput.valueAsNumber;
+    });
+    canvasHeightInput.valueAsNumber = board.height;
+    canvasHeightInput.on.input.add((Event e) {
+      board.height = canvasHeightInput.valueAsNumber;
+    });
+
+{% endhighlight %}
+
+The footer section of the Web page contains the label and input elements for the board size.
+
+**Code 09-10.15**: Board size labels and inputs.
+
+{% highlight html %}
+
+      <footer>
+        …
+        <label>Board</label>
+        <label for="canvasWidth">width</label>
+        <input type="number" id="canvasWidth" min="990"/>
+        <label for="canvasHeight">height</label>
+        <input type="number" id="canvasHeight" min="580"/>
+        <br/><br/>
+        …
+      </footer>
+
+{% endhighlight %}
+
+There is a slight change in the menu.css file. The menu item width is updated from 180 to 200 pixels to accommodate two items on the same line.
+
+**Code 09-10.16**: Menu item width.
+
+{% highlight css %}
+
+  nav li:hover ul {
+    display: block;
+    width: 200px;
+  }
+
+{% endhighlight %}
+
+The tool bar has a new input element that displays a sequence number of a box item (Figure 09-10.05). This number may be edited by a user to change a position of the item within the box. 
+
+![Alt Figure 09-10.05: Tool bar](/img/s09s10/ToolBar.png)
+
+**Figure 09-10.05**: Tool bar.
+
+The ToolBar class has a new attribute for the item sequence.
+
+**Code 09-10.17**: Item sequence input element.
+
+{% highlight java %}
+
+class ToolBar {
+  …
+  InputElement itemSequenceInput;
+
+{% endhighlight %}
+
+The item sequence element in the document is assigned to the input element attribute in the ToolBar constructor.
+ 
+**Code 09-10.18**: Obtaining the item sequence.
+
+{% highlight java %}
+
+  ToolBar(this.board) {
+    …
+    itemSequenceInput = document.query('#itemSequence');
+
+{% endhighlight %}
+
+The item sequence element is defined in the footer section as a label and an input element with the itemSequence id.
+
+**Code 09-10.19**: Item sequence element.
+
+{% highlight html %}
+
+      <footer>
+        …
+        <label for="itemSequence">seq</label>
+        <input type="number" id="itemSequence" min="1" size="1" />
+
+{% endhighlight %}
+
+In the constructor of the ToolBar class, for the last selected box, current item is set to **null** and the sequence number is initialized to 0.
+
+**Code 09-10.20**: Last selected box.
+
+{% highlight java %}
+
+    boxNameInput.on.focus.add((Event e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        boxNameInput.value = box.title;
+        currentItem = null;
+        itemSequenceInput.valueAsNumber = 0;
+        itemNameInput.value = '';
+        itemOption.value = 'attribute';
+      }
+    });
+
+{% endhighlight %}
+
+When a new item is added, its sequence value becomes the value of the input element. The current item is not changed by adding a new item.
+ 
+**Code 09-10.21**: Add item.
+
+{% highlight java %}
+
+    addItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        Item item = new Item(box, itemNameInput.value, itemOption.value);
+        itemSequenceInput.valueAsNumber = item.sequence;
+      }
+    });
+
+{% endhighlight %}
+
+The Item class has the sequence attribute. The integer value of this attribute is calculated by finding a sequence number of the last item and adding 10 to it.
+
+**Code 09-10.22**: Item class with the sequence attribute.
+
+{% highlight java %}
+
+class Item {
+  
+  final Box box;
+  
+  int sequence; // sequence number within the box: 1, 2, ...
+  String name;
+  String category; // attribute, guid, identifier, required
+  
+  Item(this.box, this.name, this.category) {
+    sequence = box.findLastItemSequence() + 10;
+    box.items.add(this);
+  }
+
+}
+
+{% endhighlight %}
+
+In the Box class, the last item is found and its sequence number is returned by the findLastItemSequence method.
+
+**Code 09-10.23**: Find the last item sequence number.
+
+{% highlight java %}
+
+  int findLastItemSequence() {
+    if (items.isEmpty()) {
+      return 0;
+    } else {
+      Item item = items.last();
+      return item.sequence;
+    }
+  }
+
+{% endhighlight %}
+
+In the constructor of the ToolBar class, for the last selected box, an item may be obtained by clicking on the Get button. The item name is used to find the item by the findItem method of the Box class. If the item is found by its name, the name is selected and the current item becomes the found item.
+
+**Code 09-10.24**: Get item.
+
+{% highlight java %}
+
+    getItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        Item item = box.findItem(itemNameInput.value);
+        if (item != null) {
+          currentItem = item;
+          itemNameInput.value = item.name;
+          itemOption.value = item.category;
+          itemSequenceInput.valueAsNumber = item.sequence;
+          itemNameInput.select();
+        } else {
+          currentItem = null;
+          itemSequenceInput.valueAsNumber = 0;
+        }
+      }
+    });
+
+{% endhighlight %}
+
+When the item category is changed for the current item, the current item is updated. There is no need to use the Set button to make this change.
+
+**Code 09-10.25**: Current item change.
+
+{% highlight java %}
+
+    itemOption.on.change.add((MouseEvent e) {
+      if (currentItem != null) {
+        currentItem.name = itemNameInput.value;
+        currentItem.category = itemOption.value;
+        itemNameInput.select();
+      }
+    });
+
+{% endhighlight %}
+
+The sequence number of the current item has not been changed!?
+
+Another way to update the current item is to use the Set button in the tool bar.
+
+**Code 09-10.26**: Set item.
+
+{% highlight java %}
+
+    setItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          currentItem.name = itemNameInput.value;
+          currentItem.category = itemOption.value;
+          currentItem.sequence = itemSequenceInput.valueAsNumber;
+          itemNameInput.select();
+        }
+      }
+    });
+
+{% endhighlight %}
+
+The current item may be removed by the Remove button.
+
+**Code 09-10.27**: Remove item.
+
+{% highlight java %}
+
+    removeItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          if (box.removeItem(currentItem)) {
+            currentItem = null;
+            itemSequenceInput.valueAsNumber = 0;
+            itemNameInput.value = '';
+            itemOption.value = 'attribute';
+          }
+        }
+      }
+    });
+
+{% endhighlight %}
+
+In the draw method of the Box class, the box items are sorted by their sequence numbers before they are displayed.
+
+**Code 09-10.28**: Sort items by the sequence number.
+
+{% highlight java %}
+
+  void draw() {
+    if (!isHidden()) {
+      board.context.beginPath();
+      …
+      sortItemsBySequence();
+
+{% endhighlight %}
+
+The sort method of the List type requires the use of a function that compares two elements of a list. The compare function is called for every two consecutive items. It takes two items as arguments and returns 0 if their sequence numbers are equal. It returns 1 if the sequence number of the first item  is greater than the sequence number of the second item, while it returns -1 if the sequence number of the second item is greater than the sequence number of the first item.
+
+**Code 09-10.29**: Sort items by using the compare function.
+
+{% highlight java %}
+
+  void sortItemsBySequence() {
+    items.sort(compare(Item i1, Item i2) {
+      if (i1.sequence == i2.sequence) {
+        return 0;
+      } else if (i1.sequence > i2.sequence) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+  }
+
+{% endhighlight %}
+
+In the Box class, the private name attribute is initialized to an empty space. Hence, a new box will not have a name.
+
+**Code 09-10.30**: No more Box as a default name.
+
+{% highlight java %}
+
+class Box {
+  …
+  String _name = '';
+
+{% endhighlight %}
+
+The tool bar provides a pop-up list to determine a category of a relationship (Figure 09-10.05). 
+
+The TooolBar class has a new attribute of the OptionElement type, just before the Get and Set buttons for the last selected line.
+
+**Code 09-10.31**: Line option.
+
+{% highlight java %}
+
+class ToolBar {
+  …
+  OptionElement lineOption;
+  ButtonElement getLineButton;
+  ButtonElement setLineButton;
+
+{% endhighlight %}
+
+The last selected line may appear in the tool bar by clicking on the Get line button. Then, a line option (category) may be changed by a user. By default, the option is relationship. Other categories are inheritance, reflexive and twin. 
+
+When a line option is changed, the current line is updated without using the Set button. However, if other line values are changed, the Set button must be clicked to accept the changes.
+ 
+**Code 09-10.32**: Line option change.
+
+{% highlight java %}
+
+    lineOption = document.query('#lineCategory');
+    lineOption.on.change.add((MouseEvent e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        line.category = lineOption.value;
+        
+        line12Box1Label.text = line.box1.title;
+        line12Box2Label.text = line.box2.title;
+        line12MinInput.value = line.box1box2Min;
+        line12MaxInput.value = line.box1box2Max;
+        line12IdCheckbox.checked = line.box1box2Id;
+        line12NameInput.value = line.box1box2Name;
+        
+        line21Box2Label.text = line.box2.title;
+        line21Box1Label.text = line.box1.title;
+        line21MinInput.value = line.box2box1Min;
+        line21MaxInput.value = line.box2box1Max;
+        line21IdCheckbox.checked = line.box2box1Id;
+        line21NameInput.value = line.box2box1Name;
+      }
+    });
+
+{% endhighlight %}
+
+The private attribute is defined in the Line class to categorize a line. In this step only relationship and inheritance values are offered to a user.
+
+**Code 09-10.33**: Line category private attribute.
+
+{% highlight java %}
+
+class Line {
+  
+  final Board board;
+  
+  Box box1; // line begin box
+  Box box2; // line end box
+  
+  String _category; // relationship, inheritance
+
+{% endhighlight %}
+
+In the Line constructor, the category property is set to relationship.
+
+**Code 09-10.34**: Line default category.
+
+{% highlight java %}
+
+  Line(this.board, this.box1, this.box2) {
+    category = 'relationship';
+    …
+  }
+
+{% endhighlight %}
+
+The category private attribute is used to define set and get property methods. In addition, two convenience methods that return a value of the bool type are declared in the shortcut syntax.
+ 
+**Code 09-10.35**: Category property methods.
+
+{% highlight java %}
+
+  void set category(String category) {
+    _category = category;
+    if (category == 'relationship') {
+      box1box2Name = '';
+      box1box2Min = '0';
+      box1box2Max = 'N';
+      box1box2Id = false;
+      
+      box2box1Name = '';
+      box2box1Min = '1';
+      box2box1Max = '1';
+      box2box1Id = false;
+    } else if (category == 'inheritance') {
+      box1box2Name = 'as';
+      box1box2Min = '0';
+      box1box2Max = '1';
+      box1box2Id = false;
+      
+      box2box1Name = 'is';
+      box2box1Min = '1';
+      box2box1Max = '1';
+      box2box1Id = true;
+    } 
+  }
+  
+  String get category() => _category;
+  
+  bool get relationship() => category == 'relationship';
+  bool get inheritance() => category == 'inheritance';
+
+{% endhighlight %}
+
+Note that an inheritance relationship has specific default values.
+
+In the footer section, which is used to represent the tool bar, the select element has two options: relationship and inheritance.
+
+**Code 09-10.36**: Select a line option in HTML.
+
+{% highlight html %}
+
+      <footer>
+        …
+        <br/>
+        <label>Line</label>
+        <select id="lineCategory">
+          <option>relationship</option>
+          <option>inheritance</option>
+        </select>
+        <button id="getLine">Get</button>
+        <button id="setLine">Set</button>
+        <br/>   
+        <label id="line12Box1">Box1</label> ->
+        <label id="line12Box2">Box2</label>
+        <input type="text" id="line12Min" size="1"/> ..
+        <input type="text" id="line12Max" size="1"/>
+        <label for="line12Id">identifier</label>
+        <input type="checkbox" id="line12Id"/>
+        <label for="line12Name">name</label>
+        <input type="text" id="line12Name"/> 
+        <br/>
+        <label id="line21Box2">Box2</label> ->
+        <label id="line21Box1">Box1</label>
+        <input type="text" id="line21Min" size="1"/> ..
+        <input type="text" id="line21Max" size="1"/>
+        <label for="line21Id">identifier</label>
+        <input type="checkbox" id="line21Id"/>
+        <label for="line21Name">name</label>
+        <input type="text" id="line21Name"/>
+      </footer>
+
+{% endhighlight %}
+
+The Get line button, for the last selected line, obtains the line values in the tool bar.
+
+**Code 09-10.37**: Get line.
+
+{% highlight java %}
+
+    getLineButton = document.query('#getLine');
+    getLineButton.on.click.add((MouseEvent e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        lineOption.value = line.category;
+        
+        line12Box1Label.text = line.box1.title;
+        line12Box2Label.text = line.box2.title;
+        line12MinInput.value = line.box1box2Min;
+        line12MaxInput.value = line.box1box2Max;
+        line12IdCheckbox.checked = line.box1box2Id;
+        line12NameInput.value = line.box1box2Name;
+        
+        line21Box2Label.text = line.box2.title;
+        line21Box1Label.text = line.box1.title;
+        line21MinInput.value = line.box2box1Min;
+        line21MaxInput.value = line.box2box1Max;
+        line21IdCheckbox.checked = line.box2box1Id;
+        line21NameInput.value = line.box2box1Name;
+      }
+    });
+
+{% endhighlight %}
+
+At the end of the ToolBar constructor, line elements are queried in the document.
+
+**Code 09-10.38**: Query line elements.
+
+{% highlight java %}
+
+    line12Box1Label = document.query('#line12Box1');
+    line12Box2Label = document.query('#line12Box2');
+    line12MinInput = document.query('#line12Min');
+    line12MaxInput = document.query('#line12Max');
+    line12IdCheckbox = document.query('#line12Id');
+    line12NameInput = document.query('#line12Name');
+    
+    line21Box2Label = document.query('#line21Box2');
+    line21Box1Label = document.query('#line21Box1');
+    line21MinInput = document.query('#line21Min');
+    line21MaxInput = document.query('#line21Max');
+    line21IdCheckbox = document.query('#line21Id');
+    line21NameInput = document.query('#line21Name');
+
+{% endhighlight %}
+
+In the draw method of the Line class, the center method of the Box class is used in order to avoid center point calculations.
+
+**Code 09-10.39**: Use of center.
+
+{% highlight java %}
+
+  void draw() {
+    if (!isHidden()) {
+      board.context.beginPath();
+      board.context.moveTo(box1.center().x, box1.center().y);
+      board.context.lineTo(box2.center().x, box2.center().y);
+
+{% endhighlight %}
+
+There are two private attributes in the Line class for twin lines.
+
+**Code 09-10.40**: Twin lines.
+
+{% highlight java %}
+
+class Line {
+  …
+  String _category; // relationship, inheritance, reflexive, twin
+  bool _twin1 = false;
+  bool _twin2 = false;
+
+{% endhighlight %}
+
+Depending on a line category, lines are drawn differently. For example, both ends of a reflexive line are connected to the same box (Figure 09-10.06). A hierarchy of directories is represented by a simple model.
+
+![Alt Figure 09-10.06: Reflexive line](/img/s09s10/ReflexiveLine.png)
+
+**Figure 09-10.06**: Reflexive line.
+
+A reflexive line is transformed from a selected relationship line between two different boxes by changing the relationship category to the reflexive category. After the transformation, the reflexive line is connected only to the parent box. The relationship directions have names based on the name of the concept (Directory in this case). The child-parent direction has 0..1 cardinalities, since the root directory does not have a parent.
+
+**Code 09-10.41**: Draw a line.
+
+{% highlight java %}
+
+  void draw() {
+    if (!isHidden()) {
+      board.context.beginPath();
+      if (twin1) {
+        board.context.moveTo(box1.twin1().x, box1.twin1().y);
+        board.context.lineTo(box2.twin1().x, box2.twin1().y);
+      } else if (twin2) {
+        board.context.moveTo(box1.twin2().x, box1.twin2().y);
+        board.context.lineTo(box2.twin2().x, box2.twin2().y);
+      } else if (reflexive) {
+        board.context.moveTo(box1.center().x, box1.center().y);
+        board.context.lineTo(box1.reflexive1().x, box2.reflexive1().y);
+        board.context.lineTo(box1.reflexive2().x, box2.reflexive2().y);
+        board.context.lineTo(box1.center().x, box2.center().y);
+      } else {
+        board.context.moveTo(box1.center().x, box1.center().y);
+        board.context.lineTo(box2.center().x, box2.center().y);
+      }
+      if (isSelected()) {
+        board.context.setLineWidth(defaultLineWidth + 2);
+      } else {
+        board.context.setLineWidth(defaultLineWidth);
+      }
+      Point box1box2MinMaxPoint;
+      Point box2box1MinMaxPoint;
+      Point box1box2NamePoint;
+      Point box2box1NamePoint;
+      if (reflexive) {
+        box1box2MinMaxPoint = calculateMinMaxPoint1(box1);
+        box2box1MinMaxPoint = calculateMinMaxPoint2(box1);
+        box1box2NamePoint = calculateNamePoint1(box1);
+        box2box1NamePoint = calculateNamePoint2(box1);
+      } else {
+        box1box2MinMaxPoint = calculateMinMaxPointCloseToBeginBox(box1, box2);
+        box2box1MinMaxPoint = calculateMinMaxPointCloseToBeginBox(box2, box1);
+        box1box2NamePoint = calculateNamePointCloseToBeginBox(box1, box2);
+        box2box1NamePoint = calculateNamePointCloseToBeginBox(box2, box1);
+      }
+      
+      String box1box2MinMax = box1box2Min + '..' + box1box2Max;
+      String box2box1MinMax = box2box1Min + '..' + box2box1Max;
+      if (box1box2Id) {
+        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+      } else if (box1box2Min != '0') {
+        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+      } else {
+        board.context.font = '' + textFontSize + 'px sans-serif';
+      }
+      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, box1box2MinMaxPoint.y);
+      board.context.fillText(box1box2Name, box1box2NamePoint.x, box1box2NamePoint.y);
+      if (box2box1Id) {
+        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+      } else if (box2box1Min != '0') {
+        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+      } else {
+        board.context.font = '' + textFontSize + 'px sans-serif';
+      }
+      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, box2box1MinMaxPoint.y);
+      board.context.fillText(box2box1Name, box2box1NamePoint.x, box2box1NamePoint.y);
+      board.context.stroke();
+      board.context.closePath();
+    }
+  }
+
+{% endhighlight %}
+
+Two twin lines are transformed from two selected relationship lines by changing the relationship category to the twin category, then by entering direction names and checking identifiers (Figure 09-10.07).
+
+![Alt Figure 09-10.07: Twin lines](/img/s09s10/TwinLines.png)
+
+**Figure 09-10.07**: Twin lines.
+
+The set category property method is updated to allow for reflexive and twin categories.
+ 
+**Code 09-10.42**: Set category.
+
+{% highlight java %}
+
+  void set category(String category) {
+    _category = category;
+    if (category == 'relationship') {
+      box1box2Name = '';
+      box1box2Min = '0';
+      box1box2Max = 'N';
+      box1box2Id = false;
+      
+      box2box1Name = '';
+      box2box1Min = '1';
+      box2box1Max = '1';
+      box2box1Id = false;
+      
+      _twin1 = false;
+      _twin2 = false;
+    } else if (category == 'inheritance') {
+      box1box2Name = 'as';
+      box1box2Min = '0';
+      box1box2Max = '1';
+      box1box2Id = false;
+      
+      box2box1Name = 'is';
+      box2box1Min = '1';
+      box2box1Max = '1';
+      box2box1Id = true;
+      
+      _twin1 = false;
+      _twin2 = false;
+    } else if (category == 'reflexive') {
+      box2 = box1;
+      
+      box1box2Name = _putInEnglishPlural(box1.title.toLowerCase());
+      box1box2Min = '0';
+      box1box2Max = 'N';
+      box1box2Id = false;
+      
+      box2box1Name = box1.title.toLowerCase();
+      box2box1Min = '0';
+      box2box1Max = '1';
+      box2box1Id = false;
+      
+      _twin1 = false;
+      _twin2 = false;
+    }  else if (category == 'twin') {
+      Line twinLine = board.findTwinLine(this);
+      if (twinLine != null) {
+        if (twinLine.twin) {
+          _twin1 = false;
+          _twin2 = true;
+        } else {
+          _twin1 = true;
+          _twin2 = false;
+          twinLine.category = 'twin';
+        }   
+      }
+    }
+  }
+
+{% endhighlight %}
+
+In addition to the set property method, the get property method and other related methods are declared in the shortcut syntax.
+
+**Code 09-10.43**: Get category and related methods.
+
+{% highlight java %}
+
+  String get category() => _category;
+  
+  bool get relationship() => category == 'relationship';
+  bool get inheritance() => category == 'inheritance';
+  bool get reflexive() => category == 'reflexive';
+  bool get twin() => category == 'twin';
+  
+  bool get twin1() => _twin1;
+  bool get twin2() => _twin2;
+
+{% endhighlight %}
+
+The reflexive line requires a use of plural name for the parent-child relationship direction.
+This is done by the private putInEnglishPlural method.
+ 
+**Code 09-10.44**: Convert text to plural.
+
+{% highlight java %}
+
+  String _putInEnglishPlural(String text) {
+    String plural = null;
+    try {
+      if (text.length > 0) {
+        String lastCharacterString = text.substring(text.length - 1,
+            text.length);
+        if (lastCharacterString == 'x') {
+          plural = text + "es";
+        } else if (lastCharacterString == 'z') {
+          plural = text + "zes";
+        } else if (lastCharacterString == 'y') {
+          String withoutLast = _dropEnd(text, lastCharacterString);
+          plural = withoutLast + "ies";
+        } else {
+          plural = text + "s";
+        }
+      }
+    } catch (Exception e) {
+      return text;
+    }
+    return plural;
+  }
+
+{% endhighlight %}
+
+The private dropEnd method is used in the previous method.
+
+**Code 09-10.45**: Drop the end of text.
+
+{% highlight java %}
+
+  String _dropEnd(String text, String end) {
+    String withoutEnd = text;
+    int endPosition = text.lastIndexOf(end);
+    if (endPosition > 0) {
+      // Drop the end.
+      withoutEnd = text.substring(0, endPosition);
+    }
+    return withoutEnd;
+  }
+
+{% endhighlight %}
+
+The contains method is updated to consider reflexive and twin lines.
+
+**Code 09-10.46**: If a line contains a given point.
+
+{% highlight java %}
+
+  bool contains(Point point, Point delta) {
+    if (box1.contains(point.x, point.y) || box2.contains(point.x, point.y)) {
+      return false;
+    }
+    
+    Point pointDif = new Point(0, 0);
+    bool inLineRectX, inLineRectY, inLineRect;
+    double coord;
+    
+    Point beginPoint;
+    Point endPoint;
+    if (twin1) {
+      beginPoint = box1.twin1();
+      endPoint = box2.twin1();
+    } else if (twin2) {
+      beginPoint = box1.twin2();
+      endPoint = box2.twin2();
+    } else if (reflexive) {
+      beginPoint = box1.reflexive1();
+      endPoint = box1.reflexive2();
+    } else {
+      beginPoint = box1.center();
+      endPoint = box2.center();
+    }
+    pointDif.x = endPoint.x - beginPoint.x;
+    pointDif.y = endPoint.y - beginPoint.y;
+    
+    // Rapid test: Verify if the point is in the line rectangle.
+    if (pointDif.x > 0) {
+      inLineRectX = (point.x >= (beginPoint.x - delta.x)) && (point.x <= (endPoint.x + delta.x));
+    } else {
+      inLineRectX = (point.x >= (endPoint.x - delta.x)) && (point.x <= (beginPoint.x + delta.x));
+    }
+    if (pointDif.y > 0) {
+      inLineRectY = (point.y >= (beginPoint.y - delta.y)) && (point.y <= (endPoint.y + delta.y));
+    } else {
+      inLineRectY = (point.y >= (endPoint.y - delta.y)) && (point.y <= (beginPoint.y + delta.y));
+    }
+    inLineRect = inLineRectX && inLineRectY;
+    if (!inLineRect) {
+      return false;
+    }
+    
+    // If the line is horizontal or vertical there is no need to continue.
+    if ((pointDif.x == 0) || (pointDif.y == 0)) {
+        return true;
+    }
+    
+    if (pointDif.x.abs() > pointDif.y.abs()) {
+      coord = beginPoint.y + (((point.x - beginPoint.x) * pointDif.y) / pointDif.x) - point.y;
+      return coord.abs() <= delta.y;
+    } else {
+      coord = beginPoint.x + (((point.y - beginPoint.y) * pointDif.x) / pointDif.y) - point.x;
+      return coord.abs() <= delta.x;
+    }
+  }
+
+{% endhighlight %}
+
+The calculate methods are updated to consider twin lines.
+
+**Code 09-10.47**: Calculate a min max point.
+
+{% highlight java %}
+
+  Point calculateMinMaxPointCloseToBeginBox(Box beginBox, Box endBox) {
+    int x = 0;
+    int y = 0;
+    
+    Point lineBeginPoint;
+    Point lineEndPoint;
+    if (twin1) {
+      lineBeginPoint = beginBox.twin1();
+      lineEndPoint = endBox.twin1();
+    } else if (twin2) {
+      lineBeginPoint = beginBox.twin2();
+      lineEndPoint = endBox.twin2();
+    } else {
+      lineBeginPoint = beginBox.center();
+      lineEndPoint = endBox.center();
+    }
+    Point beginPoint = beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
+    Point endPoint = endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
+    
+    int x1 = beginPoint.x;
+    int y1 = beginPoint.y;
+    int x2 = endPoint.x;
+    int y2 = endPoint.y;
+    
+    if (x1 <= x2) {
+      x = x1 + 1 * ((x2 - x1) / 8);
+      if (y1 <= y2) {
+        y = y1 + 1 * ((y2 - y1) / 8);
+      } else {
+        y = y2 + 7 * ((y1 - y2) / 8);
+      }
+    } else {
+      x = x2 + 7 * ((x1 - x2) / 8);
+      if (y1 <= y2) {
+        y = y1 + 1 * ((y2 - y1) / 8);
+      } else {
+        y = y2 + 7 * ((y1 - y2) / 8);
+      }
+    }
+    return new Point(x, y);
+  }
+
+{% endhighlight %}
+
+**Code 09-10.48**: Calculate a name point.
+
+{% highlight java %}
+
+  Point calculateNamePointCloseToBeginBox(Box beginBox, Box endBox) {
+    if (reflexive) {
+      return new Point(beginBox.reflexive1().x + 30, beginBox.reflexive1().y + 30);
+    }
+    
+    int x = 0;
+    int y = 0;
+    
+    Point lineBeginPoint;
+    Point lineEndPoint;
+    if (twin1) {
+      lineBeginPoint = beginBox.twin1();
+      lineEndPoint = endBox.twin1();
+    } else if (twin2) {
+      lineBeginPoint = beginBox.twin2();
+      lineEndPoint = endBox.twin2();
+    } else {
+      lineBeginPoint = beginBox.center();
+      lineEndPoint = endBox.center();
+    }
+    Point beginPoint = beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
+    Point endPoint = endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
+    
+    int x1 = beginPoint.x;
+    int y1 = beginPoint.y;
+    int x2 = endPoint.x;
+    int y2 = endPoint.y;
+    
+    if (x1 <= x2) {
+      x = x1 + 3 * ((x2 - x1) / 8);
+      if (y1 <= y2) {
+          y = y1 + 3 * ((y2 - y1) / 8);
+      } else {
+          y = y2 + 5 * ((y1 - y2) / 8);
+      }
+    } else {
+      x = x2 + 5 * ((x1 - x2) / 8);
+      if (y1 <= y2) {
+          y = y1 + 3 * ((y2 - y1) / 8);
+      } else {
+          y = y2 + 5 * ((y1 - y2) / 8);
+      }
+    }
+    return new Point(x, y);
+  }
+
+{% endhighlight %}
+
+**Code 09-10.49**: Calculate min max and name points.
+
+{% highlight java %}
+
+  Point calculateMinMaxPoint1(Box box) {
+    return new Point(box.reflexive1().x - 30, box.reflexive1().y + 30);
+  }
+  
+  Point calculateMinMaxPoint2(Box box) {
+    return new Point(box.reflexive2().x + 10, box.reflexive2().y + 30);
+  }
+  
+  Point calculateNamePoint1(Box box) {
+    return new Point(box.reflexive1().x - 20, box.reflexive1().y - 20);
+  }
+  
+  Point calculateNamePoint2(Box box) {
+    return new Point(box.reflexive2().x + 10, box.reflexive2().y);
+  }
+
+{% endhighlight %}
+
+The select element has additional reflexive and twin options.
+
+**Code 09-10.50**: Line category.
+
+{% highlight html %}
+
+        <select id="lineCategory">
+          <option>relationship</option>
+          <option>inheritance</option>
+          <option>reflexive</option>
+          <option>twin</option>
+        </select>
+
+{% endhighlight %}
+
+In the Box class, there are new methods for determining the twin and reflexive points.
+
+**Code 09-10.51**: Twin and reflexive methods return points.
+
+{% highlight java %}
+
+  Point twin1() {
+    int twinX = x + width / 4;
+    int twinY = y + height / 4;
+    return new Point(twinX, twinY);
+  }
+  
+  Point twin2() {
+    int twinX = x + (width / 4) * 3;
+    int twinY = y + (height / 4) * 3;
+    return new Point(twinX, twinY);
+  }
+  
+  Point reflexive1() {
+    int reflexiveX = x;
+    int reflexiveY = y - height / 2;
+    return new Point(reflexiveX, reflexiveY);
+  }
+  
+  Point reflexive2() {
+    int reflexiveX = x + width;
+    int reflexiveY = y - height / 2;
+    return new Point(reflexiveX, reflexiveY);
+  }
+
+{% endhighlight %}
+
+In the Board class, a twin line may be found.
+
+**Code 09-10.52**: Find a twin line.
+
+{% highlight java %}
+
+  Line findTwinLine(Line twin) {
+    for (Line line in lines) {
+      if (line != twin && line.box1 == twin.box1 && line.box2 == twin.box2) {
+        return line;
+      }
+    }
+    return null;
+  }
+
+{% endhighlight %}
+
+
+
+
+
+
+ 
+

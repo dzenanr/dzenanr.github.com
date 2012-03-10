@@ -17,6 +17,27 @@
   </image>
 
   <item>
+    <title>From Spiral09 To Spiral10</title>
+    <link>http://dzenanr.github.com/2012/03/10/from-s09-to-s10.html</link>
+    <guid>http://dzenanr.github.com/2012/03/10/from-s09-to-s10.html</guid>
+    <description>
+      In Spiral 09, line min..max cardinalities may be changed by getting the selected line with 
+      a click on the Get button in the tool bar, making changes and setting them with a click on the Set button. 
+      Line direction names may be added. 
+      A line direction with 1..1 cardinalities may become a part of the identifier of the source concept.
+      <br/>
+      In Spiral 10, a relationship created between two concepts, may be changed to inheritance or is-a relationship, 
+      first by selecting the relationship line, second by getting information about the relationship in the tool bar, 
+      third by choosing the inheritance category in the pop-up list. 
+      Similarly, the obtained relationship may be categorized as reflexive or twin. 
+      A reflexive relationship will connect the parent concept to itself. 
+      Two relationships between the same two concepts will split apart when becoming twins.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Sat, 10 Mar 2012 12:21:00 +0100</pubDate>
+  </item>
+
+  <item>
     <title>From Spiral08 To Spiral09</title>
     <link>http://dzenanr.github.com/2012/02/29/from-s08-to-s09.html</link>
     <guid>http://dzenanr.github.com/2012/02/29/from-s08-to-s09.html</guid>

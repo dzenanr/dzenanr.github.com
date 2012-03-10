@@ -22,6 +22,7 @@ cd blogs/dzenanr.github.com
 jekyll --pygments
 
 git add .
+git status
 git rm file.ext
 git commit -m "blog post: from s00 to s01"
 git status
