@@ -136,7 +136,7 @@
                 <li>About
                     <ul>
                         <li>
-                            <a href="http://goo.gl/f1F2e">D. R. (CV in PDF)</a> 
+                            <a href="http://goo.gl/f1F2e">Dzenan Ridjanovic</a> 
                         </li>
                     </ul>  
                 </li>
@@ -170,11 +170,11 @@
 
 <p>In Spiral 09, line min..max cardinalities may be changed by getting the selected line with a click on the Get button in the tool bar, making changes and setting them with a click on the Set button. Line direction names may be added. A line direction with 1..1 cardinalities may become a part of the identifier of the source concept.</p>
 
-<p>In Spiral 10, a relationship created between two concepts, may be changed to inheritance or is-a relationship, first by selecting the relationship line, second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. Two relationships between the same two concepts will split apart when becoming twins.</p>
+<p>In Spiral 10, a relationship created between two concepts may be changed to inheritance or is-a relationship, first by selecting the relationship line, second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. Two relationships between the same two concepts will split apart when becoming twins.</p>
 
 <p>A meta-model of domain models is shown in Figure 09-10.01. The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts.</p>
 
-<p><img src='/img/s09s10/MetaModel.png' alt='Alt Figure 09-10.01: Meta-model of domain models' /></p>
+<p><img alt='Alt Figure 09-10.01: Meta-model of domain models' src='/img/s09s10/MetaModel.png' /></p>
 
 <p><strong>Figure 09-10.01</strong>: Meta-model of domain models.</p>
 
@@ -257,7 +257,7 @@
   <span class='p'>}</span>
 </code></pre>
 </div>
-<p><img src='/img/s09s10/BoardSize.png' alt='Alt Figure 09-10.02: Scrolling' /></p>
+<p><img alt='Alt Figure 09-10.02: Scrolling' src='/img/s09s10/BoardSize.png' /></p>
 
 <p><strong>Figure 09-10.02</strong>: Scrolling.</p>
 
@@ -296,11 +296,11 @@
   <span class='n'>ButtonElement</span> <span class='n'>createBoxesAsTilesButton</span><span class='o'>;</span>
 </code></pre>
 </div>
-<p><img src='/img/s09s10/BoxLines.png' alt='Alt Figure 09-10.03: Selected lines of selected boxes' /></p>
+<p><img alt='Alt Figure 09-10.03: Selected lines of selected boxes' src='/img/s09s10/BoxLines.png' /></p>
 
 <p><strong>Figure 09-10.03</strong>: Selected lines of selected boxes.</p>
 
-<p><img src='/img/s09s10/LinesBetweenBoxes.png' alt='Alt Figure 09-10.04: Selected lines between selected boxes' /></p>
+<p><img alt='Alt Figure 09-10.04: Selected lines between selected boxes' src='/img/s09s10/LinesBetweenBoxes.png' /></p>
 
 <p><strong>Figure 09-10.04</strong>: Selected lines between selected boxes.</p>
 
@@ -527,7 +527,7 @@
 </div>
 <p>The tool bar has a new input element that displays a sequence number of a box item (Figure 09-10.05). This number may be edited by a user to change a position of the item within the box.</p>
 
-<p><img src='/img/s09s10/ToolBar.png' alt='Alt Figure 09-10.05: Tool bar' /></p>
+<p><img alt='Alt Figure 09-10.05: Tool bar' src='/img/s09s10/ToolBar.png' /></p>
 
 <p><strong>Figure 09-10.05</strong>: Tool bar.</p>
 
@@ -916,7 +916,7 @@
 </div>
 <p>Depending on a line category, lines are drawn differently. For example, both ends of a reflexive line are connected to the same box (Figure 09-10.06). A hierarchy of directories is represented by a simple model.</p>
 
-<p><img src='/img/s09s10/ReflexiveLine.png' alt='Alt Figure 09-10.06: Reflexive line' /></p>
+<p><img alt='Alt Figure 09-10.06: Reflexive line' src='/img/s09s10/ReflexiveLine.png' /></p>
 
 <p><strong>Figure 09-10.06</strong>: Reflexive line.</p>
 
@@ -994,7 +994,7 @@
 </div>
 <p>Two twin lines are transformed from two selected relationship lines by changing the relationship category to the twin category, then by entering direction names and checking identifiers (Figure 09-10.07).</p>
 
-<p><img src='/img/s09s10/TwinLines.png' alt='Alt Figure 09-10.07: Twin lines' /></p>
+<p><img alt='Alt Figure 09-10.07: Twin lines' src='/img/s09s10/TwinLines.png' /></p>
 
 <p><strong>Figure 09-10.07</strong>: Twin lines.</p>
 
@@ -1378,13 +1378,13 @@
 
 <p>Even a meta model, as one in Figure 08-09.01, may be designed with this spiral. The meta model represents what the MagicBoxes project tries to accomplish at the data level. Within a domain, there may be multiple models. A model may have several concepts. A concept consists of properties and neighbors. A concept may have several graphical representations (boxes), usually only one. A box may not be related to a concept (the minimum cardinality of zero from Box to Concept). The relationship direction from Concept to Box is named views. A property may have a type, which is a part of the parent domain.</p>
 
-<p><img src='/img/s08s09/MetaModel.png' alt='Alt Figure 08-09.01: Meta model' /></p>
+<p><img alt='Alt Figure 08-09.01: Meta model' src='/img/s08s09/MetaModel.png' /></p>
 
 <p><strong>Figure 08-09.01</strong>: Meta model.</p>
 
 <p>In a many-to-many relationship (Figure 08-09.02), between the Course and Student concepts, the third concept is introduced. The Enrollment concept breaks the many-to-many relationship into two one-to-many relationships with named directions. The (user oriented) identifier of the Enrollment concept consists of the two neighbor concepts. All these changes are done by selecting a relationship, getting it in the tool bar, making changes and then setting the relationship.</p>
 
-<p><img src='/img/s08s09/ManyToMany.png' alt='Alt Figure 08-09.02: A many-to-many relationship' /></p>
+<p><img alt='Alt Figure 08-09.02: A many-to-many relationship' src='/img/s08s09/ManyToMany.png' /></p>
 
 <p><strong>Figure 08-09.02</strong>: A many-to-many relationship.</p>
 
@@ -1546,7 +1546,7 @@
 </div>
 <p>The Figure 08-09.03 shows three boxes with different sizes.</p>
 
-<p><img src='/img/s08s09/BoxSizes.png' alt='Alt Figure 08-09.03: Boxes with different sizes' /></p>
+<p><img alt='Alt Figure 08-09.03: Boxes with different sizes' src='/img/s08s09/BoxSizes.png' /></p>
 
 <p><strong>Figure 08-09.03</strong>: Boxes with different sizes.</p>
 
@@ -1854,7 +1854,7 @@
 </div>
 <p>The new width provides a better display of the tool bar in Figure 08-09.04. The figure shows the Order Items model.</p>
 
-<p><img src='/img/s08s09/Orders.png' alt='Alt Figure 08-09.04: Order items model' /></p>
+<p><img alt='Alt Figure 08-09.04: Order items model' src='/img/s08s09/Orders.png' /></p>
 
 <p><strong>Figure 08-09.04</strong>: Order items model.</p>
 
@@ -1910,7 +1910,7 @@
 </div>
 <p>A model may be saved as an image file by using the File menu. The model appears first within the Web page (Figure 08-09.05) where it can be saved by using the right button of the mouse.</p>
 
-<p><img src='/img/s08s09/PlaceForModel.png' alt='Alt Figure 08-09.05: Place where a model will appear after the save' /></p>
+<p><img alt='Alt Figure 08-09.05: Place where a model will appear after the save' src='/img/s08s09/PlaceForModel.png' /></p>
 
 <p><strong>Figure 08-09.05</strong>: Place where a model will appear after the save.</p>
 
@@ -2086,7 +2086,7 @@
 
 <p>The tool bar has two input elements (fields), one for a box title (name) and the other for entering box items (Figure 07-08.01). A box may be seen as a concept (an entity) in modeling. Consequently, a box item may be considered as an attribute of the concept. In addition, an item may be declared as the globally unique identifier (guid), which has a universally unique value such as a time stamp. An item may be the identifier of its concept, or a part of the identifier (significant to a user). Finally, an item may be required (its value is required).</p>
 
-<p><img src='/img/s07s08/ProjectTasksModel.png' alt='Alt Figure 07-08.01: A simple model with concepts, attributes and a relationship' /></p>
+<p><img alt='Alt Figure 07-08.01: A simple model with concepts, attributes and a relationship' src='/img/s07s08/ProjectTasksModel.png' /></p>
 
 <p><strong>Figure 07-08.01</strong>: A simple model with concepts, attributes and a relationship.</p>
 
@@ -2245,7 +2245,7 @@
 
 <p>Two boxes with one line are created in Figure 07-08.02. Inittially, both boxes have the Box name. The first box is selected and its name is changed from Box to Project. Then, the second box is selected and its name is changed from Box to Task.</p>
 
-<p><img src='/img/s07s08/BoxNames.png' alt='Alt Figure 07-08.02: Boxes may have names' /></p>
+<p><img alt='Alt Figure 07-08.02: Boxes may have names' src='/img/s07s08/BoxNames.png' /></p>
 
 <p><strong>Figure 07-08.02</strong>: Boxes may have names.</p>
 
@@ -2260,7 +2260,7 @@
 </div>
 <p>The box size is increased to accommodate user entered items (Figure 07-08.03).</p>
 
-<p><img src='/img/s07s08/ItemNames.png' alt='Alt Figure 07-08.03: User entered item names' /></p>
+<p><img alt='Alt Figure 07-08.03: User entered item names' src='/img/s07s08/ItemNames.png' /></p>
 
 <p><strong>Figure 07-08.03</strong>: User entered item names.</p>
 
@@ -2497,7 +2497,7 @@
 </div>
 <p>An existing item may be obtained by entering its name and clicking on the Get button. The item name may be changed by the Set button or deleted by the Remove button (Figure 07-08.04).</p>
 
-<p><img src='/img/s07s08/ItemNameChange.png' alt='Alt Figure 07-08.04: Updating an item name' /></p>
+<p><img alt='Alt Figure 07-08.04: Updating an item name' src='/img/s07s08/ItemNameChange.png' /></p>
 
 <p><strong>Figure 07-08.04</strong>: Updating an item name.</p>
 
@@ -2544,7 +2544,7 @@
     <span class='nt'>&lt;/section&gt;</span>
 </code></pre>
 </div>
-<p><img src='/img/s07s08/ModelConceptAttribute.png' alt='Alt Figure 07-08.05: Selecting an item category' /></p>
+<p><img alt='Alt Figure 07-08.05: Selecting an item category' src='/img/s07s08/ModelConceptAttribute.png' /></p>
 
 <p><strong>Figure 07-08.05</strong>: Selecting an item category.</p>
 
@@ -2790,7 +2790,7 @@
 </div>
 <p>A meta model is a model about models. A simple meta model, shown in Figure 07-08.06, representing models, model concepts and concept attributes is designed in the last step of Spiral 08.</p>
 
-<p><img src='/img/s07s08/SimpleMetaModel.png' alt='Alt Figure 07-08.06: Cardinalities in a simple meta model' /></p>
+<p><img alt='Alt Figure 07-08.06: Cardinalities in a simple meta model' src='/img/s07s08/SimpleMetaModel.png' /></p>
 
 <p><strong>Figure 07-08.06</strong>: Cardinalities in a simple meta model.</p>
         <em>Posted on 24 February 2012</em>
