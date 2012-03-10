@@ -37,7 +37,10 @@ and then browsing to
 http://localhost:4000. 
 Jekyll will build the new site, and start it's own web server using the _site directory as the document root.
 
-How to stop (exit) the local web server server?
+How to stop (exit) the local web server?
+
+Killing A Process
+http://www.makeuseof.com/tag/6-different-ways-to-end-unresponsive-programs-in-linux/
 
 Publishing On Dart:
 #dartlang +Dart : Structured web apps
