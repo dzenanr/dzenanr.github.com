@@ -1001,8 +1001,10 @@ A reflexive line is transformed from a selected relationship line between two di
       } else {
         board.context.font = '' + textFontSize + 'px sans-serif';
       }
-      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, box1box2MinMaxPoint.y);
-      board.context.fillText(box1box2Name, box1box2NamePoint.x, box1box2NamePoint.y);
+      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, 
+        box1box2MinMaxPoint.y);
+      board.context.fillText(box1box2Name, box1box2NamePoint.x, 
+        box1box2NamePoint.y);
       if (box2box1Id) {
         board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
       } else if (box2box1Min != '0') {
@@ -1010,8 +1012,10 @@ A reflexive line is transformed from a selected relationship line between two di
       } else {
         board.context.font = '' + textFontSize + 'px sans-serif';
       }
-      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, box2box1MinMaxPoint.y);
-      board.context.fillText(box2box1Name, box2box1NamePoint.x, box2box1NamePoint.y);
+      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, 
+        box2box1MinMaxPoint.y);
+      board.context.fillText(box2box1Name, box2box1NamePoint.x, 
+        box2box1NamePoint.y);
       board.context.stroke();
       board.context.closePath();
     }
@@ -1194,14 +1198,18 @@ The contains method is updated to consider reflexive and twin lines.
     
     // Rapid test: Verify if the point is in the line rectangle.
     if (pointDif.x > 0) {
-      inLineRectX = (point.x >= (beginPoint.x - delta.x)) && (point.x <= (endPoint.x + delta.x));
+      inLineRectX = (point.x >= (beginPoint.x - delta.x)) && 
+      (point.x <= (endPoint.x + delta.x));
     } else {
-      inLineRectX = (point.x >= (endPoint.x - delta.x)) && (point.x <= (beginPoint.x + delta.x));
+      inLineRectX = (point.x >= (endPoint.x - delta.x)) && 
+      (point.x <= (beginPoint.x + delta.x));
     }
     if (pointDif.y > 0) {
-      inLineRectY = (point.y >= (beginPoint.y - delta.y)) && (point.y <= (endPoint.y + delta.y));
+      inLineRectY = (point.y >= (beginPoint.y - delta.y)) && 
+      (point.y <= (endPoint.y + delta.y));
     } else {
-      inLineRectY = (point.y >= (endPoint.y - delta.y)) && (point.y <= (beginPoint.y + delta.y));
+      inLineRectY = (point.y >= (endPoint.y - delta.y)) && 
+      (point.y <= (beginPoint.y + delta.y));
     }
     inLineRect = inLineRectX && inLineRectY;
     if (!inLineRect) {
@@ -1214,10 +1222,12 @@ The contains method is updated to consider reflexive and twin lines.
     }
     
     if (pointDif.x.abs() > pointDif.y.abs()) {
-      coord = beginPoint.y + (((point.x - beginPoint.x) * pointDif.y) / pointDif.x) - point.y;
+      coord = beginPoint.y + 
+        (((point.x - beginPoint.x) * pointDif.y) / pointDif.x) - point.y;
       return coord.abs() <= delta.y;
     } else {
-      coord = beginPoint.x + (((point.y - beginPoint.y) * pointDif.x) / pointDif.y) - point.x;
+      coord = beginPoint.x + 
+        (((point.y - beginPoint.y) * pointDif.x) / pointDif.y) - point.x;
       return coord.abs() <= delta.x;
     }
   }
