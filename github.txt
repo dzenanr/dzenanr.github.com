@@ -14,13 +14,18 @@ https://github.com/mojombo/jekyll/wiki/
 
 http://www.theleagueofpaul.com/jekyll-windows.html
 
-Steps
 
+Ubuntu:
 Search for terminal.
-
 cd blogs/dzenanr.github.com
+
+Windows:
+Utilities
+cd git/blog/dzenanr.github.com
+
 jekyll --pygments
 
+git status
 git add .
 git status
 git rm file.ext

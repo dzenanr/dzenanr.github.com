@@ -6,7 +6,9 @@ title: From Spiral10 To Spiral11
 Code
 ----
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). 
+The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). 
+For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
 The use of the script element in the MagicBoxes.html file has changed from
 
@@ -34,13 +36,18 @@ If you use Spirals 00 ... 11 locally, checkout branches s00a ... s11a, where cha
 Overview
 --------
 
-In Spiral 10, a relationship created between two concepts may be changed to inheritance or is-a relationship, first by selecting the relationship line, second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. Two relationships between the same two concepts will split apart when becoming twins.
+In Spiral 10, a relationship created between two concepts may be changed to inheritance or is-a relationship, first by selecting the relationship line, 
+second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. 
+Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. 
+Two relationships between the same two concepts will split apart when becoming twins.
 
-In Spiral 11, a model may be transformed to [JSON](http://www.json.org/)and back from JSON to a model.  JSON (JavaScript Object Notation) is a lightweight data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs {} and an ordered list of values []. 
+In Spiral 11, a model may be transformed to [JSON](http://www.json.org/) and back from JSON to a model. JSON (JavaScript Object Notation) is a lightweight 
+data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs 
+\{\} and an ordered list of values \[\]. 
 
 A simple model with one concept (Domain) and one attribute (description) is represented in JSON as: 
 
-{% highlight json %}
+{% highlight javascript %}
 
 { 
 "width":990,
@@ -63,12 +70,25 @@ A simple model with one concept (Domain) and one attribute (description) is repr
 "lines":[],
 "height":580
 }
+
 {% endhighlight %}
 
 This representation may be copied to a text file and used later one to reproduce a graphical model.
-A meta-model of domain models is shown in Figure 10-11.01. There are four entry concepts (with || before the concept name): Domain, Type, Model and Board. Entities of those concepts can be reached directly. The relationship between Model and Concept is internal. The only way to obtain a concept is to access its model first. Since both Domain and Type are entry concepts, a relationship between two of them must be external. A parent concept may have several internal relationships towards child concepts. A child concept may not have more than one internal relationship towards a parent concept.
-The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts. 
-The meta-model has also concepts that are modelling tool oriented. Thus, a concept is represented as a box, an attribute as an item, and a neighbor as a line. A model with its concepts and properties is related to a board.
+
+A meta-model of domain models is shown in Figure 10-11.01. There are four entry concepts (with || before the concept name): Domain, Type, Model and Board. 
+Entities of those concepts can be reached directly. The relationship between Model and Concept is internal. The only way to obtain a concept is to access its model first. 
+Since both Domain and Type are entry concepts, a relationship between two of them must be external. 
+A parent concept may have several internal relationships towards child concepts. A child concept may not have more than one internal relationship towards a parent concept.
+
+The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. 
+A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. 
+There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. 
+An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. 
+A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts.
+ 
+The meta-model has also concepts that are modelling tool oriented. Thus, a concept is represented as a box, an attribute as an item, and a neighbor as a line. 
+A model with its concepts and properties is related to a board.
+
 ![Alt Figure 10-11.01: Meta-model of domain models](/img/s10s11/MetaModel.png)
 
 **Figure 10-11.01**: Meta-model of domain models.
@@ -76,7 +96,9 @@ The meta-model has also concepts that are modelling tool oriented. Thus, a conce
 Steps
 -----
 
-A portion of a model may be selected to define a model view. In this case, the rest of a model may be hidden to see only the view. This is accomplished by selecting a view and hiding not selected boxes and lines.
+A portion of a model may be selected to define a model view. In this case, the rest of a model may be hidden to see only the view. 
+This is accomplished by selecting a view and hiding not selected boxes and lines.
+
 **Code 10-11.01**: Changes in menu items.
 
 {% highlight java %}
@@ -94,10 +116,13 @@ class MenuBar {
   …
   ButtonElement hideNonSelectionButton;
   ButtonElement showHiddenButton;
+
 {% endhighlight %}
 
 The File menu is empty. A model may be transformed to a PNG image by the To PNG button in the Web page.
+
 The hideNonSelectionButton attribute is obtained from the document objet. 
+
 **Code 10-11.02**: MenuBar constructor.
 
 {% highlight java %}
@@ -107,6 +132,7 @@ The hideNonSelectionButton attribute is obtained from the document objet.
     …
     hideNonSelectionButton = document.query('#hide-non-selection');
     showHiddenButton = document.query('#show-hidden');
+
 {% endhighlight %}
 
 A click on the button triggers the hideNonSelection method of the Board class.
@@ -126,9 +152,11 @@ A click on the button triggers the hideNonSelection method of the Board class.
     showHiddenButton.on.click.add((MouseEvent e) {
       board.showHidden();
     });
+
 {% endhighlight %}
 
 Hidden boxes and lines may be shown again by the showHidden method. Not selected boxes and lines are hidden by the hideNonSelection method.
+
 **Code 10-11.04**: Changes in methods of the Board class.
 
 {% highlight java %}
@@ -150,9 +178,11 @@ Hidden boxes and lines may be shown again by the showHidden method. Not selected
       }
     }
   }
+
 {% endhighlight %}
 
 Changes in the menu bar are reflected in the HTML code. The File menu is empty and the Select menu has Hide non-selection and Show menu items. The About menu is updated. 
+
 **Code 10-11.05**: Changes in the HTML code.
 
 {% highlight html %}
@@ -188,14 +218,18 @@ Changes in the menu bar are reflected in the HTML code. The File menu is empty a
        </li>
      </ul>
     </nav>
+
 {% endhighlight %}
 
-A selected box may be declared as entry point into the model. There is a checkbox in the tool bar (Figure 10-11.02). The entry concept has the || sign in the upper left corner of its box.
+A selected box may be declared as entry point into the model. There is a checkbox in the tool bar (Figure 10-11.02). 
+The entry concept has the || sign in the upper left corner of its box.
+
 ![Alt Figure 10-11.02: Entry box sign](/img/s10s11/EntryBox.png)
 
 **Figure 10-11.02**: Entry box sign.
 
 The entry checkbox is a new attribute of the ToolBar class.
+
 **Code 10-11.06**: Entry box.
 
 {% highlight java %}
@@ -204,9 +238,11 @@ class ToolBar {
   …
   InputElement boxNameInput;
   InputElement boxEntryCheckbox;
+
 {% endhighlight %}
 
 The new entry attribute of the Box class is initialized to **false**. The private name attribute of a box has an empty space.
+
 **Code 10-11.07**: Entry attribute.
 
 {% highlight java %}
@@ -219,6 +255,7 @@ class Box {
 {% endhighlight %}
 
 The entry symbol is drawn in the Box class.
+
 **Code 10-11.08**: Drawing the entry symbol.
 
 {% highlight java %}
@@ -232,9 +269,11 @@ The entry symbol is drawn in the Box class.
       } else {
         board.context.fillText(title, x + TOS, y + TOS, width - TOS);
       }
+
 {% endhighlight %}
 
 If the last selected box is an entry concept, a click in the Box (name) field shows the check in the entry checkbox.
+
 **Code 10-11.09**: Checking an entry box.
 
 {% highlight java %}
@@ -248,9 +287,11 @@ If the last selected box is an entry concept, a click in the Box (name) field sh
         box.entry = boxEntryCheckbox.checked;
       }
     });
+
 {% endhighlight %}
 
 The input element of the checkbox type has the boxEntry id.
+
 **Code 10-11.10**: Checkbox.
 
 {% highlight html %}
@@ -268,14 +309,17 @@ The input element of the checkbox type has the boxEntry id.
         <input type="text" id="itemName"/>
         …
       </footer>
+
 {% endhighlight %}
 
 A default item value may be entered by a user. A position of the current item may be changed by the Up and Down buttons (Figure 10-11.03).
+
 ![Alt Figure 10-11.03: Tool bar item(/img/s10s11/ToolBarItem.png)
 
 **Figure 10-11.03**: Tool bar item.
 
 The item sequence element is removed and the item init element is added. 
+
 **Code 10-11.11**: Default (initialization) value.
 
 {% highlight java %}
@@ -292,9 +336,11 @@ class ToolBar {
   ButtonElement downItemButton;
   ButtonElement setItemButton;
   ButtonElement removeItemButton;
+
 {% endhighlight %}
 
 The item init input is obtained from the document.
+
 **Code 10-11.12**: Item init input.
 
 {% highlight java %}
@@ -303,9 +349,11 @@ The item init input is obtained from the document.
  
     …
     itemInitInput = document.query('#itemInit');
+
 {% endhighlight %}
 
 The init attribute is initialized to an empty string.
+
 **Code 10-11.13**: Init attribute.
 
 {% highlight java %}
@@ -318,9 +366,11 @@ class Item {
   String name;
   String category; // attribute, guid, identifier, required
   String init = '';
+
 {% endhighlight %}
 
 In the ToolBar constructor, an added item must have a unique name within its box.
+
 **Code 10-11.14**: Add an item with a unique name.
 
 {% highlight java %}
@@ -339,9 +389,12 @@ In the ToolBar constructor, an added item must have a unique name within its box
         }
       }
     });
+
 {% endhighlight %}
 
-When the Box field gets a focus, a name of the last selected box appears in the Box field and if the box is entry, the checkbox contains the check sign. A new or updated box name must be unique within the (board) model.
+When the Box field gets a focus, a name of the last selected box appears in the Box field and if the box is entry, the checkbox contains the check sign. 
+A new or updated box name must be unique within the (board) model.
+
 **Code 10-11.15**: Add a box with a unique name.
 
 {% highlight java %}
@@ -370,9 +423,11 @@ When the Box field gets a focus, a name of the last selected box appears in the 
         }
       }
     });
+
 {% endhighlight %}
 
 In the Board class, a box may be found by its name.
+
 **Code 10-11.16**: Find a box with the given name.
 
 {% highlight java %}
@@ -385,9 +440,11 @@ In the Board class, a box may be found by its name.
     }
     return null;
   }
+
 {% endhighlight %}
 
 In the ToolBar constructor, if a category of the current item is changed, a default value of the current item goes back to an empty space.
+
 **Code 10-11.17**: Back to no default value.
 
 {% highlight java %}
@@ -401,9 +458,11 @@ In the ToolBar constructor, if a category of the current item is changed, a defa
       } 
       itemInitInput.value = '';
     });
+
 {% endhighlight %}
 
 An item may become the current item by entering its name in the Item field and clicking on the Get button. The item’s default value appears in the init field.
+
 **Code 10-11.18**: Get an item with its init value.
 
 {% highlight java %}
@@ -424,9 +483,11 @@ An item may become the current item by entering its name in the Item field and c
         }
       }
     });
+
 {% endhighlight %}
 
 The current item may be moved up by the Up button.
+
 **Code 10-11.19**: Move the current item one position up.
 
 {% highlight java %}
@@ -452,9 +513,11 @@ The current item may be moved up by the Up button.
         } 
       }
     });
+
 {% endhighlight %}
 
 In the Box class, given the current item, a previous item may be found.
+
 **Code 10-11.20**: Find the previous item.
 
 {% highlight java %}
@@ -471,9 +534,11 @@ In the Box class, given the current item, a previous item may be found.
     }
     return null;
   }
+
 {% endhighlight %}
 
 The current item may be moved down by the Down button.
+
 **Code 10-11.21**: Move the current item one position down.
 
 {% highlight java %}
@@ -499,9 +564,11 @@ The current item may be moved down by the Down button.
         }
       }
     });
+
 {% endhighlight %}
 
 The next item may be found based on the position of the current item.
+
 **Code 10-11.22**: Find the next item.
 
 {% highlight java %}
@@ -518,9 +585,11 @@ The next item may be found based on the position of the current item.
     }
     return null;
   }
+
 {% endhighlight %}
 
 The current item may be changed and the changes are accepted by the Set button.
+
 **Code 10-11.23**: Set an item with its init value.
 
 {% highlight java %}
@@ -543,9 +612,11 @@ The current item may be changed and the changes are accepted by the Set button.
         }
       }
     });
+
 {% endhighlight %}
 
 The current item may be removed.
+
 **Code 10-11.24**: Remove an item.
 
 {% highlight java %}
@@ -564,9 +635,11 @@ The current item may be removed.
         }
       }
     });
+
 {% endhighlight %}
 
 The init field and the Up and Down buttons are added to the HTML code.
+
 **Code 10-11.25**: Init input; down and up buttons.
 
 {% highlight html %}
@@ -587,9 +660,11 @@ The init field and the Up and Down buttons are added to the HTML code.
         <button class="button" id="downItem">Down</button>
         <button class="button" id="setItem">Set</button>
         <button class="button" id="removeItem">Remove</button>
+
 {% endhighlight %}
 
 The buttons have a new look that is provided by the button class in the link.css file.
+
 **Code 10-11.26**: CSS button class.
 
 {% highlight css %}
@@ -604,15 +679,31 @@ The buttons have a new look that is provided by the button class in the link.css
     font-weight: bold;
     text-align: center;
   }
+
 {% endhighlight %}
 
-In general, a model is a network of concepts (boxes) and relationships (lines). Some concepts in the model are entry points. Those concepts that are not entry points into the model, may be reached through relationships that start with the entry concept. For example (Figure 10-11.04), a web link may be reached only through its category. This relationship is internal and it may be characterized as a hierarchical relationship. In other words, web links are grouped within their categories.  A member may have interests in certain categories of web links. This relationship is not hierarchical. Since a member may have several interests and a category may be of interest to many members, the relationship is a network. It consists of two relationships and one intermediate concept. In this situation, only one relationship may be internal. In this model, it is the relationship between the Member and Interest concepts. The relationship between the Category and Interest concepts is external and it is graphically a bit lighter that an internal relationship. For the internal relationship, interests are grouped within their members. For the external relationships, interests are not grouped within their categories. However, each interest has a reference to its category. Thus, a network model may be decomposed into hierarchical sub-models, where each sub-model starts with an entry concept and follow only internal relationships. Hierarchical sub-models are related only through external relationships or references. 
-As analogy, all web pages on the same web server may be considered as internal. A link from a web page on one web server towards another web page on a different web server may be characterized as external. 
+In general, a model is a network of concepts (boxes) and relationships (lines). Some concepts in the model are entry points. 
+Those concepts that are not entry points into the model, may be reached through relationships that start with the entry concept. 
+For example (Figure 10-11.04), a web link may be reached only through its category. This relationship is internal and it may be characterized as a hierarchical relationship. 
+In other words, web links are grouped within their categories.  A member may have interests in certain categories of web links. This relationship is not hierarchical. 
+Since a member may have several interests and a category may be of interest to many members, the relationship is a network. 
+It consists of two relationships and one intermediate concept. In this situation, only one relationship may be internal. 
+In this model, it is the relationship between the Member and Interest concepts. 
+The relationship between the Category and Interest concepts is external and it is graphically a bit lighter that an internal relationship. 
+For the internal relationship, interests are grouped within their members. For the external relationships, interests are not grouped within their categories. 
+However, each interest has a reference to its category. 
+Thus, a network model may be decomposed into hierarchical sub-models, where each sub-model starts with an entry concept and follow only internal relationships. 
+Hierarchical sub-models are related only through external relationships or references. 
+
+As analogy, all web pages on the same web server may be considered as internal. 
+A link from a web page on one web server towards another web page on a different web server may be characterized as external. 
+
 ![Alt Figure 10-11.04: External line is lighter](/img/s10s11/ExternalLine.png)
 
 **Figure 10-11.04**: External line is lighter.
 
 There is a checkbox in the tool bar for internal lines.
+
 **Code 10-11.27**: Internal line checkbox.
 
 {% highlight java %}
@@ -623,9 +714,11 @@ class ToolBar {
   InputElement lineInternalCheckbox;
   ButtonElement getLineButton;
   ButtonElement setLineButton;
+
 {% endhighlight %}
 
 Should a change of internal to external (or vice versa) line, populate line elements in the tool bar?
+
 **Code 10-11.28**: Internal line checkbox change.
 
 {% highlight java %}
@@ -653,9 +746,11 @@ Should a change of internal to external (or vice versa) line, populate line elem
         line21NameInput.value = line.box2box1Name;
       }
     });
+
 {% endhighlight %}
 
 There is a new internal attribute in the Line class. Its default value is **true**. Note that there is no internal property.
+
 **Code 10-11.29**: Internal line attribute.
 
 {% highlight java %}
@@ -663,9 +758,11 @@ There is a new internal attribute in the Line class. Its default value is **true
 class Line {
   …
   bool internal = true;
+
 {% endhighlight %}
 
 If a category of the last selected line is changed, there are consequences that must be brought to line elements in the tool bar.
+
 **Code 10-11.30**: Line category.
 
 {% highlight java %}
@@ -693,9 +790,11 @@ If a category of the last selected line is changed, there are consequences that 
         line21NameInput.value = line.box2box1Name;
       }
     });
+
 {% endhighlight %}
 
 Those consequences are defined in the set category property method.
+
 **Code 10-11.31**: Change line category with consequences.
 
 {% highlight java %}
@@ -757,9 +856,11 @@ Those consequences are defined in the set category property method.
       }
     }
   }
+
 {% endhighlight %}
 
 The last selected line is brought to the tool bar by the click event on the get line button.
+
 **Code 10-11.32**: Get line.
 
 {% highlight java %}
@@ -786,9 +887,11 @@ The last selected line is brought to the tool bar by the click event on the get 
         line21NameInput.value = line.box2box1Name;
       }
     });
+
 {% endhighlight %}
 
 The line HTML elements are updated to include the internal line checkbox and its label.
+
 **Code 10-11.33**: Line HTML elements.
 
 {% highlight html %}
@@ -804,9 +907,11 @@ The line HTML elements are updated to include the internal line checkbox and its
         <input type="checkbox" id="lineInternal"/>
         <button class="button" id="getLine">Get</button>
         <button class="button" id="setLine">Set</button>
+
 {% endhighlight %}
 
 The two line attributes are removed in favor of constants.
+
 **Code 10-11.34**: Two attributes removed.
 
 {% highlight java %}
@@ -815,9 +920,11 @@ class Line {
   …
   // String textFontSize = 12;
   // num defaultLineWidth;
+
 {% endhighlight %}
 
 The constants are defined in the Board class.
+
 **Code 10-11.35**: Board constants.
 
 {% highlight java %}
@@ -830,9 +937,11 @@ class Board {
   static final String DEFAULT_LINE_COLOR = '#000000'; // black
   static final String SOFT_LINE_COLOR = '#736f6e '; // gray
   static final String DEFAULT_FONT_SIZE = 12;
+
 {% endhighlight %}
 
 In the draw method of the Line class, the selected line gets a wider width.
+
 **Code 10-11.36**: Use of constants in the line selection.
 
 {% highlight java %}
@@ -842,6 +951,7 @@ In the draw method of the Line class, the selected line gets a wider width.
       } else {
         board.context.lineWidth = Board.DEFAULT_LINE_WIDTH;
       }
+
 {% endhighlight %}
 
 A relationship direction may be an identifier of its source concept. In that case, in the draw method of the Line class, the text font becomes bold and italic.
@@ -857,9 +967,11 @@ A relationship direction may be an identifier of its source concept. In that cas
       } else {
         board.context.font = '' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
       }
+
 {% endhighlight %}
 
 If a line is external, its color becomes, in the draw method of the Line class, a bit softer than the color of a line that is internal.
+
 **Code 10-11.38**: External line.
 
 {% highlight java %}
@@ -869,9 +981,11 @@ If a line is external, its color becomes, in the draw method of the Line class, 
       } else {
         board.context.strokeStyle = Board.DEFAULT_LINE_COLOR;
       }
+
 {% endhighlight %}
 
 In the border method of the Board class, the constants are used for a default line width and a default line color in drawing a diagram border.
+
 **Code 10-11.39**: Use of constants in the Board class.
 
 {% highlight java %}
@@ -884,10 +998,13 @@ In the border method of the Board class, the constants are used for a default li
     context.stroke();
     context.closePath();
   }
+
 {% endhighlight %}
 
 There is no more default line width attribute in the Board class.
+
 There is a new attributes that represents a model image panel. The model image panel is used to display a model as a PNG image.
+
 **Code 10-11.40**: Image panel attribute.
 
 {% highlight java %}
@@ -895,9 +1012,11 @@ There is a new attributes that represents a model image panel. The model image p
 class Board {  
   …
   PngPanel pngPanel;
+
 {% endhighlight %}
 
 The model image panel is constructed as an object of the new PngPanel class.
+
 **Code 10-11.41**: Constructing the image panel object.
 
 {% highlight java %}
@@ -905,14 +1024,17 @@ The model image panel is constructed as an object of the new PngPanel class.
   Board(this.canvas) {
     …
     pngPanel = new PngPanel(this);
+
 {% endhighlight %}
 
 A model is represented as a PNG image in the panel by clicking on the To PNG button (Figure 10-11.05),
+
 ![Alt Figure 10-11.05: Model image](/img/s10s11/ModelImage.png)
 
 **Figure 10-11.05**: Model image.
 
 which activates the toPng method in the new PngPanel class. 
+
 **Code 10-11.42**: Image panel class.
 
 {% highlight java %}
@@ -937,10 +1059,14 @@ final Board board;
   }
   
 }
+
 {% endhighlight %}
 
-The toPng method of the PngPanel class obtains the image element of the Web page and sets its source to the result of the toDataURL method of the CanvasElement type. The toDataURL method accepts an argument that determines the kind of image produced.
+The toPng method of the PngPanel class obtains the image element of the Web page and sets its source to the result of the toDataURL method of the CanvasElement type. 
+The toDataURL method accepts an argument that determines the kind of image produced.
+
 The image panel is represented in HTML5 as a section of the Web page.
+
 **Code 10-11.43**: Image panel as a section of HTML5.
 
 {% highlight html %}
@@ -950,9 +1076,11 @@ The image panel is represented in HTML5 as a section of the Web page.
       <img alt="Your model as PNG." id="modelImage"/>
       …
     </section>
+
 {% endhighlight %}
 
 There is a new attribute in the Board class that represents a JSON panel. The JSON panel is used to transform a model to a JSON hierarchical data structure.
+
 **Code 10-11.44**: JSON panel attribute.
 
 {% highlight java %}
@@ -960,9 +1088,11 @@ There is a new attribute in the Board class that represents a JSON panel. The JS
 class Board {  
   …
   JsonPanel jsonPanel;
+
 {% endhighlight %}
 
 The JSON panel is created as an object of the new JsonPanel class. 
+
 **Code 10-11.45**: Constructing the JSON panel object.
 
 {% highlight java %}
@@ -970,14 +1100,20 @@ The JSON panel is created as an object of the new JsonPanel class.
   Board(this.canvas) {
     …
     jsonPanel = new JsonPanel(this);
+
 {% endhighlight %}
 
 A model is transformed to JSON by clicking on the To JSON button (Figure 10-11.06), which appears before the JSON panel.
+
 ![Alt Figure 10-11.06: Model to JSON](/img/s10s11/ToJsonFromModel.png)
 
 **Figure 10-11.06**: Model to JSON.
 
-The JSON panel contains the button and the text area where the JSON hierarchical data structure of the model will appear. The click on the button triggers the transformation process that starts with the toJson method of the Board class. This method returns the JSON text that becomes a value of the text area in the JSON panel. The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to “save” models.
+The JSON panel contains the button and the text area where the JSON hierarchical data structure of the model will appear. 
+The click on the button triggers the transformation process that starts with the toJson method of the Board class. 
+This method returns the JSON text that becomes a value of the text area in the JSON panel. 
+The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to “save” models.
+
 **Code 10-11.46**: JSON panel class.
 
 {% highlight java %}
@@ -998,9 +1134,11 @@ class JsonPanel {
   }
 
 }
+
 {% endhighlight %}
 
 The JSON panel is represented in HTML5 as a section of the Web page.
+
 **Code 10-11.47**: JSON panel as a section of HTML5.
 
 {% highlight html %}
@@ -1009,9 +1147,13 @@ The JSON panel is represented in HTML5 as a section of the Web page.
       <button class="button" id="fromModelToJson">To JSON</button>
       <textarea name="modelJson" rows=20 cols=120 id="modelJson"></textarea>
     </section>
+
 {% endhighlight %}
 
-In the Board class, the toJson method creates a local map of key/value pairs. The keys are strings, while values are objects. The width key has a value of the width property of the Board class. The height key has a value of the width property of the Board class. A value of the boxes key is obtained by the boxesToJson method of the Board class. A value of the lines key is obtained by the linesToJson method of the Board class. 
+In the Board class, the toJson method creates a local map of key/value pairs. The keys are strings, while values are objects. 
+The width key has a value of the width property of the Board class. The height key has a value of the width property of the Board class. 
+A value of the boxes key is obtained by the boxesToJson method of the Board class. A value of the lines key is obtained by the linesToJson method of the Board class. 
+
 **Code 10-11.48**: Model to JSON.
 
 {% highlight java %}
@@ -1024,9 +1166,11 @@ In the Board class, the toJson method creates a local map of key/value pairs. Th
     boardMap["lines"] = linesToJson();
     return JSON.stringify(boardMap);
   }
+
 {% endhighlight %}
 
 The stringify method of the JSON class, which is a part of the dart:json library, converts the map object to text. The json library is imported in the mb.dart file.
+
 **Code 10-11.49**: Import JSON library.
 
 {% highlight java %}
@@ -1045,6 +1189,7 @@ The stringify method of the JSON class, which is a part of the dart:json library
 {% endhighlight %}
 
 The list of boxes in the Board class is transformed to a list of maps. The map key is of the String type, while the map value may be of any type. 
+
 **Code 10-11.50**: Boxes to JSON.
 
 {% highlight java %}
@@ -1058,9 +1203,11 @@ The list of boxes in the Board class is transformed to a list of maps. The map k
     }
     return boxesList;
   }
+
 {% endhighlight %}
 
 Similarly, the list of lines in the Board class is transformed to a list of maps. The map key is of the String type, while the map value may be of any type.
+
 **Code 10-11.51**: Lines to JSON.
 
 {% highlight java %}
@@ -1074,9 +1221,11 @@ Similarly, the list of lines in the Board class is transformed to a list of maps
     }
     return linesList;
   }
+
 {% endhighlight %}
 
 The boxesToJson method of the Board class delegates a task of converting a box to its JSON representation to the toJson method of the Box class.
+
 **Code 10-11.52**: Box to JSON.
 
 {% highlight java %}
@@ -1092,9 +1241,11 @@ The boxesToJson method of the Board class delegates a task of converting a box t
     boxMap["items"] = itemsToJson();
     return boxMap;
   }
+
 {% endhighlight %}
 
 The list of items in the Box class is transformed to a list of maps. The map key is of the String type, while the map value may be of any type.
+
 **Code 10-11.53**: Items to JSON.
 
 {% highlight java %}
@@ -1106,9 +1257,11 @@ The list of items in the Box class is transformed to a list of maps. The map key
     }
     return itemsList;
   }
+
 {% endhighlight %}
 
 The itemsToJson method of the Box class delegates a task of converting an item to its JSON representation to the toJson method of the Item class.
+
 **Code 10-11.54**: Item to JSON.
 
 {% highlight java %}
@@ -1121,9 +1274,11 @@ The itemsToJson method of the Box class delegates a task of converting an item t
     itemMap["init"] = init;
     return itemMap;
   }
+
 {% endhighlight %}
 
 The linesToJson method of the Board class delegates a task of converting a line to its JSON representation to the toJson method of the Line class.
+
 **Code 10-11.55**: Line to JSON.
 
 {% highlight java %}
@@ -1147,9 +1302,11 @@ The linesToJson method of the Board class delegates a task of converting a line 
     
     return lineMap;
   }
+
 {% endhighlight %}
 
 Constants from the Board class are used in the Box class.
+
 **Code 10-11.56**: Use of constants in the Box class.
 
 {% highlight java %}
@@ -1192,9 +1349,11 @@ Constants from the Board class are used in the Box class.
       board.context.closePath();
     }
   }
+
 {% endhighlight %}
 
 Constants from the Board class are also used in the ToolBar class.
+
 **Code 10-11.57**: Use of constants in the ToolBar class.
 
 {% highlight java %}
@@ -1215,9 +1374,11 @@ Constants from the Board class are also used in the ToolBar class.
       lineButton.style.borderColor = Board.DEFAULT_LINE_COLOR;
     }
   }
+
 {% endhighlight %}
 
 In the Line class, in the set category property method, a reflexive line is internal.
+
 **Code 10-11.58**: Reflexive line is internal.
 
 {% highlight java %}
@@ -1225,9 +1386,11 @@ In the Line class, in the set category property method, a reflexive line is inte
 else if (category == 'reflexive') {
       box2 = box1;
       internal = true;
+
 {% endhighlight %}
 
-Similarly, if the category of a line is twin, private twin attributes of the current twin line are set properly. 
+Similarly, if the category of a line is twin, private twin attributes of the current twin line are set properly.
+ 
 **Code 10-11.59**: Twin line.
 
 {% highlight java %}
@@ -1247,9 +1410,11 @@ else if (category == 'twin') {
         }   
       }
     }
+
 {% endhighlight %}
 
 The other twin line is found by the findTwinLine method of the Board class. 
+
 **Code 10-11.60**: Find the other twin line.
 
 {% highlight java %}
@@ -1262,9 +1427,11 @@ The other twin line is found by the findTwinLine method of the Board class.
     }
     return null;
   }
+
 {% endhighlight %}
 
 The twin properties of the other twin line are set properly with the help of the set property methods of the Line class.
+
 **Code 10-11.61**: Twin properties.
 
 {% highlight java %}
@@ -1280,9 +1447,11 @@ The twin properties of the other twin line are set properly with the help of the
   }
   
   bool get twin2() => _twin2;
+
 {% endhighlight %}
 
 There is a new button in the JsonPanel class to transform a JSON representation of a model to model objects, so that they can be drawn graphically.
+
 **Code 10-11.62**: From JSON to model button.
 
 {% highlight java %}
@@ -1308,9 +1477,11 @@ class JsonPanel {
   }
 
 }
+
 {% endhighlight %}
 
 The JSON panel, in a section of HTML5, has a button to transform a JSON representation to a model.
+
 **Code 10-11.63**: From JSON button.
 
 {% highlight html %}
@@ -1320,14 +1491,20 @@ The JSON panel, in a section of HTML5, has a button to transform a JSON represen
       <button class="button" id="fromJsonToModel">From JSON</button>  
       <textarea name="modelJson" rows=20 cols=120 id="modelJson"></textarea>
     </section>
+
 {% endhighlight %}
 
 A JSON representation, copied from a model text file, is transformed to a model by clicking on the From JSON button (Figure 10-11.07).
+
 ![Alt Figure 10-11.07: From JSON to model](/img/s10s11/FromJsonToModel.png)
 
 **Figure 10-11.07**: From JSON to model.
 
-The fromJson method of the Board class accepts a JSON string and transforms by the parse method of the JSON class. The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. The value of the lines key is a list of maps, one map for each line.
+The fromJson method of the Board class accepts a JSON string and transforms by the parse method of the JSON class. 
+The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. 
+In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. 
+The value of the lines key is a list of maps, one map for each line.
+
 **Code 10-11.64**: From JSON to model.
 
 {% highlight java %}
@@ -1341,9 +1518,11 @@ The fromJson method of the Board class accepts a JSON string and transforms by t
     List<Map<String, Object>> linesList = boardMap["lines"];
     linesFromJson(linesList);
   }
+
 {% endhighlight %}
 
 A list of maps is passed to the boxesFromJson method. The list is traversed in a loop and for each map the boxFromJson method is called.
+
 **Code 10-11.65**: From JSON to boxes.
 
 {% highlight java %}
@@ -1354,10 +1533,11 @@ A list of maps is passed to the boxesFromJson method. The list is traversed in a
       boxes.add(boxFromJson(jsonBox));
     }
   }
+
 {% endhighlight %}
 
 A box map is converted to a box by the the boxFromJson method.
-Code 10-11.66: From JSON to box.
+
 **Code 10-11.66**: From JSON to box.
 
 {% highlight java %}
@@ -1382,9 +1562,11 @@ Code 10-11.66: From JSON to box.
     }
     return box;
   }
+
 {% endhighlight %}
 
 An item map is converted to a box item by the the itemFromJson method.
+
 **Code 10-11.67**: From JSON to item.
 
 {% highlight java %}
@@ -1398,9 +1580,11 @@ An item map is converted to a box item by the the itemFromJson method.
     item.sequence = sequence;
     item.init = itemMap["init"];
   }
+
 {% endhighlight %}
 
 A list of maps is passed to the linesFromJson method. The list is traversed in a loop and for each map the lineFromJson method is called.
+
 **Code 10-11.68**: From JSON to lines.
 
 {% highlight java %}
@@ -1414,9 +1598,11 @@ A list of maps is passed to the linesFromJson method. The list is traversed in a
       }
     }
   }
+
 {% endhighlight %}
 
 A line map is converted to a line by the the lineFromJson method.
+
 **Code 10-11.69**: From JSON to line.
 
 {% highlight java %}
@@ -1455,6 +1641,7 @@ A line map is converted to a line by the the lineFromJson method.
     }
     return null;
   }
+
 {% endhighlight %}
 
 
