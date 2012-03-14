@@ -155,6 +155,7 @@ A click on the button triggers the hideNonSelection method of the Board class.
 
 {% endhighlight %}
 
+
 Hidden boxes and lines may be shown again by the showHidden method. Not selected boxes and lines are hidden by the hideNonSelection method.
 
 **Code 10-11.04**: Changes in methods of the Board class.
@@ -185,7 +186,7 @@ Changes in the menu bar are reflected in the HTML code. The File menu is empty a
 
 **Code 10-11.05**: Changes in the HTML code.
 
-{% highlight html %}
+{% highlight java %}
 
     <nav>
      <ul>
@@ -461,7 +462,7 @@ In the ToolBar constructor, if a category of the current item is changed, a defa
 
 {% endhighlight %}
 
-An item may become the current item by entering its name in the Item field and clicking on the Get button. The item’s default value appears in the init field.
+An item may become the current item by entering its name in the Item field and clicking on the Get button. A default value of the item appears in the init field.
 
 **Code 10-11.18**: Get an item with its init value.
 
@@ -1112,7 +1113,7 @@ A model is transformed to JSON by clicking on the To JSON button (Figure 10-11.0
 The JSON panel contains the button and the text area where the JSON hierarchical data structure of the model will appear. 
 The click on the button triggers the transformation process that starts with the toJson method of the Board class. 
 This method returns the JSON text that becomes a value of the text area in the JSON panel. 
-The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to “save” models.
+The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to save models.
 
 **Code 10-11.46**: JSON panel class.
 
