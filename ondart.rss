@@ -17,6 +17,24 @@
   </image>
 
   <item>
+    <title>From Spiral10 To Spiral11</title>
+    <link>http://dzenanr.github.com/2012/03/14/from-s10-to-s11.html</link>
+    <guid>http://dzenanr.github.com/2012/03/14/from-s10-to-s11.html</guid>
+    <description>
+      In Spiral 10, a relationship created between two concepts, may be changed to inheritance or is-a relationship, 
+      first by selecting the relationship line, second by getting information about the relationship in the tool bar, 
+      third by choosing the inheritance category in the pop-up list. 
+      Similarly, the obtained relationship may be categorized as reflexive or twin. 
+      A reflexive relationship will connect the parent concept to itself. 
+      Two relationships between the same two concepts will split apart when becoming twins.
+      <br/>
+      In Spiral 11, a model may be transformed to JSON and back from JSON to a model.  JSON (JavaScript Object Notation) is a lightweight data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs {} and an ordered list of values []. 
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Wed, 14 Mar 2012 16:38:00 +0100</pubDate>
+  </item>
+
+  <item>
     <title>From Spiral09 To Spiral10</title>
     <link>http://dzenanr.github.com/2012/03/10/from-s09-to-s10.html</link>
     <guid>http://dzenanr.github.com/2012/03/10/from-s09-to-s10.html</guid>

@@ -1,0 +1,1468 @@
+---
+layout: default
+title: From Spiral10 To Spiral11
+---
+
+Code
+----
+
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+
+The use of the script element in the MagicBoxes.html file has changed from
+
+{% highlight html %}
+
+<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
+
+{% endhighlight %}
+
+to
+
+{% highlight html %}
+
+<script type="application/dart" src="MagicBoxes.dart"></script>
+<script
+  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
+</script>
+
+{% endhighlight %}
+
+This change requires the Internet access when you run code in the Dart Editor.
+
+If you use Spirals 00 ... 11 locally, checkout branches s00a ... s11a, where changes have been made.
+
+Overview
+--------
+
+In Spiral 10, a relationship created between two concepts may be changed to inheritance or is-a relationship, first by selecting the relationship line, second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. Two relationships between the same two concepts will split apart when becoming twins.
+
+In Spiral 11, a model may be transformed to [JSON](http://www.json.org/)and back from JSON to a model.  JSON (JavaScript Object Notation) is a lightweight data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs {} and an ordered list of values []. 
+
+A simple model with one concept (Domain) and one attribute (description) is represented in JSON as: 
+
+{% highlight json %}
+
+{ 
+"width":990,
+"boxes":
+  [{
+  "entry":false,
+  "name":"Domain",
+  "x":74,
+  "height":120,
+  "y":428,
+  "width":120,
+  "items":
+    [{
+    "category":"attribute",
+    "name":"description",
+    "sequence":10,
+    "init":""
+    }]
+  }],
+"lines":[],
+"height":580
+}
+{% endhighlight %}
+
+This representation may be copied to a text file and used later one to reproduce a graphical model.
+A meta-model of domain models is shown in Figure 10-11.01. There are four entry concepts (with || before the concept name): Domain, Type, Model and Board. Entities of those concepts can be reached directly. The relationship between Model and Concept is internal. The only way to obtain a concept is to access its model first. Since both Domain and Type are entry concepts, a relationship between two of them must be external. A parent concept may have several internal relationships towards child concepts. A child concept may not have more than one internal relationship towards a parent concept.
+The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts. 
+The meta-model has also concepts that are modelling tool oriented. Thus, a concept is represented as a box, an attribute as an item, and a neighbor as a line. A model with its concepts and properties is related to a board.
+![Alt Figure 10-11.01: Meta-model of domain models](/img/s10s11/MetaModel.png)
+
+**Figure 10-11.01**: Meta-model of domain models.
+
+Steps
+-----
+
+A portion of a model may be selected to define a model view. In this case, the rest of a model may be hidden to see only the view. This is accomplished by selecting a view and hiding not selected boxes and lines.
+**Code 10-11.01**: Changes in menu items.
+
+{% highlight java %}
+
+class MenuBar {
+  
+  final Board board;
+  
+  // File
+  
+  // Edit
+  …
+
+  // View
+  …
+  ButtonElement hideNonSelectionButton;
+  ButtonElement showHiddenButton;
+{% endhighlight %}
+
+The File menu is empty. A model may be transformed to a PNG image by the To PNG button in the Web page.
+The hideNonSelectionButton attribute is obtained from the document objet. 
+**Code 10-11.02**: MenuBar constructor.
+
+{% highlight java %}
+
+  MenuBar(this.board) {  
+    deleteSelectionButton = document.query('#delete-selection');
+    …
+    hideNonSelectionButton = document.query('#hide-non-selection');
+    showHiddenButton = document.query('#show-hidden');
+{% endhighlight %}
+
+A click on the button triggers the hideNonSelection method of the Board class.
+
+**Code 10-11.03**: Changes in menu items.
+
+{% highlight java %}
+
+    // Menu bar events.
+    deleteSelectionButton.on.click.add((MouseEvent e) {
+      board.deleteSelection();
+    });
+    …
+    hideNonSelectionButton.on.click.add((MouseEvent e) {
+      board.hideNonSelection();
+    });
+    showHiddenButton.on.click.add((MouseEvent e) {
+      board.showHidden();
+    });
+{% endhighlight %}
+
+Hidden boxes and lines may be shown again by the showHidden method. Not selected boxes and lines are hidden by the hideNonSelection method.
+**Code 10-11.04**: Changes in methods of the Board class.
+
+{% highlight java %}
+
+  void showHidden() {
+    showHiddenBoxes();
+    showHiddenLines();
+  }
+  
+  void hideNonSelection() {
+    for (Box box in boxes) {
+      if (!box.isSelected()) {
+        box.hide();
+      }
+    }
+    for (Line line in lines) {
+      if (!line.isSelected()) {
+        line.hide();
+      }
+    }
+  }
+{% endhighlight %}
+
+Changes in the menu bar are reflected in the HTML code. The File menu is empty and the Select menu has Hide non-selection and Show menu items. The About menu is updated. 
+**Code 10-11.05**: Changes in the HTML code.
+
+{% highlight html %}
+
+    <nav>
+     <ul>
+       <li>File
+         <ul>
+           <li></li>
+         </ul>  
+       </li>
+       …
+       <li>Select
+         <ul>
+           …
+           <li><button id="hide-non-selection">Hide non-selection</button></li>
+           <li><button id="show-hidden">Show</button></li>
+         </ul>
+       </li>
+       …
+       <li>About 
+         <ul>
+           <li>Magic Boxes in <a href="http://www.dart.org/">Dart</a></li>
+           <li>Spiral 11</li>
+           <li>2012-01-08</li>
+           <li>
+             <a href="https://plus.google.com/u/0/b/113649577593294551754/">On Dart</a>
+           </li>
+           <li>
+             <a href="http://www.ondart.info/"><img src="img/ondart0.png"/></a>
+           </li>
+         </ul>   
+       </li>
+     </ul>
+    </nav>
+{% endhighlight %}
+
+A selected box may be declared as entry point into the model. There is a checkbox in the tool bar (Figure 10-11.02). The entry concept has the || sign in the upper left corner of its box.
+![Alt Figure 10-11.02: Entry box sign](/img/s10s11/EntryBox.png)
+
+**Figure 10-11.02**: Entry box sign.
+
+The entry checkbox is a new attribute of the ToolBar class.
+**Code 10-11.06**: Entry box.
+
+{% highlight java %}
+
+class ToolBar {
+  …
+  InputElement boxNameInput;
+  InputElement boxEntryCheckbox;
+{% endhighlight %}
+
+The new entry attribute of the Box class is initialized to **false**. The private name attribute of a box has an empty space.
+**Code 10-11.07**: Entry attribute.
+
+{% highlight java %}
+
+class Box {  
+  …
+  String _name = '';
+  bool entry = false;
+
+{% endhighlight %}
+
+The entry symbol is drawn in the Box class.
+**Code 10-11.08**: Drawing the entry symbol.
+
+{% highlight java %}
+
+  void draw() {
+    if (!isHidden()) {
+      board.context.beginPath();
+      …
+      if (entry) {
+        board.context.fillText('|| ' + title, x + TOS, y + TOS, width - TOS);
+      } else {
+        board.context.fillText(title, x + TOS, y + TOS, width - TOS);
+      }
+{% endhighlight %}
+
+If the last selected box is an entry concept, a click in the Box (name) field shows the check in the entry checkbox.
+**Code 10-11.09**: Checking an entry box.
+
+{% highlight java %}
+
+  ToolBar(this.board) {
+    …
+    boxEntryCheckbox = document.query('#boxEntry');
+    boxEntryCheckbox.on.change.add((Event e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        box.entry = boxEntryCheckbox.checked;
+      }
+    });
+{% endhighlight %}
+
+The input element of the checkbox type has the boxEntry id.
+**Code 10-11.10**: Checkbox.
+
+{% highlight html %}
+
+      <footer>
+        …
+        <br/>
+        <label for="boxName">Box</label>
+        <input type="text" id="boxName"/>
+        <label for="boxEntry">entry</label>
+        <input type="checkbox" id="boxEntry"/>
+        <br/>
+        &nbsp; &nbsp;
+        <label for="itemName">Item</label>
+        <input type="text" id="itemName"/>
+        …
+      </footer>
+{% endhighlight %}
+
+A default item value may be entered by a user. A position of the current item may be changed by the Up and Down buttons (Figure 10-11.03).
+![Alt Figure 10-11.03: Tool bar item(/img/s10s11/ToolBarItem.png)
+
+**Figure 10-11.03**: Tool bar item.
+
+The item sequence element is removed and the item init element is added. 
+**Code 10-11.11**: Default (initialization) value.
+
+{% highlight java %}
+
+class ToolBar {
+  …
+  InputElement itemNameInput;
+  OptionElement itemOption;
+  // InputElement itemSequenceInput;
+  InputElement itemInitInput;
+  ButtonElement addItemButton;
+  ButtonElement getItemButton;
+  ButtonElement upItemButton;
+  ButtonElement downItemButton;
+  ButtonElement setItemButton;
+  ButtonElement removeItemButton;
+{% endhighlight %}
+
+The item init input is obtained from the document.
+**Code 10-11.12**: Item init input.
+
+{% highlight java %}
+
+  ToolBar(this.board) {
+ 
+    …
+    itemInitInput = document.query('#itemInit');
+{% endhighlight %}
+
+The init attribute is initialized to an empty string.
+**Code 10-11.13**: Init attribute.
+
+{% highlight java %}
+
+class Item {
+  
+  final Box box;
+  
+  int sequence; // sequence number within the box: 10, 20, ...
+  String name;
+  String category; // attribute, guid, identifier, required
+  String init = '';
+{% endhighlight %}
+
+In the ToolBar constructor, an added item must have a unique name within its box.
+**Code 10-11.14**: Add an item with a unique name.
+
+{% highlight java %}
+
+    addItemButton = document.query('#addItem');
+    addItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        String itemName = itemNameInput.value.trim();
+        if (itemName != '') {
+          Item otherItem = box.findItem(itemName);
+          if (otherItem == null) {
+            Item item = new Item(box, itemName, itemOption.value);
+            item.init = itemInitInput.value.trim();
+          }
+        }
+      }
+    });
+{% endhighlight %}
+
+When the Box field gets a focus, a name of the last selected box appears in the Box field and if the box is entry, the checkbox contains the check sign. A new or updated box name must be unique within the (board) model.
+**Code 10-11.15**: Add a box with a unique name.
+
+{% highlight java %}
+
+    boxNameInput = document.query('#boxName');
+    boxNameInput.on.focus.add((Event e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        boxNameInput.value = box.title;
+        boxEntryCheckbox.checked = box.entry;
+        currentItem = null;
+        itemNameInput.value = '';
+        itemOption.value = 'attribute';
+        itemInitInput.value = '';
+      }
+    });
+    boxNameInput.on.input.add((Event e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        String boxName = boxNameInput.value.trim();
+        if (boxName != '') {
+          Box otherBox = board.findBox(boxName);
+          if (otherBox == null) {
+            box.title = boxName;
+          }
+        }
+      }
+    });
+{% endhighlight %}
+
+In the Board class, a box may be found by its name.
+**Code 10-11.16**: Find a box with the given name.
+
+{% highlight java %}
+
+  Box findBox(String boxName) {
+    for (Box box in boxes) {
+      if (box.title == boxName) {
+        return box;
+      }
+    }
+    return null;
+  }
+{% endhighlight %}
+
+In the ToolBar constructor, if a category of the current item is changed, a default value of the current item goes back to an empty space.
+**Code 10-11.17**: Back to no default value.
+
+{% highlight java %}
+
+    itemOption = document.query('#itemCategory');
+    itemOption.on.change.add((MouseEvent e) {
+      if (currentItem != null) {
+        currentItem.name = itemNameInput.value;
+        currentItem.category = itemOption.value;
+        itemNameInput.select();
+      } 
+      itemInitInput.value = '';
+    });
+{% endhighlight %}
+
+An item may become the current item by entering its name in the Item field and clicking on the Get button. The item’s default value appears in the init field.
+**Code 10-11.18**: Get an item with its init value.
+
+{% highlight java %}
+
+    getItemButton = document.query('#getItem');
+    getItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        Item item = box.findItem(itemNameInput.value);
+        if (item != null) {
+          currentItem = item;
+          itemNameInput.value = item.name;
+          itemOption.value = item.category;
+          itemInitInput.value = item.init;
+          itemNameInput.select();
+        } else {
+          currentItem = null;
+        }
+      }
+    });
+{% endhighlight %}
+
+The current item may be moved up by the Up button.
+**Code 10-11.19**: Move the current item one position up.
+
+{% highlight java %}
+
+    upItemButton = document.query('#upItem');
+    upItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          Item previousItem = box.findPreviousItem(currentItem);
+          if (previousItem != null) {
+            int previousSequence = previousItem.sequence;
+            int currentSequence = currentItem.sequence;
+            currentItem.sequence = previousSequence;
+            previousItem.sequence = currentSequence;
+            itemNameInput.select();
+          } else {
+            currentItem = null;
+            itemNameInput.value = '';
+            itemOption.value = 'attribute';
+            itemInitInput.value = '';
+          }
+        } 
+      }
+    });
+{% endhighlight %}
+
+In the Box class, given the current item, a previous item may be found.
+**Code 10-11.20**: Find the previous item.
+
+{% highlight java %}
+
+  Item findPreviousItem(Item currentItem) {
+    sortItemsBySequence();
+    for (Item item in items) {
+      if (item == currentItem) {
+        int ix = items.indexOf(item, 0);
+        if (ix > 0) {
+          return items[ix - 1];
+        } 
+      }
+    }
+    return null;
+  }
+{% endhighlight %}
+
+The current item may be moved down by the Down button.
+**Code 10-11.21**: Move the current item one position down.
+
+{% highlight java %}
+
+    downItemButton = document.query('#downItem');
+    downItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          Item nextItem = box.findNextItem(currentItem);
+          if (nextItem != null) {
+            int nextSequence = nextItem.sequence;
+            int currentSequence = currentItem.sequence;
+            currentItem.sequence = nextSequence;
+            nextItem.sequence = currentSequence;
+            itemNameInput.select();
+          } else {
+            currentItem = null;
+            itemNameInput.value = '';
+            itemOption.value = 'attribute';
+            itemInitInput.value = '';
+          }
+        }
+      }
+    });
+{% endhighlight %}
+
+The next item may be found based on the position of the current item.
+**Code 10-11.22**: Find the next item.
+
+{% highlight java %}
+
+  Item findNextItem(Item currentItem) {
+    sortItemsBySequence();
+    for (Item item in items) {
+      if (item == currentItem) {
+        int ix = items.indexOf(item, 0);
+        if (ix < items.length) {
+          return items[ix + 1];
+        } 
+      }
+    }
+    return null;
+  }
+{% endhighlight %}
+
+The current item may be changed and the changes are accepted by the Set button.
+**Code 10-11.23**: Set an item with its init value.
+
+{% highlight java %}
+
+    setItemButton = document.query('#setItem');
+    setItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          String itemName = itemNameInput.value.trim();
+          if (itemName != '') {
+            Item otherItem = box.findItem(itemName);
+            if (otherItem == null) {
+              currentItem.name = itemName;
+            }
+          }
+          currentItem.category = itemOption.value;
+          currentItem.init = itemInitInput.value;
+          itemNameInput.select();
+        }
+      }
+    });
+{% endhighlight %}
+
+The current item may be removed.
+**Code 10-11.24**: Remove an item.
+
+{% highlight java %}
+
+    removeItemButton = document.query('#removeItem');
+    removeItemButton.on.click.add((MouseEvent e) {
+      Box box = board.lastBoxSelected;
+      if (box != null) {
+        if (currentItem != null) {
+          if (box.removeItem(currentItem)) {
+            currentItem = null;
+            itemNameInput.value = '';
+            itemOption.value = 'attribute';
+            itemInitInput.value = '';
+          }
+        }
+      }
+    });
+{% endhighlight %}
+
+The init field and the Up and Down buttons are added to the HTML code.
+**Code 10-11.25**: Init input; down and up buttons.
+
+{% highlight html %}
+
+        <label for="itemName">Item</label>
+        <input type="text" id="itemName"/>
+        <select id="itemCategory">
+          <option>attribute</option>
+          <option>guid</option>
+          <option>identifier</option>
+          <option>required</option>
+        </select> 
+        <label for="itemInit">init</label>
+        <input type="text" id="itemInit" size="16"/>
+        <button class="button" id="addItem">Add</button>
+        <button class="button" id="getItem">Get</button>
+        <button class="button" id="upItem">Up</button>
+        <button class="button" id="downItem">Down</button>
+        <button class="button" id="setItem">Set</button>
+        <button class="button" id="removeItem">Remove</button>
+{% endhighlight %}
+
+The buttons have a new look that is provided by the button class in the link.css file.
+**Code 10-11.26**: CSS button class.
+
+{% highlight css %}
+
+.button {
+    padding: 1px;
+    background: #ffcc99; 
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-style: outset;
+    border-color: #d7b9c9; 
+    font-weight: bold;
+    text-align: center;
+  }
+{% endhighlight %}
+
+In general, a model is a network of concepts (boxes) and relationships (lines). Some concepts in the model are entry points. Those concepts that are not entry points into the model, may be reached through relationships that start with the entry concept. For example (Figure 10-11.04), a web link may be reached only through its category. This relationship is internal and it may be characterized as a hierarchical relationship. In other words, web links are grouped within their categories.  A member may have interests in certain categories of web links. This relationship is not hierarchical. Since a member may have several interests and a category may be of interest to many members, the relationship is a network. It consists of two relationships and one intermediate concept. In this situation, only one relationship may be internal. In this model, it is the relationship between the Member and Interest concepts. The relationship between the Category and Interest concepts is external and it is graphically a bit lighter that an internal relationship. For the internal relationship, interests are grouped within their members. For the external relationships, interests are not grouped within their categories. However, each interest has a reference to its category. Thus, a network model may be decomposed into hierarchical sub-models, where each sub-model starts with an entry concept and follow only internal relationships. Hierarchical sub-models are related only through external relationships or references. 
+As analogy, all web pages on the same web server may be considered as internal. A link from a web page on one web server towards another web page on a different web server may be characterized as external. 
+![Alt Figure 10-11.04: External line is lighter](/img/s10s11/ExternalLine.png)
+
+**Figure 10-11.04**: External line is lighter.
+
+There is a checkbox in the tool bar for internal lines.
+**Code 10-11.27**: Internal line checkbox.
+
+{% highlight java %}
+
+class ToolBar {
+  …  
+  OptionElement lineOption;
+  InputElement lineInternalCheckbox;
+  ButtonElement getLineButton;
+  ButtonElement setLineButton;
+{% endhighlight %}
+
+Should a change of internal to external (or vice versa) line, populate line elements in the tool bar?
+**Code 10-11.28**: Internal line checkbox change.
+
+{% highlight java %}
+
+    lineInternalCheckbox = document.query('#lineInternal');
+    lineInternalCheckbox.on.change.add((Event e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        line.internal = lineInternalCheckbox.checked;
+        
+        lineOption.value = line.category;
+        
+        line12Box1Label.text = line.box1.title;
+        line12Box2Label.text = line.box2.title;
+        line12MinInput.value = line.box1box2Min;
+        line12MaxInput.value = line.box1box2Max;
+        line12IdCheckbox.checked = line.box1box2Id;
+        line12NameInput.value = line.box1box2Name;
+        
+        line21Box2Label.text = line.box2.title;
+        line21Box1Label.text = line.box1.title;
+        line21MinInput.value = line.box2box1Min;
+        line21MaxInput.value = line.box2box1Max;
+        line21IdCheckbox.checked = line.box2box1Id;
+        line21NameInput.value = line.box2box1Name;
+      }
+    });
+{% endhighlight %}
+
+There is a new internal attribute in the Line class. Its default value is **true**. Note that there is no internal property.
+**Code 10-11.29**: Internal line attribute.
+
+{% highlight java %}
+
+class Line {
+  …
+  bool internal = true;
+{% endhighlight %}
+
+If a category of the last selected line is changed, there are consequences that must be brought to line elements in the tool bar.
+**Code 10-11.30**: Line category.
+
+{% highlight java %}
+
+    lineOption = document.query('#lineCategory');
+    lineOption.on.change.add((MouseEvent e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        line.category = lineOption.value;
+        
+        lineInternalCheckbox.checked = line.internal;
+        
+        line12Box1Label.text = line.box1.title;
+        line12Box2Label.text = line.box2.title;
+        line12MinInput.value = line.box1box2Min;
+        line12MaxInput.value = line.box1box2Max;
+        line12IdCheckbox.checked = line.box1box2Id;
+        line12NameInput.value = line.box1box2Name;
+        
+        line21Box2Label.text = line.box2.title;
+        line21Box1Label.text = line.box1.title;
+        line21MinInput.value = line.box2box1Min;
+        line21MaxInput.value = line.box2box1Max;
+        line21IdCheckbox.checked = line.box2box1Id;
+        line21NameInput.value = line.box2box1Name;
+      }
+    });
+{% endhighlight %}
+
+Those consequences are defined in the set category property method.
+**Code 10-11.31**: Change line category with consequences.
+
+{% highlight java %}
+
+  void set category(String category) {
+    _category = category;
+    if (category == 'relationship') {
+      box1box2Name = '';
+      box1box2Min = '0';
+      box1box2Max = 'N';
+      box1box2Id = false;
+      
+      box2box1Name = '';
+      box2box1Min = '1';
+      box2box1Max = '1';
+      box2box1Id = false;
+      
+      _twin1 = false;
+      _twin2 = false;
+    } else if (category == 'inheritance') {
+      box1box2Name = 'as';
+      box1box2Min = '0';
+      box1box2Max = '1';
+      box1box2Id = false;
+      
+      box2box1Name = 'is';
+      box2box1Min = '1';
+      box2box1Max = '1';
+      box2box1Id = true;
+      
+      _twin1 = false;
+      _twin2 = false;
+    } else if (category == 'reflexive') {
+      box2 = box1;
+      
+      box1box2Name = _putInEnglishPlural(box1.title.toLowerCase());
+      box1box2Min = '0';
+      box1box2Max = 'N';
+      box1box2Id = false;
+      
+      box2box1Name = box1.title.toLowerCase();
+      box2box1Min = '0';
+      box2box1Max = '1';
+      box2box1Id = false;
+      
+      _twin1 = false;
+      _twin2 = false;
+    }  else if (category == 'twin') {
+      Line twinLine = board.findTwinLine(this);
+      if (twinLine != null) {
+        if (twinLine.twin) {
+          _twin1 = false;
+          _twin2 = true;
+        } else {
+          _twin1 = true;
+          _twin2 = false;
+          twinLine.category = 'twin';
+        }   
+      }
+    }
+  }
+{% endhighlight %}
+
+The last selected line is brought to the tool bar by the click event on the get line button.
+**Code 10-11.32**: Get line.
+
+{% highlight java %}
+
+    getLineButton = document.query('#getLine');
+    getLineButton.on.click.add((MouseEvent e) {
+      Line line = board.lastLineSelected;
+      if (line != null) {
+        lineOption.value = line.category;
+        lineInternalCheckbox.checked = line.internal;
+        
+        line12Box1Label.text = line.box1.title;
+        line12Box2Label.text = line.box2.title;
+        line12MinInput.value = line.box1box2Min;
+        line12MaxInput.value = line.box1box2Max;
+        line12IdCheckbox.checked = line.box1box2Id;
+        line12NameInput.value = line.box1box2Name;
+        
+        line21Box2Label.text = line.box2.title;
+        line21Box1Label.text = line.box1.title;
+        line21MinInput.value = line.box2box1Min;
+        line21MaxInput.value = line.box2box1Max;
+        line21IdCheckbox.checked = line.box2box1Id;
+        line21NameInput.value = line.box2box1Name;
+      }
+    });
+{% endhighlight %}
+
+The line HTML elements are updated to include the internal line checkbox and its label.
+**Code 10-11.33**: Line HTML elements.
+
+{% highlight html %}
+
+        <label>Line</label>
+        <select id="lineCategory">
+          <option>relationship</option>
+          <option>inheritance</option>
+          <option>reflexive</option>
+          <option>twin</option>
+        </select>
+        <label for="lineInternal">internal</label>
+        <input type="checkbox" id="lineInternal"/>
+        <button class="button" id="getLine">Get</button>
+        <button class="button" id="setLine">Set</button>
+{% endhighlight %}
+
+The two line attributes are removed in favor of constants.
+**Code 10-11.34**: Two attributes removed.
+
+{% highlight java %}
+
+class Line {  
+  …
+  // String textFontSize = 12;
+  // num defaultLineWidth;
+{% endhighlight %}
+
+The constants are defined in the Board class.
+**Code 10-11.35**: Board constants.
+
+{% highlight java %}
+
+class Board {
+  
+  static final int MIN_WIDTH = 990;
+  static final int MIN_HEIGHT = 580;
+  static final int DEFAULT_LINE_WIDTH = 1;
+  static final String DEFAULT_LINE_COLOR = '#000000'; // black
+  static final String SOFT_LINE_COLOR = '#736f6e '; // gray
+  static final String DEFAULT_FONT_SIZE = 12;
+{% endhighlight %}
+
+In the draw method of the Line class, the selected line gets a wider width.
+**Code 10-11.36**: Use of constants in the line selection.
+
+{% highlight java %}
+
+      if (isSelected()) {
+        board.context.lineWidth = Board.DEFAULT_LINE_WIDTH + 2;
+      } else {
+        board.context.lineWidth = Board.DEFAULT_LINE_WIDTH;
+      }
+{% endhighlight %}
+
+A relationship direction may be an identifier of its source concept. In that case, in the draw method of the Line class, the text font becomes bold and italic.
+
+**Code 10-11.37**: Use of constants in ids.
+
+{% highlight java %}
+
+      if (box1box2Id) {
+        board.context.font = 'bold italic ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+      } else if (box1box2Min != '0') {
+        board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+      } else {
+        board.context.font = '' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+      }
+{% endhighlight %}
+
+If a line is external, its color becomes, in the draw method of the Line class, a bit softer than the color of a line that is internal.
+**Code 10-11.38**: External line.
+
+{% highlight java %}
+
+      if (!internal) {
+        board.context.strokeStyle = Board.SOFT_LINE_COLOR;
+      } else {
+        board.context.strokeStyle = Board.DEFAULT_LINE_COLOR;
+      }
+{% endhighlight %}
+
+In the border method of the Board class, the constants are used for a default line width and a default line color in drawing a diagram border.
+**Code 10-11.39**: Use of constants in the Board class.
+
+{% highlight java %}
+
+  void border() {
+    context.beginPath();
+    context.rect(0, 0, width, height);
+    context.lineWidth = DEFAULT_LINE_WIDTH;
+    context.strokeStyle = DEFAULT_LINE_COLOR;
+    context.stroke();
+    context.closePath();
+  }
+{% endhighlight %}
+
+There is no more default line width attribute in the Board class.
+There is a new attributes that represents a model image panel. The model image panel is used to display a model as a PNG image.
+**Code 10-11.40**: Image panel attribute.
+
+{% highlight java %}
+
+class Board {  
+  …
+  PngPanel pngPanel;
+{% endhighlight %}
+
+The model image panel is constructed as an object of the new PngPanel class.
+**Code 10-11.41**: Constructing the image panel object.
+
+{% highlight java %}
+
+  Board(this.canvas) {
+    …
+    pngPanel = new PngPanel(this);
+{% endhighlight %}
+
+A model is represented as a PNG image in the panel by clicking on the To PNG button (Figure 10-11.05),
+![Alt Figure 10-11.05: Model image](/img/s10s11/ModelImage.png)
+
+**Figure 10-11.05**: Model image.
+
+which activates the toPng method in the new PngPanel class. 
+**Code 10-11.42**: Image panel class.
+
+{% highlight java %}
+
+class PngPanel {
+  
+final Board board;
+  
+  ButtonElement fromModelToPngButton;
+  
+  PngPanel(this.board) {
+    fromModelToPngButton = document.query('#fromModelToPng');
+    fromModelToPngButton.on.click.add((MouseEvent e) {
+      //board.toPng();
+      toPng();
+    });
+  }
+  
+  void toPng() {
+    ImageElement modelImage = document.query('#modelImage');
+    modelImage.src = board.canvas.toDataURL("image/png");
+  }
+  
+}
+{% endhighlight %}
+
+The toPng method of the PngPanel class obtains the image element of the Web page and sets its source to the result of the toDataURL method of the CanvasElement type. The toDataURL method accepts an argument that determines the kind of image produced.
+The image panel is represented in HTML5 as a section of the Web page.
+**Code 10-11.43**: Image panel as a section of HTML5.
+
+{% highlight html %}
+
+    <section>
+      <button class="button" id="fromModelToPng">To PNG</button>
+      <img alt="Your model as PNG." id="modelImage"/>
+      …
+    </section>
+{% endhighlight %}
+
+There is a new attribute in the Board class that represents a JSON panel. The JSON panel is used to transform a model to a JSON hierarchical data structure.
+**Code 10-11.44**: JSON panel attribute.
+
+{% highlight java %}
+
+class Board {  
+  …
+  JsonPanel jsonPanel;
+{% endhighlight %}
+
+The JSON panel is created as an object of the new JsonPanel class. 
+**Code 10-11.45**: Constructing the JSON panel object.
+
+{% highlight java %}
+
+  Board(this.canvas) {
+    …
+    jsonPanel = new JsonPanel(this);
+{% endhighlight %}
+
+A model is transformed to JSON by clicking on the To JSON button (Figure 10-11.06), which appears before the JSON panel.
+![Alt Figure 10-11.06: Model to JSON](/img/s10s11/ToJsonFromModel.png)
+
+**Figure 10-11.06**: Model to JSON.
+
+The JSON panel contains the button and the text area where the JSON hierarchical data structure of the model will appear. The click on the button triggers the transformation process that starts with the toJson method of the Board class. This method returns the JSON text that becomes a value of the text area in the JSON panel. The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to “save” models.
+**Code 10-11.46**: JSON panel class.
+
+{% highlight java %}
+
+class JsonPanel {
+  
+  final Board board;
+  
+  TextAreaElement modelJsonTextArea;
+  ButtonElement fromModelToJsonButton;
+  
+  JsonPanel(this.board) {
+    modelJsonTextArea = document.query('#modelJson');
+    fromModelToJsonButton = document.query('#fromModelToJson');
+    fromModelToJsonButton.on.click.add((MouseEvent e) {
+      modelJsonTextArea.value = board.toJson();
+    });
+  }
+
+}
+{% endhighlight %}
+
+The JSON panel is represented in HTML5 as a section of the Web page.
+**Code 10-11.47**: JSON panel as a section of HTML5.
+
+{% highlight html %}
+
+    <section> 
+      <button class="button" id="fromModelToJson">To JSON</button>
+      <textarea name="modelJson" rows=20 cols=120 id="modelJson"></textarea>
+    </section>
+{% endhighlight %}
+
+In the Board class, the toJson method creates a local map of key/value pairs. The keys are strings, while values are objects. The width key has a value of the width property of the Board class. The height key has a value of the width property of the Board class. A value of the boxes key is obtained by the boxesToJson method of the Board class. A value of the lines key is obtained by the linesToJson method of the Board class. 
+**Code 10-11.48**: Model to JSON.
+
+{% highlight java %}
+
+  String toJson() {
+    Map<String, Object> boardMap = new Map<String, Object>();
+    boardMap["width"] = width;
+    boardMap["height"] = height;
+    boardMap["boxes"] = boxesToJson();
+    boardMap["lines"] = linesToJson();
+    return JSON.stringify(boardMap);
+  }
+{% endhighlight %}
+
+The stringify method of the JSON class, which is a part of the dart:json library, converts the map object to text. The json library is imported in the mb.dart file.
+**Code 10-11.49**: Import JSON library.
+
+{% highlight java %}
+
+#import('dart:html');
+#import('dart:json');
+#source('Board.dart');
+#source('Box.dart');
+#source('Line.dart');
+#source('MenuBar.dart');
+#source('ToolBar.dart');
+#source('Item.dart');
+#source('PngPanel.dart');
+#source('JsonPanel.dart');
+
+{% endhighlight %}
+
+The list of boxes in the Board class is transformed to a list of maps. The map key is of the String type, while the map value may be of any type. 
+**Code 10-11.50**: Boxes to JSON.
+
+{% highlight java %}
+
+  List<Map<String, Object>> boxesToJson() {
+    List<Map<String, Object>> boxesList = new List<Map<String, Object>>();
+    for (Box box in boxes) {
+      if (!box.isHidden()) {
+        boxesList.add(box.toJson());
+      }
+    }
+    return boxesList;
+  }
+{% endhighlight %}
+
+Similarly, the list of lines in the Board class is transformed to a list of maps. The map key is of the String type, while the map value may be of any type.
+**Code 10-11.51**: Lines to JSON.
+
+{% highlight java %}
+
+  List<Map<String, Object>> linesToJson() {
+    List<Map<String, Object>> linesList = new List<Map<String, Object>>();
+    for (Line line in lines) {
+      if (!line.isHidden()) {
+        linesList.add(line.toJson());
+      }
+    }
+    return linesList;
+  }
+{% endhighlight %}
+
+The boxesToJson method of the Board class delegates a task of converting a box to its JSON representation to the toJson method of the Box class.
+**Code 10-11.52**: Box to JSON.
+
+{% highlight java %}
+
+  Map<String, Object> toJson() {
+    Map<String, Object> boxMap = new Map<String, Object>();
+    boxMap["name"] = title;
+    boxMap["entry"] = entry;
+    boxMap["x"] = x;
+    boxMap["y"] = y;
+    boxMap["width"] = width;
+    boxMap["height"] = height;
+    boxMap["items"] = itemsToJson();
+    return boxMap;
+  }
+{% endhighlight %}
+
+The list of items in the Box class is transformed to a list of maps. The map key is of the String type, while the map value may be of any type.
+**Code 10-11.53**: Items to JSON.
+
+{% highlight java %}
+
+  List<Map<String, Object>> itemsToJson() {
+    List<Map<String, Object>> itemsList = new List<Map<String, Object>>();
+    for (Item item in items) {
+      itemsList.add(item.toJson());
+    }
+    return itemsList;
+  }
+{% endhighlight %}
+
+The itemsToJson method of the Box class delegates a task of converting an item to its JSON representation to the toJson method of the Item class.
+**Code 10-11.54**: Item to JSON.
+
+{% highlight java %}
+
+  Map<String, Object> toJson() {
+    Map<String, Object> itemMap = new Map<String, Object>();
+    itemMap["sequence"] = sequence;
+    itemMap["name"] = name;
+    itemMap["category"] = category; 
+    itemMap["init"] = init;
+    return itemMap;
+  }
+{% endhighlight %}
+
+The linesToJson method of the Board class delegates a task of converting a line to its JSON representation to the toJson method of the Line class.
+**Code 10-11.55**: Line to JSON.
+
+{% highlight java %}
+
+  Map<String, Object> toJson() {
+    Map<String, Object> lineMap = new Map<String, Object>();
+    lineMap["box1Name"] = box1.title;
+    lineMap["box2Name"] = box2.title;
+    lineMap["category"] = category;
+    lineMap["internal"] = internal;
+    
+    lineMap["box1box2Name"] = box1box2Name;
+    lineMap["box1box2Min"] = box1box2Min;
+    lineMap["box1box2Max"] = box1box2Max;
+    lineMap["box1box2Id"] = box1box2Id;
+    
+    lineMap["box2box1Name"] = box2box1Name;
+    lineMap["box2box1Min"] = box2box1Min;
+    lineMap["box2box1Max"] = box2box1Max;
+    lineMap["box2box1Id"] = box2box1Id;
+    
+    return lineMap;
+  }
+{% endhighlight %}
+
+Constants from the Board class are used in the Box class.
+**Code 10-11.56**: Use of constants in the Box class.
+
+{% highlight java %}
+
+  void draw() {
+    if (!isHidden()) {
+      board.context.beginPath();
+      …
+      board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+      …
+      for (Item item in items) {
+        if (item.category == 'attribute') {
+          board.context.font = '' + Board.DEFAULT_FONT_SIZE + 
+          'px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+            width - TOS);
+        } else if (item.category == 'guid') {
+          board.context.font = 'italic ' + Board.DEFAULT_FONT_SIZE + 
+          'px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+            width - TOS);
+        } else if (item.category == 'identifier') {
+          board.context.font = 'bold italic ' + Board.DEFAULT_FONT_SIZE + 
+          'px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+            width - TOS);
+        } else if (item.category == 'required') {
+          board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 
+          'px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+            width - TOS);
+        }
+        i++;
+      }
+      …
+      board.context.lineWidth = Board.DEFAULT_LINE_WIDTH;
+      board.context.strokeStyle = Board.DEFAULT_LINE_COLOR;
+      
+      board.context.stroke();
+      board.context.closePath();
+    }
+  }
+{% endhighlight %}
+
+Constants from the Board class are also used in the ToolBar class.
+**Code 10-11.57**: Use of constants in the ToolBar class.
+
+{% highlight java %}
+
+  onTool(int tool) {
+    _onTool = tool;
+    if (_onTool == SELECT) {
+      selectButton.style.borderColor = Board.DEFAULT_LINE_COLOR; 
+      boxButton.style.borderColor = Board.SOFT_LINE_COLOR;
+      lineButton.style.borderColor = Board.SOFT_LINE_COLOR;
+    } else if (_onTool == BOX) {
+      selectButton.style.borderColor = Board.SOFT_LINE_COLOR;
+      boxButton.style.borderColor = Board.DEFAULT_LINE_COLOR;
+      lineButton.style.borderColor = Board.SOFT_LINE_COLOR;
+    } else if (_onTool == LINE) {
+      selectButton.style.borderColor = Board.SOFT_LINE_COLOR;
+      boxButton.style.borderColor = Board.SOFT_LINE_COLOR;
+      lineButton.style.borderColor = Board.DEFAULT_LINE_COLOR;
+    }
+  }
+{% endhighlight %}
+
+In the Line class, in the set category property method, a reflexive line is internal.
+**Code 10-11.58**: Reflexive line is internal.
+
+{% highlight java %}
+
+else if (category == 'reflexive') {
+      box2 = box1;
+      internal = true;
+{% endhighlight %}
+
+Similarly, if the category of a line is twin, private twin attributes of the current twin line are set properly. 
+**Code 10-11.59**: Twin line.
+
+{% highlight java %}
+
+else if (category == 'twin') {
+      Line twinLine = board.findTwinLine(this);
+      if (twinLine != null) {
+        if (twinLine.twin) {
+          _twin1 = false;
+          _twin2 = true;
+          twinLine.twin1 = true;
+          twinLine.twin2 = false;
+        } else {
+          _twin1 = true;
+          _twin2 = false;
+          // twinLine.category = 'twin';
+        }   
+      }
+    }
+{% endhighlight %}
+
+The other twin line is found by the findTwinLine method of the Board class. 
+**Code 10-11.60**: Find the other twin line.
+
+{% highlight java %}
+
+  Line findTwinLine(Line twin) {
+    for (Line line in lines) {
+      if (line != twin && line.box1 == twin.box1 && line.box2 == twin.box2) {
+        return line;
+      }
+    }
+    return null;
+  }
+{% endhighlight %}
+
+The twin properties of the other twin line are set properly with the help of the set property methods of the Line class.
+**Code 10-11.61**: Twin properties.
+
+{% highlight java %}
+
+  void set twin1(bool twin1) {
+    _twin1 = twin1;
+  }
+  
+  bool get twin1() => _twin1;
+  
+  void set twin2(bool twin2) {
+    _twin2 = twin2;
+  }
+  
+  bool get twin2() => _twin2;
+{% endhighlight %}
+
+There is a new button in the JsonPanel class to transform a JSON representation of a model to model objects, so that they can be drawn graphically.
+**Code 10-11.62**: From JSON to model button.
+
+{% highlight java %}
+
+class JsonPanel {
+  
+  final Board board;
+  
+  TextAreaElement modelJsonTextArea;
+  ButtonElement fromModelToJsonButton;
+  ButtonElement fromJsonToModelButton;
+  
+  JsonPanel(this.board) {
+    modelJsonTextArea = document.query('#modelJson');
+    fromModelToJsonButton = document.query('#fromModelToJson');
+    fromModelToJsonButton.on.click.add((MouseEvent e) {
+      modelJsonTextArea.value = board.toJson();
+    });
+    fromJsonToModelButton = document.query('#fromJsonToModel');
+    fromJsonToModelButton.on.click.add((MouseEvent e) {
+      board.fromJson(modelJsonTextArea.value);
+    });
+  }
+
+}
+{% endhighlight %}
+
+The JSON panel, in a section of HTML5, has a button to transform a JSON representation to a model.
+**Code 10-11.63**: From JSON button.
+
+{% highlight html %}
+
+    <section> 
+      <button class="button" id="fromModelToJson">To JSON</button>
+      <button class="button" id="fromJsonToModel">From JSON</button>  
+      <textarea name="modelJson" rows=20 cols=120 id="modelJson"></textarea>
+    </section>
+{% endhighlight %}
+
+A JSON representation, copied from a model text file, is transformed to a model by clicking on the From JSON button (Figure 10-11.07).
+![Alt Figure 10-11.07: From JSON to model](/img/s10s11/FromJsonToModel.png)
+
+**Figure 10-11.07**: From JSON to model.
+
+The fromJson method of the Board class accepts a JSON string and transforms by the parse method of the JSON class. The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. The value of the lines key is a list of maps, one map for each line.
+**Code 10-11.64**: From JSON to model.
+
+{% highlight java %}
+
+  void fromJson(String json) {
+    Map<String, Object> boardMap = JSON.parse(json);
+    width = boardMap["width"];
+    height = boardMap["height"];
+    List<Map<String, Object>> boxesList = boardMap["boxes"];
+    boxesFromJson(boxesList);
+    List<Map<String, Object>> linesList = boardMap["lines"];
+    linesFromJson(linesList);
+  }
+{% endhighlight %}
+
+A list of maps is passed to the boxesFromJson method. The list is traversed in a loop and for each map the boxFromJson method is called.
+**Code 10-11.65**: From JSON to boxes.
+
+{% highlight java %}
+
+  void boxesFromJson(List<Map<String, Object>> boxesList) {
+    boxes = new List();
+    for (Map<String, Object> jsonBox in boxesList) {
+      boxes.add(boxFromJson(jsonBox));
+    }
+  }
+{% endhighlight %}
+
+A box map is converted to a box by the the boxFromJson method.
+Code 10-11.66: From JSON to box.
+**Code 10-11.66**: From JSON to box.
+
+{% highlight java %}
+
+  Box boxFromJson(Map<String, Object> boxMap) {
+    String title = boxMap["name"];
+    bool entry = boxMap["entry"];
+    String xText = boxMap["x"];
+    int x = Math.parseInt(xText);
+    String yText = boxMap["y"];
+    int y = Math.parseInt(yText);
+    String widthText = boxMap["width"];
+    int width = Math.parseInt(widthText);
+    String heightText = boxMap["height"];
+    int height = Math.parseInt(heightText);
+    Box box = new Box(this, x, y, width, height);
+    box.title = title;
+    box.entry = entry;
+    List<Map<String, Object>> itemsList = boxMap["items"];
+    for (Map<String, Object> jsonItem in itemsList) {
+      itemFromJson(box, jsonItem);
+    }
+    return box;
+  }
+{% endhighlight %}
+
+An item map is converted to a box item by the the itemFromJson method.
+**Code 10-11.67**: From JSON to item.
+
+{% highlight java %}
+
+  Item itemFromJson(Box box, Map<String, Object> itemMap) {
+    String name = itemMap["name"];
+    String category = itemMap["category"];
+    Item item = new Item(box, name, category);
+    String sequenceText = itemMap["sequence"];
+    int sequence = Math.parseInt(sequenceText);
+    item.sequence = sequence;
+    item.init = itemMap["init"];
+  }
+{% endhighlight %}
+
+A list of maps is passed to the linesFromJson method. The list is traversed in a loop and for each map the lineFromJson method is called.
+**Code 10-11.68**: From JSON to lines.
+
+{% highlight java %}
+
+  void linesFromJson(List<Map<String, Object>> linesList) {
+    lines = new List();
+    for (Map<String, Object> jsonLine in linesList) {
+      Line line = lineFromJson(jsonLine);
+      if (line != null) {
+        lines.add(line);
+      }
+    }
+  }
+{% endhighlight %}
+
+A line map is converted to a line by the the lineFromJson method.
+**Code 10-11.69**: From JSON to line.
+
+{% highlight java %}
+
+  Line lineFromJson(Map<String, Object> lineMap) {
+    String box1Name = lineMap["box1Name"];
+    String box2Name = lineMap["box2Name"];
+    Box box1 = findBox(box1Name);
+    Box box2 = findBox(box2Name);
+    if (box1 != null && box2 != null) {
+      Line line = new Line(this, box1, box2);
+      line.category = lineMap["category"];
+      line.internal = lineMap["internal"];
+      
+      String box1box2Name = lineMap["box1box2Name"];
+      String box1box2Min = lineMap["box1box2Min"];
+      String box1box2Max = lineMap["box1box2Max"];
+      bool box1box2Id = lineMap["box1box2Id"];
+      
+      line.box1box2Name = box1box2Name;
+      line.box1box2Min = box1box2Min;
+      line.box1box2Max = box1box2Max;
+      line.box1box2Id = box1box2Id;
+      
+      String box2box1Name = lineMap["box2box1Name"];
+      String box2box1Min = lineMap["box2box1Min"];
+      String box2box1Max = lineMap["box2box1Max"];
+      bool box2box1Id = lineMap["box2box1Id"];
+      
+      line.box2box1Name = box2box1Name;
+      line.box2box1Min = box2box1Min;
+      line.box2box1Max = box2box1Max;
+      line.box2box1Id = box2box1Id;
+      
+      return line;
+    }
+    return null;
+  }
+{% endhighlight %}
+
+
+
+
+
+
+
+
+ 
+
