@@ -186,7 +186,7 @@ Changes in the menu bar are reflected in the HTML code. The File menu is empty a
 
 **Code 10-11.05**: Changes in the HTML code.
 
-{% highlight java %}
+{% highlight html %}
 
     <nav>
      <ul>
@@ -315,7 +315,7 @@ The input element of the checkbox type has the boxEntry id.
 
 A default item value may be entered by a user. A position of the current item may be changed by the Up and Down buttons (Figure 10-11.03).
 
-![Alt Figure 10-11.03: Tool bar item(/img/s10s11/ToolBarItem.png)
+![Alt Figure 10-11.03: Tool bar item](/img/s10s11/ToolBarItem.png)
 
 **Figure 10-11.03**: Tool bar item.
 
