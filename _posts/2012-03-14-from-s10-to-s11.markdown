@@ -45,36 +45,6 @@ In Spiral 11, a model may be transformed to [JSON](http://www.json.org/) and bac
 data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs 
 \{\} and an ordered list of values \[\]. 
 
-A simple model with one concept (Domain) and one attribute (description) is represented in JSON as: 
-
-{% highlight javascript %}
-
-{ 
-"width":990,
-"boxes":
-  [{
-  "entry":false,
-  "name":"Domain",
-  "x":74,
-  "height":120,
-  "y":428,
-  "width":120,
-  "items":
-    [{
-    "category":"attribute",
-    "name":"description",
-    "sequence":10,
-    "init":""
-    }]
-  }],
-"lines":[],
-"height":580
-}
-
-{% endhighlight %}
-
-This representation may be copied to a text file and used later one to reproduce a graphical model.
-
 A meta-model of domain models is shown in Figure 10-11.01. There are four entry concepts (with || before the concept name): Domain, Type, Model and Board. 
 Entities of those concepts can be reached directly. The relationship between Model and Concept is internal. The only way to obtain a concept is to access its model first. 
 Since both Domain and Type are entry concepts, a relationship between two of them must be external. 
