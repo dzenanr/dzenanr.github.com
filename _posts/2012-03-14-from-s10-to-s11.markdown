@@ -1645,6 +1645,28 @@ A line map is converted to a line by the the lineFromJson method.
 
 {% endhighlight %}
 
+To delete the following code:
+
+**Code 10-11.01**: Changes in menu items.
+
+{% highlight java %}
+
+class MenuBar {
+  
+  final Board board;
+  
+  // File
+  
+  // Edit
+  …
+
+  // View
+  …
+  ButtonElement hideNonSelectionButton;
+  ButtonElement showHiddenButton;
+
+{% endhighlight %}
+
 
 
 
