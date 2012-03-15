@@ -6,9 +6,7 @@ title: From Spiral10 To Spiral11
 Code
 ----
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). 
-The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). 
-For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the MagicBoxes project is at [MagicBoxes on GitHub] (https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub] (https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
 The use of the script element in the MagicBoxes.html file has changed from
 
@@ -23,8 +21,8 @@ to
 {% highlight html %}
 
 <script type="application/dart" src="MagicBoxes.dart"></script>
-<script
-  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
+<script src =
+"http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
 </script>
 
 {% endhighlight %}
@@ -37,13 +35,10 @@ Overview
 --------
 
 In Spiral 10, a relationship created between two concepts may be changed to inheritance or is-a relationship, first by selecting the relationship line, 
-second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. 
-Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. 
-Two relationships between the same two concepts will split apart when becoming twins.
+second by getting information about the relationship in the tool bar, third by choosing the inheritance category in the pop-up list. Similarly, the obtained relationship may be categorized as reflexive or twin. A reflexive relationship will connect the parent concept to itself. Two relationships between the same two concepts will split apart when becoming twins.
 
-In Spiral 11, a model may be transformed to [JSON](http://www.json.org/) and back from JSON to a model. JSON (JavaScript Object Notation) is a lightweight 
-data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs 
-\{\} and an ordered list of values \[\]. 
+In Spiral 11, a model may be transformed to [JSON] (http://www.json.org/) and back from JSON to a model. JSON (JavaScript Object Notation) is a lightweight 
+data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs \{\} and an ordered list of values \[\]. 
 
 A simple model with one concept (Domain) and one attribute (description) is represented in JSON as: 
 
@@ -75,29 +70,20 @@ A simple model with one concept (Domain) and one attribute (description) is repr
 
 This representation may be copied to a text file and used later one to reproduce a graphical model.
 
-A meta-model of domain models is shown in Figure 10-11.01. There are four entry concepts (with || before the concept name): Domain, Type, Model and Board. 
-Entities of those concepts can be reached directly. The relationship between Model and Concept is internal. The only way to obtain a concept is to access its model first. 
-Since both Domain and Type are entry concepts, a relationship between two of them must be external. 
-A parent concept may have several internal relationships towards child concepts. A child concept may not have more than one internal relationship towards a parent concept.
+A meta-model of domain models is shown in Figure 10-11.01. There are four entry concepts (with || before the concept name): Domain, Type, Model and Board. Entities of those concepts can be reached directly. The relationship between Model and Concept is internal. The only way to obtain a concept is to access its model first. Since both Domain and Type are entry concepts, a relationship between two of them must be external. A parent concept may have several internal relationships towards child concepts. A child concept may not have more than one internal relationship towards a parent concept.
 
-The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. 
-A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. 
-There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. 
-An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. 
-A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts.
+The Domain concept has a reflexive relationship, which is used to represent a tree of domains and sub-domains. A domain may have several models. A model contains concepts. A concept has properties. A property is either an attribute or a neighbor. There are two inheritance relationships, one between the Attribute and Property concepts, the other between the Neighbor and Property concepts. An attribute may have a type, which belongs to a domain. A concept may be a source of several relationship directions towards destination (neighbor) concepts. A concept may be also a destination to several relationship directions. This is represented as two twin relationships between the Concept and Neighbor concepts.
  
-The meta-model has also concepts that are modelling tool oriented. Thus, a concept is represented as a box, an attribute as an item, and a neighbor as a line. 
-A model with its concepts and properties is related to a board.
+The meta-model has also concepts that are modelling tool oriented. Thus, a concept is represented as a box, an attribute as an item, and a neighbor as a line. A model with its concepts and properties is related to a board.
 
-![Alt Figure 10-11.01: Meta-model of domain models](/img/s10s11/MetaModel.png)
+![Alt Figure 10-11.01: Meta-model of domain models] (/img/s10s11/MetaModel.png)
 
 **Figure 10-11.01**: Meta-model of domain models.
 
 Steps
 -----
 
-A portion of a model may be selected to define a model view. In this case, the rest of a model may be hidden to see only the view. 
-This is accomplished by selecting a view and hiding not selected boxes and lines.
+A portion of a model may be selected to define a model view. In this case, the rest of a model may be hidden to see only the view. This is accomplished by selecting a view and hiding not selected boxes and lines.
 
 **Code 10-11.01**: Changes in menu items.
 
@@ -110,10 +96,10 @@ class MenuBar {
   // File
   
   // Edit
-  …
+  ...
 
   // View
-  …
+  ...
   ButtonElement hideNonSelectionButton;
   ButtonElement showHiddenButton;
 
@@ -129,7 +115,7 @@ The hideNonSelectionButton attribute is obtained from the document objet.
 
   MenuBar(this.board) {  
     deleteSelectionButton = document.query('#delete-selection');
-    …
+    ...
     hideNonSelectionButton = document.query('#hide-non-selection');
     showHiddenButton = document.query('#show-hidden');
 
@@ -145,7 +131,7 @@ A click on the button triggers the hideNonSelection method of the Board class.
     deleteSelectionButton.on.click.add((MouseEvent e) {
       board.deleteSelection();
     });
-    …
+    ...
     hideNonSelectionButton.on.click.add((MouseEvent e) {
       board.hideNonSelection();
     });
@@ -154,7 +140,6 @@ A click on the button triggers the hideNonSelection method of the Board class.
     });
 
 {% endhighlight %}
-
 
 Hidden boxes and lines may be shown again by the showHidden method. Not selected boxes and lines are hidden by the hideNonSelection method.
 
@@ -195,15 +180,15 @@ Changes in the menu bar are reflected in the HTML code. The File menu is empty a
            <li></li>
          </ul>  
        </li>
-       …
+       ...
        <li>Select
          <ul>
-           …
+           ...
            <li><button id="hide-non-selection">Hide non-selection</button></li>
            <li><button id="show-hidden">Show</button></li>
          </ul>
        </li>
-       …
+       ...
        <li>About 
          <ul>
            <li>Magic Boxes in <a href="http://www.dart.org/">Dart</a></li>
@@ -222,8 +207,7 @@ Changes in the menu bar are reflected in the HTML code. The File menu is empty a
 
 {% endhighlight %}
 
-A selected box may be declared as entry point into the model. There is a checkbox in the tool bar (Figure 10-11.02). 
-The entry concept has the || sign in the upper left corner of its box.
+A selected box may be declared as entry point into the model. There is a checkbox in the tool bar (Figure 10-11.02). The entry concept has the || sign in the upper left corner of its box.
 
 ![Alt Figure 10-11.02: Entry box sign](/img/s10s11/EntryBox.png)
 
@@ -236,7 +220,7 @@ The entry checkbox is a new attribute of the ToolBar class.
 {% highlight java %}
 
 class ToolBar {
-  …
+  ...
   InputElement boxNameInput;
   InputElement boxEntryCheckbox;
 
@@ -249,7 +233,7 @@ The new entry attribute of the Box class is initialized to **false**. The privat
 {% highlight java %}
 
 class Box {  
-  …
+  ...
   String _name = '';
   bool entry = false;
 
@@ -264,7 +248,7 @@ The entry symbol is drawn in the Box class.
   void draw() {
     if (!isHidden()) {
       board.context.beginPath();
-      …
+      ...
       if (entry) {
         board.context.fillText('|| ' + title, x + TOS, y + TOS, width - TOS);
       } else {
@@ -275,12 +259,12 @@ The entry symbol is drawn in the Box class.
 
 If the last selected box is an entry concept, a click in the Box (name) field shows the check in the entry checkbox.
 
-**Code 10-11.09**: Checking an entry box.
+**Code 10-11.09**: Change an entry box.
 
 {% highlight java %}
 
   ToolBar(this.board) {
-    …
+    ...
     boxEntryCheckbox = document.query('#boxEntry');
     boxEntryCheckbox.on.change.add((Event e) {
       Box box = board.lastBoxSelected;
@@ -298,7 +282,7 @@ The input element of the checkbox type has the boxEntry id.
 {% highlight html %}
 
       <footer>
-        …
+        ...
         <br/>
         <label for="boxName">Box</label>
         <input type="text" id="boxName"/>
@@ -308,14 +292,14 @@ The input element of the checkbox type has the boxEntry id.
         &nbsp; &nbsp;
         <label for="itemName">Item</label>
         <input type="text" id="itemName"/>
-        …
+        ...
       </footer>
 
 {% endhighlight %}
 
 A default item value may be entered by a user. A position of the current item may be changed by the Up and Down buttons (Figure 10-11.03).
 
-![Alt Figure 10-11.03: Tool bar item](/img/s10s11/ToolBarItem.png)
+![Alt Figure 10-11.03: Tool bar item] (/img/s10s11/ToolBarItem.png)
 
 **Figure 10-11.03**: Tool bar item.
 
@@ -326,7 +310,7 @@ The item sequence element is removed and the item init element is added.
 {% highlight java %}
 
 class ToolBar {
-  …
+  ...
   InputElement itemNameInput;
   OptionElement itemOption;
   // InputElement itemSequenceInput;
@@ -347,8 +331,7 @@ The item init input is obtained from the document.
 {% highlight java %}
 
   ToolBar(this.board) {
- 
-    …
+    ...
     itemInitInput = document.query('#itemInit');
 
 {% endhighlight %}
@@ -683,23 +666,13 @@ The buttons have a new look that is provided by the button class in the link.css
 
 {% endhighlight %}
 
-In general, a model is a network of concepts (boxes) and relationships (lines). Some concepts in the model are entry points. 
-Those concepts that are not entry points into the model, may be reached through relationships that start with the entry concept. 
-For example (Figure 10-11.04), a web link may be reached only through its category. This relationship is internal and it may be characterized as a hierarchical relationship. 
-In other words, web links are grouped within their categories.  A member may have interests in certain categories of web links. This relationship is not hierarchical. 
-Since a member may have several interests and a category may be of interest to many members, the relationship is a network. 
-It consists of two relationships and one intermediate concept. In this situation, only one relationship may be internal. 
-In this model, it is the relationship between the Member and Interest concepts. 
-The relationship between the Category and Interest concepts is external and it is graphically a bit lighter that an internal relationship. 
+In general, a model is a network of concepts (boxes) and relationships (lines). Some concepts in the model are entry points. Those concepts that are not entry points into the model, may be reached through relationships that start with the entry concept. For example (Figure 10-11.04), a web link may be reached only through its category. This relationship is internal and it may be characterized as a hierarchical relationship. In other words, web links are grouped within their categories.  A member may have interests in certain categories of web links. This relationship is not hierarchical. Since a member may have several interests and a category may be of interest to many members, the relationship is a network. It consists of two relationships and one intermediate concept. In this situation, only one relationship may be internal. In this model, it is the relationship between the Member and Interest concepts. The relationship between the Category and Interest concepts is external and it is graphically a bit lighter that an internal relationship. 
 For the internal relationship, interests are grouped within their members. For the external relationships, interests are not grouped within their categories. 
-However, each interest has a reference to its category. 
-Thus, a network model may be decomposed into hierarchical sub-models, where each sub-model starts with an entry concept and follow only internal relationships. 
-Hierarchical sub-models are related only through external relationships or references. 
+However, each interest has a reference to its category. Thus, a network model may be decomposed into hierarchical sub-models, where each sub-model starts with an entry concept and follow only internal relationships. Hierarchical sub-models are related only through external relationships or references. 
 
-As analogy, all web pages on the same web server may be considered as internal. 
-A link from a web page on one web server towards another web page on a different web server may be characterized as external. 
+As analogy, all web pages on the same web server may be considered as internal. A link from a web page on one web server towards another web page on a different web server may be characterized as external. 
 
-![Alt Figure 10-11.04: External line is lighter](/img/s10s11/ExternalLine.png)
+![Alt Figure 10-11.04: External line is lighter] (/img/s10s11/ExternalLine.png)
 
 **Figure 10-11.04**: External line is lighter.
 
@@ -710,7 +683,7 @@ There is a checkbox in the tool bar for internal lines.
 {% highlight java %}
 
 class ToolBar {
-  …  
+  ...
   OptionElement lineOption;
   InputElement lineInternalCheckbox;
   ButtonElement getLineButton;
@@ -757,7 +730,7 @@ There is a new internal attribute in the Line class. Its default value is **true
 {% highlight java %}
 
 class Line {
-  …
+  ...
   bool internal = true;
 
 {% endhighlight %}
@@ -918,7 +891,7 @@ The two line attributes are removed in favor of constants.
 {% highlight java %}
 
 class Line {  
-  …
+  ...
   // String textFontSize = 12;
   // num defaultLineWidth;
 
@@ -1011,7 +984,7 @@ There is a new attributes that represents a model image panel. The model image p
 {% highlight java %}
 
 class Board {  
-  …
+  ...
   PngPanel pngPanel;
 
 {% endhighlight %}
@@ -1023,14 +996,14 @@ The model image panel is constructed as an object of the new PngPanel class.
 {% highlight java %}
 
   Board(this.canvas) {
-    …
+    ...
     pngPanel = new PngPanel(this);
 
 {% endhighlight %}
 
 A model is represented as a PNG image in the panel by clicking on the To PNG button (Figure 10-11.05),
 
-![Alt Figure 10-11.05: Model image](/img/s10s11/ModelImage.png)
+![Alt Figure 10-11.05: Model image] (/img/s10s11/ModelImage.png)
 
 **Figure 10-11.05**: Model image.
 
@@ -1063,8 +1036,7 @@ final Board board;
 
 {% endhighlight %}
 
-The toPng method of the PngPanel class obtains the image element of the Web page and sets its source to the result of the toDataURL method of the CanvasElement type. 
-The toDataURL method accepts an argument that determines the kind of image produced.
+The toPng method of the PngPanel class obtains the image element of the Web page and sets its source to the result of the toDataURL method of the CanvasElement type. The toDataURL method accepts an argument that determines the kind of image produced.
 
 The image panel is represented in HTML5 as a section of the Web page.
 
@@ -1075,7 +1047,7 @@ The image panel is represented in HTML5 as a section of the Web page.
     <section>
       <button class="button" id="fromModelToPng">To PNG</button>
       <img alt="Your model as PNG." id="modelImage"/>
-      …
+      ...
     </section>
 
 {% endhighlight %}
@@ -1087,7 +1059,7 @@ There is a new attribute in the Board class that represents a JSON panel. The JS
 {% highlight java %}
 
 class Board {  
-  …
+  ...
   JsonPanel jsonPanel;
 
 {% endhighlight %}
@@ -1099,21 +1071,18 @@ The JSON panel is created as an object of the new JsonPanel class.
 {% highlight java %}
 
   Board(this.canvas) {
-    …
+    ...
     jsonPanel = new JsonPanel(this);
 
 {% endhighlight %}
 
 A model is transformed to JSON by clicking on the To JSON button (Figure 10-11.06), which appears before the JSON panel.
 
-![Alt Figure 10-11.06: Model to JSON](/img/s10s11/ToJsonFromModel.png)
+![Alt Figure 10-11.06: Model to JSON] (/img/s10s11/ToJsonFromModel.png)
 
 **Figure 10-11.06**: Model to JSON.
 
-The JSON panel contains the button and the text area where the JSON hierarchical data structure of the model will appear. 
-The click on the button triggers the transformation process that starts with the toJson method of the Board class. 
-This method returns the JSON text that becomes a value of the text area in the JSON panel. 
-The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to save models.
+The JSON panel contains the button and the text area where the JSON hierarchical data structure of the model will appear. The click on the button triggers the transformation process that starts with the toJson method of the Board class. This method returns the JSON text that becomes a value of the text area in the JSON panel. The JSON hierarchical data structure may be copied then pasted in a model text file. The model folder is created in the project to save models.
 
 **Code 10-11.46**: JSON panel class.
 
@@ -1151,9 +1120,7 @@ The JSON panel is represented in HTML5 as a section of the Web page.
 
 {% endhighlight %}
 
-In the Board class, the toJson method creates a local map of key/value pairs. The keys are strings, while values are objects. 
-The width key has a value of the width property of the Board class. The height key has a value of the width property of the Board class. 
-A value of the boxes key is obtained by the boxesToJson method of the Board class. A value of the lines key is obtained by the linesToJson method of the Board class. 
+In the Board class, the toJson method creates a local map of key/value pairs. The keys are strings, while values are objects. The width key has a value of the width property of the Board class. The height key has a value of the width property of the Board class. A value of the boxes key is obtained by the boxesToJson method of the Board class. A value of the lines key is obtained by the linesToJson method of the Board class. 
 
 **Code 10-11.48**: Model to JSON.
 
@@ -1315,9 +1282,9 @@ Constants from the Board class are used in the Box class.
   void draw() {
     if (!isHidden()) {
       board.context.beginPath();
-      …
+      ...
       board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
-      …
+      ...
       for (Item item in items) {
         if (item.category == 'attribute') {
           board.context.font = '' + Board.DEFAULT_FONT_SIZE + 
@@ -1342,7 +1309,7 @@ Constants from the Board class are used in the Box class.
         }
         i++;
       }
-      …
+      ...
       board.context.lineWidth = Board.DEFAULT_LINE_WIDTH;
       board.context.strokeStyle = Board.DEFAULT_LINE_COLOR;
       
@@ -1497,14 +1464,11 @@ The JSON panel, in a section of HTML5, has a button to transform a JSON represen
 
 A JSON representation, copied from a model text file, is transformed to a model by clicking on the From JSON button (Figure 10-11.07).
 
-![Alt Figure 10-11.07: From JSON to model](/img/s10s11/FromJsonToModel.png)
+![Alt Figure 10-11.07: From JSON to model] (/img/s10s11/FromJsonToModel.png)
 
 **Figure 10-11.07**: From JSON to model.
 
-The fromJson method of the Board class accepts a JSON string and transforms by the parse method of the JSON class. 
-The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. 
-In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. 
-The value of the lines key is a list of maps, one map for each line.
+The fromJson method of the Board class accepts a JSON string and transforms by the parse method of the JSON class. The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. The value of the lines key is a list of maps, one map for each line.
 
 **Code 10-11.64**: From JSON to model.
 
@@ -1644,14 +1608,3 @@ A line map is converted to a line by the the lineFromJson method.
   }
 
 {% endhighlight %}
-
-
-
-
-
-
-
-
-
- 
-

@@ -20,7 +20,7 @@ Search for terminal.
 cd blogs/dzenanr.github.com
 
 Windows:
-Utilities
+Git Bash
 cd git/blog/dzenanr.github.com
 
 jekyll --pygments
