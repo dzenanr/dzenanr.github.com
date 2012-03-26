@@ -18,6 +18,9 @@ Markdown
 
 http://daringfireball.net/projects/markdown/syntax
 
+Use Google documents to create markdown file.
+If imported from Word, change ... in the code.
+
 Files
 
 On Google code: spirals of MagicBoxes (cannot execute but can browse).
