@@ -74,7 +74,7 @@ In the Web page, the button element is added.
 
 **Code 11-12.04**: Save model button element.
 
-{% highlight java %}
+{% highlight html %}
 
        <li>File
          <ul>
@@ -843,7 +843,7 @@ class PngPanel {
 
 The clear button is added to the HTML code.
 
-**Code 11-12.43**: Clear image.
+**Code 11-12.43**: Clear model image.
 
 {% highlight html %}
 
