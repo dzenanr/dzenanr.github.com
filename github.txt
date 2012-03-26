@@ -18,6 +18,12 @@ Markdown
 
 http://daringfireball.net/projects/markdown/syntax
 
+Files
+
+On Google code: spirals of MagicBoxes (cannot execute but can browse).
+On GithHub: blog with the mb folder with spirals of MagicBoxes (can execute except s12 -- now on Dropbox, but cannot browse).
+On GitHub: MagicBoxes with the last version and tags.
+On GitHub: mb with spirals and steps as one project.
 
 Ubuntu:
 Search for terminal.
