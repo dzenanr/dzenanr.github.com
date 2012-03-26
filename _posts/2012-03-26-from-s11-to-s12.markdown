@@ -18,8 +18,8 @@ data-interchange format. JSON is easy for humans to understand and for software 
 
 In Spiral 12, a model may be saved in a [local storage] (http://en.wikipedia.org/wiki/Web_storage) under a model name and later opened by using the model name. A type of a property may be changed from default String to another type. Based on the current item obtained by the Get 1 button (where 1 is determined by the name in the item input field), the next item may be selected by the Get +1 (Next) button.
 
-Models
-------
+Model
+-----
 
 The WebLinks model from Figure 11-12.01, is recreated from the JSON representation kept in the WebLinks.txt file in the model folder. The model is then updated to include types for concept attributes. This update is accelerated by the Get +1 (Next) item button in the tool bar. The updated model is then transformed into a new JSON representation that is then copied and pasted in the WebLinks text file. In addition, the model is saved in a local storage of a browser under the WebLinks key.
 
@@ -255,7 +255,7 @@ An item may be typed. The item type option is added to the ToolBar class, after 
 {% highlight java %}
 
 class ToolBar {
-  …
+  ...
   OptionElement itemCategoryOption;
   OptionElement itemTypeOption;
 
@@ -286,7 +286,7 @@ There is a new type attribute in the Item class.
 {% highlight java %}
 
 class Item {
-  …
+  ...
   String type; // String, num, int, double, bool, Date, Other
 
 {% endhighlight %}
@@ -451,7 +451,6 @@ The click event on the up item button is updated to include the type attribute.
 
 The click event on the down item button is updated to include the type attribute.
 
-Code 11-12.26: Down item.
 **Code 11-12.26**: Down item.
 
 {% highlight java %}
@@ -695,7 +694,7 @@ A model may now be closed.
 {% highlight java %}
 
 class MenuBar {  
-  …
+  ...
   // File
   InputElement modelNameInput;
   ButtonElement openModelButton;
@@ -1027,7 +1026,7 @@ There is no more Set item button in the tool bar.
 {% highlight java %}
 
 class ToolBar {
-  …
+  ...
   InputElement itemNameInput;
   OptionElement itemCategoryOption;
   OptionElement itemTypeOption;
@@ -1127,14 +1126,14 @@ There is no more Set line button in the tool bar.
 {% highlight java %}
 
 class ToolBar {
-  …
+  ...
   OptionElement lineOption;
   InputElement lineInternalCheckbox;
   //ButtonElement setLineButton;
 
 {% endhighlight %}
 
-The following code snippets (Code 11-12.57, … , Code 11-12.61) show updated line events to accommodate the absence of the Set button. Only the code for the 12 line direction is shown. The code for the 21 line direction is similar.
+The following code snippets (Code 11-12.57 -- Code 11-12.61) show updated line events to accommodate the absence of the Set button. Only the code for the 12 line direction is shown. The code for the 21 line direction is similar.
 
 **Code 11-12.57**: Line category option event.
 
@@ -1266,7 +1265,7 @@ Based on the current item, the previous item may be selected.
 {% highlight java %}
 
 class ToolBar {
-  …  
+  ...
   ButtonElement getPreviousItemButton;
   ButtonElement getItemButton;
   ButtonElement getNextItemButton;
@@ -1356,7 +1355,7 @@ An external line gets a softer gray color, so that a visual difference between i
 {% highlight java %}
 
 class Board {
-  …
+  ...
   static final int DEFAULT_LINE_WIDTH = 1;
   static final String DEFAULT_LINE_COLOR = '#000000'; // black
   static final String SOFT_LINE_COLOR = '#999493'; // gray; old: 736f6e
@@ -1370,7 +1369,7 @@ In the Board class, the onMouseDown method allows now a creation of maximum of t
 {% highlight java %}
 
   void onMouseDown(MouseEvent e) {
-    …
+    ...
     if (!clickedOnBox) {
       if (toolBar.isSelectToolOn()) {
         …
@@ -1417,7 +1416,7 @@ In the constructor of the Board class, when two empty lists are constructed, the
 {% highlight java %}
 
   Board(this.canvas) {
-    …
+    ...
     boxes = new List<Box>();
     lines = new List<Line>();
 
@@ -1441,7 +1440,7 @@ In Dart, the double click event name has changed from dblClick to doubleClick.
 {% highlight java %}
 
   ToolBar(this.board) {
-    …
+    ...
     selectButton.on.doubleClick.add((MouseEvent e) {
       onTool(SELECT);
       _fixedTool = SELECT;
