@@ -8,7 +8,7 @@ Code
 
 The code for the MagicBoxes project is at [MagicBoxes on GitHub] (https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub] (https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
-If you use spirals of the MagicBoxes project, checkout branches s00a ... s12a. They are updates of s00 … s12 tags, but only minimal updates, so that the code may be executed with newer versions of Dart.
+If you use spirals of the MagicBoxes project, checkout branches s00a ... s12a. They are updates of s00 ... s12 tags, but only minimal updates, so that the code may be executed with newer versions of Dart.
 
 Overview
 --------
