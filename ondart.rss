@@ -17,6 +17,19 @@
   </image>
 
   <item>
+    <title>From Spiral11 To Spiral12</title>
+    <link>http://dzenanr.github.com/2012/03/26/from-s11-to-s12.html</link>
+    <guid>http://dzenanr.github.com/2012/03/26/from-s11-to-s12.html</guid>
+    <description>
+      In Spiral 11, a model may be transformed to JSON and back from JSON to a model.  JSON (JavaScript Object Notation) is a lightweight data-interchange format. JSON is easy for humans to understand and for software to parse it. It is based on two data structures: a collection of name/value pairs {} and an ordered list of values []. 
+      <br/>
+      In Spiral 12, a model may be saved in a local storage under a model name and later opened by using the model name. A type of a property may be changed from default String to another type. Based on the current item obtained by the Get 1 button (where 1 is determined by the name in the item input field), the next item may be selected by the Get +1 (Next) button.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Mon, 26 Mar 2012 15:15:00 +0100</pubDate>
+  </item>
+
+  <item>
     <title>From Spiral10 To Spiral11</title>
     <link>http://dzenanr.github.com/2012/03/14/from-s10-to-s11.html</link>
     <guid>http://dzenanr.github.com/2012/03/14/from-s10-to-s11.html</guid>
