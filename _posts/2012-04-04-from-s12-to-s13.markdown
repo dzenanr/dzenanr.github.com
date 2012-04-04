@@ -1,0 +1,129 @@
+---
+layout: default
+title: From Spiral12 To Spiral13
+---
+
+Code
+----
+
+The code for the MagicBoxes project is at [MagicBoxes on GitHub] (https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub] (https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+
+If you use spirals of the MagicBoxes project, checkout branches s00a ... s13a. They are updates of s00 ... s13 tags, but only minimal updates, so that the code may be executed with newer versions of Dart.
+
+Overview
+--------
+
+In Spiral 12, a model may be saved in a local storage under a model name and later opened by using the model name. A type of a data attribute may be changed from default String to another type. Based on the current item obtained by the Get 1 button (where 1 is determined by the name in the item input field), the next item may be selected by the Get +1 button.
+
+In Spiral 13, there are only minor changes. In the Menu Bar, the File menu is renamed to Model. A model may be opened, saved and closed. In the Tool Bar, the Get 1 (item) button is renamed, as it used to be, to Get. The sequence of buttons is rearranged, so that buttons with -1 are now after buttons with +1 (Figure 12-13.01).
+
+![Alt Figure 12-13.01: Tool Bar] (/img/s12s13/ToolBar.png)
+
+**Figure 12-13.01**: Tool Bar.
+
+Models
+------
+
+Models in Figure 12-13.02 through Figure 12-13.09 are created with the code from this spiral.
+
+![Alt Figure 12-13.02: Presentation slides] (/img/s12s13/Slides.png)
+
+**Figure 12-13.02**: Presentation slides.
+
+![Alt Figure 12-13.03: Rush Hour game] (/img/s12s13/RushHour.png)
+
+**Figure 12-13.03**: Rush Hour game.
+
+![Alt Figure 12-13.04: Quiz tests] (/img/s12s13/Quiz.png)
+
+**Figure 12-13.04**: Quiz tests.
+
+![Alt Figure 12-13.05: Book library] (/img/s12s13/Library.png)
+
+**Figure 12-13.05**: Book library.
+
+![Alt Figure 12-13.06: Traveler impressions] (/img/s12s13/Traveler.png)
+
+**Figure 12-13.06**: Traveler impressions.
+
+![Alt Figure 12-13.07: Product sales] (/img/s12s13/Sales.png)
+
+**Figure 12-13.07**: Product sales.
+
+![Alt Figure 12-13.08: Team management with the Spiral approach] (/img/s12s13/Teams.png)
+
+**Figure 12-13.08**: Team management with the Spiral approach.
+
+![Alt Figure 12-13.09: Industrial catalog] (/img/s12s13/Catalog.png)
+
+**Figure 12-13.09**: Industrial catalog.
+
+Steps
+-----
+
+In the MenuBar class, the element names changed to reflect the use of Model instead of File.
+
+**Code 12-13.01**: Model menu.
+
+{% highlight java %}
+
+class MenuBar {
+ 
+ final Board board;
+ 
+ // Model
+ InputElement modelNameInput;
+ ButtonElement openModelButton;
+ ButtonElement saveModelButton;
+ ButtonElement closeModelButton;
+
+{% endhighlight %}
+
+In the Menu Bar, the File menu is renamed to Model. A model may be now opened, saved and closed.
+
+**Code 12-13.02**: Model menu items.
+
+{% highlight html %}
+
+   <nav>
+    <ul>
+      <li>Model
+        <ul>
+          <li><input type="text" id="model-name"/></li>
+          <li><button id="open-model">Open</button></li>
+          <li><button id="save-model">Save</button></li>
+          <li><button id="close-model">Close</button></li>
+        </ul>  
+      </li>
+
+{% endhighlight %}
+
+A size of 5 is added to the two input elements. However, this change is not noticeable in the Web page.
+
+**Code 12-13.03**: Input element size.
+
+{% highlight html %}
+
+       <label for="canvasWidth">width</label>
+       <input type="number" id="canvasWidth" min="990" size="5"/>
+       <label for="canvasHeight">height</label>
+       <input type="number" id="canvasHeight" min="580" size="5"/>
+
+{% endhighlight %}
+
+The Get 1 button is renamed back to Get (the current item based on the name in the Item field). The buttons to get the previous (-1) item and to move the current item to the previous position are placed after the buttons with +1.
+
+**Code 12-13.04**: Item buttons.
+
+{% highlight html %}
+
+       <button class="button" id="addItem">Add</button>
+       <button class="button" id="getItem">Get</button>
+       <button class="button" id="getNextItem">Get +1</button>
+       <button class="button" id="getPreviousItem">Get -1</button>
+       <button class="button" id="moveDownItem">Move +1</button>
+       <button class="button" id="moveUpItem">Move -1</button>
+       <button class="button" id="removeItem">Remove</button>
+
+{% endhighlight %}
+
