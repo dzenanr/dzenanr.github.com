@@ -3,7 +3,7 @@ layout: default
 title: A year of fun and hard work on learning Dart
 ---
 
-[Dart] (http://www.dartlang.org/) is a Web programming language that comes with [libraries] (http://api.dartlang.org/docs/continuous/index.html) and [tools] (http://www.dartlang.org/docs/editor/). It has been designed and developed by Google as an [open source project] (https://github.com/dart-lang), after many years of programming Web applications with JavaScript, Java, Python and other languages. Dart was [unveiled] (http://en.wikipedia.org/wiki/Dart_(programming_language) in Denmark in October of 2011.
+[Dart] (http://www.dartlang.org/) is a Web programming language that comes with [libraries] (http://api.dartlang.org/docs/continuous/index.html) and [tools] (http://www.dartlang.org/docs/editor/). It has been designed and developed by Google as an [open source project] (https://github.com/dart-lang), after many years of programming Web applications with JavaScript, Java, Python and other languages. Dart was [unveiled] (http://gotocon.com/aarhus-2011/) in Denmark in October of 2011.
 
 I have first heard about Dart at the end of October in 2011. At the beginning of November, I have started learning Dart by developing a simple [PingPong game] (https://github.com/dzenanr/ping_pong). I have developed the game in a sequence of [spirals] (https://github.com/dzenanr/ping_pong/tags), from simple ones to more advanced versions.
 
