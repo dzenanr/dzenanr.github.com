@@ -1,0 +1,5 @@
+How to prepare a new blg entry
+
++ add a blog entry in a new md file, for example: 2012-10-14-year-on-dart.md
++ add a link to the blog entry in default.html
++ add an entry to ondart.rss
