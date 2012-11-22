@@ -17,6 +17,17 @@
   </image>
 
   <item>
+    <title>mb spirals updated to M1 of Dart</title>
+    <link>http://dzenanr.github.com/2012/11/22/year-on-dart.html</link>
+    <guid>http://dzenanr.github.com/2012/11/22/year-on-dart.html</guid>
+    <description>
+      The code of spirals in the [mb] (https://github.com/dzenanr/mb) project has been updated to M1 of Dart.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Thu, 22 Nov 2012 17:44:00 -0500</pubDate>
+  </item>
+
+  <item>
     <title>A year of fun and hard work on learning Dart</title>
     <link>http://dzenanr.github.com/2012/10/14/year-on-dart.html</link>
     <guid>http://dzenanr.github.com/2012/10/14/year-on-dart.html</guid>
