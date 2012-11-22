@@ -5,7 +5,7 @@ title: From Spiral01 To Spiral02
 
 
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps. For example, to explain a transition from Spiral 01 to Spiral 02 (01-02), the transition is decomposed into small changes (01, 02, ...).
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps. For example, to explain a transition from Spiral 01 to Spiral 02 (01-02), the transition is decomposed into small changes (01, 02, ...).
 
 In Spiral 01, two static boxes were displayed on the board. In Spiral 02, three boxes may be moved within the board.
 

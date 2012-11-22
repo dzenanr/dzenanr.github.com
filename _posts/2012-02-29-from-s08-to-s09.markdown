@@ -6,7 +6,7 @@ title: From Spiral08 To Spiral09
 Code
 ----
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
 The use of the script element in the MagicBoxes.html file has changed from
 

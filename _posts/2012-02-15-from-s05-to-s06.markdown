@@ -5,7 +5,7 @@ title: From Spiral05 To Spiral06
 
 
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
 In Spiral 05, there is a tool bar that provides a new way of creating, selecting and moving boxes. In Spiral 06, a menu bar provides four buttons to select all boxes, to delete selected boxes, to hide selected boxes and to show hidden boxes. A line tool in the tool bar, allows a line creation between the last two clicked boxes.
 
@@ -670,7 +670,7 @@ In the right section of the page there is a new paragraph with two Web links.
         …
       <p>
         The 
-        <a href="https://github.com/dzenanr/MagicBoxes">
+        <a href="https://github.com/dzenanr/magic_boxes">
           code
         </a> 
         is kept at 
@@ -741,7 +741,7 @@ The Web links use the link class to provide additional style.
 
       <p>
         The 
-        <a href="https://github.com/dzenanr/MagicBoxes" class="link">
+        <a href="https://github.com/dzenanr/magic_boxes" class="link">
           code
         </a> 
         is kept at 

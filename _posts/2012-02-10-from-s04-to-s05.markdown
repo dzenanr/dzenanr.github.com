@@ -5,7 +5,7 @@ title: From Spiral04 To Spiral05
 
 
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
 In Spiral 04, each box has a title with the sequential number and (x, y) coordinates, and the same four items. In Spiral 05, boxes have the same appearance, but there is a tool bar that provides a new way of creating, selecting and moving boxes.
 

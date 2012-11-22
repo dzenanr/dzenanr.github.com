@@ -5,7 +5,7 @@ title: From Spiral03 To Spiral04
 
 
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/MagicBoxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
 
 In Spiral 03, a box may be created by clicking on an empty space in the board, selected and then moved. In Spiral 04, each box has a title and the same four items. A box title has an incremental number and its (x, y) coordinates within the board. A box is moved only if it is selected and if the mouse is pressed down.
 
