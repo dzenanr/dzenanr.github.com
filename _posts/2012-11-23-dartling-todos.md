@@ -7,7 +7,7 @@ title: TodoMVC in Dart with
 
 [TodoMVC] (http://todomvc.com/) is "a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today". MV* stands for Model View and * for Controller. [MVC] (http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is a way (an architecture or a design pattern) of organizing software into a model of data and different views of data that are presented to uses of the software. The controller part handles an interaction between a user and views of the model. 
 
-The Todo application has a simple model (Figure 1) consisting of only one concept (or entity), which is a task (or todo) to be done. Since the model has only one concept, the Task concept is also the only entry (||) point to the model’s data. The task concept has the title and completed properties. Both properties may be updated by a user of the application.
+The Todo application has a simple model (Figure 1) consisting of only one concept (or entity), which is a task (or todo) to be done. Since the model has only one concept, the Task concept is also the only entry (||) point to the model's data. The task concept has the title and completed properties. Both properties may be updated by a user of the application.
 
 ![Alt Figure 1: Task concept] (/img/dartling_todos/task_concept.png)
 
