@@ -1,8 +1,8 @@
 How to prepare a new blog entry
 
-+ add a blog entry in a new md file, for example: 2012-10-14-year-on-dart.md
-+ add a link to the blog entry in default.html
-+ add an entry to ondart.rss
++ add a blog entry in a new md file (_posts), for example: 2012-10-14-year-on-dart.md
++ add a link to the blog entry in default.html (_layouts)
++ add an entry to ondart.rss (dzenanr.github.com)
 + open Git Bush
 + cd git/blog/dzenanr.github.com
 + git status

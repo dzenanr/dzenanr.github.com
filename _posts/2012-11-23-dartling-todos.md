@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TodoMVC in Dart with
+title: TodoMVC with
 ---
 
 ![Alt dartling] (/img/dartling2.png)
