@@ -167,7 +167,26 @@
         </section>
 
         <section>
-
+			{% if page.comments %} 
+ 2   			<div id="disqus_thread"></div>
+ 3   			<script type="text/javascript">
+ 4       			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+ 5       			var disqus_shortname = 'ondart'; // required: replace example with your forum shortname
+                    /*
+					var disqus_developer = 1; // This turns developer mode on
+ 5                                            // Make sure you remove this before you push this
+ 6                                            // to your live site.
+ 6 					*/
+ 7       			/* * * DON'T EDIT BELOW THIS LINE * * */
+ 8       			(function() {
+ 9           			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+10           			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+11           			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+12       			})();
+13   			</script>
+14   			<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+15   			<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+16   		{% endif %} 
         </section>
 
         <footer>

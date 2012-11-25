@@ -1,6 +1,7 @@
 ---
 layout: default
 title: TodoMVC with
+comments: true
 ---
 
 ![Alt dartling] (/img/dartling2.png)
