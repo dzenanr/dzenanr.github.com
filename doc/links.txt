@@ -1,12 +1,32 @@
-On Dart Links
+Links
 
 Git
 
+http://ndpsoftware.com/git-cheatsheet.html
 http://gitref.org/
+
+From WordPress to Jekyll
+
+http://johnnycode.com/2012/07/10/how-to-migrate-from-wordpress-to-jekyll-running-on-github/
+
+GitHub Pages
+
+http://pages.github.com/
+
+Jekyll Start
+
+https://github.com/mojombo/jekyll
+http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/
+http://erjjones.github.com/blog/How-I-built-my-blog-in-one-day/
+http://benknowscode.wordpress.com/2012/08/28/using-jekyll-to-create-a-site-on-github/
 
 Jekyll Comments
 
 http://schmidt-happens.com/articles/2011/09/26/adding-disqus-comments.html
+
+Jekyll Sites
+
+https://github.com/mojombo/jekyll/wiki/Sites
 
 
 
