@@ -1,6 +1,7 @@
 ---
 layout: default
 title: From Spiral11 To Spiral12
+comments: true
 ---
 
 Code

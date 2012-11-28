@@ -1,6 +1,7 @@
 ---
 layout: default
 title: A year of fun and hard work on learning Dart
+comments: true
 ---
 
 [Dart] (http://www.dartlang.org/) is a Web programming language that comes with [libraries] (http://api.dartlang.org/docs/continuous/index.html) and [tools] (http://www.dartlang.org/docs/editor/). It has been designed and developed by Google as an [open source project] (https://github.com/dart-lang), after many years of programming Web applications with JavaScript, Java, Python and other languages. Dart was [unveiled] (http://gotocon.com/aarhus-2011/) in Denmark in October of 2011.

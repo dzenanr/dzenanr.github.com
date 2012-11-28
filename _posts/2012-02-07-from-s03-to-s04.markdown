@@ -1,6 +1,7 @@
 ---
 layout: default
 title: From Spiral03 To Spiral04
+comments: true
 ---
 
 
