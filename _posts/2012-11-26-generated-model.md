@@ -4,7 +4,7 @@ title: Generated Model
 comments: true
 ---
 
-There are 9 spirals in the [todo_mvc_spirals] (https://github.com/dzenanr/todo_mvc_spirals) project. After you clone the project, open the todo_mvc_spirals folder in Dart Editor (Figure 1).
+There are 10 spirals in the [todo_mvc_spirals] (https://github.com/dzenanr/todo_mvc_spirals) project. After you clone the project, open the todo_mvc_spirals folder in Dart Editor (Figure 1).
 
 ![Alt Figure 1: todo_mvc_spirals] (/img/todo_mvc_s00/todo_mvc_spirals.png)
 
