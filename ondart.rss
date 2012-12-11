@@ -17,6 +17,17 @@
   </image>
   
   <item>
+    <title>Todo Application</title>
+    <link>http://dzenanr.github.com/2012/12/10/todo-app.html</link>
+    <guid>http://dzenanr.github.com/2012/12/10/todo-app.html</guid>
+    <description>
+      In the todo_mvc_s01 spiral, there is a new lib/app folder with two dart files, one for the todo application and the other for a todo widget.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Mon, 10 Dec 2012 19:39:00 -0500</pubDate>
+  </item>
+  
+  <item>
     <title>Generated Model</title>
     <link>http://dzenanr.github.com/2012/11/26/generated-model.html</link>
     <guid>http://dzenanr.github.com/2012/11/26/generated-model.html</guid>
