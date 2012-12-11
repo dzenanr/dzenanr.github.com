@@ -3,7 +3,7 @@ How to prepare a new blog entry
 + add a blog entry in a new md file (_posts), for example: 2012-10-14-year-on-dart.md
 + create a folder for images (figures) in img
 + add a link to the blog entry in default.html (_layouts)
-+ add an entry to ondart.rss (dzenanr.github.com)
+
 + open Git Bush
 + cd git/blog/dzenanr.github.com
 + git status
@@ -11,3 +11,9 @@ How to prepare a new blog entry
 + git commit -m 'year on dart'
 + git push
 Ja sam.
+
++ verify the blog entry
++ if ok, add an entry to ondart.rss (dzenanr.github.com)
++ git add .
++ git commit -m 'year on dart'
++ git push
