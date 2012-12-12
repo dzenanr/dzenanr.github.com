@@ -12,7 +12,7 @@ In the todo_mvc_s02 spiral, there is a footer (Figure 1),
 
 **Figure 1**: Tasks left to do.
 
-with a count of items left to do (Code 1).
+with a count of items (tasks) left to do (Code 1).
 
 **Code 1**: Footer in web/todo_mvc.html.
 
