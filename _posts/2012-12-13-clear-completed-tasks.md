@@ -83,7 +83,7 @@ A single task completed or not, may be removed by clicking on the x icon at the 
 
 {% endhighlight %}
 
-The button with the destroy CSS class is queried in the createElement method (Code 5). The click event removes the element and calls two methods of the todo application.
+The button with the destroy CSS class is queried (Code 5) in the createElement method (Code 4). The click event removes the element and calls two methods of the todo application.
 
 **Code 5**: Remove element.
 
