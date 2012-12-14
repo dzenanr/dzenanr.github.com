@@ -17,14 +17,25 @@
   </image>
   
   <item>
+    <title>Load and Save Data</title>
+    <link>http://dzenanr.github.com/2012/12/14/load-and-save-data.html</link>
+    <guid>http://dzenanr.github.com/2012/12/14/load-and-save-data.html</guid>
+    <description>
+      Tasks are loaded from a local storage and saved to the local storage as a JSON document, with a help of dartling.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Fri, 14 Dec 2012 11:19:00 -0500</pubDate>
+  </item>
+  
+  <item>
     <title>Clear Completed Tasks</title>
     <link>http://dzenanr.github.com/2012/12/13/clear-completed-tasks.html</link>
-    <guid>http://dzenanr.github.com/2012/12/13/clear-completed-tasks</guid>
+    <guid>http://dzenanr.github.com/2012/12/13/clear-completed-tasks.html</guid>
     <description>
       Completed tasks may be cleared (removed). A single task, completed or not, may be also removed.
     </description>
     <author>Dzenan Ridjanovic</author>
-    <pubDate>Thu, 12 Dec 2012 09:06:00 -0500</pubDate>
+    <pubDate>Thu, 13 Dec 2012 20:41:00 -0500</pubDate>
   </item>
   
   <item>
