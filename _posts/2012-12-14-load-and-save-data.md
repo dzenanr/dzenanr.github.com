@@ -6,7 +6,7 @@ comments: true
 
 There are 10 spirals in the [todo_mvc_spirals] (https://github.com/dzenanr/todo_mvc_spirals) project: from todo_mvc_s00 to todo_mvc_s09. The final version is the [dartling_todos] (https://github.com/dzenanr/dartling_todos) application. This post is about todo_mvc_s04.
 
-In the todo_mvc_s04 spiral, tasks are loaded from a local storage (Figure 1),
+In the todo_mvc_s04 spiral, tasks (Figure 1) are loaded from a local storage,
 
 ![Alt Figure 1: todo_mvc_s04] (/img/todo_mvc_s04/tasks.png)
 
