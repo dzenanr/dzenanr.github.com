@@ -12,7 +12,7 @@ In the todo_mvc_s05 spiral, in the upper left corner of todos (Figure 1),
 
 **Figure 1**: Complete all todos.
 
-there is a checkbox to complete all todos by clicking on its unusual display (Code 1). See #toggle-all-completed in the web/css/base.css file for a display different from a regular checkbox. The web/todo_mvc.html file is renamed to web/todos.html, and web/todo_mvc.dart to web/todos.dart.
+there is a checkbox to complete all todos by clicking on its unusual display (Code 1). See #toggle-all-completed in the web/css/base.css file for a display different from a regular checkbox. The web/todo_mvc.html file is renamed to web/todos.html and web/todo_mvc.dart to web/todos.dart.
 
 **Code 1**: main section in todos.html.
 
