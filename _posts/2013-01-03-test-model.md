@@ -241,7 +241,7 @@ The printed list displayed in the Console of Dart Editor (Code 11).
 
 **Code 11**: List of maps.
 
-{% highlight json %}
+{% highlight dart %}
 
 [
    {
@@ -338,7 +338,7 @@ The tasks are displayed in the Console of Dart Editor (Code 15).
 
 **Code 15**: Displayed model.
 
-{% highlight json %}
+{% highlight dart %}
 
 ======================================
 From JSON to Task Model                                
