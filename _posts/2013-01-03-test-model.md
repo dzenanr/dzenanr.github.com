@@ -16,7 +16,7 @@ The TodoApp class is renamed to Todos (Code 1).
 
 **Code 1**: Todos class.
 
-{% highlight html %}
+{% highlight dart %}
 
 class Todos {
   Tasks tasks;
@@ -241,7 +241,7 @@ The printed list displayed in the Console of Dart Editor (Code 11).
 
 **Code 11**: List of maps.
 
-{% highlight dart %}
+{% highlight json %}
 
 [
    {
@@ -284,7 +284,7 @@ The JSON text is displayed in the Console of Dart Editor (Code 13).
 
 **Code 13**: Model in JSON.
 
-{% highlight dart %}
+{% highlight json %}
 
 {
    "domain":"Todo",
@@ -338,7 +338,7 @@ The tasks are displayed in the Console of Dart Editor (Code 15).
 
 **Code 15**: Displayed model.
 
-{% highlight dart %}
+{% highlight json %}
 
 ======================================
 From JSON to Task Model                                
@@ -533,7 +533,7 @@ random 2  completed: false
 
 {% endhighlight %}
 
-There are 2 tasks with the “generate” word in their titles (Code 25).
+There are 2 tasks with the generate word in their titles (Code 25).
 
 **Code 25**: Selection by function.
 
@@ -584,7 +584,7 @@ Select Tasks by Function
 
 {% endhighlight %}
 
-Tasks that have “generate” in their titles are selected, then a new task is added to the selection (Code 28).
+Tasks that have generate in their titles are selected, then a new task is added to the selection (Code 28).
 
 **Code 28**: Add propagation from the selection destination to the selection source.
 

@@ -17,6 +17,17 @@
   </image>
   
   <item>
+    <title>Test Model</title>
+    <link>http://dzenanr.github.com/2013/01/03/test-model.html</link>
+    <guid>http://dzenanr.github.com/2013/01/03/test-model.html</guid>
+    <description>
+      Edit a todo. Test the model.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Thu, 3 Jan 2013 14:55:00 -0500</pubDate>
+  </item>
+  
+  <item>
     <title>Complete All Todos</title>
     <link>http://dzenanr.github.com/2012/12/15/complete-all-todos.html</link>
     <guid>http://dzenanr.github.com/2012/12/15/complete-all-todos.html</guid>
