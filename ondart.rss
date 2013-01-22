@@ -17,6 +17,17 @@
   </image>
   
   <item>
+    <title>Membership Web Components</title>
+    <link>http://dzenanr.github.com/2013/01/22/membership-web-components.html</link>
+    <guid>http://dzenanr.github.com/2013/01/22/membership-web-components.html</guid>
+    <description>
+      I have created a simple membership application to explore web components in the Web UI package of Dart.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Tue, 22 Jan 2013 11:55:00 -0500</pubDate>
+  </item>
+  
+  <item>
     <title>Test Model</title>
     <link>http://dzenanr.github.com/2013/01/03/test-model.html</link>
     <guid>http://dzenanr.github.com/2013/01/03/test-model.html</guid>

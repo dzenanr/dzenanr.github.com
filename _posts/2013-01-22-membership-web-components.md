@@ -146,7 +146,7 @@ The member-sign-in-list web component uses three other components: member-sign-i
 
 {% endhighlight %}
 
-The component is composed of the member-sign-in component and conditionally of two other components. If an administrator is signed in, the member-update-by-admin component is instantiated. If a member is signed in, the member-list component is instantiated. The code in the member-sign-in-list.dart file handles those conditions (Code 6). Note that the class name is derived from the component’s name by using the CamelCase.
+The component is composed of the member-sign-in component and conditionally of two other components. If an administrator is signed in, the member-update-by-admin component is instantiated. If a member is signed in, the member-list component is instantiated. The code in the member-sign-in-list.dart file handles those conditions (Code 6). Note that the class name is derived from the component's name by using the CamelCase.
 
 **Code 6**: MemberSignInList component class.
 
