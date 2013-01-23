@@ -884,8 +884,7 @@ class Member {
 class Members {
   var _members = new List<Member>();
   
-  HasNextIterator<Member>getiterator =>
-      newHasNextIterator<Member>(_members.iterator);
+  Iterator<Member> get iterator => _members.iterator;
 
   bool add(Member member) {
     if (contain(member.code)) {
