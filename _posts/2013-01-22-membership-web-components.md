@@ -883,6 +883,7 @@ class Member {
 
 class Members {
   var _members = new List<Member>();
+  
   HasNextIterator<Member>getiterator =>
       newHasNextIterator<Member>(_members.iterator);
 
@@ -963,4 +964,4 @@ dependencies:
 
 {% endhighlight %}
 
-There are two dependencies in the pub specification. The dart.js file (Code 3) is now placed in the browser package. The last version of the web_ui package is also obtained from the Pub.
+There are two dependencies in the pub specification. The dart.js bootstrap file (Code 3) is now placed in the browser package. The last version of the web_ui package is also obtained from Pub.
