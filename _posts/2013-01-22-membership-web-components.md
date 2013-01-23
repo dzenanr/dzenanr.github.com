@@ -768,6 +768,9 @@ class MemberFindChangeDelete extends WebComponent {
         firstName.value =  member.firstName;
         lastName.value =  member.lastName;
       } else {
+        password.value = '';
+        firstName.value =  '';
+        lastName.value =  '';
         message.text = 'not found';
       }
     }
@@ -801,9 +804,17 @@ class MemberFindChangeDelete extends WebComponent {
   }
 
   delete() {
+    InputElement code = query("#code");
+    InputElement password = query("#password");
+    InputElement firstName = query("#firstName");
+    InputElement lastName = query("#lastName");
     LabelElement message = query("#message");
     message.text = '';
     if (members.remove(member)) {
+      code.value =  '';
+      password.value = '';
+      firstName.value =  '';
+      lastName.value =  '';      
       message.text = 'deleted';
     } else {
       message.text = 'not deleted';
@@ -822,4 +833,134 @@ A member found based on her code (Figure 6), may be updated (the Change button) 
 
 There is also a possibility of reusing the member-add component in the member-sign-in component. Try it out.
 
+The model of the application is in the lib folder. The lib folder contains also the membership.dart file that defines the membership library (Code 20).
 
+**Code 20**: Library.
+
+{% highlight dart %}
+
+library membership;
+
+part 'model/members.dart';
+
+{% endhighlight %}
+
+The Member and Members classes of the model are placed in the members.dart file (Code 21), which is located in the model folder.
+
+**Code 21**: Model.
+
+{% highlight dart %}
+
+part of membership;
+
+class Member {
+  String code;
+  String password = '';
+  String firstName;
+  String lastName;
+  bool admin = false;
+
+  Member(this.code);
+
+  int compareTo(Member member) {
+    if (lastName != null && firstName != null) {
+      int comparison = lastName.compareTo(member.lastName);
+      if (comparison == 0) {
+        comparison = firstName.compareTo(member.firstName);
+      }
+      return comparison;
+    }
+  }
+
+  String toString() {
+    return '${lastName}, ${firstName}';
+  }
+
+  display() {
+    print(toString);
+  }
+}
+
+class Members {
+  var _members = new List<Member>();
+  HasNextIterator<Member>getiterator =>
+      newHasNextIterator<Member>(_members.iterator);
+
+  bool add(Member member) {
+    if (contain(member.code)) {
+      return false;
+    } else {
+      _members.add(member);
+      return true;
+    }
+  }
+
+  List<Member> get list => _members;
+
+  order() {
+    _members.sort((m,n) => m.compareTo(n));
+  }
+
+  bool contain(String code) {
+    if (code != null) {
+      for (Member member in _members) {
+        if (member.code == code) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  Member find(String code) {
+    if (code != null) {
+      for (Member member in _members) {
+        if (member.code == code) {
+          return member;
+        }
+      }
+    }
+  }
+
+  bool remove(Member member) {
+    if (member == null || member.code == null) {
+      return false;
+    }
+    for (Member m in _members) {
+      if (m.code == member.code) {
+        int index = _members.indexOf(m, 0);
+        _members.removeAt(index);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  display() {
+    _members.forEach((m) {
+      m.display();
+    });
+  }
+}
+
+{% endhighlight %}
+
+The pubspec.yaml file must be in the root folder of the membership application (Code 22).
+
+**Code 22**: Pub specification.
+
+{% highlight yaml %}
+
+name:  membership
+author: Dzenan Ridjanovic <dzenanr@gmail.com>
+homepage: http://ondart.me/
+version: 0.0.3
+description: > 
+  A sample application with web components.
+dependencies:
+  browser: any
+  web_ui: any
+
+{% endhighlight %}
+
+There are two dependencies in the pub specification. The dart.js file (Code 3) is now placed in the browser package. The last version of the web_ui package is also obtained from the Pub.
