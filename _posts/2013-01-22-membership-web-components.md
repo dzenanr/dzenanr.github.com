@@ -48,7 +48,7 @@ void main() {
 
 {% endhighlight %}
 
-The application page uses the member-sign-in-list component (Code 3). A name of a web component must contain the - (minus) sign in order to avoid potential name conflicts within the page. The component is placed in the member_sign_in_list.html file that is located in the component/member subfolder of the web folder (see link rel="components" in Code 3).
+The application page uses the member-sign-in-list component (Code 3). A name of a web component must start with x- in order to avoid potential name conflicts within the page. The component is placed in the member_sign_in_list.html file that is located in the component/member subfolder of the web folder (see link rel="components" in Code 3).
 
 **Code 3**: Application page: membership_web.html.
 
@@ -66,7 +66,7 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
   <body>
     <h1>Membership</h1>
 
-    <member-sign-in-list members="{{ members }}"></member-sign-in-list>
+    <x-member-sign-in-list members="{{ members }}"></x-member-sign-in-list>
 
     <script type="application/dart" src="membership_web.dart"></script>
     <script src="packages/browser/dart.js"></script>
@@ -128,15 +128,15 @@ The member-sign-in-list web component uses three other components: member-sign-i
     <link rel="components" href="member_list.html">
   </head>
   <body>
-    <element name="member-sign-in-list" extends="span">
+    <element name="x-member-sign-in-list" extends="span">
       <template>
-        <member-sign-in members="{{ members }}"></member-sign-in>
+        <x-member-sign-in members="{{ members }}"></x-member-sign-in>
         <div template if="adminSignedIn">
-          <member-update-by-admin members="{{ members }}">
-          </member-update-by-admin>
+          <x-member-update-by-admin members="{{ members }}">
+          </x-member-update-by-admin>
         </div>
         <div template if="memberSignedIn">
-          <member-list members="{{ members }}"></member-list>
+          <x-member-list members="{{ members }}"></x-member-list>
         </div>
       </template>
       <script type="application/dart" src="member_sign_in_list.dart"></script>
@@ -159,7 +159,7 @@ class MemberSignInList extends WebComponent {
   Members members;
 
   bool get adminSignedIn {
-    var signInComponent = document.query('member-sign-in').xtag;
+    var signInComponent = document.query('x-member-sign-in').xtag;
     Member member = signInComponent.signedInMember;
     if (member != null && member.admin) {
       return true;
@@ -168,7 +168,7 @@ class MemberSignInList extends WebComponent {
   }
 
   bool get memberSignedIn {
-    var signInComponent = document.query('member-sign-in').xtag;
+    var signInComponent = document.query('x-member-sign-in').xtag;
     Member member = signInComponent.signedInMember;
     if (member != null && !member.admin) {
       return true;
@@ -199,11 +199,11 @@ The member-list component iterates over all members (Code 7) and displays the re
     <title>Member List</title>
   </head>
   <body>
-    <element name="member-list" extends="span">
+    <element name="x-member-list" extends="span">
       <template>
         <div>
           <ul>
-            <template iterate="member in members.list">
+            <template iterate="member in members.toList()">
               <li>
                 {{ member.toString() }}
               </li>
@@ -253,7 +253,7 @@ The member-sign-in component is rather complex because it uses several condition
     <link rel="components" href="member_update.html">
   </head>
   <body>
-    <element name="member-sign-in" extends="span">
+    <element name="x-member-sign-in" extends="span">
       <template>
         <div template if="showSignIn">
           <label for="code">Code</label>
@@ -279,9 +279,9 @@ The member-sign-in component is rather complex because it uses several condition
           <button on-click="signOut()">Sign Out</button>
         </div>
         <div template if="showMember">
-          <member-update 
+          <x-member-update 
             member="{{ signedInMember }}" members="{{ members }}">
-          </member-update>
+          </x-member-update>
         </div>
         <style>
           button {
@@ -438,9 +438,9 @@ The showMember property in Code 10 becomes true and the member-update component 
 {% highlight html %}
 
         <div template if="showMember">
-          <member-update
+          <x-member-update
             member="{{ signedInMember }}" members="{{ members }}">
-          </member-update>
+          </x-member-update>
         </div>
 
 {% endhighlight %}
@@ -459,7 +459,7 @@ The member-update component allows a member to update her password and even to d
     <title>Member Update</title>
   </head>
   <body>
-    <element name="member-update" extends="span">
+    <element name="x-member-update" extends="span">
       <template>
         <div>
           <label for="password">Password</label>
@@ -522,14 +522,14 @@ class MemberUpdate extends WebComponent {
     }
     if (!error) {
       member.password = password.value;
-      var signInComponent = document.query('member-sign-in').xtag;
+      var signInComponent = document.query('x-member-sign-in').xtag;
       signInComponent.showMember = false;
     }
   }
 
   delete() {
     members.remove(member);
-    var signInComponent = document.query('member-sign-in').xtag;
+    var signInComponent = document.query('x-member-sign-in').xtag;
     signInComponent.signOut();
   }
 
@@ -554,13 +554,13 @@ The member-update-by-admin component, instantiated in Code 5, uses two new compo
     <link rel="components" href="member_list.html">
   </head>
   <body>
-    <element name="member-update-by-admin" extends="section">
+    <element name="x-member-update-by-admin" extends="span">
       <template>
         <content></content>
-        <member-add members="{{ members }}"></member-add>
-        <member-find-change-delete members="{{ members }}">
-        </member-find-change-delete>
-        <member-list members="{{ members }}"></member-list>
+        <x-member-add members="{{ members }}"></x-member-add>
+        <x-member-find-change-delete members="{{ members }}">
+        </x-member-find-change-delete>
+        <x-member-list members="{{ members }}"></x-member-list>
       </template>
       <script type="application/dart" src="member_update_by_admin.dart">
       </script>
@@ -605,7 +605,7 @@ The member-add component (Code 16) accepts the members argument (Code 14) that b
     <title>Member Add</title>
   </head>
   <body>
-    <element name="member-add" extends="span">
+    <element name="x-member-add" extends="span">
       <template>
         <content></content>
         <div>
@@ -717,7 +717,7 @@ The member-find-change-delete component extends the member-add component (Code 1
     <title>Member Find Change Delete</title>
   </head>
   <body>
-    <element name="member-find-change-delete" extends="member-add">
+    <element name="x-member-find-change-delete" extends="member-add">
       <template>
         <div>
           <button on-click="find()">Find</button>
@@ -895,7 +895,7 @@ class Members {
     }
   }
 
-  List<Member> get list => _members;
+  List<Member> toList() => _members;
 
   order() {
     _members.sort((m,n) => m.compareTo(n));
@@ -954,7 +954,7 @@ The pubspec.yaml file must be in the root folder of the membership application (
 name:  membership
 author: Dzenan Ridjanovic <dzenanr@gmail.com>
 homepage: http://ondart.me/
-version: 0.0.3
+version: 0.0.4
 description: > 
   A sample application with web components.
 dependencies:
