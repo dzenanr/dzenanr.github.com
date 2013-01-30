@@ -130,7 +130,7 @@ The x-member-sign-in-list web component uses three other components: x-member-si
   <body>
     <element name="x-member-sign-in-list" extends="span">
       <template>
-        <x-member-sign-in members="{{ members }}"></x-member-sign-in>
+        <x-member-sign-in members="2{ members 2}"></x-member-sign-in>
         <div template if="adminSignedIn">
           <x-member-update-by-admin members="{{ members }}">
           </x-member-update-by-admin>
