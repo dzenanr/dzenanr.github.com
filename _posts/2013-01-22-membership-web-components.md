@@ -66,7 +66,7 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
   <body>
     <h1>Membership</h1>
 
-    <x-member-sign-in-list members="{{ members }}"></x-member-sign-in-list>
+    <x-member-sign-in-list members="{{members}}"></x-member-sign-in-list>
 
     <script type="application/dart" src="membership_web.dart"></script>
     <script src="packages/browser/dart.js"></script>
@@ -75,7 +75,9 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
 
 {% endhighlight %}
 
-The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the {{ members }} expression to the members property of the member-sign-in-list component (Code 3).
+The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the {{ members }} expression to the members property of the member-sign-in-list component (Code 3). 
+
+Note that in all html examples, {{ members }} 
 
 **Code 4**: Application page: membership_web.dart.
 
