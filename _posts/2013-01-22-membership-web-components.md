@@ -117,32 +117,32 @@ The x-member-sign-in-list web component uses three other components: x-member-si
 
 {% highlight html %}
 
-<!DOCTYPE html>
+	<!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Member Sign In List</title>
-    <link rel="components" href="member_sign_in.html">
-    <link rel="components" href="member_update_by_admin.html">
-    <link rel="components" href="member_list.html">
-  </head>
-  <body>
-    <element name="x-member-sign-in-list" extends="span">
-      <template>
-        <x-member-sign-in members="{{ members }}"></x-member-sign-in>
-        <div template if="adminSignedIn">
-          <x-member-update-by-admin members="{ { members } }">
-          </x-member-update-by-admin>
-        </div>
-        <div template if="memberSignedIn">
-          <x-member-list members="`{{ members }}`"></x-member-list>
-        </div>
-      </template>
-      <script type="application/dart" src="member_sign_in_list.dart"></script>
-    </element>
-  </body>
-</html>
+	<html>
+	  <head>
+		<meta charset="utf-8">
+		<title>Member Sign In List</title>
+		<link rel="components" href="member_sign_in.html">
+		<link rel="components" href="member_update_by_admin.html">
+		<link rel="components" href="member_list.html">
+	  </head>
+	  <body>
+		<element name="x-member-sign-in-list" extends="span">
+		  <template>
+			<x-member-sign-in members="{{ members }}"></x-member-sign-in>
+			<div template if="adminSignedIn">
+			  <x-member-update-by-admin members="{{ members }}">
+			  </x-member-update-by-admin>
+			</div>
+			<div template if="memberSignedIn">
+			  <x-member-list members="{{ members }}"></x-member-list>
+			</div>
+		  </template>
+		  <script type="application/dart" src="member_sign_in_list.dart"></script>
+		</element>
+	  </body>
+	</html>
 
 {% endhighlight %}
 
