@@ -75,9 +75,9 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
 
 {% endhighlight %}
 
-The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the {{ members }} expression to the members property of the member-sign-in-list component (Code 3). See the [summary] (http://www.dartlang.org/articles/dart-web-components/summary.html) of web component and template features.
+The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the 2{ members 2} expression to the members property of the member-sign-in-list component (Code 3). Note that in all html examples, an expression with double curly braces is presented as 2{ exp 2}, because I could not figure out how to display properly two curly braces in the code. 
 
-Note that in all html examples, {{ exp }} is presented as 2{ members 2}, because I could not figure out how to display properly two curly braces in the code. 
+See the [summary] (http://www.dartlang.org/articles/dart-web-components/summary.html) of web component and template features.
 
 **Code 4**: Application page: membership_web.dart.
 
