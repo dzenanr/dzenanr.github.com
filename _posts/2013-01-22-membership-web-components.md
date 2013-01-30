@@ -115,7 +115,7 @@ The x-member-sign-in-list web component uses three other components: x-member-si
 
 **Code 5**: x-member-sign-in-list component.
 
-{% highlight html %}
+{% highlight dart %}
 
 <!DOCTYPE html>
 
@@ -132,7 +132,7 @@ The x-member-sign-in-list web component uses three other components: x-member-si
       <template>
         <x-member-sign-in members="{{ members }}"></x-member-sign-in>
         <div template if="adminSignedIn">
-          <x-member-update-by-admin members="\{\{ members \}\}">
+          <x-member-update-by-admin members="{{ members }}">
           </x-member-update-by-admin>
         </div>
         <div template if="memberSignedIn">
