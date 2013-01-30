@@ -115,7 +115,7 @@ The x-member-sign-in-list web component uses three other components: x-member-si
 
 **Code 5**: x-member-sign-in-list component.
 
-{% highlight dart %}
+{% highlight html %}
 
 <!DOCTYPE html>
 
