@@ -66,7 +66,7 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
   <body>
     <h1>Membership</h1>
 
-    <x-member-sign-in-list members="{{members}}"></x-member-sign-in-list>
+    <x-member-sign-in-list members="2{ members 2}"></x-member-sign-in-list>
 
     <script type="application/dart" src="membership_web.dart"></script>
     <script src="packages/browser/dart.js"></script>
@@ -75,9 +75,9 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
 
 {% endhighlight %}
 
-The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the {{ members }} expression to the members property of the member-sign-in-list component (Code 3). 
+The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the {{ members }} expression to the members property of the member-sign-in-list component (Code 3). See the [summary] (http://www.dartlang.org/articles/dart-web-components/summary.html) of web component and template features.
 
-Note that in all html examples, {{ members }} 
+Note that in all html examples, {{ exp }} is presented as 2{ members 2}, because I could not figure out how to display properly two curly braces in the code. 
 
 **Code 4**: Application page: membership_web.dart.
 
@@ -134,11 +134,11 @@ The x-member-sign-in-list web component uses three other components: x-member-si
       <template>
         <x-member-sign-in members="2{ members 2}"></x-member-sign-in>
         <div template if="adminSignedIn">
-          <x-member-update-by-admin members="{{ members }}">
+          <x-member-update-by-admin members="2{ members 2}">
           </x-member-update-by-admin>
         </div>
         <div template if="memberSignedIn">
-          <x-member-list members="{{ members }}"></x-member-list>
+          <x-member-list members="2{ members 2}"></x-member-list>
         </div>
       </template>
       <script type="application/dart" src="member_sign_in_list.dart"></script>
@@ -207,7 +207,7 @@ The x-member-list component iterates over all members, actually over a list of m
           <ul>
             <template iterate="member in members.toList()">
               <li>
-                {{ member.toString() }}
+                2{ member.toString() 2}
               </li>
             </template>
           </ul>
@@ -277,12 +277,12 @@ The x-member-sign-in component is rather complex because it uses several conditi
           <button on-click="signUp()">Sign Up</button>
         </div>
         <div template if="showSignOut">
-          <button on-click="member()">{{ signedInMember.code }}</button>
+          <button on-click="member()">2{ signedInMember.code 2}</button>
           <button on-click="signOut()">Sign Out</button>
         </div>
         <div template if="showMember">
           <x-member-update 
-            member="{{ signedInMember }}" members="{{ members }}">
+            member="2{ signedInMember 2}" members="2{ members 2}">
           </x-member-update>
         </div>
         <style>
@@ -441,7 +441,7 @@ The showMember property in Code 10 becomes true and the x-member-update componen
 
         <div template if="showMember">
           <x-member-update
-            member="{{ signedInMember }}" members="{{ members }}">
+            member="2{ signedInMember 2}" members="2{ members 2}">
           </x-member-update>
         </div>
 
@@ -559,10 +559,10 @@ The x-member-update-by-admin component, instantiated in Code 5, uses two new com
     <element name="x-member-update-by-admin" extends="span">
       <template>
         <content></content>
-        <x-member-add members="{{ members }}"></x-member-add>
-        <x-member-find-change-delete members="{{ members }}">
+        <x-member-add members="2{ members 2}"></x-member-add>
+        <x-member-find-change-delete members="2{ members 2}">
         </x-member-find-change-delete>
-        <x-member-list members="{{ members }}"></x-member-list>
+        <x-member-list members="2{ members 2}"></x-member-list>
       </template>
       <script type="application/dart" src="member_update_by_admin.dart">
       </script>
