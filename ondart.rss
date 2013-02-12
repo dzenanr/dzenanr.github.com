@@ -17,6 +17,17 @@
   </image>
   
   <item>
+    <title>Category Links Model</title>
+    <link>http://dzenanr.github.com/2013/02/12/category-links-model.html</link>
+    <guid>http://dzenanr.github.com/2013/02/12/category-links-model.html</guid>
+    <description>
+      I have created the Category Links application to show how to use data in a simple model through web components. 
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Tue, 12 Feb 2013 15:15:00 -0500</pubDate>
+  </item>
+  
+  <item>
     <title>Membership Web Components</title>
     <link>http://dzenanr.github.com/2013/01/22/membership-web-components.html</link>
     <guid>http://dzenanr.github.com/2013/01/22/membership-web-components.html</guid>
