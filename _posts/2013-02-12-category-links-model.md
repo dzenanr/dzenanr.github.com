@@ -14,7 +14,7 @@ A model for the Category Links application has two concepts and one relationship
 
 The application page uses several web components. Two of them are presented in Figure 2.
 
-![Alt Figure 2: web components] (/img/dartlero/category_links_app.png)
+![Alt Figure 2: web components] (/img/web_components_with_dartlero/web_category_links.png)
 
 **Figure 2**: web components.
 
