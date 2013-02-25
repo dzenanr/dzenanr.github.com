@@ -16,6 +16,6 @@ The application page uses several web components. Two of them are presented in F
 
 ![Alt Figure 2: web components] (/img/web_components_with_dartlero/web_category_links.png)
 
-**Figure 2**: web components.
+**Figure 2**: Web components.
 
 The model is explained in the [Category Links Model in dartlero] (https://docs.google.com/document/d/1I4PX1rBX7BemxYM3MitUN75UKwExUCLxhG8nIrbhBXs/edit?usp=sharing) document. The web components will be explained in the next blog post.
