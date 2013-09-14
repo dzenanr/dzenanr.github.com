@@ -70,18 +70,18 @@ The constants are used in the onMouseDown method of the Board class.
   void onMouseDown(MouseEvent e) {
     bool clickedOnBox = false;
     for (Box box in boxes) {
-      if (box.contains(e.offsetX, e.offsetY)) {
+      if (box.contains(e.offset.x, e.offset.y)) {
         clickedOnBox = true;
         break;
       }
     }
     if (!clickedOnBox) {
-      Box box = new Box(this, e.offsetX, e.offsetY, 
+      Box box = new Box(this, e.offset.x, e.offset.y, 
         Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
-      if (e.offsetX + box.width > width) {
+      if (e.offset.x + box.width > width) {
         box.x = width - box.width - 1;
       }
-      if (e.offsetY + box.height > height) {
+      if (e.offset.y + box.height > height) {
         box.y = height - box.height - 1;
       }
       boxes.add(box);
@@ -139,7 +139,7 @@ Several methods in the Box class are updated to follow decisions made in this sp
   
   void onMouseDown(MouseEvent e) {
     _mouseDown = true;
-    if (contains(e.offsetX, e.offsetY)) {
+    if (contains(e.offset.x, e.offset.y)) {
       toggleSelection();
     }
   }
@@ -150,16 +150,16 @@ Several methods in the Box class are updated to follow decisions made in this sp
   
   // Change a position of the box with mouse mouvements.
   void onMouseMove(MouseEvent e) {
-    if (contains(e.offsetX, e.offsetY) && isSelected() && _mouseDown && 
-        board.countSelectedBoxesContain(e.offsetX, e.offsetY) < 2) {
-      x =  e.offsetX - width / 2;
+    if (contains(e.offset.x, e.offset.y) && isSelected() && _mouseDown && 
+        board.countSelectedBoxesContain(e.offset.x, e.offset.y) < 2) {
+      x =  e.offset.x - width / 2;
       if (x < 0) {
         x = 1;
       }
       if (x > board.width - width) {
         x = board.width - width - 1;
       }
-      y = e.offsetY - height / 2;
+      y = e.offset.y - height / 2;
       if (y < 0) {
         y = 1;
       }
@@ -288,7 +288,7 @@ In the on mouse down event of the Board class, several methods of the ToolBar cl
   void onMouseDown(MouseEvent e) {
     bool clickedOnBox = false; 
     for (Box box in boxes) {
-      if (box.contains(e.offsetX, e.offsetY)) {
+      if (box.contains(e.offset.x, e.offset.y)) {
         clickedOnBox = true;
         break;
       }
@@ -300,12 +300,12 @@ In the on mouse down event of the Board class, several methods of the ToolBar cl
       }
     } else if (toolBar.isBoxToolOn()) {
       if (!clickedOnBox) {
-        Box box = new Box(this, e.offsetX, e.offsetY, 
+        Box box = new Box(this, e.offset.x, e.offset.y, 
           Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
-        if (e.offsetX + box.width > width) {
+        if (e.offset.x + box.width > width) {
           box.x = width - box.width - 1;
         }
-        if (e.offsetY + box.height > height) {
+        if (e.offset.y + box.height > height) {
           box.y = height - box.height - 1;
         }
         boxes.add(box);

@@ -308,27 +308,23 @@ The for button elements are embedded within the nav element.
 
 {% endhighlight %}
 
-The problem of removing every second box from the list of boxes is resolved by making the deleteSelectedBoxes method of the Board class recursive. The method calls itself at the end of its body. When there are no more selected boxes to remove, the method terminates its action by the **return** statement.
+The problem of removing every second box from the list of boxes is resolved by using a list of boxes. 
 
-**Code 05-06.14**: The recursive method.
+**Code 05-06.14**: Iterating over a list of boxes.
 
 {% highlight java %}
 
   void deleteSelectedBoxes() {
-    if (countSelectedBoxes() == 0) {
-      return;
-    }
-    for (Box box in boxes) {
+    for (Box box in boxes.toList()) {
       if (box.isSelected()) {
-        deleteBox(box);
+        boxes.remove(box);
       }
     }
-    deleteSelectedBoxes();
   }
 
 {% endhighlight %}
 
-The deleteSelectedBoxes method starts with counting selected boxes by the countSelectedBoxes method of the Board class and comparing the count with zero. If the count is equal to zero, the task of removing all selected boxes is successfully done.
+A number of selected boxes is detrmined by the countSelectedBoxes method of the Board class. 
 
 **Code 05-06.15**: Counting selected boxes.
 
@@ -347,24 +343,6 @@ The deleteSelectedBoxes method starts with counting selected boxes by the countS
 {% endhighlight %}
 
 A single box is removed from the boxes attribute by the deleteBox method of the Board class.
-
-**Code 05-06.16**: Removing a box from boxes.
-
-{% highlight java %}
-
-  void deleteBox(Box boxToDelete) {
-    for (Box box in boxes) {
-      if (box == boxToDelete) {
-        int index = boxes.indexOf(box, 0);
-        boxes.removeRange(index, 1);
-        return;
-      }
-    }
-  }
-
-{% endhighlight %}
-
-A for loop iterates over all boxes. In a single iteration, if a box to be deleted is equal to the box of that iteration, the sequential index of the box, which starts with 0 with the first box in the list, is found by the indexOf method of the List type. This index number of the int (integer) type is used to remove objects from the range of objects that starts with that index. The range size is 1. Thus, only one box is removed from boxes by the removeRange method of the List type.
 
 In addition to boxes, lines may be now created between boxes (Figure 05-06.05). A new line is created first by selecting the line tool in the tool bar, second by clicking on two different boxes, then by clicking on an empty space in the board. A line may also be created by clicking on two different boxes, then by selecting the line tool in the tool bar, and finally by clicking on an empty space in the board. The line tool may be double-clicked to keep it active in order to create more than one line. The select tool must be double-clicked to return to the select mode.
 
@@ -481,10 +459,10 @@ There are also two box attributes that make references to two boxes that are las
   void onMouseDown(MouseEvent e) {
     _mouseDown = true;
     if (board.toolBar.isSelectToolOn() 
-      && contains(e.offsetX, e.offsetY)) {
+      && contains(e.offset.x, e.offset.y)) {
       toggleSelection();
     }
-    if (contains(e.offsetX, e.offsetY)) {
+    if (contains(e.offset.x, e.offset.y)) {
       board.beforeLastBoxClicked = board.lastBoxClicked;
       board.lastBoxClicked = this;
     }
@@ -501,7 +479,7 @@ The main work of managing events conditionally on the active tool of the tool ba
   void onMouseDown(MouseEvent e) {
     bool clickedOnBox = false; 
     for (Box box in boxes) {
-      if (box.contains(e.offsetX, e.offsetY)) {
+      if (box.contains(e.offset.x, e.offset.y)) {
         clickedOnBox = true;
         break;
       }
@@ -511,12 +489,12 @@ The main work of managing events conditionally on the active tool of the tool ba
       if (toolBar.isSelectToolOn()) {
         deselectBoxes();
       } else if (toolBar.isBoxToolOn()) {
-        Box box = new Box(this, e.offsetX, e.offsetY, 
+        Box box = new Box(this, e.offset.x, e.offset.y, 
           Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
-        if (e.offsetX + box.width > width) {
+        if (e.offset.x + box.width > width) {
           box.x = width - box.width - 1;
         }
-        if (e.offsetY + box.height > height) {
+        if (e.offset.y + box.height > height) {
           box.y = height - box.height - 1;
         }
         boxes.add(box);

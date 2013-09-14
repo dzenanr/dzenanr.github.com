@@ -75,8 +75,6 @@ The first change is the simplification of the main method.
 
 {% highlight java %}
 
-#import('dart:html');
-
 // s00.s01
 
 // Use Ctrl-Shift-J in Chrome to see the Console with the printed text.

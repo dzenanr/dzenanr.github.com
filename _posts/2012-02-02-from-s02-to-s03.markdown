@@ -49,7 +49,7 @@ The boxes attribute is created in the constructor of the Board class. After the 
 
   // Create a box in the position of the mouse click on the board.
   void onMouseDown(MouseEvent event) {
-    Box box = new Box(this, event.offsetX, event.offsetY, 60, 100);
+    Box box = new Box(this, event.offset.x, event.offset.y, 60, 100);
     boxes.add(box);
   }
 
@@ -99,10 +99,10 @@ The negation symbol (!) is used to switch the Boolean (bool) value of the clicke
   // Create a box in the position of the mouse click on the board, 
   // but not on an existing box.
   void onMouseDown(MouseEvent event) {
-    Box box = new Box(this, event.offsetX, event.offsetY, 60, 100);
+    Box box = new Box(this, event.offset.x, event.offset.y, 60, 100);
     bool clickedOnExistingBox = false;
     for (Box box in boxes) {
-      if (box.contains(event.offsetX, event.offsetY)) {
+      if (box.contains(event.offset.x, event.offset.y)) {
         clickedOnExistingBox = true;
         break;
       }
@@ -134,17 +134,17 @@ If, during a new box creation, a mouse click is close to the west or to the sout
 {% highlight java %}
 
   void onMouseDown(MouseEvent event) {
-    Box box = new Box(this, event.offsetX, event.offsetY, 60, 100);
+    Box box = new Box(this, event.offset.x, event.offset.y, 60, 100);
     bool clickedOnExistingBox = false;
     for (Box box in boxes) {
-      if (box.contains(event.offsetX, event.offsetY)) {
+      if (box.contains(event.offset.x, event.offset.y)) {
         clickedOnExistingBox = true;
         break;
       }
     }
     if (!clickedOnExistingBox) {
-      if (event.offsetX + box.width > width) box.x = width - box.width;
-      if (event.offsetY + box.height > height) box.y = 
+      if (event.offset.x + box.width > width) box.x = width - box.width;
+      if (event.offset.y + box.height > height) box.y = 
         height - box.height;
       boxes.add(box);
     }
@@ -177,7 +177,7 @@ The onMouseUp method checks if the box contains the point of the click and if so
 {% highlight java %}
 
   void onMouseUp(MouseEvent event) {
-    if (contains(event.offsetX, event.offsetY)) selected = !selected;
+    if (contains(event.offset.x, event.offset.y)) selected = !selected;
   }
 
 {% endhighlight %}
@@ -247,13 +247,13 @@ Only selected boxes may be moved now.
 
 class Box {
   
-  // Change a position of the box with mouse mouvements.
+  // Change a position of the box with mouse movements.
   void onMouseMove(MouseEvent event) {
-    if (selected && contains(event.offsetX, event.offsetY)) {
-      x = event.offsetX - width / 2;
+    if (selected && contains(event.offset.x, event.offset.y)) {
+      x = event.offset.x - width / 2;
       if (x < 0) x = 1;
       if (x > board.width - width) x = board.width - width - 1;
-      y = event.offsetY - height / 2;
+      y = event.offset.y - height / 2;
       if (y < 0) y = 1;
       if (y > board.height - height) y = board.height - height - 1;
     }
@@ -329,7 +329,7 @@ The onMouseUp method of the Box class uses the toggleSelection method.
 {% highlight java %}
 
   void onMouseUp(MouseEvent event) {
-    if (contains(event.offsetX, event.offsetY)) toggleSelection();
+    if (contains(event.offset.x, event.offset.y)) toggleSelection();
   }
 
 {% endhighlight %}
@@ -356,7 +356,7 @@ However, the method body is put under the comment to allow you to easily explore
 {% highlight java %}
 
   void onMouseDown(MouseEvent event) {
-    // if (contains(event.offsetX, event.offsetY)) toggleSelection();
+    // if (contains(event.offset.x, event.offset.y)) toggleSelection();
   }
 
 {% endhighlight %}
