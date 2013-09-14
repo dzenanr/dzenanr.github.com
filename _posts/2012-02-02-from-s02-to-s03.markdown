@@ -4,9 +4,9 @@ title: From Spiral02 To Spiral03
 comments: true
 ---
 
+The code for the Model Concepts project is at [model_concepts on GitHub](https://github.com/dzenanr/model_concepts).
 
-
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
 In Spiral 02, three boxes may be moved within the board. In Spiral 03, a box may be created by clicking on an empty space in the board, selected and then moved.
 

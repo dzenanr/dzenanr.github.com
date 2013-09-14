@@ -7,7 +7,9 @@ comments: true
 Code
 ----
 
-The code for the MagicBoxes project is at [MagicBoxes on GitHub](https://github.com/dzenanr/magic_boxes). The code for the mb project is at [mb on GitHub](https://github.com/dzenanr/mb). For teaching or learning purposes, each spiral in MagicBoxes is decomposed into several steps in mb.
+The code for the Model Concepts project is at [model_concepts on GitHub](https://github.com/dzenanr/model_concepts).
+
+The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
 The use of the script element in the MagicBoxes.html file has changed from
 

@@ -4,7 +4,7 @@ title: Membership Web Components
 comments: true
 ---
 
-I have created a simple [membership application] (https://github.com/dzenanr/membership) to explore web components in the [Web UI] (http://www.dartlang.org/articles/dart-web-components/) package of Dart.
+I have created a simple [membership application] (https://github.com/dzenanr/membership) to explore web components in the [Web UI] (http://www.dartlang.org/articles/web-ui/) package of Dart.
 
 Developing web applications with web components is a new approach that will let us divide a page in sections and use a web component for each section. If web components become reusable in different contexts, we may have a catalog of web components that would allow us to select and reuse them in a few lines of code.
 
@@ -39,8 +39,8 @@ The application html file is used in the build.dart script file (Code 2) to gene
 
 {% highlight dart %}
 
-import 'package:web_ui/component_build.dart';
 import 'dart:io';
+import 'package:web_ui/component_build.dart';
 
 void main() {
   build(new Options().arguments, ['web/membership_web.html']);
@@ -48,7 +48,7 @@ void main() {
 
 {% endhighlight %}
 
-The application page uses the member-sign-in-list component (Code 3). A name of a web component must start with x- in order to avoid potential name conflicts within the page. The component is placed in the member_sign_in_list.html file that is located in the component/member subfolder of the web folder (see link rel="components" in Code 3).
+The application page uses the member-sign-in-list component (Code 3). A name of a web component must include the - (minus) sign. The component is placed in the member_sign_in_list.html file that is located in the component/member subfolder of the web folder (see link rel="import" in Code 3).
 
 **Code 3**: Application page: membership_web.html.
 
@@ -60,13 +60,13 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
   <head>
     <meta charset="utf-8">
     <title>Membership</title>
-    <link rel="components" href="component/member/member_sign_in_list.html">
     <link rel="stylesheet" href="css/page.css"/>
+    <link rel="import" href="component/member/member_sign_in_list.html">
   </head>
   <body>
     <h1>Membership</h1>
 
-    <x-member-sign-in-list members="2{ members 2}"></x-member-sign-in-list>
+    <member-sign-in-list members="2{ members 2}"></member-sign-in-list>
 
     <script type="application/dart" src="membership_web.dart"></script>
     <script src="packages/browser/dart.js"></script>
@@ -77,7 +77,7 @@ The application page uses the member-sign-in-list component (Code 3). A name of 
 
 The application Dart file (see script type="application/dart" in Code 3) has the main function, where two members are created (Code 4). The members property (Code 4) is passed as the 2{ members 2} expression to the members property of the member-sign-in-list component (Code 3). Note that in all html examples, an expression with double curly braces is presented as 2{ exp 2}, because I could not figure out how to display properly two curly braces in the code. 
 
-See the [summary] (http://www.dartlang.org/articles/dart-web-components/summary.html) of web component and template features.
+See the [summary] (http://www.dartlang.org/articles/web-ui/summary.html) of web component and template features.
 
 **Code 4**: Application page: membership_web.dart.
 
@@ -113,9 +113,9 @@ Although there are two members, the page does not does display them unless a mem
 
 **Figure 1**: Sign in.
 
-The x-member-sign-in-list web component uses three other components: x-member-sign-in, x-member-update-by-admin and x-member-list (Code 5). The component is defined within the element tag. It extends the span tag (the div and section tags are also good candidates for inheritance). Its markup is defined within the template tag.
+The member-sign-in-list web component uses three other components: member-sign-in, member-update-by-admin and member-list (Code 5). The component is defined within the element tag. It extends the span tag (the div and section tags are also good candidates for inheritance). Its markup is defined within the template tag.
 
-**Code 5**: x-member-sign-in-list component.
+**Code 5**: member-sign-in-list component.
 
 {% highlight html %}
 
@@ -125,20 +125,23 @@ The x-member-sign-in-list web component uses three other components: x-member-si
   <head>
     <meta charset="utf-8">
     <title>Member Sign In List</title>
-    <link rel="components" href="member_sign_in.html">
-    <link rel="components" href="member_update_by_admin.html">
-    <link rel="components" href="member_list.html">
+    <link rel="import" href="member_sign_in.html">
+    <link rel="import" href="member_update_by_admin.html">
+    <link rel="import" href="member_list.html">
   </head>
   <body>
-    <element name="x-member-sign-in-list" extends="span">
+    <element name="member-sign-in-list" extends="span">
       <template>
-        <x-member-sign-in members="2{ members 2}"></x-member-sign-in>
+        <member-sign-in 
+          id="member-sign-in" members="2{ members 2}">
+        </member-sign-in>
         <div template if="adminSignedIn">
-          <x-member-update-by-admin members="2{ members 2}">
-          </x-member-update-by-admin>
+          <member-update-by-admin 
+            members="2{ members 2}">
+          </member-update-by-admin>
         </div>
         <div template if="memberSignedIn">
-          <x-member-list members="2{ members 2}"></x-member-list>
+          <member-list members="2{ members 2}"></member-list>
         </div>
       </template>
       <script type="application/dart" src="member_sign_in_list.dart"></script>
@@ -148,7 +151,7 @@ The x-member-sign-in-list web component uses three other components: x-member-si
 
 {% endhighlight %}
 
-The component is composed of the x-member-sign-in component and conditionally of two other components. If an administrator is signed in, the x-member-update-by-admin component is instantiated. If a member is signed in, the x-member-list component is instantiated. The code in the member-sign-in-list.dart file handles those conditions (Code 6). Note that the class name is derived from the component's name, without x-, by using the CamelCase.
+The component is composed of the member-sign-in component and conditionally of two other components. If an administrator is signed in, the member-update-by-admin component is instantiated. If a member is signed in, the member-list component is instantiated. The code in the member-sign-in-list.dart file handles those conditions (Code 6). Note that the class name is derived from the component's name by using the CamelCase.
 
 **Code 6**: MemberSignInList component class.
 
@@ -161,7 +164,7 @@ class MemberSignInList extends WebComponent {
   Members members;
 
   bool get adminSignedIn {
-    var signInComponent = document.query('x-member-sign-in').xtag;
+    var signInComponent = document.query('#member-sign-in').xtag;
     Member member = signInComponent.signedInMember;
     if (member != null && member.admin) {
       return true;
@@ -170,7 +173,7 @@ class MemberSignInList extends WebComponent {
   }
 
   bool get memberSignedIn {
-    var signInComponent = document.query('x-member-sign-in').xtag;
+    var signInComponent = document.query('#member-sign-in').xtag;
     Member member = signInComponent.signedInMember;
     if (member != null && !member.admin) {
       return true;
@@ -181,15 +184,15 @@ class MemberSignInList extends WebComponent {
 
 {% endhighlight %}
 
-A previously instantiated component may be retrieved by the xtag. Then, its properties may be accessed to make certain decisions. Here, a signed in member is either an admin or a member. If the signed in member is not an administrator, only the list of members is displayed by the x-member-list component (Figure 2).
+A previously instantiated component may be retrieved by the xtag. Then, its properties may be accessed to make certain decisions. Here, a signed in member is either an admin or a member. If the signed in member is not an administrator, only the list of members is displayed by the member-list component (Figure 2).
 
 ![Alt Figure 2: membership] (/img/membership/sign_in_list.png)
 
 **Figure 2**: Member signed in.
 
-The x-member-list component iterates over all members, actually over a list of members (Code 7), and displays the result of the toString method of the Member class. The CSS style specific to the component is defined in the style tag.
+The member-list component iterates over all members, actually over a list of members (Code 7), and displays the result of the toString method of the Member class. The CSS style specific to the component is defined in the style tag.
 
-**Code 7**: x-member-list component.
+**Code 7**: member-list component.
 
 {% highlight html %}
 
@@ -201,7 +204,7 @@ The x-member-list component iterates over all members, actually over a list of m
     <title>Member List</title>
   </head>
   <body>
-    <element name="x-member-list" extends="span">
+    <element name="member-list" extends="span">
       <template>
         <div>
           <ul>
@@ -225,7 +228,7 @@ The x-member-list component iterates over all members, actually over a list of m
 
 {% endhighlight %}
 
-The x-member-list component does not have a specific behavior and its corresponding Dart code is simple with the members property only (Code 8).
+The member-list component does not have a specific behavior and its corresponding Dart code is simple with the members property only (Code 8).
 
 **Code 8**: MemberList component class.
 
@@ -240,9 +243,9 @@ class MemberList extends WebComponent {
 
 {% endhighlight %}
 
-The x-member-sign-in component is rather complex because it uses several conditions (Code 9). If a user clicks on the Sign Up button (Figure 1) two additional fields appear. After a sign in, a member may access his personal data by clicking on a button with its sign in code. The personal data are handled by the x-member-update component.
+The member-sign-in component is rather complex because it uses several conditions (Code 9). If a user clicks on the Sign Up button (Figure 1) two additional fields appear. After a sign in, a member may access his personal data by clicking on a button with its sign in code. The personal data are handled by the member-update component.
 
-**Code 9**: x-member-sign-in component.
+**Code 9**: member-sign-in component.
 
 {% highlight html %}
 
@@ -252,10 +255,10 @@ The x-member-sign-in component is rather complex because it uses several conditi
   <head>
     <meta charset="utf-8">
     <title>Member Sign In</title>
-    <link rel="components" href="member_update.html">
+    <link rel="import" href="member_update.html">
   </head>
   <body>
-    <element name="x-member-sign-in" extends="span">
+    <element name="member-sign-in" extends="span">
       <template>
         <div template if="showSignIn">
           <label for="code">Code</label>
@@ -281,9 +284,9 @@ The x-member-sign-in component is rather complex because it uses several conditi
           <button on-click="signOut()">Sign Out</button>
         </div>
         <div template if="showMember">
-          <x-member-update 
+          <member-update 
             member="2{ signedInMember 2}" members="2{ members 2}">
-          </x-member-update>
+          </member-update>
         </div>
         <style>
           button {
@@ -433,23 +436,23 @@ After a member signs in (Figure 2), she may decide to change her password (Figur
 
 **Figure 4**: Password change.
 
-The showMember property in Code 10 becomes true and the x-member-update component is instantiated (Code 11, a part of Code 9), with two properties initialized.
+The showMember property in Code 10 becomes true and the member-update component is instantiated (Code 11, a part of Code 9), with two properties initialized.
 
 **Code 11**: Conditional instantiation of the web component.
 
 {% highlight html %}
 
         <div template if="showMember">
-          <x-member-update
+          <member-update
             member="2{ signedInMember 2}" members="2{ members 2}">
-          </x-member-update>
+          </member-update>
         </div>
 
 {% endhighlight %}
 
-The x-member-update component allows a member to update her password and even to delete her account (Code 12). 
+The member-update component allows a member to update her password and even to delete her account (Code 12). 
 
-**Code 12**: x-member-update component.
+**Code 12**: member-update component.
 
 {% highlight html %}
 
@@ -461,7 +464,7 @@ The x-member-update component allows a member to update her password and even to
     <title>Member Update</title>
   </head>
   <body>
-    <element name="x-member-update" extends="span">
+    <element name="member-update" extends="span">
       <template>
         <div>
           <label for="password">Password</label>
@@ -524,14 +527,14 @@ class MemberUpdate extends WebComponent {
     }
     if (!error) {
       member.password = password.value;
-      var signInComponent = document.query('x-member-sign-in').xtag;
+      var signInComponent = document.query('#member-sign-in').xtag;
       signInComponent.showMember = false;
     }
   }
 
   delete() {
     members.remove(member);
-    var signInComponent = document.query('x-member-sign-in').xtag;
+    var signInComponent = document.query('#member-sign-in').xtag;
     signInComponent.signOut();
   }
 
@@ -539,9 +542,9 @@ class MemberUpdate extends WebComponent {
 
 {% endhighlight %}
 
-The x-member-update-by-admin component, instantiated in Code 5, uses two new components, x-member-add and x-member-find-change-delete in addition to the already used x-member-list component (Code 14). 
+The member-update-by-admin component, instantiated in Code 5, uses two new components, member-add and member-find-change-delete in addition to the already used member-list component (Code 14). 
 
-**Code 14**: x-member-update-by-admin component.
+**Code 14**: member-update-by-admin component.
 
 {% highlight html %}
 
@@ -551,18 +554,19 @@ The x-member-update-by-admin component, instantiated in Code 5, uses two new com
   <head>
     <meta charset="utf-8">
     <title>Member Update by Admin</title>
-    <link rel="components" href="member_add.html">
-    <link rel="components" href="member_find_change_delete.html">
-    <link rel="components" href="member_list.html">
+    <link rel="import" href="member_add.html">
+    <link rel="import" href="member_find_change_delete.html">
+    <link rel="import" href="member_list.html">
   </head>
   <body>
-    <element name="x-member-update-by-admin" extends="span">
+    <element name="member-update-by-admin" extends="span">
       <template>
         <content></content>
-        <x-member-add members="2{ members 2}"></x-member-add>
-        <x-member-find-change-delete members="2{ members 2}">
-        </x-member-find-change-delete>
-        <x-member-list members="2{ members 2}"></x-member-list>
+        <member-add members="2{ members 2}"></member-add>
+        <member-find-change-delete 
+          members="2{ members 2}">
+        </member-find-change-delete>
+        <member-list members="2{ members 2}"></member-list>
       </template>
       <script type="application/dart" src="member_update_by_admin.dart">
       </script>
@@ -593,9 +597,9 @@ An administrator may add a new member (Figure 5).
 
 **Figure 5**: Sign in by an administrator.
 
-The x-member-add component (Code 16) accepts the members argument (Code 14) that becomes the members property of the MemberAdd class (Code 17).
+The member-add component (Code 16) accepts the members argument (Code 14) that becomes the members property of the MemberAdd class (Code 17).
 
-**Code 16**: x-member-add component.
+**Code 16**: member-add component.
 
 {% highlight html %}
 
@@ -607,7 +611,7 @@ The x-member-add component (Code 16) accepts the members argument (Code 14) that
     <title>Member Add</title>
   </head>
   <body>
-    <element name="x-member-add" extends="span">
+    <element name="member-add" extends="span">
       <template>
         <content></content>
         <div>
@@ -705,7 +709,7 @@ class MemberAdd extends WebComponent {
 
 {% endhighlight %}
 
-The x-member-find-change-delete component extends the x-member-add component (Code 18).
+The member-find-change-delete component extends the member-add component (Code 18).
 
 **Code 18**: Component inheritance.
 
@@ -719,7 +723,7 @@ The x-member-find-change-delete component extends the x-member-add component (Co
     <title>Member Find Change Delete</title>
   </head>
   <body>
-    <element name="x-member-find-change-delete" extends="x-member-add">
+    <element name="member-find-change-delete" extends="member-add">
       <template>
         <div>
           <button on-click="find()">Find</button>
@@ -735,7 +739,7 @@ The x-member-find-change-delete component extends the x-member-add component (Co
 
 {% endhighlight %}
 
-The find, change and delete buttons in Figure 5 are handled by the find, change and delete methods in the MemberFindChangeDelete class (Code 19) of the x-member-find-change-delete component.
+The find, change and delete buttons in Figure 5 are handled by the find, change and delete methods in the MemberFindChangeDelete class (Code 19) of the member-find-change-delete component.
 
 **Code 19**: MemberFindChangeDelete component class.
 
@@ -816,7 +820,7 @@ class MemberFindChangeDelete extends WebComponent {
       code.value =  '';
       password.value = '';
       firstName.value =  '';
-      lastName.value =  '';      
+      lastName.value =  '';
       message.text = 'deleted';
     } else {
       message.text = 'not deleted';
@@ -833,7 +837,7 @@ A member found based on her code (Figure 6), may be updated (the Change button) 
 
 **Figure 6**: Member found by an administrator.
 
-There is also a possibility of reusing the x-member-add component in the x-member-sign-in component. Try it out.
+There is also a possibility of reusing the member-add component in the member-sign-in component. Try it out.
 
 The model of the application is in the lib folder. The lib folder contains also the membership.dart file that defines the membership library (Code 20).
 
@@ -954,11 +958,10 @@ The pubspec.yaml file must be in the root folder of the membership application (
 {% highlight yaml %}
 
 name:  membership
-author: Dzenan Ridjanovic <dzenanr@gmail.com>
+version: 0.0.8
+author: Dzenan Ridjanovic
+description: A sample application with web components.
 homepage: http://ondart.me/
-version: 0.0.4
-description: > 
-  A sample application with web components.
 dependencies:
   browser: any
   web_ui: any
