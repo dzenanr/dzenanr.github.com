@@ -55,7 +55,7 @@ The method is added in the constructor of the Box class to the document.on.mouse
 
 {% endhighlight %}
 
-The onMouseMove method has the event parameter, of the MountEvent class, which is supplied by Dart. The offsetX attribute of the event object gives an x coordinate of the mouse.  The offset is calculated relative to the x = 0 coordinate of the board (canvas) object. The offset attribute of the event object gives a y coordinate of the mouse.  The offset is calculated relative to the y = 0 coordinate of the board (canvas) object. With each mouse move, one of boxes will change its position with the update of its x and y coordinates (the attributes of the Box class).  Since the board will be redrawn very quickly, each new position of the same box will appear as a new box (Figure 01-02.01).
+The onMouseMove method has the event parameter, of the MountEvent class, which is supplied by Dart. The offset.x attribute of the event object gives an x coordinate of the mouse.  The offset is calculated relative to the x = 0 coordinate of the board (canvas) object. The offset attribute of the event object gives a y coordinate of the mouse.  The offset is calculated relative to the y = 0 coordinate of the board (canvas) object. With each mouse move, one of boxes will change its position with the update of its x and y coordinates (the attributes of the Box class).  Since the board will be redrawn very quickly, each new position of the same box will appear as a new box (Figure 01-02.01).
 
 ![Alt Figure 01-02.01: “Many” boxes](/img/s01s02/ManyBoxes.png)
 
@@ -144,7 +144,7 @@ The Boolean method checks if a position of the mouse is inside the box of intere
 
   // Change a position of the box with mouse mouvements.
   void onMouseMove(MouseEvent event) {
-    if (isPointInside(event.offsetX, event.offsetY)) {
+    if (isPointInside(event.offset.x, event.offset.y)) {
       x = event.offset.x;
       y = event.offset.y;
     }
@@ -160,7 +160,7 @@ The new position of the current box will be now in the middle of the box. This a
 
   // Change a position of the box with mouse mouvements.
   void onMouseMove(MouseEvent event) {
-    if (isPointInside(event.offsetX, event.offsetY)) {
+    if (isPointInside(event.offset.x, event.offset.y)) {
       x = event.offset.x - width / 2;
       y = event.offset.y - height / 2;
     }

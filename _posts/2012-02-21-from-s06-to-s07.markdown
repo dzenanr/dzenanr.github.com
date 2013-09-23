@@ -579,7 +579,7 @@ In the onMouseMethod of the Board class, if a click happens outside of an existi
     …
     if (!clickedOnBox) {
       if (toolBar.isSelectToolOn()) {
-        Point clickedPoint = new Point(e.offsetX, e.offsetY);
+        Point clickedPoint = new Point(e.offset.x, e.offset.y);
         Line line = _lineContains(clickedPoint);
         if (line != null) {
           // Select or deselect the existing line.
@@ -785,7 +785,7 @@ This method is called in the onMouseDown method to check if the last two boxes c
   void onMouseDown(MouseEvent e) {
     bool clickedOnBox = false; 
     for (Box box in boxes) {
-      if (box.contains(e.offsetX, e.offsetY)) {
+      if (box.contains(e.offset.x, e.offset.y)) {
         // Clicked on the existing box.
         clickedOnBox = true;
         break;
@@ -794,7 +794,7 @@ This method is called in the onMouseDown method to check if the last two boxes c
     
     if (!clickedOnBox) {
       if (toolBar.isSelectToolOn()) {
-        Point clickedPoint = new Point(e.offsetX, e.offsetY);
+        Point clickedPoint = new Point(e.offset.x, e.offset.y);
         Line line = _lineContains(clickedPoint);
         if (line != null) {
           // Select or deselect the existing line.
@@ -805,12 +805,12 @@ This method is called in the onMouseDown method to check if the last two boxes c
         }
       } else if (toolBar.isBoxToolOn()) {
         // Create a box in the position of the mouse click on the board.
-        Box box = new Box(this, e.offsetX, e.offsetY, 
+        Box box = new Box(this, e.offset.x, e.offset.y, 
           Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
-        if (e.offsetX + box.width > width) {
+        if (e.offset.x + box.width > width) {
           box.x = width - box.width - 1;
         }
-        if (e.offsetY + box.height > height) {
+        if (e.offset.y + box.height > height) {
           box.y = height - box.height - 1;
         }
         boxes.add(box);
@@ -839,10 +839,10 @@ In the onMouseDown method of the Box class, when a box is clicked on, before it 
   void onMouseDown(MouseEvent e) {
     _mouseDown = true;
     if (board.toolBar.isSelectToolOn() && 
-        contains(e.offsetX, e.offsetY)) {
+        contains(e.offset.x, e.offset.y)) {
       toggleSelection();
     }
-    if (contains(e.offsetX, e.offsetY)) {
+    if (contains(e.offset.x, e.offset.y)) {
       if (board.lastBoxClicked != null && 
           board.lastBoxClicked != this) {
         board.beforeLastBoxClicked = board.lastBoxClicked;

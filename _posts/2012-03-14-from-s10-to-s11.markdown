@@ -1135,19 +1135,20 @@ In the Board class, the toJson method creates a local map of key/value pairs. Th
     boardMap["height"] = height;
     boardMap["boxes"] = boxesToJson();
     boardMap["lines"] = linesToJson();
-    return JSON.stringify(boardMap);
+    return JSON.encode(boardMap);
   }
 
 {% endhighlight %}
 
-The stringify method of the JSON class, which is a part of the dart:json library, converts the map object to text. The json library is imported in the mb.dart file.
+The encode method of the JSON constant (of the JsonCodec class), which is a part of the dart:convert library, converts the map object to text. The convert library is imported in the mb.dart file.
 
-**Code 10-11.49**: Import JSON library.
+**Code 10-11.49**: Import convert library.
 
 {% highlight java %}
 
 #import('dart:html');
-#import('dart:json');
+#import('dart:convert');
+
 #source('Board.dart');
 #source('Box.dart');
 #source('Line.dart');
@@ -1471,14 +1472,14 @@ A JSON representation, copied from a model text file, is transformed to a model 
 
 **Figure 10-11.07**: From JSON to model.
 
-The fromJson method of the Board class accepts a JSON string and transforms by the parse method of the JSON class. The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. The value of the lines key is a list of maps, one map for each line.
+The fromJson method of the Board class accepts a JSON string and transforms by the decode method of the JSON constant. The parse method returns a map key/value pairs. The value of the width key becomes the value of the width attribute of the Board class. In the same way, the value of the height key becomes the value of the height attribute. The value of the boxes key is a list of maps, one map for each box. The value of the lines key is a list of maps, one map for each line.
 
 **Code 10-11.64**: From JSON to model.
 
 {% highlight java %}
 
   void fromJson(String json) {
-    Map<String, Object> boardMap = JSON.parse(json);
+    Map<String, Object> boardMap = JSON.decode(json);
     width = boardMap["width"];
     height = boardMap["height"];
     List<Map<String, Object>> boxesList = boardMap["boxes"];
