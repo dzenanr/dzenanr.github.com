@@ -265,7 +265,7 @@ void main() {
 
 The objective of the main function is to obtain canvas and to delegate drawings to the displayBord function. The objective of the displayBord function is to draw a border and to delegate drawings of boxes to the displayBoxes function.
 
-Up to now, our code consists of functions. The same can be accomplished by defining the Board class that will handle drawings. The class is defined within Dart Editor by using the File menu and the New File… menu item. The new file is named Border.dart. By doing this, Dart Editor adds the #source(‘Board.dart’); to the mb.dart file.
+Up to now, our code consists of functions. The same can be accomplished by defining the Board class that will handle drawings. The class is defined within Dart Editor by using the File menu and the New File… menu item. The new file is named Border.dart. 
 
 The main method of mb.dart creates a board as an object of the Board class. This is accomplished by using the new keyword and by the constructor method of the Board class.
 
@@ -289,9 +289,13 @@ void main() {
 
 {% endhighlight %}
 
+Note that the library mb in mb.dart has only one part, which is board.dart.
+
 **Code 00-01.11**: The Board class.
 
 {% highlight java %}
+
+part of mb;
 
 class Board {
   
@@ -372,6 +376,8 @@ Finally, the Box.dart file is created by using the File menu and the New File…
 
 {% highlight java %}
 
+part of mb;
+
 class Box {
   
   Board board;
@@ -403,6 +409,8 @@ The init method of the Board class constructs two boxes.
 **Code 00-01.14**: Construction of two boxes.
 
 {% highlight java %}
+
+part of mb;
 
 class Board {
   
