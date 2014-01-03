@@ -17,9 +17,9 @@ In Spiral 01, the code from Spiral 00 is changed to display two rectangles (boxe
 
 #import('dart:html');
 
-class mb {
+class Mb {
 
-  mb() {
+  Mb() {
   }
 
   void run() {
@@ -28,12 +28,12 @@ class mb {
 
   void write(String message) {
     // the HTML library defines a global "document" variable
-    document.query('#status').innerHTML = message;
+    document.querySelector('#status').innerHtml = message;
   }
 }
 
 void main() {
-  new mb().run();
+  new Mb().run();
 }
 
 {% endhighlight %}
@@ -49,7 +49,8 @@ void main() {
   <body>
     <h1>mb</h1>
     <h2 id="status">dart is not running</h2>
-    <script type="text/javascript" src="mb.dart.app.js"></script>
+    <script type="application/dart" src="mb.dart"></script>
+    <script src="packages/browser/dart.js"></script>
   </body>
 </html>
 
@@ -97,13 +98,12 @@ The main method does not have any parameters. The print function belongs to the 
   </head>
   <body>
     <h1>mb</h1>
-    <script type="text/javascript" src="mb.dart.app.js"></script>
+    <script type="application/dart" src="mb.dart"></script>
+    <script src="packages/browser/dart.js"></script>
   </body>
 </html>
 
 {% endhighlight %}
-
-Note that the JavaScript file name is now mb.dart.app.js.
 
 The next step is to modify both mb.dart and mb.html to add to the main function the code for drawing a border and two boxes.
 
@@ -116,7 +116,7 @@ The next step is to modify both mb.dart and mb.html to add to the main function 
 
 main() {
   // Get a reference to the canvas.
-  var canvas = document.query('#canvas');
+  var canvas = document.querySelector('#canvas');
   var context = canvas.getContext("2d");
   var width = canvas.width;
   var height = canvas.height;
@@ -143,14 +143,15 @@ The main function first finds the canvas element in the html page and converts i
   <head>
     <title>mb</title>
   </head>
-  
+
   <body>
-    <section> 
+    <section>
       <header>
         <h2>Two Boxes</h2>
       </header>
       <canvas id="canvas" width="600" height="400"></canvas>
-      <script type="text/javascript" src="mb.dart.app.js"></script>
+      <script type="application/dart" src="mb.dart"></script>
+      <script src="packages/browser/dart.js"></script>
     </section>
   </body>
 </html>
@@ -171,7 +172,7 @@ The next change is to introduce types of variables, or more precisely classes of
 
 void main() {
   // Get a reference to the canvas.
-  CanvasElement canvas = document.query('#canvas');
+  CanvasElement canvas = document.querySelector('#canvas');
   CanvasRenderingContext2D context = canvas.getContext("2d");
   int width = canvas.width;
   int height = canvas.height;
@@ -217,7 +218,7 @@ void displayBoxes(CanvasElement canvas) {
 
 void main() {
   // Get a reference to the canvas.
-  CanvasElement canvas = document.query('#canvas');
+  CanvasElement canvas = document.querySelector('#canvas');
   displayBoxes(canvas);
 }
 
@@ -256,7 +257,7 @@ void displayBord(CanvasElement canvas) {
 
 void main() {
   // Get a reference to the canvas.
-  CanvasElement canvas = document.query('#canvas');
+  CanvasElement canvas = document.querySelector('#canvas');
   displayBord(canvas);
 }
 
@@ -272,14 +273,17 @@ The main method of mb.dart creates a board as an object of the Board class. This
 
 {% highlight java %}
 
-#import('dart:html');
-#source('Board.dart');
+library mb;
+
+import 'dart:html';
+
+part 'board.dart';
 
 // s01.s04
 
 void main() {
   // Get a reference to the canvas.
-  CanvasElement canvas = document.query('#canvas');
+  CanvasElement canvas = document.querySelector('#canvas');
   new Board(canvas);
 }
 
@@ -354,7 +358,8 @@ The HTML document is declared to be of the html type. The simple DOCTYPE syntax 
         <h2>Two Boxes</h2>
       </header>
       <canvas id="canvas" width="600" height="400"></canvas>
-      <script type="text/javascript" src="mb.dart.app.js"></script>
+      <script type="application/dart" src="mb.dart"></script>
+      <script src="packages/browser/dart.js"></script>
     </section>
   </body>
 </html>
@@ -438,21 +443,24 @@ The main method adds a redundant object. Since the board object is not used furt
 
 {% highlight java %}
 
-#import('dart:html');
-#source('Board.dart');
-#source('Box.dart');
+library mb;
+
+import 'dart:html';
+
+part 'board.dart';
+part 'box.dart';
 
 // s01.s05
 
 void main() {
   // Get a reference to the canvas.
-  CanvasElement canvas = document.query('#canvas');
+  CanvasElement canvas = document.querySelector('#canvas');
   Board board = new Board(canvas);
 }
 
 {% endhighlight %}
 
-Even if the Box class is not used directly by the main method, its source is added by Dart Editor.
+
 
 
 
