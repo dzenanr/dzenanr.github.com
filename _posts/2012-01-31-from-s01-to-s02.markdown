@@ -10,7 +10,7 @@ The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github
 
 In Spiral 01, two static boxes were displayed on the board. In Spiral 02, three boxes may be moved within the board.
 
-The document global variable represents the HTML page. The page is part of a window. Thus, from the document objet, the window object may be reached (document.window). The setInterval method on the window object defines what method will be run (the first argument) and how frequently (the second argument).  This means that the redraw method of the Board class will be called every 10 milliseconds (ms).
+The Timer.periodic constructor of the Timer class from the dart:async library is used to define a refresh of displayed objects. The redraw method of the Board class will be called every INTERVAL milliseconds (ms) to display rectangles in new positions.
 
 **Code 01-02.01**: Interval.
 
@@ -23,7 +23,7 @@ The document global variable represents the HTML page. The page is part of a win
     border();
     init();
     // Redraw every 10 ms.
-    document.window.setInterval(redraw, 10);
+    new Timer.periodic(const Duration(milliseconds: 10), (t) => redraw());
   }
 
 {% endhighlight %}
@@ -42,7 +42,7 @@ In the Box class, a mouse move event is defined. The event is detailed in the on
 
 {% endhighlight %}
 
-The method is added in the constructor of the Box class to the document.on.mouseMove object. The mouse move event will be watched by the document and the onMouseMove method will be executed with each move of the mouse.
+The method is used in the constructor of the Box class. The mouse move event will be listened by the document and the onMouseMove method will be executed with each move of the mouse.
 
 **Code 01-02.03**: Source of the mouse move event.
 
@@ -50,7 +50,7 @@ The method is added in the constructor of the Box class to the document.on.mouse
 
   Box(this.board, this.x, this.y, this.width, this.height) {
     draw();
-    document.on.mouseMove.add(onMouseMove);
+    document.onMouseMove.listen(onMouseMove);
   }
 
 {% endhighlight %}
@@ -68,18 +68,18 @@ In order to show only new positions of boxes, the board must be cleared from the
 {% highlight java %}
 
 class Board {
-  
-  final int INTERVAL = 10; // ms
- 
+
+  static const int INTERVAL = 10; // ms
+
   int width;
   int height;
-  
+
   CanvasRenderingContext2D context;
-  
+
   Box box1;
   Box box2;
   Box box3;
-  
+
   Board(CanvasElement canvas) {
     context = canvas.getContext("2d");
     width = canvas.width;
@@ -87,29 +87,29 @@ class Board {
     border();
     init();
     // Redraw every INTERVAL ms.
-    document.window.setInterval(redraw, INTERVAL);
+    new Timer.periodic(const Duration(milliseconds: INTERVAL), (t) => redraw());
   }
-  
+
   void init() {
     box1 = new Box(this, 20, 20, 80, 40);
     box2 = new Box(this, 120, 220, 40, 80);
     box3 = new Box(this, 60, 80, 80, 40);
   }
-  
+
   void border() {
     context.beginPath();
     context.rect(0, 0, width, height);
     context.closePath();
     context.stroke();
   }
-  
+
   void clear() {
     context.clearRect(0, 0, width, height);
     border();
-  } 
-  
+  }
+
   void redraw() {
-    clear(); 
+    clear();
     box1.draw();
     box2.draw();
     box3.draw();
@@ -119,7 +119,7 @@ class Board {
 
 {% endhighlight %}
 
-The clear method clears the rectangle that is occupied by the context of the canvas, and the border is drawn again. The clear method is called in the redraw method before the three boxes are drawn. The interval of redrawing the board is still 10 ms, but it is defined at the beginning of the Board class as the **final** integer. The final value cannot be changed, representing a constant. A name of a constant is expressed in capital letters. The INTERVAL constant, with the value of 10, is used in the setInterval method.
+The clear method clears the rectangle that is occupied by the context of the canvas, and the border is drawn again. The clear method is called in the redraw method before the three boxes are drawn. The interval of redrawing the board is still 10 ms, but it is defined at the beginning of the Board class as the **const** integer. The initial value cannot be changed, representing a constant. A name of a constant is expressed in capital letters. The INTERVAL constant, with the value of 10, is used in the Duration constructor.
 
 When the code is run in the Chrome browser, one of horizontal boxes is “eaten” by the other horizontal box, and the vertical box is captured as a prisoner of the two horizontal boxes.
 
@@ -130,8 +130,10 @@ The isPointInside method returns **true**, if the (x, y) point is inside the cur
 {% highlight java %}
 
   bool isPointInside(int px, int py) {
-    if ((px > x && px < x + width) && (py > y && py < y + height))
+    if ((px > x && px < x + width) && (py > y && py < y + height)) {
       return true;
+    }
+    return false;
   }
 
 {% endhighlight %}
@@ -181,8 +183,7 @@ The upper left corner of a box (x, y) is displayed close to that corner, so that
   void draw() {
     board.context.beginPath();
     board.context.rect(x, y, width, height);
-    board.context.fillText(
-      x.toString() + ',' + y.toString(), x + 1, y + 10);
+    board.context.fillText('${x.toString()},${y.toString()}', x + 1, y + 10);
     board.context.closePath();
     board.context.stroke();
   }
