@@ -30,15 +30,15 @@ class MenuBar {
   ButtonElement deleteBoxesButton;
   
   MenuBar(this.board) {
-    createBoxesButton = document.query('#create-boxes');
-    deleteBoxesButton = document.query('#delete-boxes');
-    
+    createBoxesButton = document.querySelector('#create-boxes');
+    deleteBoxesButton = document.querySelector('#delete-boxes');
+
     // Menu bar events.
-    createBoxesButton.on.click.add((MouseEvent e) {
+    createBoxesButton.onClick.listen((MouseEvent e) {
       board.createBoxes(6);
     });
-    
-    deleteBoxesButton.on.click.add((MouseEvent e) {
+
+    deleteBoxesButton.onClick.listen((MouseEvent e) {
       board.deleteBoxes();
     });
   }
@@ -47,29 +47,28 @@ class MenuBar {
 
 {% endhighlight %}
 
-In the constructor of the MenuBar class the two button elements are found in the document by using the query method and element ids.  The buttons are linked to click events in order to create 6 boxes by the first button and to delete all boxes by the second button.
+In the constructor of the MenuBar class the two button elements are found in the document by using the querySelector method and element ids.  The buttons are linked to click events in order to create 6 boxes by the first button and to delete all boxes by the second button.
 
-**Code 05-06.02**: The two methods of the MenuBar class.
+**Code 05-06.02**: Create and delete boxes.
 
 {% highlight java %}
 
   void createBoxes(int n) {
     int x = 0; int y = 0;
     for (int i = 0; i < n; i++) {
-      boxes.add(new Box(this, x, y, 
-        Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT));
+      boxes.add(new Box(this, x, y, Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT));
       x = x + Box.DEFAULT_WIDTH;
       y = y + Box.DEFAULT_HEIGHT;
     }
   }
-  
+
   void deleteBoxes() {
     boxes.clear();
   }
 
 {% endhighlight %}
 
-The for loop in the createBoxes method is initialized with the i variable of the int type. The loop is terminated when the value of the I variable becomes n. With each iteration the i variable is incremented by 1.
+The for loop in the createBoxes method is initialized with the i variable of the int type. The loop is terminated when the value of the i variable becomes n. With each iteration the i variable is incremented by 1.
 
 The menu bar is represented in the mb.html file by the nav element of HTML5, which defines a section of navigation links.
 
@@ -127,35 +126,34 @@ The MenuBar class is completely changed to contain the four new buttons of the B
 {% highlight java %}
 
 class MenuBar {
-  
+
   final Board board;
-  
+
   ButtonElement selectBoxesButton;
   ButtonElement deleteSelectedBoxesButton;
   ButtonElement hideSelectedBoxesButton;
   ButtonElement showHiddenBoxesButton;
-  
+
   MenuBar(this.board) {
-    selectBoxesButton = document.query('#select-boxes');
-    deleteSelectedBoxesButton = 
-      document.query('#delete-selected-boxes');
-    hideSelectedBoxesButton = document.query('#hide-selected-boxes');
-    showHiddenBoxesButton = document.query('#show-hidden-boxes');
-    
+    selectBoxesButton = document.querySelector('#select-boxes');
+    deleteSelectedBoxesButton = document.querySelector('#delete-selected-boxes');
+    hideSelectedBoxesButton = document.querySelector('#hide-selected-boxes');
+    showHiddenBoxesButton = document.querySelector('#show-hidden-boxes');
+
     // Menu bar events.
-    selectBoxesButton.on.click.add((MouseEvent e) {
+    selectBoxesButton.onClick.listen((MouseEvent e) {
       board.selectBoxes();
     });
-    
-    deleteSelectedBoxesButton.on.click.add((MouseEvent e) {
+
+    deleteSelectedBoxesButton.onClick.listen((MouseEvent e) {
       board.deleteSelectedBoxes();
     });
-    
-    hideSelectedBoxesButton.on.click.add((MouseEvent e) {
+
+    hideSelectedBoxesButton.onClick.listen((MouseEvent e) {
       board.hideSelectedBoxes();
     });
-    
-    showHiddenBoxesButton.on.click.add((MouseEvent e) {
+
+    showHiddenBoxesButton.onClick.listen((MouseEvent e) {
       board.showHiddenBoxes();
     });
   }
@@ -178,36 +176,22 @@ The selectBoxes method of the Board class is similar to the deselectBoxes method
 
 {% endhighlight %}
 
-In a for loop over the boxes attribute, if a box is selected it is removed from the boxes attribute. To remove the box, its index (a sequential integer starting with zero for the first box in the boxes attribute) is found by the indexOf method of the List type. The box is removed by the removeRange method of the List type, which requires the index argument of the first object in the given range size, which is in our case 1.
+In a for loop over a copy of the boxes attribute, if a box is selected it is removed from the boxes attribute. The box is removed by the remove method of the List type.
 
 **Code 05-06.08**: The deleteSelectedMethod of the Board class.
 
 {% highlight java %}
 
   void deleteSelectedBoxes() {
-    for (Box box in boxes) {
+    var listCopy = boxes.toList();
+    for (Box box in listCopy) {
       if (box.isSelected()) {
-        int index = boxes.indexOf(box, 0);
-        boxes.removeRange(index, 1);
+        boxes.remove(box);
       }
     }
   }
 
 {% endhighlight %}
-
-However, only half of the boxes are removed from the list. From the ten selected boxes in Figure 05-06.03, 
-
-![Alt Figure 05-06.03: Ten selected boxes](/img/s05s06/SelectedBoxes.png)
-
-**Figure 05-06.03**: Ten selected boxes.
-
-there are five boxes in Figure 05-06.04, which are left on the board after a click on the Delete Selected Boxes button.
-
-![Alt Figure 05-06.04: Five boxes left after deleting all selected boxes](/img/s05s06/HalfDeletedBoxes.png)
-
-**Figure 05-06.04**: Five boxes left after deleting all selected boxes.
-
-Obviously, this is a problem that will be resolved in the next step.
 
 The hideSelectedBoxes and showHiddenBoxes of the Board class delegate the tasks to the Box class.
 
@@ -285,7 +269,7 @@ The menu bar gets a new look with the help of the button selector in the link.cs
 
 {% endhighlight %}
 
-The for button elements are embedded within the nav element.
+The four button elements are embedded within the nav element.
 
 **Code 05-06.13**: The navigation section with the button class.
 
@@ -308,25 +292,9 @@ The for button elements are embedded within the nav element.
 
 {% endhighlight %}
 
-The problem of removing every second box from the list of boxes is resolved by using a list of boxes. 
+A number of selected boxes is determined by the countSelectedBoxes method of the Board class. 
 
-**Code 05-06.14**: Iterating over a list of boxes.
-
-{% highlight java %}
-
-  void deleteSelectedBoxes() {
-    for (Box box in boxes.toList()) {
-      if (box.isSelected()) {
-        boxes.remove(box);
-      }
-    }
-  }
-
-{% endhighlight %}
-
-A number of selected boxes is detrmined by the countSelectedBoxes method of the Board class. 
-
-**Code 05-06.15**: Counting selected boxes.
+**Code 05-06.14**: Counting selected boxes.
 
 {% highlight java %}
 
@@ -342,36 +310,34 @@ A number of selected boxes is detrmined by the countSelectedBoxes method of the 
 
 {% endhighlight %}
 
-A single box is removed from the boxes attribute by the deleteBox method of the Board class.
+In addition to boxes, lines may be now created between boxes (Figure 05-06.03). A new line is created first by selecting the line tool in the tool bar, second by clicking on two different boxes, then by clicking on an empty space in the board. A line may also be created by clicking on two different boxes, then by selecting the line tool in the tool bar, and finally by clicking on an empty space in the board. The line tool may be double-clicked to keep it active in order to create more than one line. The select tool must be double-clicked to return to the select mode.
 
-In addition to boxes, lines may be now created between boxes (Figure 05-06.05). A new line is created first by selecting the line tool in the tool bar, second by clicking on two different boxes, then by clicking on an empty space in the board. A line may also be created by clicking on two different boxes, then by selecting the line tool in the tool bar, and finally by clicking on an empty space in the board. The line tool may be double-clicked to keep it active in order to create more than one line. The select tool must be double-clicked to return to the select mode.
+![Alt Figure 05-06.03: Boxes and lines](/img/s05s06/Lines.png)
 
-![Alt Figure 05-06.05: Boxes and lines](/img/s05s06/Lines.png)
-
-**Figure 05-06.05**: Boxes and lines.
+**Figure 05-06.03**: Boxes and lines.
 
 The ToolBar class is updated to accommodate the LINE tool. A boolean private attribute \_selectToolDblClicked replaced the \_boxToolDblClicked attribute.
 
-**Code 05-06.17**: Line button in the tool bar.
+**Code 05-06.15**: Line button in the tool bar.
 
 {% highlight java %}
 
 class ToolBar {
   …
-  static final int LINE = 3;
+  static const int LINE = 3;
   …
   bool _selectToolDblClicked = true;
   
   ToolBar(this.board) {
     …
-    ButtonElement lineButton = document.query('#line');
+    ButtonElement lineButton = document.querySelector('#line');
     
     // Tool bar events.
     …
-    lineButton.on.click.add((MouseEvent e) {
+    lineButton.onClick.listen((MouseEvent e) {
       _onTool = LINE;
     });
-    lineButton.on.dblClick.add((MouseEvent e) {
+    lineButton.onDoubleClick.listen((MouseEvent e) {
       _onTool = LINE;
       _selectToolDblClicked = false;
     });
@@ -381,7 +347,7 @@ class ToolBar {
 
 The isLineToolOn method is added to the ToolBar class, and the selectToolOn method is updated.
 
-**Code 05-06.18**: Two methods of the ToolBar class.
+**Code 05-06.16**: Two methods of the ToolBar class.
 
 {% highlight java %}
 
@@ -402,7 +368,7 @@ The isLineToolOn method is added to the ToolBar class, and the selectToolOn meth
 
 The Line class represents the line concept. It constructor accepts the board and two boxes as line ends. The line will be drawn between centers of the boxes. The moveTo method positions an imaginary pen to the center of the first box, while the lineTo method moves the pen to the center of the second box.
 
-**Code 05-06.19**: The Line class.
+**Code 05-06.17**: The Line class.
 
 {% highlight java %}
 
@@ -419,10 +385,8 @@ class Line {
   
   void draw() {
     board.context.beginPath();
-    board.context.moveTo(
-      box1.x + box1.width / 2, box1.y + box1.height / 2);
-    board.context.lineTo(
-      box2.x + box2.width / 2, box2.y + box2.height / 2);
+    board.context.moveTo(box1.x + box1.width / 2, box1.y + box1.height / 2);
+    board.context.lineTo(box2.x + box2.width / 2, box2.y + box2.height / 2);
     board.context.stroke();
     board.context.closePath();
   }
@@ -433,7 +397,7 @@ class Line {
 
 The lines attribute of the Board class is of the List type. The type is parameterized to accept only objects of the Line class. 
 
-**Code 05-06.20**: The lines attribute.
+**Code 05-06.18**: The lines attribute.
 
 {% highlight java %}
 
@@ -452,14 +416,13 @@ class Board {
 
 There are also two box attributes that make references to two boxes that are last clicked on. Their values are determined in the onMouseDown method of the Box class.
 
-**Code 05-06.21**: The last box clicked on.
+**Code 05-06.19**: The last box clicked on.
 
 {% highlight java %}
 
   void onMouseDown(MouseEvent e) {
     _mouseDown = true;
-    if (board.toolBar.isSelectToolOn() 
-      && contains(e.offset.x, e.offset.y)) {
+    if (board.toolBar.isSelectToolOn() && contains(e.offset.x, e.offset.y)) {
       toggleSelection();
     }
     if (contains(e.offset.x, e.offset.y)) {
@@ -472,7 +435,7 @@ There are also two box attributes that make references to two boxes that are las
 
 The main work of managing events conditionally on the active tool of the tool bar is done in the onMouseDown method of the Board class. If a click does not hit an existing box, three different modes are handled: select, box and line. If the tool bar is in the line mode, a new line is constructed, but only if there are boxes (different from **null**) to be connected by the line. The **null** symbol represents a non-existence of an object. If a variable is not (!) **null**, it means that it references an existing object.
 
-**Code 05-06.22**: Managing events based on the active tool.
+**Code 05-06.20**: Managing events based on the active tool.
 
 {% highlight java %}
 
@@ -514,11 +477,11 @@ The main work of managing events conditionally on the active tool of the tool ba
 
 The line button element is added to the footer of the main section of the page. The line.png image is located in the img folder of the application.
 
-**Code 05-06.23**: The line button.
+**Code 05-06.21**: The line button.
 
 {% highlight html %}
 
-    <section id="main"> 
+    <section id="main">
       <canvas id="canvas" width="630" height="580">
         Canvas is not supported in your browser.
       </canvas>
@@ -527,20 +490,21 @@ The line button element is added to the footer of the main section of the page. 
         <button id="box"><img src="img/box.png"/></button>
         <button id="line"><img src="img/line.png"/></button>
       </footer>
-      <script type="text/javascript" src="mb.dart.app.js"></script>
+      <script type="application/dart" src="mb.dart"></script>
+      <script src="packages/browser/dart.js"></script>
     </section>
 
 {% endhighlight %}
 
-The tool buttons in the tool bar have a visual sign (Figure 05-06.06) which one is active (on). The active tool has a black border, while off buttons have a grey border. 
+The tool buttons in the tool bar have a visual sign (Figure 05-06.04) which one is active (on). The active tool has a black border, while off buttons have a grey border. 
 
-![Alt Figure 05-06.06: Active tool in the tool bar has a black border](/img/s05s06/ToolBarOnBorder.png)
+![Alt Figure 05-06.04: Active tool in the tool bar has a black border](/img/s05s06/ToolBarOnBorder.png)
 
-**Figure 05-06.06**: Active tool in the tool bar has a black border.
+**Figure 05-06.04**: Active tool in the tool bar has a black border.
 
 The ToolBar class has now the three buttons as attributes. 
 
-**Code 05-06.24**: The tool  buttons as attributes.
+**Code 05-06.22**: The tool  buttons as attributes.
 
 {% highlight java %}
 
@@ -557,7 +521,7 @@ class ToolBar {
 
 The button attributes are used in the new onTool method to change the color of button elements depending on the active tool.
 
-**Code 05-06.25**: The active button changes its border color to black.
+**Code 05-06.23**: The active button changes its border color to black.
 
 {% highlight java %}
 
@@ -582,40 +546,40 @@ The button attributes are used in the new onTool method to change the color of b
 
 The onTool method is called in the constructor of the ToolBar class. Note that the \_onTool and \_selectToolDblClicked private attributes are now initialized in the constructor.
 
-**Code 05-06.26**: The use of the onTool method to put a tool on.
+**Code 05-06.24**: The use of the onTool method to put a tool on.
 
 {% highlight java %}
 
   ToolBar(this.board) {
-    selectButton = document.query('#select');
-    boxButton = document.query('#box');
-    lineButton = document.query('#line');
-    
+    selectButton = document.querySelector('#select');
+    boxButton = document.querySelector('#box');
+    lineButton = document.querySelector('#line');
+
     // Tool bar events.
-    selectButton.on.click.add((MouseEvent e) {
+    selectButton.onClick.listen((MouseEvent e) {
       onTool(SELECT);
     });
-    selectButton.on.dblClick.add((MouseEvent e) {
+    selectButton.onDoubleClick.listen((MouseEvent e) {
       onTool(SELECT);
       _selectToolDblClicked = true;
     });
-    
-    boxButton.on.click.add((MouseEvent e) {
+
+    boxButton.onClick.listen((MouseEvent e) {
       onTool(BOX);
     });
-    boxButton.on.dblClick.add((MouseEvent e) {
+    boxButton.onDoubleClick.listen((MouseEvent e) {
       onTool(BOX);
-      _selectToolDblClicked = false; 
+      _selectToolDblClicked = false;
     });
-    
-    lineButton.on.click.add((MouseEvent e) {
+
+    lineButton.onClick.listen((MouseEvent e) {
       onTool(LINE);
     });
-    lineButton.on.dblClick.add((MouseEvent e) {
+    lineButton.onDoubleClick.listen((MouseEvent e) {
       onTool(LINE);
       _selectToolDblClicked = false;
     });
-    
+
     onTool(SELECT);
     _selectToolDblClicked = true;
   }
@@ -624,7 +588,7 @@ The onTool method is called in the constructor of the ToolBar class. Note that t
 
 The onTool method is also called in the selectToolOn method of the ToolBar class.
 
-**Code 05-06.27**: The select tool becomes active.
+**Code 05-06.25**: The select tool becomes active.
 
 {% highlight java %}
 
@@ -638,7 +602,7 @@ The onTool method is also called in the selectToolOn method of the ToolBar class
 
 In the right section of the page there is a new paragraph with two Web links.
 
-**Code 05-06.28**: The two Web links.
+**Code 05-06.26**: The two Web links.
 
 {% highlight html %}
 
@@ -648,11 +612,11 @@ In the right section of the page there is a new paragraph with two Web links.
       </header>
         …
       <p>
-        The 
-        <a href="https://github.com/dzenanr/magic_boxes">
+        The
+        <a href="https://github.com/dzenanr/model_concepts">
           code
-        </a> 
-        is kept at 
+        </a>
+        is kept at
         <a href="https://github.com/">
           GitHub
         </a>.
@@ -663,7 +627,7 @@ In the right section of the page there is a new paragraph with two Web links.
 
 The two links are styled with link selectors in the link.css file. A Web link may have four different states: unvisited, visited, active and hoover. These four links states are controlled by pseudo classes of CSS, which are used to add special effects to some selectors.
 
-**Code 05-06.29**: The Web link CSS selectors.
+**Code 05-06.27**: The Web link CSS selectors.
 
 {% highlight css %}
 
@@ -694,7 +658,7 @@ The two links are styled with link selectors in the link.css file. A Web link ma
 
 The mb.html file uses a new style in the list.css file.
 
-**Code 05-06.30**: The list style CSS link.
+**Code 05-06.28**: The list style CSS link.
 
 {% highlight html %}
 
@@ -714,16 +678,16 @@ The mb.html file uses a new style in the list.css file.
 
 The Web links use the link class to provide additional style.
 
-**Code 05-06.31**: The link class.
+**Code 05-06.29**: The link class.
 
 {% highlight html %}
 
       <p>
-        The 
-        <a href="https://github.com/dzenanr/magic_boxes" class="link">
+        The
+        <a href="https://github.com/dzenanr/model_concepts" class="link">
           code
-        </a> 
-        is kept at 
+        </a>
+        is kept at
         <a href="https://github.com/" class="link">
           GitHub
         </a>.
@@ -733,7 +697,7 @@ The Web links use the link class to provide additional style.
 
 The link class is defined in the list.css file.
 
-**Code 05-06.32**: The unordered list (ul) style.
+**Code 05-06.30**: The unordered list (ul) style.
 
 {% highlight css %}
 
