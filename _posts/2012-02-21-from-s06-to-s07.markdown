@@ -35,37 +35,34 @@ class MenuBar {
   ButtonElement createBoxesAsTilesButton;
   
   MenuBar(this.board) {
-    selectAllButton = document.query('#select-all');
-    deleteSelectionButton = document.query('#delete-selection');
-    
-    hideSelectionButton = document.query('#hide-selection');
-    showHiddenSelectionButton = 
-      document.query('#show-hidden-selection');
-    
-    createBoxesInDiagonalButton = 
-      document.query('#create-boxes-in-diagonal');
-    createBoxesAsTilesButton = 
-      document.query('#create-boxes-as-tiles');
-    
+    selectAllButton = document.querySelector('#select-all');
+    deleteSelectionButton = document.querySelector('#delete-selection');
+
+    hideSelectionButton = document.querySelector('#hide-selection');
+    showHiddenSelectionButton = document.querySelector('#show-hidden-selection');
+
+    createBoxesInDiagonalButton = document.querySelector('#create-boxes-in-diagonal');
+    createBoxesAsTilesButton = document.querySelector('#create-boxes-as-tiles');
+
     // Menu bar events.
-    selectAllButton.on.click.add((MouseEvent e) {
+    selectAllButton.onClick.listen((MouseEvent e) {
       board.select();
     });
-    deleteSelectionButton.on.click.add((MouseEvent e) {
+    deleteSelectionButton.onClick.listen((MouseEvent e) {
       board.deleteSelection();
     });
-    
-    hideSelectionButton.on.click.add((MouseEvent e) {
+
+    hideSelectionButton.onClick.listen((MouseEvent e) {
       board.hideSelection();
     });
-    showHiddenSelectionButton.on.click.add((MouseEvent e) {
+    showHiddenSelectionButton.onClick.listen((MouseEvent e) {
       board.showHiddenSelection();
     });
-    
-    createBoxesInDiagonalButton.on.click.add((MouseEvent e) {
+
+    createBoxesInDiagonalButton.onClick.listen((MouseEvent e) {
       board.createBoxesInDiagonal();
     });
-    createBoxesAsTilesButton.on.click.add((MouseEvent e) {
+    createBoxesAsTilesButton.onClick.listen((MouseEvent e) {
       board.createBoxesAsTiles();
     });
   }
@@ -74,7 +71,7 @@ class MenuBar {
 
 {% endhighlight %}
 
-The Board class has changed to provide methods used in the MenuBar class. The select method select s boxes only. The line selection will be done in one of the next steps towards the Spiral 07.
+The Board class has changed to provide methods used in the MenuBar class. The select method select boxes only. The line selection will be done in one of the next steps towards the Spiral 07.
 
 **Code 06-07.02**: The select method of the Board class.
 
@@ -115,10 +112,8 @@ The createBoxesInDiagonal method of the Board class generates boxes in a diagona
   void createBoxesInDiagonal() {
     int x = 0; int y = 0;
     while (true) {
-      if (x <= width - Box.DEFAULT_WIDTH 
-          && y <= height - Box.DEFAULT_HEIGHT) {
-        Box box = new Box(this, x, y, 
-          Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
+      if (x <= width - Box.DEFAULT_WIDTH && y <= height - Box.DEFAULT_HEIGHT) {
+        Box box = new Box(this, x, y, Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
         boxes.add(box);
         x = x + Box.DEFAULT_WIDTH;
         y = y + Box.DEFAULT_HEIGHT;
@@ -144,8 +139,7 @@ The createBoxesAsTiles method of the Board class generates boxes as tiles (Figur
     int x = 0; int y = 0;
     while (true) {
       if (x <= width - Box.DEFAULT_WIDTH) {
-        Box box = new Box(this, x, y, 
-          Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
+        Box box = new Box(this, x, y, Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
         boxes.add(box);
         x = x + Box.DEFAULT_WIDTH * 2;
       } else {
@@ -322,7 +316,7 @@ The menu.css file has selectors that present the navigation section of the mb.ht
 
 {% endhighlight %}
 
-Lines may be selected (Figure 06-07.03) and then hidden. The Line class two private attributes initialized both to **false** to state that a new line is neither selected nor hidden. A default line width is borrowed in the constructor of the Line class from the context attribute of the board. In the same constructor in Spiral 07 there is a double use of the draw method. The error is not repeated in this step. 
+Lines may be selected (Figure 06-07.03) and then hidden. The Line class two private attributes initialized both to **false** to state that a new line is neither selected nor hidden. In the constructor of the Line class, a default line width is borrowed from the context attribute of the board. 
 
 **Code 06-07.08**: New attributes in the Line class.
 
@@ -395,53 +389,51 @@ The contains method of the Line class returns true if the given point is on the 
 {% highlight java %}
 
   bool contains(Point point, Point delta) {
-    if (box1.contains(point.x, point.y) || 
-        box2.contains(point.x, point.y)) {
+    if (box1.contains(point.x, point.y) || box2.contains(point.x, point.y)) {
       return false;
     }
-    
+
     Point pointDif = new Point(0, 0);
     bool inLineRectX, inLineRectY, inLineRect;
     double coord;
-    
+
     Point beginPoint = box1.center();
     Point endPoint = box2.center();
-    
+
     pointDif.x = endPoint.x - beginPoint.x;
     pointDif.y = endPoint.y - beginPoint.y;
-    
+
     // Rapid test: Verify if the point is in the line rectangle.
     if (pointDif.x > 0) {
-      inLineRectX = (point.x >= (beginPoint.x - delta.x)) && 
+      inLineRectX = (point.x >= (beginPoint.x - delta.x)) &&
       (point.x <= (endPoint.x + delta.x));
     } else {
-      inLineRectX = (point.x >= (endPoint.x - delta.x)) && 
+      inLineRectX = (point.x >= (endPoint.x - delta.x)) &&
       (point.x <= (beginPoint.x + delta.x));
     }
     if (pointDif.y > 0) {
-      inLineRectY = (point.y >= (beginPoint.y - delta.y)) && 
+      inLineRectY = (point.y >= (beginPoint.y - delta.y)) &&
       (point.y <= (endPoint.y + delta.y));
     } else {
-      inLineRectY = (point.y >= (endPoint.y - delta.y)) && 
+      inLineRectY = (point.y >= (endPoint.y - delta.y)) &&
       (point.y <= (beginPoint.y + delta.y));
     }
     inLineRect = inLineRectX && inLineRectY;
     if (!inLineRect) {
       return false;
     }
-    
-    // If the line is horizontal or vertical 
-    // there is no need to continue.
+
+    // If the line is horizontal or vertical there is no need to continue.
     if ((pointDif.x == 0) || (pointDif.y == 0)) {
         return true;
     }
-    
+
     if (pointDif.x.abs() > pointDif.y.abs()) {
-      coord = beginPoint.y + 
+      coord = beginPoint.y +
       (((point.x - beginPoint.x) * pointDif.y) / pointDif.x) - point.y;
       return coord.abs() <= delta.y;
     } else {
-      coord = beginPoint.x + 
+      coord = beginPoint.x +
       (((point.y - beginPoint.y) * pointDif.x) / pointDif.y) - point.x;
       return coord.abs() <= delta.x;
     }
@@ -459,26 +451,8 @@ There are many additions and changes in the Board class to support different act
     lines.clear();
   }
   
-  void deleteLine(Line lineToDelete) {
-    for (Line line in lines) {
-      if (line == lineToDelete) {
-        int index = lines.indexOf(line, 0);
-        lines.removeRange(index, 1);
-        return;
-      }
-    }
-  }
-  
   void deleteSelectedLines() {
-    if (countSelectedLines() == 0) {
-      return;
-    }
-    for (Line line in lines) {
-      if (line.isSelected()) {
-        deleteLine(line);
-      }
-    }
-    deleteSelectedLines();
+    lines.removeWhere((l) => l.isSelected());
   }
   
   void deleteSelection() {
@@ -612,7 +586,7 @@ The draw method of the Box class must use the default line width in order draw t
     if (!isHidden()) {
       board.context.beginPath();
       …
-      board.context.setLineWidth(defaultLineWidth);
+      board.context.lineWidth = defaultLineWidth;
       board.context.closePath();
       board.context.stroke();
     }
@@ -646,30 +620,28 @@ The defaultLineWidth attribute is used in drawing the diagram border.
   void border() {
     context.beginPath();
     context.rect(0, 0, width, height);
-    context.setLineWidth(defaultLineWidth);
+    context.lineWidth = defaultLineWidth;
     context.closePath();
     context.stroke();
   }
 
 {% endhighlight %}
 
-When deleting a box, if the box is one of the last two clicked boxes referenced by the lastBoxClicked attribute or the beforeLastBoxClicked attribute, the corresponding attribute must reference **null** instead of the deleted box. Otherwise, a new line may be created that is hanging in the air.
+When deleting a selected box, if the box is one of the last two clicked boxes referenced by the lastBoxClicked attribute or the beforeLastBoxClicked attribute, the corresponding attribute must reference **null** instead of the deleted box. Otherwise, a new line may be created that is hanging in the air.
 
 **Code 06-07.17**: Nullifying one of the last two clicked boxes.
 
 {% highlight java %}
 
-  void deleteBox(Box boxToDelete) {
-    for (Box box in boxes) {
-      if (box == boxToDelete) {
-        int index = boxes.indexOf(box, 0);
-        boxes.removeRange(index, 1);
+  void deleteSelectedBoxes() {
+    for (Box box in boxes.toList()) {
+      if (box.isSelected()) {
+        boxes.remove(box);
         if (box == beforeLastBoxClicked) {
           beforeLastBoxClicked == null;
         } else if (box == lastBoxClicked) {
           lastBoxClicked == null;
         }
-        return;
       }
     }
   }
@@ -703,17 +675,17 @@ class ToolBar {
   …
   ToolBar(this.board) {
     …
-    selectButton.on.dblClick.add((MouseEvent e) {
+    selectButton.onDoubleClick.listen((MouseEvent e) {
       onTool(SELECT);
       _fixedTool = SELECT;
     });
     …
-    boxButton.on.dblClick.add((MouseEvent e) {
+    boxButton.onDoubleClick.listen((MouseEvent e) {
       onTool(BOX);
       _fixedTool = BOX;
     });
     …
-    lineButton.on.dblClick.add((MouseEvent e) {
+    lineButton.onDoubleClick.listen((MouseEvent e) {
       onTool(LINE);
       _fixedTool = LINE;
     });
@@ -783,7 +755,7 @@ This method is called in the onMouseDown method to check if the last two boxes c
 {% highlight java %}
 
   void onMouseDown(MouseEvent e) {
-    bool clickedOnBox = false; 
+    bool clickedOnBox = false;
     for (Box box in boxes) {
       if (box.contains(e.offset.x, e.offset.y)) {
         // Clicked on the existing box.
@@ -791,7 +763,7 @@ This method is called in the onMouseDown method to check if the last two boxes c
         break;
       }
     }
-    
+
     if (!clickedOnBox) {
       if (toolBar.isSelectToolOn()) {
         Point clickedPoint = new Point(e.offset.x, e.offset.y);
@@ -805,8 +777,7 @@ This method is called in the onMouseDown method to check if the last two boxes c
         }
       } else if (toolBar.isBoxToolOn()) {
         // Create a box in the position of the mouse click on the board.
-        Box box = new Box(this, e.offset.x, e.offset.y, 
-          Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
+        Box box = new Box(this, e.offset.x, e.offset.y, Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
         if (e.offset.x + box.width > width) {
           box.x = width - box.width - 1;
         }
@@ -816,11 +787,9 @@ This method is called in the onMouseDown method to check if the last two boxes c
         boxes.add(box);
       } else if (toolBar.isLineToolOn()) {
         // Create a line between the last two clicked boxes.
-        if (beforeLastBoxClicked != null && lastBoxClicked != null && 
-            _boxExists(beforeLastBoxClicked) && 
-            _boxExists(lastBoxClicked)) {  
-          Line line = new Line(this, beforeLastBoxClicked, 
-            lastBoxClicked);
+        if (beforeLastBoxClicked != null && lastBoxClicked != null &&
+            _boxExists(beforeLastBoxClicked) && _boxExists(lastBoxClicked)) {
+          Line line = new Line(this, beforeLastBoxClicked, lastBoxClicked);
           lines.add(line);
         }
       }
@@ -838,13 +807,11 @@ In the onMouseDown method of the Box class, when a box is clicked on, before it 
 
   void onMouseDown(MouseEvent e) {
     _mouseDown = true;
-    if (board.toolBar.isSelectToolOn() && 
-        contains(e.offset.x, e.offset.y)) {
+    if (board.toolBar.isSelectToolOn() && contains(e.offset.x, e.offset.y)) {
       toggleSelection();
     }
     if (contains(e.offset.x, e.offset.y)) {
-      if (board.lastBoxClicked != null && 
-          board.lastBoxClicked != this) {
+      if (board.lastBoxClicked != null && board.lastBoxClicked != this) {
         board.beforeLastBoxClicked = board.lastBoxClicked;
       }
       board.lastBoxClicked = this;
