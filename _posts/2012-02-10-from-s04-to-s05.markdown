@@ -14,7 +14,7 @@ First changes are small but many, in order to standardize the code.
 
 An HTML document loaded into a Web browser becomes a document object. The document object provides access to all HTML elements in the page. The document object is a part of the window object and can also be reached through the window.document property.
 
-The query method of the document object is used to find the canvas element within the document and attach events directly to the canvas object.
+The querySelector method of the document object is used to find the canvas element within the document and attach events directly to the canvas object.
 
 **Code 04-05.01**: Canvas events in the Board class.
 
@@ -23,9 +23,9 @@ The query method of the document object is used to find the canvas element withi
   Board(CanvasElement canvas) {
     …
     // Canvas event
-    document.query('#canvas').on.mouseDown.add(onMouseDown);
+    document.querySelector('#canvas').onMouseDown.listen(onMouseDown);
     // Redraw every INTERVAL ms.
-    document.window.setInterval(redraw, INTERVAL);
+    new Timer.periodic(const Duration(milliseconds: INTERVAL), (t) => redraw());
   }
 
 {% endhighlight %}
@@ -39,9 +39,9 @@ A click (a mouse down event in the Board class) outside the canvas (or the board
   Box(this.board, this.x, this.y, this.width, this.height) {
     …
     // Box events (actually, canvas events).
-    document.query('#canvas').on.mouseDown.add(onMouseDown);
-    document.query('#canvas').on.mouseUp.add(onMouseUp);
-    document.query('#canvas').on.mouseMove.add(onMouseMove);
+    document.querySelector('#canvas').onMouseDown.listen(onMouseDown);
+    document.querySelector('#canvas').onMouseUp.listen(onMouseUp);
+    document.querySelector('#canvas').onMouseMove.listen(onMouseMove);
   }
 
 {% endhighlight %}
@@ -54,7 +54,7 @@ The Box class has now two constants that determine the box size.
 
 class Box {
   
-  static final int DEFAULT_WIDTH = 100;
+  static const int DEFAULT_WIDTH = 100;
   static final int DEFAULT_HEIGHT = 100;
 
 {% endhighlight %}
@@ -187,8 +187,8 @@ There is a new class to represent the tool bar concept. The class is appropriate
 
 class ToolBar {
   
-  static final int SELECT = 1;
-  static final int BOX = 2;
+  static const int SELECT = 1;
+  static const int BOX = 2;
   
   final Board board;
   
@@ -208,21 +208,21 @@ In the constructor of the ToolBar class, the parent argument is accepted by the 
 {% highlight java %}
 
   ToolBar(this.board) {
-    ButtonElement selectButton = document.query('#select');
-    ButtonElement boxButton = document.query('#box');
-    
+    ButtonElement selectButton = document.querySelector('#select');
+    ButtonElement boxButton = document.querySelector('#box');
+
     // Tool bar events.
-    selectButton.on.click.add((MouseEvent e) {
+    selectButton.onClick.listen((MouseEvent e) {
       _onTool = SELECT;
     });
-    selectButton.on.dblClick.add((MouseEvent e) {
+    selectButton.onDoubleClick.listen((MouseEvent e) {
       _onTool = SELECT;
       _boxToolDblClicked = false;
     });
-    boxButton.on.click.add((MouseEvent e) {
+    boxButton.onClick.listen((MouseEvent e) {
       _onTool = BOX;
     });
-    boxButton.on.dblClick.add((MouseEvent e) {
+    boxButton.onDoubleClick.listen((MouseEvent e) {
       _onTool = BOX;
       _boxToolDblClicked = true;
     });
@@ -230,7 +230,7 @@ In the constructor of the ToolBar class, the parent argument is accepted by the 
 
 {% endhighlight %}
 
-Two buttons of the ButtonElement type are obtained by the query method on the document object. The two buttons are identified by their ids that come from the mb.html file (Code 04-05.10). The two png images are located in the img folder of the mb project.
+Two buttons of the ButtonElement type are obtained by the querySelector method on the document object. The two buttons are identified by their ids that come from the mb.html file (Code 04-05.10). The two png images are located in the img folder of the mb project.
 
 Each button will listen for the click and double-click (dblClick) events. In the case of the click event, the \_onTool attribute of the class accepts the corresponding state constant. When the double-click event happens, the \_onTool attribute accepts the corresponding state constant and the \_boxToolDblClicked attributes becomes **true** for the BOX state and **false** for the SELECT state.
 
@@ -238,7 +238,7 @@ Each button will listen for the click and double-click (dblClick) events. In the
 
 {% highlight html %}
 
-    <section> 
+    <section>
       <canvas id="canvas" width="800" height="600">
         Canvas is not supported in your browser.
       </canvas>
@@ -246,18 +246,19 @@ Each button will listen for the click and double-click (dblClick) events. In the
         <button id="select"><img src="img/select.png"/></button>
         <button id="box"><img src="img/box.png"/></button>
       </footer>
-      <script type="text/javascript" src="mb.dart.app.js"></script>
+      <script type="application/dart" src="mb.dart"></script>
+      <script src="packages/browser/dart.js"></script>
     </section>
 
 {% endhighlight %}
 
-Up to now, reactions of events have been defined in methods with appropriate names. For example, a click on the canvas of the board is handled in the onMouseDown method of the Board class. In the ToolBar class, events are registered and responses to them are defined at the same time in methods without names.
+Up to now, reactions of events have been defined in methods with appropriate names. For example, a click on the canvas of the board is handled in the onMouseDown method of the Board class. In the ToolBar class, events are registered and responses to them are defined at the same time in functions without names (anonymous functions).
 
-**Code 04-05.11**: A method without a name but with the parameter and the statement body.
+**Code 04-05.11**: An anonymous function with the event parameter and the statement body.
 
 {% highlight java %}
 
-    selectButton.on.click.add((MouseEvent e) {
+    selectButton.onClick.listen((MouseEvent e) {
       _onTool = SELECT;
     });
 
@@ -286,21 +287,21 @@ In the on mouse down event of the Board class, several methods of the ToolBar cl
 {% highlight java %}
 
   void onMouseDown(MouseEvent e) {
-    bool clickedOnBox = false; 
+    bool clickedOnBox = false;
     for (Box box in boxes) {
       if (box.contains(e.offset.x, e.offset.y)) {
         clickedOnBox = true;
         break;
       }
     }
-    
+
     if (toolBar.isSelectToolOn()) {
       if (!clickedOnBox) {
         deselectBoxes();
       }
     } else if (toolBar.isBoxToolOn()) {
       if (!clickedOnBox) {
-        Box box = new Box(this, e.offset.x, e.offset.y, 
+        Box box = new Box(this, e.offset.x, e.offset.y,
           Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT);
         if (e.offset.x + box.width > width) {
           box.x = width - box.width - 1;
@@ -311,7 +312,7 @@ In the on mouse down event of the Board class, several methods of the ToolBar cl
         boxes.add(box);
         toolBar.selectToolOn();
       }
-    } 
+    }
   }
 
 {% endhighlight %}
@@ -371,76 +372,21 @@ There are three methods in the Board class that are not used in this spiral. All
   void createBoxes(int n) {
     int x = 0; int y = 0;
     for (int i = 0; i < n; i++) {
-      boxes.add(new Box(this, x, y, 
-        Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT));
+      boxes.add(new Box(this, x, y, Box.DEFAULT_WIDTH, Box.DEFAULT_HEIGHT));
       x = x + Box.DEFAULT_WIDTH;
       y = y + Box.DEFAULT_HEIGHT;
     }
   }
-  
+
   void deleteBoxes() {
     boxes.clear();
   }
-  
+
   void selectBoxes() {
     for (Box box in boxes) {
       box.select();
     }
   }
-
-{% endhighlight %}
-
-Several constants in the Box class have now an explicit type.
-
-**Code 04-05.17**: Explicit int type of constants.
-
-{% highlight java %}
-
-  static final int SSS = 6; // selection square size
-  static final int TBH = 20; // title box height
-  static final int TOS = 4; // text offset size
-  static final int IOS = TBH - TOS; // item offset size
-
-{% endhighlight %}
-
-Note that there is a slight difference between the code in the draw method of the Box class of the MagicBoxes project and the mb project. However, this difference is not reflected in the Web application.
-
-**Code 04-05.18**: A slight difference in code.
-
-{% highlight java %}
-
-  void draw() {
-    board.context.beginPath();
-    …
-    board.context.stroke();
-    board.context.closePath();
-  }
-
-  void draw() {
-    board.context.beginPath();
-    …
-    board.context.closePath();
-    board.context.stroke();
-  }
-
-{% endhighlight %}
-
-If the button elements of the tool bar are positioned after the script element, boxes cannot be created. This is reported by Chris Buckett as a bug in Dart. Just to be on the safe side, keep the script element closer to the end of the html code.
-
-**Code 04-05.19**: Boxes cannot be created.
-
-{% highlight html %}
-
-    <section> 
-      <canvas id="canvas" width="800" height="600">
-        Canvas is not supported in your browser.
-      </canvas>
-      <script type="text/javascript" src="mb.dart.app.js"></script>
-      <footer>
-        <button id="select"><img src="img/select.png"/></button>
-        <button id="box"><img src="img/box.png"/></button>
-      </footer>
-    </section>
 
 {% endhighlight %}
 
@@ -452,7 +398,7 @@ The last changes in this spiral are related to the Web page presentation defined
 
 The mb.html file has links to CSS definitions in different files that are located in the css sub-folder of the project.
 
-**Code 04-05.20**: CSS links.
+**Code 04-05.17**: CSS links.
 
 {% highlight html %}
 
@@ -468,9 +414,9 @@ The mb.html file has links to CSS definitions in different files that are locate
 
 {% endhighlight %}
 
-There are 2 sections in the page: the main section with the board and tool bar (Code 04-05.21), and the right section with text only (Code 04-05.22). The canvas size is reduced from 800x600 to 630x580 pixels to accommodate the new section to the right of the main section.
+There are 2 sections in the page: the main section with the board and tool bar (Code 04-05.18), and the right section with text only (Code 04-05.19). The canvas size is reduced from 800x600 to 630x580 pixels to accommodate the new section to the right of the main section.
 
-**Code 04-05.21**: The main section of the page.
+**Code 04-05.18**: The main section of the page.
 
 {% highlight html %}
 
@@ -489,7 +435,7 @@ There are 2 sections in the page: the main section with the board and tool bar (
 
 The page has a title, and the right section has a sub-title.
 
-**Code 04-05.22**: The right section of the page.
+**Code 04-05.19**: The right section of the page.
 
 {% highlight html %}
 
@@ -521,13 +467,13 @@ The page has a title, and the right section has a sub-title.
 
 {% endhighlight %}
 
-The basic layout of the page is defined in the layout.css file (Code 04-05.23), while the layout with two columns is detailed in the layout2c.css file (Code 04-05.24).
+The basic layout of the page is defined in the layout.css file (Code 04-05.20), while the layout with two columns is detailed in the layout2c.css file (Code 04-05.21).
 
 While HTML has elements with opening and closing tags, CSS has selectors with properties in curly brackets. A property has a value that is separated from its name by two columns. The property value is ended by a semi-column. 
 
 CSS selectors that are named as HTML elements, provide property definitions of those elements. Thus, the presentation of a header element used in the page is defined by property values of the header selector in the style sheet. The names of CSS properties are almost self-explanatory; for details see [dochub/CSS](http://dochub.io/#css/). The CSS definitions used in the MagicBoxes project are influenced by [SimpleBits](http://simplebits.com/). The comments used before and after CSS selectors should be self-evident.
 
-**Code 04-05.23**: The basic layout of the page.
+**Code 04-05.20**: The basic layout of the page.
 
 {% highlight css %}
 
@@ -567,7 +513,7 @@ CSS selectors that are named as HTML elements, provide property definitions of t
 
 User defined and named selectors that start with the hash character are called identifiers (id selectors). They are referred in HTML elements by id attributes.
 
-**Code 04-05.24**: The 2 column layout of the page.
+**Code 04-05.21**: Identifier.
 
 {% highlight css %}
 
@@ -580,7 +526,7 @@ User defined and named selectors that start with the hash character are called i
 
 The main selector is used in the web page as the id attribute of the first section.
 
-**Code 04-05.25**: The main section.
+**Code 04-05.22**: The main section.
 
 {% highlight html %}
 
@@ -596,7 +542,7 @@ CSS selectors from the link.css file are not used currently, because there is no
 
 How the page body, sections and paragraphs are presented is defined in the page.css file.
 
-**Code 04-05.26**: The basic page element selectors.
+**Code 04-05.23**: The basic page element selectors.
 
 {% highlight css %}
 
