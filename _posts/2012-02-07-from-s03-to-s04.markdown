@@ -26,9 +26,9 @@ The title section height is determined by the TBH constant of 20 pixels. The tit
 
 class Box {
   
-  static final SSS = 6; // selection square size
-  static final TBH = 20; // title section height
-  static final TOS = 4; // text offset size
+  static const int SSS = 6; // selection square size
+  static const int TBH = 20; // title box height
+  static const int TOS = 4; // text offset size
   
   …
   
@@ -41,9 +41,9 @@ class Box {
   Box(this.board, this.x, this.y, this.width, this.height) {
     titleNo = board.nextBoxNo;
     draw();
-    document.on.mouseDown.add(onMouseDown);
-    document.on.mouseUp.add(onMouseUp);
-    document.on.mouseMove.add(onMouseMove);
+    document.onMouseDown.listen(onMouseDown);
+    document.onMouseUp.listen(onMouseUp);
+    document.onMouseMove.listen(onMouseMove);
   }
   …
 }
@@ -76,8 +76,7 @@ After the rectangle of a box is prepared, the line that separates the title from
     board.context.font = "bold " + textFontSize + "px sans-serif";
     board.context.textAlign = "start";
     board.context.textBaseline = "top";
-    board.context.fillText(title + " " + titleNo, 
-      x + TOS, y + TOS, width - TOS);
+    board.context.fillText('${title} ${titleNo}', x + TOS, y + TOS, width - TOS);
     if (isSelected()) {
       board.context.rect(x, y, SSS, SSS);
       board.context.rect(x + width - SSS, y, SSS, SSS);
@@ -129,10 +128,8 @@ If a new box is positioned outside the west and south borders of the board, the 
       }
     }
     if (!clickedOnExistingBox) {
-      if (event.offset.x + box.width > width) 
-        box.x = width - box.width - 1;
-      if (event.offset.y + box.height > height) 
-        box.y = height - box.height - 1;
+      if (event.offset.x + box.width > width) box.x = width - box.width - 1;
+      if (event.offset.y + box.height > height) box.y = height - box.height - 1;
       boxes.add(box);
     }
   }
@@ -249,10 +246,10 @@ The new item attribute is initialized to the “Item” value.
 
 class Box {
   
-  static final SSS = 6; // selection square size
-  static final TBH = 20; // title box height
-  static final TOS = 4; // text offset size
-  static final IOS = TBH - TOS; // item offset size
+  static const int SSS = 6; // selection square size
+  static const int TBH = 20; // title box height
+  static const int TOS = 4; // text offset size
+  static const int IOS = TBH - TOS; // item offset size
   …
   String item = "Item";
 
@@ -269,24 +266,20 @@ The IOS constant is used to draw the four items properly.
     board.context.rect(x, y, width, height);
     board.context.moveTo(x, y + TBH);
     board.context.lineTo(x + width, y + TBH);
-    board.context.font = "bold " + textFontSize + "px sans-serif";
+    board.context.font = 'bold ${textFontSize}px sans-serif';
     board.context.textAlign = "start";
     board.context.textBaseline = "top";
     board.context.fillText(toString(), x + TOS, y + TOS, width - TOS);
-    board.context.fillText(item + 1, x + TOS, y + TOS + TBH, 
-      width - TOS);
-    board.context.fillText(item + 2, x + TOS, y + TOS + TBH + IOS, 
-      width - TOS);
-    board.context.fillText(item + 3, x + TOS, y + TOS + TBH + 2 * IOS,
-      width - TOS);
-    board.context.fillText(item + 4, x + TOS, y + TOS + TBH + 3 * IOS, 
-      width - TOS);
+    board.context.fillText('${item}1', x + TOS, y + TOS + TBH, width - TOS);
+    board.context.fillText('${item}2', x + TOS, y + TOS + TBH + IOS, width - TOS);
+    board.context.fillText('${item}3', x + TOS, y + TOS + TBH + 2 * IOS, width - TOS);
+    board.context.fillText('${item}4', x + TOS, y + TOS + TBH + 3 * IOS, width - TOS);
     if (isSelected()) {
       board.context.rect(x, y, SSS, SSS);
       board.context.rect(x + width - SSS, y, SSS, SSS);
       board.context.rect(x + width - SSS, y + height - SSS, SSS, SSS);
       board.context.rect(x, y + height - SSS, SSS, SSS);
-    } 
+    }
     board.context.closePath();
     board.context.stroke();
   }
