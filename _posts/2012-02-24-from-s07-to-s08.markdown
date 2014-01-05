@@ -11,29 +11,6 @@ The code for the Model Concepts project is at [model_concepts on GitHub](https:/
 
 The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
-The use of the script element in the MagicBoxes.html file has changed from
-
-{% highlight html %}
-
-<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
-
-{% endhighlight %}
-
-to
-
-{% highlight html %}
-
-<script type="application/dart" src="MagicBoxes.dart"></script>
-<script
-  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
-</script>
-
-{% endhighlight %}
-
-This change requires the Internet access when you run code in the Dart Editor.
-
-If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
-
 Overview
 --------
 
@@ -119,7 +96,7 @@ void draw() {
         board.context.rect(x + width - SSS, y + height - SSS, SSS, SSS);
         board.context.rect(x, y + height - SSS, SSS, SSS);
       } 
-      board.context.setLineWidth(defaultLineWidth);
+      board.context.lineWidth = defaultLineWidth;
       board.context.closePath();
       board.context.stroke();
     }
@@ -127,7 +104,7 @@ void draw() {
 
 {% endhighlight %}
 
-Note that in the fillText method of the draw method, the title property is used instead of the private name attribute. The property name is title. There are two methods for handling the property. The method with the **set** keyword is used to update the private name attribute. The method with the get keyword is used to rea the property. Since the property uses the private attribute, it is not virtual.
+Note that in the fillText method of the draw method, the title property is used instead of the private name attribute. The property name is title. There are two methods for handling the property. The method with the **set** keyword is used to update the private name attribute. The method with the **get** keyword is used to rea the property. Since the property uses the private attribute, it is not virtual.
  
 **Code 07-08.06**: The title property of the Box class.
 
@@ -143,7 +120,7 @@ Note that in the fillText method of the draw method, the title property is used 
 
 {% endhighlight %}
 
-The select, deselect and toggleSelection methods of the Boxclass  keep the lastBoxSelected attribute of the Board class up to date.
+The select, deselect and toggleSelection methods of the Box class keep the lastBoxSelected attribute of the Board class up to date.
 
 **Code 07-08.07**: Handling of the last box selected.
 
@@ -192,7 +169,7 @@ class ToolBar {
 
 {% endhighlight %}
 
-In the constructor of the ToolBar class, the boxNameInput attribute references the boxName element of the document. There are two not named event methods added to the attribute. When the input element gets focus, its value becomes the title of the last selected box. When a user inputs a new box name, the title of the last box selected becomes the value of the input. 
+In the constructor of the ToolBar class, the boxNameInput attribute references the boxName element of the document. The two anonymous event functions are used to react to events of the input field. When the input element gets focus, its value becomes the title of the last selected box. When a user inputs a new box name, the title of the last box selected becomes the value of the input. 
 
 **Code 07-08.10**: Two events to handle the box title display and update.
 
@@ -200,14 +177,14 @@ In the constructor of the ToolBar class, the boxNameInput attribute references t
 
   ToolBar(this.board) {
     … 
-    boxNameInput = document.query('#boxName');
-    boxNameInput.on.focus.add((Event e) {
+    boxNameInput = document.querySelector('#boxName');
+    boxNameInput.onFocus.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         boxNameInput.value = box.title;
       }
     });
-    boxNameInput.on.input.add((Event e) {
+    boxNameInput.onInput.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         box.title = boxNameInput.value;
@@ -223,7 +200,7 @@ The Web page is updated to add a label element with the Box display, and an inpu
 
 {% highlight html %}
 
-    <section> 
+    <section>
       <canvas id="canvas" width="890" height="560">
         Canvas is not supported in your browser.
       </canvas>
@@ -231,19 +208,15 @@ The Web page is updated to add a label element with the Box display, and an inpu
         <button id="select"><img src="img/select.png"/></button>
         <button id="box"><img src="img/box.png"/></button>
         <button id="line"><img src="img/line.png"/></button>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <label for="boxName">Box</label>
         <input type="text" id="boxName"/>
       </footer>
       <script type="application/dart" src="mb.dart"></script>
-      <script
-        src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
-      </script>
+      <script src="packages/browser/dart.js"></script>
     </section>
 
 {% endhighlight %}
-
-Note the change in the script element. 
 
 Two boxes with one line are created in Figure 07-08.02. Inittially, both boxes have the Box name. The first box is selected and its name is changed from Box to Project. Then, the second box is selected and its name is changed from Box to Task.
 
@@ -259,8 +232,8 @@ The size of a box increased from 100 by 100 pixels to 120 by 120 pixels.
 
 class Box {
   
-  static final int DEFAULT_WIDTH = 120;
-  static final int DEFAULT_HEIGHT = 120;
+  static const int DEFAULT_WIDTH = 120;
+  static const int DEFAULT_HEIGHT = 120;
 
 {% endhighlight %}
 
@@ -362,11 +335,10 @@ Within a box, items that are members of the items attribute are drawn by the dra
       board.context.beginPath();
       board.context.clearRect(x, y, width, height);
       …
-      int i = 0;
+      num i = 0;
       for (Item item in items) {
         board.context.font = '' + textFontSize + 'px sans-serif';
-        board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
-          width - TOS);
+        board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, width - TOS);
         i++;
       }
       …
@@ -393,7 +365,7 @@ class ToolBar {
 
 {% endhighlight %}
 
-In the constructor of the ToolBar class, the query method is used to find the corresponding elements in the document. The click event is linked to the add button. For the last selected box, the new item is constructed and a value entered by a user is selected in the Item field. The new item is linked to its box by its constructor.
+In the constructor of the ToolBar class, the querySelector method is used to find the corresponding elements in the document. The click event is linked to the add button. For the last selected box, the new item is constructed and a value entered by a user is selected in the Item field. The new item is linked to its box by its constructor.
 
 **Code 07-08.19**: Adding a new item.
 
@@ -401,10 +373,10 @@ In the constructor of the ToolBar class, the query method is used to find the co
 
   ToolBar(this.board) {
     … 
-    itemNameInput = document.query('#itemName');
+    itemNameInput = document.querySelector('#itemName');
     
-    addItemButton = document.query('#addItem');
-    addItemButton.on.click.add((MouseEvent e) {
+    addItemButton = document.querySelector('#addItem');
+    addItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         new Item(box, itemNameInput.value);
@@ -488,8 +460,8 @@ In the constructor of the ToolBar class, reactions to clicks on the get, set and
 
   ToolBar(this.board) {
     …
-    getItemButton = document.query('#getItem');
-    getItemButton.on.click.add((MouseEvent e) {
+    getItemButton = document.querySelector('#getItem');
+    getItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         Item item = box.findItem(itemNameInput.value);
@@ -502,9 +474,9 @@ In the constructor of the ToolBar class, reactions to clicks on the get, set and
         }
       }
     });
-    
-    setItemButton = document.query('#setItem');
-    setItemButton.on.click.add((MouseEvent e) {
+
+    setItemButton = document.querySelector('#setItem');
+    setItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -513,9 +485,9 @@ In the constructor of the ToolBar class, reactions to clicks on the get, set and
         }
       }
     });
-    
-    removeItemButton = document.query('#removeItem');
-    removeItemButton.on.click.add((MouseEvent e) {
+
+    removeItemButton = document.querySelector('#removeItem');
+    removeItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -610,7 +582,7 @@ The item category is represented in the Web page (Figure 07-08.05) as a select e
 
 **Figure 07-08.05**: Selecting an item category.
 
-The ToolBar class has the itemOption attribute of the OptionElement type.
+The ToolBar class has the itemOption attribute of the SelectElement type.
 
 **Code 07-08.27**: The item option (category).
 
@@ -620,11 +592,11 @@ class ToolBar {
   …
   InputElement boxNameInput;
   InputElement itemNameInput;
-  OptionElement itemOption;
+  SelectElement itemOption;
 
 {% endhighlight %}
 
-The itemOption attribute gets its value from the query method of the document. After a click on the add button, the new item becomes the current item.
+The itemOption attribute gets its value from the querySelector method of the document. After a click on the add button, the new item becomes the current item.
 
 **Code 07-08.28**: The constructor of the ToolBar class.
 
@@ -632,10 +604,10 @@ The itemOption attribute gets its value from the query method of the document. A
 
   ToolBar(this.board) {
     …
-    itemOption = document.query('#itemCategory');
-    
-    addItemButton = document.query('#addItem');
-    addItemButton.on.click.add((MouseEvent e) {
+    itemOption = document.querySelector('#itemCategory');
+
+    addItemButton = document.querySelector('#addItem');
+    addItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         currentItem = new Item(box, itemNameInput.value, itemOption.value);
@@ -653,22 +625,22 @@ Items are displayed differently based on their categories.
 
 {% highlight java %}
 
-for (Item item in items) {
+      for (Item item in items) {
         if (item.category == 'attribute') {
-          board.context.font = '' + textFontSize + 'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = '${textFontSize}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         } else if (item.category == 'guid') {
-          board.context.font = 'italic ' + textFontSize + 'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = 'italic ${textFontSize}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         } else if (item.category == 'identifier') {
-          board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = 'bold italic ${textFontSize}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         } else if (item.category == 'required') {
-          board.context.font = 'bold ' + textFontSize + 'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = 'bold ${textFontSize}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         }
         i++;
@@ -699,7 +671,7 @@ class Line {
   bool _hidden = false;
   
   String textFontSize = 12;
-  num defaultLineWidth;
+  num defaultLineWidth = 1;
 
 {% endhighlight %}
 
@@ -730,16 +702,16 @@ The min..max cardinalities are displayed in the draw method of the Line class.
     if (!isHidden()) {
       board.context.beginPath();
       …
-      board.context.font = '' + textFontSize + 'px sans-serif';
-      Point box1box2MinMaxPoint = 
+      board.context.font = '${textFontSize}px sans-serif';
+      Point box1box2MinMaxPoint =
         calculateMinMaxPointCloseToBeginBox(box1, box2);
-      Point box2box1MinMaxPoint = 
+      Point box2box1MinMaxPoint =
         calculateMinMaxPointCloseToBeginBox(box2, box1);
-      String box1box2MinMax = box1box2Min + '..' + box1box2Max;
-      String box2box1MinMax = box2box1Min + '..' + box2box1Max;
-      board.context.fillText(box1box2MinMax, 
+      String box1box2MinMax = '${box1box2Min}..${box1box2Max}';
+      String box2box1MinMax = '${box2box1Min}..${box2box1Max}';
+      board.context.fillText(box1box2MinMax,
         box1box2MinMaxPoint.x, box1box2MinMaxPoint.y);
-      board.context.fillText(box2box1MinMax, 
+      board.context.fillText(box2box1MinMax,
         box2box1MinMaxPoint.x, box2box1MinMaxPoint.y);
       board.context.closePath();
       board.context.stroke();
@@ -755,21 +727,21 @@ The calculateMinMaxPointCloseToBeginBox method returns a point where the min..ma
 {% highlight java %}
 
   Point calculateMinMaxPointCloseToBeginBox(Box beginBox, Box endBox) {
-    int x = 0;
-    int y = 0;
-    
+    num x = 0;
+    num y = 0;
+
     Point lineBeginPoint = beginBox.center();
     Point lineEndPoint = endBox.center();
-    Point beginPoint = 
+    Point beginPoint =
       beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
-    Point endPoint = 
+    Point endPoint =
       endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
-    
-    int x1 = beginPoint.x;
-    int y1 = beginPoint.y;
-    int x2 = endPoint.x;
-    int y2 = endPoint.y;
-    
+
+    num x1 = beginPoint.x;
+    num y1 = beginPoint.y;
+    num x2 = endPoint.x;
+    num y2 = endPoint.y;
+
     if (x1 <= x2) {
       x = x1 + 1 * ((x2 - x1) / 8);
       if (y1 <= y2) {
@@ -790,100 +762,34 @@ The calculateMinMaxPointCloseToBeginBox method returns a point where the min..ma
 
 {% endhighlight %}
 
-The getIntersectionPoint method in Spiral 08, uses the x and y local variables that hide values of the x and y attributes of the Box class. In order to make a distinction between local variables and attributes, the **this** keyword is used to qualify the attributes of the Box class.
-
 **Code 07-08.34**: The getIntersectionPoint of the Box class.
 
 {% highlight java %}
 
   Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
-    int x1 = lineBeginPoint.x;
-    int y1 = lineBeginPoint.y;
-    int x2 = lineEndPoint.x;
-    int y2 = lineEndPoint.y;
-    if (x2 == x1) /* vertical line */
-      return new Point(x2, (y2 < y1 ? this.y : this.y + this.height));
-    if (y2 == y1) /* horizontal line */
-      return new Point((x2 < x1 ? this.x : this.x + this.width), y2);
-
-    double m = (y2 - y1) / (x2 - x1);
-    int x = (x2 < x1 ? this.x : this.x + this.width);
-    double fy = m * (x - x2) + y2;
-    int y;
-    /* float comparison, because fy may be bigger than the biggest integer */
-    if (fy >= this.y && fy <= this.y + this.height) {
-      y = fy.toInt();
-    } else {
-      y = (y2 < y1 ? this.y : this.y + this.height);
-      x = ((fy - y2) / m).toInt() + x2;
-    }
-    return new Point(x, y);
-  }
-
-{% endhighlight %}
-
-The x and y local variables are renamed intersectionX and intersectionY in this step.
-
-**Code 07-08.35**: The getIntersectionPoint of the Box class.
-
-{% highlight java %}
-
-  Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
-    int x1 = lineBeginPoint.x;
-    int y1 = lineBeginPoint.y;
-    int x2 = lineEndPoint.x;
-    int y2 = lineEndPoint.y;
-    if (x2 == x1) /* vertical line */
-      return new Point(x2, (y2 < y1 ? this.y : this.y + this.height));
-    if (y2 == y1) /* horizontal line */
-      return new Point((x2 < x1 ? this.x : this.x + this.width), y2);
-
-    double m = (y2 - y1) / (x2 - x1);
-    int intersectionX = (x2 < x1 ? this.x : this.x + this.width);
-    double fy = m * (intersectionX - x2) + y2;
-    int intersectionY;
-    /* float comparison, because fy may be bigger than the biggest integer */
-    if (fy >= this.y && fy <= this.y + this.height) {
-      intersectionY = fy.toInt();
-    } else {
-      y = (y2 < y1 ? this.y : this.y + this.height);
-      x = ((fy - y2) / m).toInt() + x2;
-    }
-    return new Point(intersectionX, intersectionY);
-  }
-
-{% endhighlight %}
-
-Since local variables do not have the same names as the attributes, the **this** keyword is removed from the next step.
-
-**Code 07-08.36**: The getIntersectionPoint of the Box class.
-
-{% highlight java %}
-
-  Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
-    int x1 = lineBeginPoint.x;
-    int y1 = lineBeginPoint.y;
-    int x2 = lineEndPoint.x;
-    int y2 = lineEndPoint.y;
+    num x1 = lineBeginPoint.x;
+    num y1 = lineBeginPoint.y;
+    num x2 = lineEndPoint.x;
+    num y2 = lineEndPoint.y;
     if (x2 == x1) {
       /* vertical line */
       return new Point(x2, (y2 < y1 ? y : y + height));
-    } 
+    }
     if (y2 == y1) {
       /* horizontal line */
       return new Point((x2 < x1 ? x : x + width), y2);
-    } 
-      
+    }
+
     double m = (y2 - y1) / (x2 - x1);
-    int intersectionX = (x2 < x1 ? x : x + width);
+    num intersectionX = (x2 < x1 ? x : x + width);
     double fy = m * (intersectionX - x2) + y2;
-    int intersectionY;
+    num intersectionY;
     /* float comparison, because fy may be bigger than the biggest integer */
     if (fy >= y && fy <= y + height) {
       intersectionY = fy.toInt();
     } else {
       y = (y2 < y1 ? y : y + height);
-      x = ((fy - y2) / m).toInt() + x2;
+      x = ((fy - y2) ~/ m) + x2;
     }
     return new Point(intersectionX, intersectionY);
   }
