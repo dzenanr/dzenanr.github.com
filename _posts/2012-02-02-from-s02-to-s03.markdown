@@ -17,31 +17,32 @@ In order to create many boxes, the [List](http://api.dartlang.org/dart_core/List
 {% highlight java %}
 
 class Board {
-    
-  final int INTERVAL = 10; // ms
- 
+
+  static const int INTERVAL = 10; // ms
+
   int width;
   int height;
-  
+
   CanvasRenderingContext2D context;
-  
+
   List<Box> boxes;
+
   Board(CanvasElement canvas) {
     context = canvas.getContext("2d");
     width = canvas.width;
     height = canvas.height;
     border();
     boxes = new List();
-    document.on.mouseDown.add(onMouseDown);
+    document.onMouseDown.listen(onMouseDown);
     // Redraw every INTERVAL ms.
-    document.window.setInterval(redraw, INTERVAL);
+    new Timer.periodic(const Duration(milliseconds: INTERVAL), (t) => redraw());
   }
   …
 }
 
 {% endhighlight %}
 
-The boxes attribute is created in the constructor of the Board class. After the creation, the list of boxes is empty. A new box will be created by clicking on the board. This event will be implemented by the onMouseDown method (Code 02-03.02) of the Board class. This method is added to the on mouse down events of the document object. Thus, the document is a listener of events. When a mouse down event happens, a listener of that event is informed by Dart and the registered (added) method is executed by Dart with the event argument (of the MouseEvent type) prepared by Dart.
+The boxes attribute is created in the constructor of the Board class. After the creation, the list of boxes is empty. A new box will be created by clicking on the board. This event will be implemented by the onMouseDown method (Code 02-03.02) of the Board class. When a mouse down event happens, a listener of that event is informed by Dart and the registered method is executed by Dart with the event argument (of the MouseEvent type) prepared by Dart.
 
 **Code 02-03.02**: The onMouseDown method of the Board class.
 
@@ -55,7 +56,7 @@ The boxes attribute is created in the constructor of the Board class. After the 
 
 {% endhighlight %}
 
-A new box created by the constructor of the Box class is added to the boxes attribute. The add method belongs to the [List interface](http://api.dartlang.org/dart_core/List.html). An interface is a type that defines what methods a class, which implements the interface, provides. All types in Dart are either interfaces or classes. 
+A new box created by the constructor of the Box class is added to the boxes attribute. The add method belongs to the [List abstract class](https://api.dartlang.org/docs/channels/stable/latest/dart_core/List.html). 
 The redraw method is changed to traverse (iterate over) the list of created boxes and to display all of them (Figure 02-03.01). 
 
 ![Alt Figure 02-03.01: Creating boxes by clicking on the board](/img/s02s03/CreatedBoxes.png)
@@ -120,9 +121,11 @@ The isPointInside method of the Box class is renamed to the contains verb in ord
 
 {% highlight java %}
 
-  bool contains(int px, int py) {
-    if ((px > x && px < x + width) && (py > y && py < y + height))
+  bool contains(num px, num py) {
+    if ((px > x && px < x + width) && (py > y && py < y + height)) {
       return true;
+    }
+    return false;
   }
 
 {% endhighlight %}
@@ -144,8 +147,7 @@ If, during a new box creation, a mouse click is close to the west or to the sout
     }
     if (!clickedOnExistingBox) {
       if (event.offset.x + box.width > width) box.x = width - box.width;
-      if (event.offset.y + box.height > height) box.y = 
-        height - box.height;
+      if (event.offset.y + box.height > height) box.y = height - box.height;
       boxes.add(box);
     }
   }
@@ -154,18 +156,18 @@ If, during a new box creation, a mouse click is close to the west or to the sout
 
 A new box, by default, is not selected. The Box class has a new attribute called selected, which is initialized to the **false** value.
 
-A box may be selected by clicking on it and releasing the mouse. The selection event will be implemented by the onMouseUp method of the Box class. This method is added to the on mouse up events of the document object.
+A box may be selected by clicking on it and releasing the mouse. The selection event will be implemented by the onMouseUp method of the Box class. 
 
 **Code 02-03.08**: The selected attribute and the constructor with event registrations.
 
 {% highlight java %}
 
   bool selected = false;
-  
+
   Box(this.board, this.x, this.y, this.width, this.height) {
     draw();
-    document.on.mouseMove.add(onMouseMove);
-    document.on.mouseUp.add(onMouseUp);
+    document.onMouseMove.listen(onMouseMove);
+    document.onMouseUp.listen(onMouseUp);
   }
 
 {% endhighlight %}
@@ -218,7 +220,7 @@ It is recommended by [Dart Style Guide](http://www.dartlang.org/articles/style-g
 
 class Box {
   
-  static final SSS = 6; // selection square size
+  static const SSS = 6; // selection square size
   
   …
   
@@ -237,7 +239,7 @@ class Box {
 
 {% endhighlight %}
 
-The constant has the **final** keyword, which forbids a change of its value. The **static** keyword indicates that the constant value is not repeated with each new box as is the case with regular attributes. The constant definition exists only at the class level and not at the level of objects.
+The [constant](http://news.dartlang.org/2012/06/const-static-final-oh-my.html has the **const** keyword, which forbids a change of its value. The **static** keyword indicates that the constant value is not repeated with each new box as is the case with regular attributes. The constant definition exists only at the class level and not at the level of objects.
 
 Only selected boxes may be moved now.
 
@@ -269,7 +271,7 @@ The board attribute of the Box class references the parent object of a box. It i
 
 class Box {
   
-  static final SSS = 6; // selection square size
+  static const SSS = 6; // selection square size
   
   final Board board;
 
@@ -334,7 +336,7 @@ The onMouseUp method of the Box class uses the toggleSelection method.
 
 {% endhighlight %}
 
-The onMouseDown method is added to the on mouse down events of the document object. 
+The onMouseDown method is used in the Box constructor to indicate that when the on mouse down event happens the onMouseDown method will react to the event. 
 
 **Code 02-03.17**: Mouse events.
 
@@ -342,9 +344,9 @@ The onMouseDown method is added to the on mouse down events of the document obje
 
   Box(this.board, this.x, this.y, this.width, this.height) {
     draw();
-    document.on.mouseDown.add(onMouseDown);
-    document.on.mouseUp.add(onMouseUp);
-    document.on.mouseMove.add(onMouseMove);
+    document.onMouseDown.listen(onMouseDown);
+    document.onMouseUp.listen(onMouseUp);
+    document.onMouseMove.listen(onMouseMove);
   }
 
 {% endhighlight %}
