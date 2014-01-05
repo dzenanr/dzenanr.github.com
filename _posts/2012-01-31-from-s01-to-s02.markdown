@@ -28,7 +28,7 @@ The Timer.periodic constructor of the Timer class from the dart:async library is
 
 {% endhighlight %}
 
-In the Box class, a mouse move event is defined. The event is detailed in the onMouseMove method. 
+In the Box class, a reaction to a mouse move event is defined. The event reaction is detailed in the onMouseMove method. 
 
 **Code 01-02.02**: Destination of the mouse move event.
 
