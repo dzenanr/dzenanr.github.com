@@ -10,7 +10,7 @@ The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github
 
 In Spiral 02, three boxes may be moved within the board. In Spiral 03, a box may be created by clicking on an empty space in the board, selected and then moved.
 
-In order to create many boxes, the [List](http://api.dartlang.org/dart_core/List.html) data structure is added to the Board class as a new attribute.  List is a part of the Collection library of Dart that includes different ways to organize data. List is an indexable collection of objects that may be sorted. In our example (Code 02-03.01), the List has the Box class as a parameter. As a consequence, the boxes attribute may accept only objects of the Box class.
+In order to create many boxes, the [List](https://api.dartlang.org/docs/channels/stable/latest/dart_core/List.html) data structure is added to the Board class as a new attribute. List is a part of the Collection library of Dart that includes different ways to organize data. List is an indexable collection of objects that may be sorted. In our example (Code 02-03.01), the List has the Box class as a parameter. As a consequence, the boxes attribute may accept only objects of the Box class.
 
 **Code 02-03.01**: The boxes attribute of the List type.
 
@@ -239,7 +239,7 @@ class Box {
 
 {% endhighlight %}
 
-The [constant](http://news.dartlang.org/2012/06/const-static-final-oh-my.html has the **const** keyword, which forbids a change of its value. The **static** keyword indicates that the constant value is not repeated with each new box as is the case with regular attributes. The constant definition exists only at the class level and not at the level of objects.
+The [constant](http://news.dartlang.org/2012/06/const-static-final-oh-my.html) has the **const** keyword, which forbids a change of its value. The **static** keyword indicates that the constant value is not repeated with each new box as is the case with regular attributes. The constant definition exists only at the class level and not at the level of objects.
 
 Only selected boxes may be moved now.
 
