@@ -11,29 +11,6 @@ The code for the Model Concepts project is at [model_concepts on GitHub](https:/
 
 The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
-The use of the script element in the MagicBoxes.html file has changed from
-
-{% highlight html %}
-
-<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
-
-{% endhighlight %}
-
-to
-
-{% highlight html %}
-
-<script type="application/dart" src="MagicBoxes.dart"></script>
-<script
-  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
-</script>
-
-{% endhighlight %}
-
-This change requires the Internet access when you run code in the Dart Editor.
-
-If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
-
 Overview
 --------
 
@@ -60,8 +37,8 @@ The Board class has two new constants that determine the minimal size of the dia
 
 class Board {
   
-  static final int MIN_WIDTH = 990;
-  static final int MIN_HEIGHT = 580;
+  static const int MIN_WIDTH = 990;
+  static const int MIN_HEIGHT = 580;
 
 {% endhighlight %}
 
@@ -155,7 +132,7 @@ The scrollpane selector is defined in the layout.css file of the project. This d
 
 **Figure 09-10.02**: Scrolling.
 
-The menu bar has rearranged menus. The Edit menu offers a deletion of a selection, while the Select menu has different menu items, each providing a different selection. There are two new selections. For selected boxes, all lines that are connected to them may be selected (Figure 09-10.03). For selected boxes, only lines that connect them may be selected (Figure 09-10.04).
+The menu bar has rearranged menus. The Edit menu offers a deletion of a selection, while the View menu has different menu items, each providing a different selection. There are two new selections. For selected boxes, all lines that are connected to them may be selected (Figure 09-10.03). For selected boxes, only lines that connect them may be selected (Figure 09-10.04).
 
 **Code 09-10.07**: Menu bar.
 
@@ -164,20 +141,20 @@ The menu bar has rearranged menus. The Edit menu offers a deletion of a selectio
 class MenuBar {
   
   final Board board;
-  
+
   // File
   ButtonElement saveAsPngButton;
-  
+
   // Edit
   ButtonElement deleteSelectionButton;
-  
+
   // Select
   ButtonElement selectAllButton;
   ButtonElement selectBoxesButton;
   ButtonElement selectLinesButton;
   ButtonElement selectBoxLinesButton;
   ButtonElement selectLinesBetweenBoxesButton;
-  
+
   // View
   ButtonElement increaseSelectionHeightButton;
   ButtonElement decreaseSelectionHeightButton;
@@ -187,7 +164,7 @@ class MenuBar {
   ButtonElement decreaseSelectionSizeButton;
   ButtonElement hideSelectionButton;
   ButtonElement showHiddenSelectionButton;
-  
+
   // Create
   ButtonElement createBoxesInDiagonalButton;
   ButtonElement createBoxesAsTilesButton;
@@ -209,27 +186,27 @@ The constructor of the MenuBar class starts with finding HTML elements and assig
 {% highlight java %}
 
   MenuBar(this.board) {
-    saveAsPngButton = document.query('#save-as-png');
-    
-    deleteSelectionButton = document.query('#delete-selection');
-    
-    selectAllButton = document.query('#select-all');
-    selectBoxesButton = document.query('#select-boxes');
-    selectLinesButton = document.query('#select-lines');
-    selectBoxLinesButton = document.query('#select-box-lines');
-    selectLinesBetweenBoxesButton = document.query('#select-lines-between-boxes');
-    
-    increaseSelectionHeightButton = document.query('#increase-selection-height');
-    decreaseSelectionHeightButton = document.query('#decrease-selection-height');
-    increaseSelectionWidthButton = document.query('#increase-selection-width');
-    decreaseSelectionWidthButton = document.query('#decrease-selection-width');
-    increaseSelectionSizeButton = document.query('#increase-selection-size');
-    decreaseSelectionSizeButton = document.query('#decrease-selection-size');
-    hideSelectionButton = document.query('#hide-selection');
-    showHiddenSelectionButton = document.query('#show-hidden-selection');
-    
-    createBoxesInDiagonalButton = document.query('#create-boxes-in-diagonal');
-    createBoxesAsTilesButton = document.query('#create-boxes-as-tiles');
+    saveAsPngButton = document.querySelector('#save-as-png');
+
+    deleteSelectionButton = document.querySelector('#delete-selection');
+
+    selectAllButton = document.querySelector('#select-all');
+    selectBoxesButton = document.querySelector('#select-boxes');
+    selectLinesButton = document.querySelector('#select-lines');
+    selectBoxLinesButton = document.querySelector('#select-box-lines');
+    selectLinesBetweenBoxesButton = document.querySelector('#select-lines-between-boxes');
+
+    increaseSelectionHeightButton = document.querySelector('#increase-selection-height');
+    decreaseSelectionHeightButton = document.querySelector('#decrease-selection-height');
+    increaseSelectionWidthButton = document.querySelector('#increase-selection-width');
+    decreaseSelectionWidthButton = document.querySelector('#decrease-selection-width');
+    increaseSelectionSizeButton = document.querySelector('#increase-selection-size');
+    decreaseSelectionSizeButton = document.querySelector('#decrease-selection-size');
+    hideSelectionButton = document.querySelector('#hide-selection');
+    showHiddenSelectionButton = document.querySelector('#show-hidden-selection');
+
+    createBoxesInDiagonalButton = document.querySelector('#create-boxes-in-diagonal');
+    createBoxesAsTilesButton = document.querySelector('#create-boxes-as-tiles');
 
 {% endhighlight %}
 
@@ -239,60 +216,59 @@ In the constructor of the MenuBar class, click events on menu item buttons are d
 
 {% highlight java %}
 
-    saveAsPngButton.on.click.add((MouseEvent e) {
+    saveAsPngButton.onClick.listen((MouseEvent e) {
       board.saveAsPng();
     });
-    
-    deleteSelectionButton.on.click.add((MouseEvent e) {
+
+    deleteSelectionButton.onClick.listen((MouseEvent e) {
       board.deleteSelection();
     });
-    
-    selectAllButton.on.click.add((MouseEvent e) {
+
+    selectAllButton.onClick.listen((MouseEvent e) {
       board.select();
     });
-    selectBoxesButton.on.click.add((MouseEvent e) {
+    selectBoxesButton.onClick.listen((MouseEvent e) {
       board.selectBoxes();
     });
-    selectLinesButton.on.click.add((MouseEvent e) {
+    selectLinesButton.onClick.listen((MouseEvent e) {
       board.selectLines();
     });
-    selectBoxLinesButton.on.click.add((MouseEvent e) {
+    selectBoxLinesButton.onClick.listen((MouseEvent e) {
       board.selectBoxLines();
     });
-    selectLinesBetweenBoxesButton.on.click.add((MouseEvent e) {
+    selectLinesBetweenBoxesButton.onClick.listen((MouseEvent e) {
       board.selectLinesBetweenBoxes();
     });
-    
-    increaseSelectionHeightButton.on.click.add((MouseEvent e) {
+
+    increaseSelectionHeightButton.onClick.listen((MouseEvent e) {
       board.increaseHeightOfSelectedBoxes();
     });
-    decreaseSelectionHeightButton.on.click.add((MouseEvent e) {
+    decreaseSelectionHeightButton.onClick.listen((MouseEvent e) {
       board.decreaseHeightOfSelectedBoxes();
     });
-    increaseSelectionWidthButton.on.click.add((MouseEvent e) {
+    increaseSelectionWidthButton.onClick.listen((MouseEvent e) {
       board.increaseWidthOfSelectedBoxes();
     });
-    decreaseSelectionWidthButton.on.click.add((MouseEvent e) {
+    decreaseSelectionWidthButton.onClick.listen((MouseEvent e) {
       board.decreaseWidthOfSelectedBoxes();
     });
-    increaseSelectionSizeButton.on.click.add((MouseEvent e) {
+    increaseSelectionSizeButton.onClick.listen((MouseEvent e) {
       board.increaseSizeOfSelectedBoxes();
     });
-    decreaseSelectionSizeButton.on.click.add((MouseEvent e) {
+    decreaseSelectionSizeButton.onClick.listen((MouseEvent e) {
       board.decreaseSizeOfSelectedBoxes();
     });
-    hideSelectionButton.on.click.add((MouseEvent e) {
+    hideSelectionButton.onClick.listen((MouseEvent e) {
       board.hideSelection();
     });
-    showHiddenSelectionButton.on.click.add((MouseEvent e) {
+    showHiddenSelectionButton.onClick.listen((MouseEvent e) {
       board.showHiddenSelection();
     });
-    
-    createBoxesInDiagonalButton.on.click.add((MouseEvent e) {
+
+    createBoxesInDiagonalButton.onClick.listen((MouseEvent e) {
       board.createBoxesInDiagonal();
-      //board.printBoxNames();
     });
-    createBoxesAsTilesButton.on.click.add((MouseEvent e) {
+    createBoxesAsTilesButton.onClick.listen((MouseEvent e) {
       board.createBoxesAsTiles();
     });
 
@@ -414,14 +390,14 @@ The change of the board size is supported in the constructor of the ToolBar clas
 
   ToolBar(this.board) {
     …
-    canvasWidthInput = document.query('#canvasWidth');
-    canvasHeightInput = document.query('#canvasHeight');
+    canvasWidthInput = document.querySelector('#canvasWidth');
+    canvasHeightInput = document.querySelector('#canvasHeight');
     canvasWidthInput.valueAsNumber = board.width;
-    canvasWidthInput.on.input.add((Event e) {
+    canvasWidthInput.onInput.listen((Event e) {
       board.width = canvasWidthInput.valueAsNumber;
     });
     canvasHeightInput.valueAsNumber = board.height;
-    canvasHeightInput.on.input.add((Event e) {
+    canvasHeightInput.onInput.listen((Event e) {
       board.height = canvasHeightInput.valueAsNumber;
     });
 
@@ -485,7 +461,7 @@ The item sequence element in the document is assigned to the input element attri
 
   ToolBar(this.board) {
     …
-    itemSequenceInput = document.query('#itemSequence');
+    itemSequenceInput = document.querySelector('#itemSequence');
 
 {% endhighlight %}
 
@@ -508,7 +484,8 @@ In the constructor of the ToolBar class, for the last selected box, current item
 
 {% highlight java %}
 
-    boxNameInput.on.focus.add((Event e) {
+    boxNameInput = document.querySelector('#boxName');
+    boxNameInput.onFocus.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         boxNameInput.value = box.title;
@@ -527,7 +504,8 @@ When a new item is added, its sequence value becomes the value of the input elem
 
 {% highlight java %}
 
-    addItemButton.on.click.add((MouseEvent e) {
+    addItemButton = document.querySelector('#addItem');
+    addItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         Item item = new Item(box, itemNameInput.value, itemOption.value);
@@ -583,7 +561,8 @@ In the constructor of the ToolBar class, for the last selected box, an item may 
 
 {% highlight java %}
 
-    getItemButton.on.click.add((MouseEvent e) {
+    getItemButton = document.querySelector('#getItem');
+    getItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         Item item = box.findItem(itemNameInput.value);
@@ -608,7 +587,8 @@ When the item category is changed for the current item, the current item is upda
 
 {% highlight java %}
 
-    itemOption.on.change.add((MouseEvent e) {
+    itemOption = document.querySelector('#itemCategory');
+    itemOption.onChange.listen((Event e) {
       if (currentItem != null) {
         currentItem.name = itemNameInput.value;
         currentItem.category = itemOption.value;
@@ -626,7 +606,8 @@ Another way to update the current item is to use the Set button in the tool bar.
 
 {% highlight java %}
 
-    setItemButton.on.click.add((MouseEvent e) {
+    setItemButton = document.querySelector('#setItem');
+    setItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -646,7 +627,8 @@ The current item may be removed by the Remove button.
 
 {% highlight java %}
 
-    removeItemButton.on.click.add((MouseEvent e) {
+    removeItemButton = document.querySelector('#removeItem');
+    removeItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -676,14 +658,14 @@ In the draw method of the Box class, the box items are sorted by their sequence 
 
 {% endhighlight %}
 
-The sort method of the List type requires the use of a function that compares two elements of a list. The compare function is called for every two consecutive items. It takes two items as arguments and returns 0 if their sequence numbers are equal. It returns 1 if the sequence number of the first item  is greater than the sequence number of the second item, while it returns -1 if the sequence number of the second item is greater than the sequence number of the first item.
+The sort method of the List type requires an anonymous function that compares two elements of a list. The compare function is called for every two consecutive items. It takes two items as arguments and returns 0 if their sequence numbers are equal. It returns 1 if the sequence number of the first item  is greater than the sequence number of the second item, while it returns -1 if the sequence number of the second item is greater than the sequence number of the first item.
 
-**Code 09-10.29**: Sort items by using the compare function.
+**Code 09-10.29**: Sort items.
 
 {% highlight java %}
 
   void sortItemsBySequence() {
-    items.sort(compare(Item i1, Item i2) {
+    items.sort((Item i1, Item i2) {
       if (i1.sequence == i2.sequence) {
         return 0;
       } else if (i1.sequence > i2.sequence) {
@@ -718,7 +700,7 @@ The TooolBar class has a new attribute of the OptionElement type, just before th
 
 class ToolBar {
   …
-  OptionElement lineOption;
+  SelectElement lineOption;
   ButtonElement getLineButton;
   ButtonElement setLineButton;
 
@@ -732,19 +714,19 @@ When a line option is changed, the current line is updated without using the Set
 
 {% highlight java %}
 
-    lineOption = document.query('#lineCategory');
-    lineOption.on.change.add((MouseEvent e) {
+    lineOption = document.querySelector('#lineCategory');
+    lineOption.onChange.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.category = lineOption.value;
-        
+
         line12Box1Label.text = line.box1.title;
         line12Box2Label.text = line.box2.title;
         line12MinInput.value = line.box1box2Min;
         line12MaxInput.value = line.box1box2Max;
         line12IdCheckbox.checked = line.box1box2Id;
         line12NameInput.value = line.box1box2Name;
-        
+
         line21Box2Label.text = line.box2.title;
         line21Box1Label.text = line.box1.title;
         line21MinInput.value = line.box2box1Min;
@@ -780,6 +762,7 @@ In the Line constructor, the category property is set to relationship.
 {% highlight java %}
 
   Line(this.board, this.box1, this.box2) {
+    defaultLineWidth = board.context.lineWidth;
     category = 'relationship';
     …
   }
@@ -870,19 +853,19 @@ The Get line button, for the last selected line, obtains the line values in the 
 
 {% highlight java %}
 
-    getLineButton = document.query('#getLine');
-    getLineButton.on.click.add((MouseEvent e) {
+    getLineButton = document.querySelector('#getLine');
+    getLineButton.onClick.listen((MouseEvent e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         lineOption.value = line.category;
-        
+
         line12Box1Label.text = line.box1.title;
         line12Box2Label.text = line.box2.title;
         line12MinInput.value = line.box1box2Min;
         line12MaxInput.value = line.box1box2Max;
         line12IdCheckbox.checked = line.box1box2Id;
         line12NameInput.value = line.box1box2Name;
-        
+
         line21Box2Label.text = line.box2.title;
         line21Box1Label.text = line.box1.title;
         line21MinInput.value = line.box2box1Min;
@@ -900,19 +883,19 @@ At the end of the ToolBar constructor, line elements are queried in the document
 
 {% highlight java %}
 
-    line12Box1Label = document.query('#line12Box1');
-    line12Box2Label = document.query('#line12Box2');
-    line12MinInput = document.query('#line12Min');
-    line12MaxInput = document.query('#line12Max');
-    line12IdCheckbox = document.query('#line12Id');
-    line12NameInput = document.query('#line12Name');
-    
-    line21Box2Label = document.query('#line21Box2');
-    line21Box1Label = document.query('#line21Box1');
-    line21MinInput = document.query('#line21Min');
-    line21MaxInput = document.query('#line21Max');
-    line21IdCheckbox = document.query('#line21Id');
-    line21NameInput = document.query('#line21Name');
+    line12Box1Label = document.querySelector('#line12Box1');
+    line12Box2Label = document.querySelector('#line12Box2');
+    line12MinInput = document.querySelector('#line12Min');
+    line12MaxInput = document.querySelector('#line12Max');
+    line12IdCheckbox = document.querySelector('#line12Id');
+    line12NameInput = document.querySelector('#line12Name');
+
+    line21Box2Label = document.querySelector('#line21Box2');
+    line21Box1Label = document.querySelector('#line21Box1');
+    line21MinInput = document.querySelector('#line21Min');
+    line21MaxInput = document.querySelector('#line21Max');
+    line21IdCheckbox = document.querySelector('#line21Id');
+    line21NameInput = document.querySelector('#line21Name');
 
 {% endhighlight %}
 
@@ -975,9 +958,9 @@ A reflexive line is transformed from a selected relationship line between two di
         board.context.lineTo(box2.center().x, box2.center().y);
       }
       if (isSelected()) {
-        board.context.setLineWidth(defaultLineWidth + 2);
+        board.context.lineWidth = defaultLineWidth + 2;
       } else {
-        board.context.setLineWidth(defaultLineWidth);
+        board.context.lineWidth = defaultLineWidth;
       }
       Point box1box2MinMaxPoint;
       Point box2box1MinMaxPoint;
@@ -994,31 +977,27 @@ A reflexive line is transformed from a selected relationship line between two di
         box1box2NamePoint = calculateNamePointCloseToBeginBox(box1, box2);
         box2box1NamePoint = calculateNamePointCloseToBeginBox(box2, box1);
       }
-      
-      String box1box2MinMax = box1box2Min + '..' + box1box2Max;
-      String box2box1MinMax = box2box1Min + '..' + box2box1Max;
+
+      String box1box2MinMax = '${box1box2Min}..${box1box2Max}';
+      String box2box1MinMax = '${box2box1Min}..${box2box1Max}';
       if (box1box2Id) {
-        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold italic ${textFontSize}px sans-serif';
       } else if (box1box2Min != '0') {
-        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold ${textFontSize}px sans-serif';
       } else {
-        board.context.font = '' + textFontSize + 'px sans-serif';
+        board.context.font = '${textFontSize}px sans-serif';
       }
-      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, 
-        box1box2MinMaxPoint.y);
-      board.context.fillText(box1box2Name, box1box2NamePoint.x, 
-        box1box2NamePoint.y);
+      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, box1box2MinMaxPoint.y);
+      board.context.fillText(box1box2Name, box1box2NamePoint.x, box1box2NamePoint.y);
       if (box2box1Id) {
-        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold italic ${textFontSize}px sans-serif';
       } else if (box2box1Min != '0') {
-        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold ${textFontSize}px sans-serif';
       } else {
-        board.context.font = '' + textFontSize + 'px sans-serif';
+        board.context.font = '${textFontSize}px sans-serif';
       }
-      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, 
-        box2box1MinMaxPoint.y);
-      board.context.fillText(box2box1Name, box2box1NamePoint.x, 
-        box2box1NamePoint.y);
+      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, box2box1MinMaxPoint.y);
+      board.context.fillText(box2box1Name, box2box1NamePoint.x, box2box1NamePoint.y);
       board.context.stroke();
       board.context.closePath();
     }
@@ -1045,12 +1024,12 @@ The set category property method is updated to allow for reflexive and twin cate
       box1box2Min = '0';
       box1box2Max = 'N';
       box1box2Id = false;
-      
+
       box2box1Name = '';
       box2box1Min = '1';
       box2box1Max = '1';
       box2box1Id = false;
-      
+
       _twin1 = false;
       _twin2 = false;
     } else if (category == 'inheritance') {
@@ -1058,27 +1037,27 @@ The set category property method is updated to allow for reflexive and twin cate
       box1box2Min = '0';
       box1box2Max = '1';
       box1box2Id = false;
-      
+
       box2box1Name = 'is';
       box2box1Min = '1';
       box2box1Max = '1';
       box2box1Id = true;
-      
+
       _twin1 = false;
       _twin2 = false;
     } else if (category == 'reflexive') {
       box2 = box1;
-      
+
       box1box2Name = _putInEnglishPlural(box1.title.toLowerCase());
       box1box2Min = '0';
       box1box2Max = 'N';
       box1box2Id = false;
-      
+
       box2box1Name = box1.title.toLowerCase();
       box2box1Min = '0';
       box2box1Max = '1';
       box2box1Id = false;
-      
+
       _twin1 = false;
       _twin2 = false;
     }  else if (category == 'twin') {
@@ -1091,7 +1070,7 @@ The set category property method is updated to allow for reflexive and twin cate
           _twin1 = true;
           _twin2 = false;
           twinLine.category = 'twin';
-        }   
+        }
       }
     }
   }
@@ -1130,17 +1109,17 @@ This is done by the private putInEnglishPlural method.
         String lastCharacterString = text.substring(text.length - 1,
             text.length);
         if (lastCharacterString == 'x') {
-          plural = text + "es";
+          plural = '${text}es';
         } else if (lastCharacterString == 'z') {
-          plural = text + "zes";
+          plural = '${text}zes';
         } else if (lastCharacterString == 'y') {
           String withoutLast = _dropEnd(text, lastCharacterString);
-          plural = withoutLast + "ies";
+          plural = '${withoutLast}ies';
         } else {
-          plural = text + "s";
+          plural = '${text}s';
         }
       }
-    } catch (Exception e) {
+    } on Exception catch (e) {
       return text;
     }
     return plural;
@@ -1176,11 +1155,11 @@ The contains method is updated to consider reflexive and twin lines.
     if (box1.contains(point.x, point.y) || box2.contains(point.x, point.y)) {
       return false;
     }
-    
+
     Point pointDif = new Point(0, 0);
     bool inLineRectX, inLineRectY, inLineRect;
     double coord;
-    
+
     Point beginPoint;
     Point endPoint;
     if (twin1) {
@@ -1198,39 +1177,33 @@ The contains method is updated to consider reflexive and twin lines.
     }
     pointDif.x = endPoint.x - beginPoint.x;
     pointDif.y = endPoint.y - beginPoint.y;
-    
+
     // Rapid test: Verify if the point is in the line rectangle.
     if (pointDif.x > 0) {
-      inLineRectX = (point.x >= (beginPoint.x - delta.x)) && 
-      (point.x <= (endPoint.x + delta.x));
+      inLineRectX = (point.x >= (beginPoint.x - delta.x)) && (point.x <= (endPoint.x + delta.x));
     } else {
-      inLineRectX = (point.x >= (endPoint.x - delta.x)) && 
-      (point.x <= (beginPoint.x + delta.x));
+      inLineRectX = (point.x >= (endPoint.x - delta.x)) && (point.x <= (beginPoint.x + delta.x));
     }
     if (pointDif.y > 0) {
-      inLineRectY = (point.y >= (beginPoint.y - delta.y)) && 
-      (point.y <= (endPoint.y + delta.y));
+      inLineRectY = (point.y >= (beginPoint.y - delta.y)) && (point.y <= (endPoint.y + delta.y));
     } else {
-      inLineRectY = (point.y >= (endPoint.y - delta.y)) && 
-      (point.y <= (beginPoint.y + delta.y));
+      inLineRectY = (point.y >= (endPoint.y - delta.y)) && (point.y <= (beginPoint.y + delta.y));
     }
     inLineRect = inLineRectX && inLineRectY;
     if (!inLineRect) {
       return false;
     }
-    
+
     // If the line is horizontal or vertical there is no need to continue.
     if ((pointDif.x == 0) || (pointDif.y == 0)) {
         return true;
     }
-    
+
     if (pointDif.x.abs() > pointDif.y.abs()) {
-      coord = beginPoint.y + 
-        (((point.x - beginPoint.x) * pointDif.y) / pointDif.x) - point.y;
+      coord = beginPoint.y + (((point.x - beginPoint.x) * pointDif.y) / pointDif.x) - point.y;
       return coord.abs() <= delta.y;
     } else {
-      coord = beginPoint.x + 
-        (((point.y - beginPoint.y) * pointDif.x) / pointDif.y) - point.x;
+      coord = beginPoint.x + (((point.y - beginPoint.y) * pointDif.x) / pointDif.y) - point.x;
       return coord.abs() <= delta.x;
     }
   }
@@ -1244,9 +1217,9 @@ The calculate methods are updated to consider twin lines.
 {% highlight java %}
 
   Point calculateMinMaxPointCloseToBeginBox(Box beginBox, Box endBox) {
-    int x = 0;
-    int y = 0;
-    
+    num x = 0;
+    num y = 0;
+
     Point lineBeginPoint;
     Point lineEndPoint;
     if (twin1) {
@@ -1261,12 +1234,12 @@ The calculate methods are updated to consider twin lines.
     }
     Point beginPoint = beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
     Point endPoint = endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
-    
-    int x1 = beginPoint.x;
-    int y1 = beginPoint.y;
-    int x2 = endPoint.x;
-    int y2 = endPoint.y;
-    
+
+    num x1 = beginPoint.x;
+    num y1 = beginPoint.y;
+    num x2 = endPoint.x;
+    num y2 = endPoint.y;
+
     if (x1 <= x2) {
       x = x1 + 1 * ((x2 - x1) / 8);
       if (y1 <= y2) {
@@ -1295,10 +1268,10 @@ The calculate methods are updated to consider twin lines.
     if (reflexive) {
       return new Point(beginBox.reflexive1().x + 30, beginBox.reflexive1().y + 30);
     }
-    
-    int x = 0;
-    int y = 0;
-    
+
+    num x = 0;
+    num y = 0;
+
     Point lineBeginPoint;
     Point lineEndPoint;
     if (twin1) {
@@ -1313,12 +1286,12 @@ The calculate methods are updated to consider twin lines.
     }
     Point beginPoint = beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
     Point endPoint = endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
-    
-    int x1 = beginPoint.x;
-    int y1 = beginPoint.y;
-    int x2 = endPoint.x;
-    int y2 = endPoint.y;
-    
+
+    num x1 = beginPoint.x;
+    num y1 = beginPoint.y;
+    num x2 = endPoint.x;
+    num y2 = endPoint.y;
+
     if (x1 <= x2) {
       x = x1 + 3 * ((x2 - x1) / 8);
       if (y1 <= y2) {
