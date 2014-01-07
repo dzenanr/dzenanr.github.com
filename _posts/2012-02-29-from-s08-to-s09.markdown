@@ -11,29 +11,6 @@ The code for the Model Concepts project is at [model_concepts on GitHub](https:/
 
 The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
-The use of the script element in the MagicBoxes.html file has changed from
-
-{% highlight html %}
-
-<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
-
-{% endhighlight %}
-
-to
-
-{% highlight html %}
-
-<script type="application/dart" src="MagicBoxes.dart"></script>
-<script
-  src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
-</script>
-
-{% endhighlight %}
-
-This change requires the Internet access when you run code in the Dart Editor.
-
-If you use Spirals 00 … 11 locally, checkout branches s00a … s11a, where changes have been made.
-
 Overview
 --------
 
@@ -76,7 +53,7 @@ class MenuBar {
 
 {% endhighlight %}
 
-In the constructor of the MenuBar class, the button elements are initialized by the query method of the document representing the Web page. In addition, their click events are defined by unnamed methods. The reactions to clicks on the buttons are handled by methods in the Board class.
+In the constructor of the MenuBar class, the button elements are initialized by the querySelector method of the document representing the Web page. In addition, their click events are defined by anonymous functions. The reactions to clicks on the buttons are handled by methods in the Board class.
 
 **Code 08-09.02**: Reactions to click events of the View menu items.
 
@@ -84,37 +61,31 @@ In the constructor of the MenuBar class, the button elements are initialized by 
 
   MenuBar(this.board) {
     …
-    increaseSelectionHeightButton = 
-      document.query('#increase-selection-height');
-    decreaseSelectionHeightButton = 
-      document.query('#decrease-selection-height');
-    increaseSelectionWidthButton = 
-      document.query('#increase-selection-width');
-    decreaseSelectionWidthButton = 
-      document.query('#decrease-selection-width');
-    increaseSelectionSizeButton = 
-      document.query('#increase-selection-size');
-    decreaseSelectionSizeButton = 
-      document.query('#decrease-selection-size');
+    increaseSelectionHeightButton = document.querySelector('#increase-selection-height');
+    decreaseSelectionHeightButton = document.querySelector('#decrease-selection-height');
+    increaseSelectionWidthButton = document.querySelector('#increase-selection-width');
+    decreaseSelectionWidthButton = document.querySelector('#decrease-selection-width');
+    increaseSelectionSizeButton = document.querySelector('#increase-selection-size');
+    decreaseSelectionSizeButton = document.querySelector('#decrease-selection-size');
     …
     // Menu bar events.
     …
-    increaseSelectionHeightButton.on.click.add((MouseEvent e) {
+    increaseSelectionHeightButton.onClick.listen((MouseEvent e) {
       board.increaseHeightOfSelectedBoxes();
     });
-    decreaseSelectionHeightButton.on.click.add((MouseEvent e) {
+    decreaseSelectionHeightButton.onClick.listen((MouseEvent e) {
       board.decreaseHeightOfSelectedBoxes();
     });
-    increaseSelectionWidthButton.on.click.add((MouseEvent e) {
+    increaseSelectionWidthButton.onClick.listen((MouseEvent e) {
       board.increaseWidthOfSelectedBoxes();
     });
-    decreaseSelectionWidthButton.on.click.add((MouseEvent e) {
+    decreaseSelectionWidthButton.onClick.listen((MouseEvent e) {
       board.decreaseWidthOfSelectedBoxes();
     });
-    increaseSelectionSizeButton.on.click.add((MouseEvent e) {
+    increaseSelectionSizeButton.onClick.listen((MouseEvent e) {
       board.increaseSizeOfSelectedBoxes();
     });
-    decreaseSelectionSizeButton.on.click.add((MouseEvent e) {
+    decreaseSelectionSizeButton.onClick.listen((MouseEvent e) {
       board.decreaseSizeOfSelectedBoxes();
     });
     …
@@ -188,7 +159,7 @@ The incremental change in the size of boxes is defined by the constant in the Bo
 
 class Box {
   …
-  static final int DEFAULT_INCREMENT = 20;
+  static const int DEFAULT_INCREMENT = 20;
 
 {% endhighlight %}
 
@@ -290,7 +261,8 @@ The new attributes are initialized in the constructor.
 
 {% highlight java %}
 
-Line(this.board, this.box1, this.box2) {
+  Line(this.board, this.box1, this.box2) {
+    defaultLineWidth = board.context.lineWidth;
     box1box2Name = '';
     box1box2Min = '0';
     box1box2Max = 'N';
@@ -300,7 +272,6 @@ Line(this.board, this.box1, this.box2) {
     box2box1Max = '1';
     box2box1Id = false;
     draw();
-    defaultLineWidth = board.context.lineWidth;
   }
 
 {% endhighlight %}
@@ -311,45 +282,45 @@ In addition to min..max cardinalities, the line direction names and ids are disp
 
 {% highlight java %}
 
-void draw() {
+  void draw() {
     if (!isHidden()) {
       board.context.beginPath();
       board.context.moveTo(box1.x + box1.width / 2, box1.y + box1.height / 2);
       board.context.lineTo(box2.x + box2.width / 2, box2.y + box2.height / 2);
       if (isSelected()) {
-        board.context.setLineWidth(defaultLineWidth + 2);
+        board.context.lineWidth = defaultLineWidth + 2;
       } else {
-        board.context.setLineWidth(defaultLineWidth);
+        board.context.lineWidth = defaultLineWidth;
       }
-      Point box1box2MinMaxPoint = 
+      Point box1box2MinMaxPoint =
         calculateMinMaxPointCloseToBeginBox(box1, box2);
-      Point box2box1MinMaxPoint = 
+      Point box2box1MinMaxPoint =
         calculateMinMaxPointCloseToBeginBox(box2, box1);
       Point box1box2NamePoint = calculateNamePointCloseToBeginBox(box1, box2);
       Point box2box1NamePoint = calculateNamePointCloseToBeginBox(box2, box1);
-      String box1box2MinMax = box1box2Min + '..' + box1box2Max;
-      String box2box1MinMax = box2box1Min + '..' + box2box1Max;
+      String box1box2MinMax = '${box1box2Min}..${box1box2Max}';
+      String box2box1MinMax = '${box2box1Min}..${box2box1Max}';
       if (box1box2Id) {
-        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold italic ${textFontSize}px sans-serif';
       } else if (box1box2Min != '0') {
-        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold ${textFontSize}px sans-serif';
       } else {
-        board.context.font = '' + textFontSize + 'px sans-serif';
+        board.context.font = '${textFontSize}px sans-serif';
       }
-      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x, 
+      board.context.fillText(box1box2MinMax, box1box2MinMaxPoint.x,
         box1box2MinMaxPoint.y);
-      board.context.fillText(box1box2Name, box1box2NamePoint.x, 
+      board.context.fillText(box1box2Name, box1box2NamePoint.x,
         box1box2NamePoint.y);
       if (box2box1Id) {
-        board.context.font = 'bold italic ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold italic ${textFontSize}px sans-serif';
       } else if (box2box1Min != '0') {
-        board.context.font = 'bold ' + textFontSize + 'px sans-serif';
+        board.context.font = 'bold ${textFontSize}px sans-serif';
       } else {
-        board.context.font = '' + textFontSize + 'px sans-serif';
+        board.context.font = '${textFontSize}px sans-serif';
       }
-      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x, 
+      board.context.fillText(box2box1MinMax, box2box1MinMaxPoint.x,
         box2box1MinMaxPoint.y);
-      board.context.fillText(box2box1Name, box2box1NamePoint.x, 
+      board.context.fillText(box2box1Name, box2box1NamePoint.x,
         box2box1NamePoint.y);
       board.context.closePath();
       board.context.stroke();
@@ -392,19 +363,19 @@ A line direction name is placed close to its line and the begin box. This locati
 {% highlight java %}
 
   Point calculateNamePointCloseToBeginBox(Box beginBox, Box endBox) {
-    int x = 0;
-    int y = 0;
-    
+    num x = 0;
+    num y = 0;
+
     Point lineBeginPoint = beginBox.center();
     Point lineEndPoint = endBox.center();
     Point beginPoint = beginBox.getIntersectionPoint(lineBeginPoint, lineEndPoint);
     Point endPoint = endBox.getIntersectionPoint(lineEndPoint, lineBeginPoint);
-    
-    int x1 = beginPoint.x;
-    int y1 = beginPoint.y;
-    int x2 = endPoint.x;
-    int y2 = endPoint.y;
-    
+
+    num x1 = beginPoint.x;
+    num y1 = beginPoint.y;
+    num x2 = endPoint.x;
+    num y2 = endPoint.y;
+
     if (x1 <= x2) {
       x = x1 + 3 * ((x2 - x1) / 8);
       if (y1 <= y2) {
@@ -458,19 +429,19 @@ The line direction attributes are initialized in the constructor of the ToolBar 
 
 {% highlight java %}
 
-    line12Box1Label = document.query('#line12Box1');
-    line12Box2Label = document.query('#line12Box2');
-    line12MinInput = document.query('#line12Min');
-    line12MaxInput = document.query('#line12Max');
-    line12IdCheckbox = document.query('#line12Id');
-    line12NameInput = document.query('#line12Name');
-    
-    line21Box2Label = document.query('#line21Box2');
-    line21Box1Label = document.query('#line21Box1');
-    line21MinInput = document.query('#line21Min');
-    line21MaxInput = document.query('#line21Max');
-    line21IdCheckbox = document.query('#line21Id');
-    line21NameInput = document.query('#line21Name');
+    line12Box1Label = document.querySelector('#line12Box1');
+    line12Box2Label = document.querySelector('#line12Box2');
+    line12MinInput = document.querySelector('#line12Min');
+    line12MaxInput = document.querySelector('#line12Max');
+    line12IdCheckbox = document.querySelector('#line12Id');
+    line12NameInput = document.querySelector('#line12Name');
+
+    line21Box2Label = document.querySelector('#line21Box2');
+    line21Box1Label = document.querySelector('#line21Box1');
+    line21MinInput = document.querySelector('#line21Min');
+    line21MaxInput = document.querySelector('#line21Max');
+    line21IdCheckbox = document.querySelector('#line21Id');
+    line21NameInput = document.querySelector('#line21Name');
 
 {% endhighlight %}
 
@@ -480,8 +451,8 @@ The get line button element reacts in the constructor of the ToolBar class to th
 
 {% highlight java %}
 
-    getLineButton = document.query('#getLine');
-    getLineButton.on.click.add((MouseEvent e) {
+    getLineButton = document.querySelector('#getLine');
+    getLineButton.onClick.listen((MouseEvent e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line12Box1Label.text = line.box1.title;
@@ -490,7 +461,7 @@ The get line button element reacts in the constructor of the ToolBar class to th
         line12MaxInput.value = line.box1box2Max;
         line12IdCheckbox.checked = line.box1box2Id;
         line12NameInput.value = line.box1box2Name;
-        
+
         line21Box2Label.text = line.box2.title;
         line21Box1Label.text = line.box1.title;
         line21MinInput.value = line.box2box1Min;
@@ -508,8 +479,8 @@ The set line button element reacts in the constructor of the ToolBar class to th
 
 {% highlight java %}
 
-    setLineButton = document.query('#setLine');
-    setLineButton.on.click.add((MouseEvent e) {
+    setLineButton = document.querySelector('#setLine');
+    setLineButton.onClick.listen((MouseEvent e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.box1box2Min = line12MinInput.value.trim();
@@ -521,7 +492,7 @@ The set line button element reacts in the constructor of the ToolBar class to th
           line.box1box2Id = false;
         }
         line.box1box2Name = line12NameInput.value.trim();
-        
+
         line.box2box1Min = line21MinInput.value.trim();
         line.box2box1Max = line21MaxInput.value.trim();
         if (line.box2box1Min == '1' && line.box2box1Max == '1') {
@@ -529,10 +500,11 @@ The set line button element reacts in the constructor of the ToolBar class to th
         } else {
           line21IdCheckbox.checked = false;
           line.box2box1Id = false;
-        }  
+        }
         line.box2box1Name = line21NameInput.value.trim();
       }
     });
+  }
 
 {% endhighlight %}
 
@@ -542,13 +514,30 @@ The line elements have their HTML representation in the mb.html file.
 
 {% highlight html %}
 
-    <section> 
+    <section>
       <canvas id="canvas" width="990" height="560">
         Canvas is not supported in your browser.
       </canvas>
       <footer>
-        …
-        <br/><br/>       
+        <button id="select"><img src="img/select.png"/></button>
+        <button id="box"><img src="img/box.png"/></button>
+        <button id="line"><img src="img/line.png"/></button>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <label for="boxName">Box</label>
+        <input type="text" id="boxName"/>
+        <label for="itemName">Item</label>
+        <input type="text" id="itemName"/>
+        <select id="itemCategory">
+          <option>attribute</option>
+          <option>guid</option>
+          <option>identifier</option>
+          <option>required</option>
+        </select>
+        <button id="addItem">Add</button>
+        <button id="getItem">Get</button>
+        <button id="setItem">Set</button>
+        <button id="removeItem">Remove</button>
+        <br/><br/>
         <label id="line12Box1">Box1</label> ->
         <label id="line12Box2">Box2</label>
         <input type="text" id="line12Min" size="1"/> ..
@@ -566,10 +555,11 @@ The line elements have their HTML representation in the mb.html file.
         <label for="line21Id">Id</label>
         <input type="checkbox" id="line21Id"/>
         <label for="line21Name">Name</label>
-        <input type="text" id="line21Name"/> |   
+        <input type="text" id="line21Name"/> |
         <button id="setLine">Set</button>
       </footer>
-      …
+      <script type="application/dart" src="mb.dart"></script>
+      <script src="packages/browser/dart.js"></script>
     </section>
 
 {% endhighlight %}
@@ -605,8 +595,8 @@ In the Board class, the saveAsPng method finds the model image element in the do
 {% highlight java %}
 
   void saveAsPng() {
-    ImageElement modelImage = document.query('#modelImage');
-    modelImage.src = canvas.toDataURL("image/png");
+    ImageElement modelImage = document.querySelector('#modelImage');
+    modelImage.src = canvas.toDataUrl("image/png");
   }
 
 {% endhighlight %}
@@ -652,7 +642,7 @@ The button element attribute is initialized in the constructor of the MenuBar cl
 {% highlight java %}
 
   MenuBar(this.board) {
-    saveAsPngButton = document.query('#save-as-png');
+    saveAsPngButton = document.querySelector('#save-as-png');
 
 {% endhighlight %}
 
@@ -662,7 +652,7 @@ After the initialization of the button element attribute, the click event is def
 
 {% highlight java %}
 
-    saveAsPngButton.on.click.add((MouseEvent e) {
+    saveAsPngButton.onClick.listen((MouseEvent e) {
       board.saveAsPng();
     });
 
@@ -716,8 +706,8 @@ There are changes related to box items in the ToolBar class that should have bee
 
 {% highlight java %}
 
-    getItemButton = document.query('#getItem');
-    getItemButton.on.click.add((MouseEvent e) {
+    getItemButton = document.querySelector('#getItem');
+    getItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         Item item = box.findItem(itemNameInput.value);
@@ -740,8 +730,8 @@ After changing the item of the last selected box, the category of the current it
 
 {% highlight java %}
 
-    setItemButton = document.query('#setItem');
-    setItemButton.on.click.add((MouseEvent e) {
+    setItemButton = document.querySelector('#setItem');
+    setItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -760,8 +750,8 @@ After removing the item of the last selected box, the value of the item option c
 
 {% highlight java %}
 
-    removeItemButton = document.query('#removeItem');
-    removeItemButton.on.click.add((MouseEvent e) {
+    removeItemButton = document.querySelector('#removeItem');
+    removeItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -776,73 +766,7 @@ After removing the item of the last selected box, the value of the item option c
 
 {% endhighlight %}
 
-In the Box class of Spiral 09, there are warnings in the getIntersectionPoint method: local variables x and y hide the x and y fields (attributes).
 
-**Code 08-09.29**: Local variables x and y have the same names as the x and y attributes.
-
-{% highlight java %}
-
-  Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
-    int x1 = lineBeginPoint.x;
-    int y1 = lineBeginPoint.y;
-    int x2 = lineEndPoint.x;
-    int y2 = lineEndPoint.y;
-    if (x2 == x1) /* vertical line */
-      return new Point(x2, (y2 < y1 ? this.y : this.y + this.height));
-    if (y2 == y1) /* horizontal line */
-      return new Point((x2 < x1 ? this.x : this.x + this.width), y2);
-
-    double m = (y2 - y1) / (x2 - x1);
-    int x = (x2 < x1 ? this.x : this.x + this.width);
-    double fy = m * (x - x2) + y2;
-    int y;
-    /* float comparison, because fy may be bigger than the biggest integer */
-    if (fy >= this.y && fy <= this.y + this.height) {
-      y = fy.toInt();
-    } else {
-      y = (y2 < y1 ? this.y : this.y + this.height);
-      x = ((fy - y2) / m).toInt() + x2;
-    }
-    return new Point(x, y);
-  }
-
-{% endhighlight %}
-
-After the local x and y variables are replaced by the new intersectionX and intersectionY variables, a problem is introduced. After creating two boxes with a line between them, moving one of the boxes jumps the box. Try to find out what the problem is?
-
-**Code 08-09.30**: Local variables intersectionX and intersectionY used.
-
-{% highlight java %}
-
-  Point getIntersectionPoint(Point lineBeginPoint, Point lineEndPoint) {
-    int x1 = lineBeginPoint.x;
-    int y1 = lineBeginPoint.y;
-    int x2 = lineEndPoint.x;
-    int y2 = lineEndPoint.y;
-    if (x2 == x1) {
-      /* vertical line */
-      return new Point(x2, (y2 < y1 ? y : y + height));
-    } 
-    if (y2 == y1) {
-      /* horizontal line */
-      return new Point((x2 < x1 ? x : x + width), y2);
-    } 
-      
-    double m = (y2 - y1) / (x2 - x1);
-    int intersectionX = (x2 < x1 ? x : x + width);
-    double fy = m * (intersectionX - x2) + y2;
-    int intersectionY;
-    /* float comparison, because fy may be bigger than the biggest integer */
-    if (fy >= y && fy <= y + height) {
-      intersectionY = fy.toInt();
-    } else {
-      y = (y2 < y1 ? y : y + height);
-      x = ((fy - y2) / m).toInt() + x2;
-    }
-    return new Point(intersectionX, intersectionY);
-  }
-
-{% endhighlight %}
 
 
  
