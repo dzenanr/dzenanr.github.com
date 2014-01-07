@@ -11,29 +11,6 @@ The code for the Model Concepts project is at [model_concepts on GitHub](https:/
 
 The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
-The use of the script element in the MagicBoxes.html file has changed from
-
-{% highlight html %}
-
-<script type="text/javascript" src="MagicBoxes.dart.app.js"></script>
-
-{% endhighlight %}
-
-to
-
-{% highlight html %}
-
-<script type="application/dart" src="MagicBoxes.dart"></script>
-<script src =
-"http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js">
-</script>
-
-{% endhighlight %}
-
-This change requires the Internet access when you run code in the Dart Editor.
-
-If you use Spirals 00 ... 11 locally, checkout branches s00a ... s11a, where changes have been made.
-
 Overview
 --------
 
@@ -117,10 +94,10 @@ The hideNonSelectionButton attribute is obtained from the document objet.
 {% highlight java %}
 
   MenuBar(this.board) {  
-    deleteSelectionButton = document.query('#delete-selection');
+    deleteSelectionButton = document.querySelector('#delete-selection');
     ...
-    hideNonSelectionButton = document.query('#hide-non-selection');
-    showHiddenButton = document.query('#show-hidden');
+    hideNonSelectionButton = document.querySelector('#hide-non-selection');
+    showHiddenButton = document.querySelector('#show-hidden');
 
 {% endhighlight %}
 
@@ -131,14 +108,14 @@ A click on the button triggers the hideNonSelection method of the Board class.
 {% highlight java %}
 
     // Menu bar events.
-    deleteSelectionButton.on.click.add((MouseEvent e) {
+    deleteSelectionButton.onClick.listen((MouseEvent e) {
       board.deleteSelection();
     });
     ...
-    hideNonSelectionButton.on.click.add((MouseEvent e) {
+    hideNonSelectionButton.onClick.listen((MouseEvent e) {
       board.hideNonSelection();
     });
-    showHiddenButton.on.click.add((MouseEvent e) {
+    showHiddenButton.onClick.listen((MouseEvent e) {
       board.showHidden();
     });
 
@@ -253,7 +230,7 @@ The entry symbol is drawn in the Box class.
       board.context.beginPath();
       ...
       if (entry) {
-        board.context.fillText('|| ' + title, x + TOS, y + TOS, width - TOS);
+        board.context.fillText('|| ${title}', x + TOS, y + TOS, width - TOS);
       } else {
         board.context.fillText(title, x + TOS, y + TOS, width - TOS);
       }
@@ -268,8 +245,8 @@ If the last selected box is an entry concept, a click in the Box (name) field sh
 
   ToolBar(this.board) {
     ...
-    boxEntryCheckbox = document.query('#boxEntry');
-    boxEntryCheckbox.on.change.add((Event e) {
+    boxEntryCheckbox = document.querySelector('#boxEntry');
+    boxEntryCheckbox.onChange.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         box.entry = boxEntryCheckbox.checked;
@@ -315,7 +292,7 @@ The item sequence element is removed and the item init element is added.
 class ToolBar {
   ...
   InputElement itemNameInput;
-  OptionElement itemOption;
+  SelectElement itemOption;
   // InputElement itemSequenceInput;
   InputElement itemInitInput;
   ButtonElement addItemButton;
@@ -335,7 +312,7 @@ The item init input is obtained from the document.
 
   ToolBar(this.board) {
     ...
-    itemInitInput = document.query('#itemInit');
+    itemInitInput = document.querySelector('#itemInit');
 
 {% endhighlight %}
 
@@ -362,8 +339,8 @@ In the ToolBar constructor, an added item must have a unique name within its box
 
 {% highlight java %}
 
-    addItemButton = document.query('#addItem');
-    addItemButton.on.click.add((MouseEvent e) {
+    addItemButton = document.querySelector('#addItem');
+    addItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         String itemName = itemNameInput.value.trim();
@@ -386,8 +363,8 @@ A new or updated box name must be unique within the (board) model.
 
 {% highlight java %}
 
-    boxNameInput = document.query('#boxName');
-    boxNameInput.on.focus.add((Event e) {
+    boxNameInput = document.querySelector('#boxName');
+    boxNameInput.onFocus.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         boxNameInput.value = box.title;
@@ -398,7 +375,7 @@ A new or updated box name must be unique within the (board) model.
         itemInitInput.value = '';
       }
     });
-    boxNameInput.on.input.add((Event e) {
+    boxNameInput.onInput.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         String boxName = boxNameInput.value.trim();
@@ -436,13 +413,13 @@ In the ToolBar constructor, if a category of the current item is changed, a defa
 
 {% highlight java %}
 
-    itemOption = document.query('#itemCategory');
-    itemOption.on.change.add((MouseEvent e) {
+    itemOption = document.querySelector('#itemCategory');
+    itemOption.onChange.listen((Event e) {
       if (currentItem != null) {
         currentItem.name = itemNameInput.value;
         currentItem.category = itemOption.value;
         itemNameInput.select();
-      } 
+      }
       itemInitInput.value = '';
     });
 
@@ -454,8 +431,8 @@ An item may become the current item by entering its name in the Item field and c
 
 {% highlight java %}
 
-    getItemButton = document.query('#getItem');
-    getItemButton.on.click.add((MouseEvent e) {
+    getItemButton = document.querySelector('#getItem');
+    getItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         Item item = box.findItem(itemNameInput.value);
@@ -479,8 +456,8 @@ The current item may be moved up by the Up button.
 
 {% highlight java %}
 
-    upItemButton = document.query('#upItem');
-    upItemButton.on.click.add((MouseEvent e) {
+    upItemButton = document.querySelector('#upItem');
+    upItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -497,7 +474,7 @@ The current item may be moved up by the Up button.
             itemOption.value = 'attribute';
             itemInitInput.value = '';
           }
-        } 
+        }
       }
     });
 
@@ -530,8 +507,8 @@ The current item may be moved down by the Down button.
 
 {% highlight java %}
 
-    downItemButton = document.query('#downItem');
-    downItemButton.on.click.add((MouseEvent e) {
+    downItemButton = document.querySelector('#downItem');
+    downItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -581,8 +558,8 @@ The current item may be changed and the changes are accepted by the Set button.
 
 {% highlight java %}
 
-    setItemButton = document.query('#setItem');
-    setItemButton.on.click.add((MouseEvent e) {
+    setItemButton = document.querySelector('#setItem');
+    setItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -608,8 +585,8 @@ The current item may be removed.
 
 {% highlight java %}
 
-    removeItemButton = document.query('#removeItem');
-    removeItemButton.on.click.add((MouseEvent e) {
+    removeItemButton = document.querySelector('#removeItem');
+    removeItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -687,7 +664,7 @@ There is a checkbox in the tool bar for internal lines.
 
 class ToolBar {
   ...
-  OptionElement lineOption;
+  SelectElement lineOption;
   InputElement lineInternalCheckbox;
   ButtonElement getLineButton;
   ButtonElement setLineButton;
@@ -700,21 +677,21 @@ Should a change of internal to external (or vice versa) line, populate line elem
 
 {% highlight java %}
 
-    lineInternalCheckbox = document.query('#lineInternal');
-    lineInternalCheckbox.on.change.add((Event e) {
+    lineInternalCheckbox = document.querySelector('#lineInternal');
+    lineInternalCheckbox.onChange.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.internal = lineInternalCheckbox.checked;
-        
+
         lineOption.value = line.category;
-        
+
         line12Box1Label.text = line.box1.title;
         line12Box2Label.text = line.box2.title;
         line12MinInput.value = line.box1box2Min;
         line12MaxInput.value = line.box1box2Max;
         line12IdCheckbox.checked = line.box1box2Id;
         line12NameInput.value = line.box1box2Name;
-        
+
         line21Box2Label.text = line.box2.title;
         line21Box1Label.text = line.box1.title;
         line21MinInput.value = line.box2box1Min;
@@ -744,21 +721,21 @@ If a category of the last selected line is changed, there are consequences that 
 
 {% highlight java %}
 
-    lineOption = document.query('#lineCategory');
-    lineOption.on.change.add((MouseEvent e) {
+    lineOption = document.querySelector('#lineCategory');
+    lineOption.onChange.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.category = lineOption.value;
-        
+
         lineInternalCheckbox.checked = line.internal;
-        
+
         line12Box1Label.text = line.box1.title;
         line12Box2Label.text = line.box2.title;
         line12MinInput.value = line.box1box2Min;
         line12MaxInput.value = line.box1box2Max;
         line12IdCheckbox.checked = line.box1box2Id;
         line12NameInput.value = line.box1box2Name;
-        
+
         line21Box2Label.text = line.box2.title;
         line21Box1Label.text = line.box1.title;
         line21MinInput.value = line.box2box1Min;
@@ -770,7 +747,7 @@ If a category of the last selected line is changed, there are consequences that 
 
 {% endhighlight %}
 
-Those consequences are defined in the set category property method.
+Those consequences are defined in the set category property method of the Line class.
 
 **Code 10-11.31**: Change line category with consequences.
 
@@ -783,12 +760,12 @@ Those consequences are defined in the set category property method.
       box1box2Min = '0';
       box1box2Max = 'N';
       box1box2Id = false;
-      
+
       box2box1Name = '';
       box2box1Min = '1';
       box2box1Max = '1';
       box2box1Id = false;
-      
+
       _twin1 = false;
       _twin2 = false;
     } else if (category == 'inheritance') {
@@ -796,27 +773,27 @@ Those consequences are defined in the set category property method.
       box1box2Min = '0';
       box1box2Max = '1';
       box1box2Id = false;
-      
+
       box2box1Name = 'is';
       box2box1Min = '1';
       box2box1Max = '1';
       box2box1Id = true;
-      
+
       _twin1 = false;
       _twin2 = false;
     } else if (category == 'reflexive') {
       box2 = box1;
-      
+
       box1box2Name = _putInEnglishPlural(box1.title.toLowerCase());
       box1box2Min = '0';
       box1box2Max = 'N';
       box1box2Id = false;
-      
+
       box2box1Name = box1.title.toLowerCase();
       box2box1Min = '0';
       box2box1Max = '1';
       box2box1Id = false;
-      
+
       _twin1 = false;
       _twin2 = false;
     }  else if (category == 'twin') {
@@ -829,7 +806,7 @@ Those consequences are defined in the set category property method.
           _twin1 = true;
           _twin2 = false;
           twinLine.category = 'twin';
-        }   
+        }
       }
     }
   }
@@ -842,20 +819,20 @@ The last selected line is brought to the tool bar by the click event on the get 
 
 {% highlight java %}
 
-    getLineButton = document.query('#getLine');
-    getLineButton.on.click.add((MouseEvent e) {
+    getLineButton = document.querySelector('#getLine');
+    getLineButton.onClick.listen((MouseEvent e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         lineOption.value = line.category;
         lineInternalCheckbox.checked = line.internal;
-        
+
         line12Box1Label.text = line.box1.title;
         line12Box2Label.text = line.box2.title;
         line12MinInput.value = line.box1box2Min;
         line12MaxInput.value = line.box1box2Max;
         line12IdCheckbox.checked = line.box1box2Id;
         line12NameInput.value = line.box1box2Name;
-        
+
         line21Box2Label.text = line.box2.title;
         line21Box1Label.text = line.box1.title;
         line21MinInput.value = line.box2box1Min;
@@ -908,12 +885,12 @@ The constants are defined in the Board class.
 
 class Board {
   
-  static final int MIN_WIDTH = 990;
-  static final int MIN_HEIGHT = 580;
-  static final int DEFAULT_LINE_WIDTH = 1;
-  static final String DEFAULT_LINE_COLOR = '#000000'; // black
-  static final String SOFT_LINE_COLOR = '#736f6e '; // gray
-  static final String DEFAULT_FONT_SIZE = 12;
+  static const int MIN_WIDTH = 990;
+  static const int MIN_HEIGHT = 580;
+  static const int DEFAULT_LINE_WIDTH = 1;
+  static const String DEFAULT_LINE_COLOR = '#000000'; // black
+  static const String SOFT_LINE_COLOR = '#736f6e '; // gray
+  static const String DEFAULT_FONT_SIZE = '12';
 
 {% endhighlight %}
 
@@ -938,11 +915,11 @@ A relationship direction may be an identifier of its source concept. In that cas
 {% highlight java %}
 
       if (box1box2Id) {
-        board.context.font = 'bold italic ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+        board.context.font = 'bold italic ${Board.DEFAULT_FONT_SIZE}px sans-serif';
       } else if (box1box2Min != '0') {
-        board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+        board.context.font = 'bold ${Board.DEFAULT_FONT_SIZE}px sans-serif';
       } else {
-        board.context.font = '' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
+        board.context.font = '${Board.DEFAULT_FONT_SIZE}px sans-serif';
       }
 
 {% endhighlight %}
@@ -1017,24 +994,24 @@ which activates the toPng method in the new PngPanel class.
 {% highlight java %}
 
 class PngPanel {
-  
-final Board board;
-  
+
+  final Board board;
+
   ButtonElement fromModelToPngButton;
-  
+
   PngPanel(this.board) {
-    fromModelToPngButton = document.query('#fromModelToPng');
-    fromModelToPngButton.on.click.add((MouseEvent e) {
+    fromModelToPngButton = document.querySelector('#fromModelToPng');
+    fromModelToPngButton.onClick.listen((MouseEvent e) {
       //board.toPng();
       toPng();
     });
   }
-  
+
   void toPng() {
-    ImageElement modelImage = document.query('#modelImage');
-    modelImage.src = board.canvas.toDataURL("image/png");
+    ImageElement modelImage = document.querySelector('#modelImage');
+    modelImage.src = board.canvas.toDataUrl("image/png");
   }
-  
+
 }
 
 {% endhighlight %}
@@ -1092,17 +1069,17 @@ The JSON panel contains the button and the text area where the JSON hierarchical
 {% highlight java %}
 
 class JsonPanel {
-  
+
   final Board board;
-  
+
   TextAreaElement modelJsonTextArea;
   ButtonElement fromModelToJsonButton;
-  
+
   JsonPanel(this.board) {
-    modelJsonTextArea = document.query('#modelJson');
-    fromModelToJsonButton = document.query('#fromModelToJson');
-    fromModelToJsonButton.on.click.add((MouseEvent e) {
-      modelJsonTextArea.value = board.toJson();
+    modelJsonTextArea = document.querySelector('#modelJson');
+    fromModelToJsonButton = document.querySelector('#fromModelToJson');
+    fromModelToJsonButton.onClick.listen((MouseEvent e) {
+      modelJsonTextArea.value =  board.toJson();
     });
   }
 
@@ -1146,17 +1123,20 @@ The encode method of the JSON constant (of the JsonCodec class), which is a part
 
 {% highlight java %}
 
-#import('dart:html');
-#import('dart:convert');
+library mb;
 
-#source('Board.dart');
-#source('Box.dart');
-#source('Line.dart');
-#source('MenuBar.dart');
-#source('ToolBar.dart');
-#source('Item.dart');
-#source('PngPanel.dart');
-#source('JsonPanel.dart');
+import 'dart:html';
+import 'dart:async';
+import 'dart:convert';
+
+part 'board.dart';
+part 'box.dart';
+part 'line.dart';
+part 'menu_bar.dart';
+part 'tool_bar.dart';
+part 'item.dart';
+part 'png_panel.dart';
+part 'json_panel.dart';
 
 {% endhighlight %}
 
@@ -1286,37 +1266,49 @@ Constants from the Board class are used in the Box class.
   void draw() {
     if (!isHidden()) {
       board.context.beginPath();
-      ...
-      board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 'px sans-serif';
-      ...
+      board.context.clearRect(x, y, width, height);
+      board.context.rect(x, y, width, height);
+      board.context.moveTo(x, y + TBH);
+      board.context.lineTo(x + width, y + TBH);
+      board.context.font = 'bold ${Board.DEFAULT_FONT_SIZE}px sans-serif';
+      board.context.textAlign = 'start';
+      board.context.textBaseline = 'top';
+      if (entry) {
+        board.context.fillText('|| ${title}', x + TOS, y + TOS, width - TOS);
+      } else {
+        board.context.fillText(title, x + TOS, y + TOS, width - TOS);
+      }
+      sortItemsBySequence();
+      num i = 0;
       for (Item item in items) {
         if (item.category == 'attribute') {
-          board.context.font = '' + Board.DEFAULT_FONT_SIZE + 
-          'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = '${Board.DEFAULT_FONT_SIZE}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         } else if (item.category == 'guid') {
-          board.context.font = 'italic ' + Board.DEFAULT_FONT_SIZE + 
-          'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = 'italic ${Board.DEFAULT_FONT_SIZE}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         } else if (item.category == 'identifier') {
-          board.context.font = 'bold italic ' + Board.DEFAULT_FONT_SIZE + 
-          'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = 'bold italic ${Board.DEFAULT_FONT_SIZE}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         } else if (item.category == 'required') {
-          board.context.font = 'bold ' + Board.DEFAULT_FONT_SIZE + 
-          'px sans-serif';
-          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS, 
+          board.context.font = 'bold ${Board.DEFAULT_FONT_SIZE}px sans-serif';
+          board.context.fillText(item.name, x + TOS, y + TOS + TBH + i * IOS,
             width - TOS);
         }
         i++;
       }
-      ...
+      if (isSelected()) {
+        board.context.rect(x, y, SSS, SSS);
+        board.context.rect(x + width - SSS, y, SSS, SSS);
+        board.context.rect(x + width - SSS, y + height - SSS, SSS, SSS);
+        board.context.rect(x, y + height - SSS, SSS, SSS);
+      }
       board.context.lineWidth = Board.DEFAULT_LINE_WIDTH;
       board.context.strokeStyle = Board.DEFAULT_LINE_COLOR;
-      
+
       board.context.stroke();
       board.context.closePath();
     }
@@ -1355,7 +1347,7 @@ In the Line class, in the set category property method, a reflexive line is inte
 
 {% highlight java %}
 
-else if (category == 'reflexive') {
+    } else if (category == 'reflexive') {
       box2 = box1;
       internal = true;
 
@@ -1367,7 +1359,7 @@ Similarly, if the category of a line is twin, private twin attributes of the cur
 
 {% highlight java %}
 
-else if (category == 'twin') {
+    } else if (category == 'twin') {
       Line twinLine = board.findTwinLine(this);
       if (twinLine != null) {
         if (twinLine.twin) {
@@ -1378,10 +1370,10 @@ else if (category == 'twin') {
         } else {
           _twin1 = true;
           _twin2 = false;
-          // twinLine.category = 'twin';
-        }   
+        }
       }
     }
+  }
 
 {% endhighlight %}
 
@@ -1429,21 +1421,21 @@ There is a new button in the JsonPanel class to transform a JSON representation 
 {% highlight java %}
 
 class JsonPanel {
-  
+
   final Board board;
-  
+
   TextAreaElement modelJsonTextArea;
   ButtonElement fromModelToJsonButton;
   ButtonElement fromJsonToModelButton;
-  
+
   JsonPanel(this.board) {
-    modelJsonTextArea = document.query('#modelJson');
-    fromModelToJsonButton = document.query('#fromModelToJson');
-    fromModelToJsonButton.on.click.add((MouseEvent e) {
+    modelJsonTextArea = document.querySelector('#modelJson');
+    fromModelToJsonButton = document.querySelector('#fromModelToJson');
+    fromModelToJsonButton.onClick.listen((MouseEvent e) {
       modelJsonTextArea.value = board.toJson();
     });
-    fromJsonToModelButton = document.query('#fromJsonToModel');
-    fromJsonToModelButton.on.click.add((MouseEvent e) {
+    fromJsonToModelButton = document.querySelector('#fromJsonToModel');
+    fromJsonToModelButton.onClick.listen((MouseEvent e) {
       board.fromJson(modelJsonTextArea.value);
     });
   }
