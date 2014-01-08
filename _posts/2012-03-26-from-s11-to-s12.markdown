@@ -11,8 +11,6 @@ The code for the Model Concepts project is at [model_concepts on GitHub](https:/
 
 The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
-If you use spirals of the MagicBoxes project, checkout branches s00a ... s12a. They are updates of s00 ... s12 tags, but only minimal updates, so that the code may be executed with newer versions of Dart.
-
 Overview
 --------
 
@@ -57,7 +55,7 @@ The save model button is initialized in the constructor of the MenuBar class.
 {% highlight java %}
 
   MenuBar(this.board) {  
-    saveModelButton = document.query('#save-model');
+    saveModelButton = document.querySelector('#save-model');
 
 {% endhighlight %}
 
@@ -67,7 +65,7 @@ In the constructor of the MenuBar class, the button click event is defined.
 
 {% highlight java %}
 
-    saveModelButton.on.click.add((MouseEvent e) {
+    saveModelButton.onClick.listen((MouseEvent e) {
       board.saveModel();
     });
 
@@ -96,7 +94,7 @@ In the Board class, the save model method obtains the JSON representation of the
   void saveModel() {
     String json = toJson();
     if (json != null) {
-      window.localStorage.setItem("model", json);
+      window.localStorage['model'] = json;
     }
   }
 
@@ -124,7 +122,7 @@ The open model button is initialized in the constructor of the MenuBar class.
 {% highlight java %}
 
   MenuBar(this.board) {  
-    openModelButton = document.query('#open-model');
+    openModelButton = document.querySelector('#open-model');
 
 {% endhighlight %}
 
@@ -134,7 +132,7 @@ A click on the button opens the model.
 
 {% highlight java %}
 
-    openModelButton.on.click.add((MouseEvent e) {
+    openModelButton.onClick.listen((MouseEvent e) {
       board.openModel();
     });
 
@@ -162,7 +160,7 @@ In the Board class, the open model method obtains the JSON text from the local s
 {% highlight java %}
 
   void openModel() {
-    String json = window.localStorage.getItem("model");
+    String json = window.localStorage['model'];
     if (json != null) {
       fromJson(json);
     }
@@ -192,7 +190,7 @@ The model name input is initialized in the constructor of the MenuBar class.
 {% highlight java %}
 
   MenuBar(this.board) { 
-    modelNameInput = document.query('#model-name');
+    modelNameInput = document.querySelector('#model-name');
 
 {% endhighlight %}
 
@@ -202,11 +200,11 @@ In the constructor of the MenuBar class, for both open and save events, the mode
 
 {% highlight java %}
 
-    openModelButton.on.click.add((MouseEvent e) {
+    openModelButton.onClick.listen((MouseEvent e) {
       String modelName = modelNameInput.value.trim();
       board.openModel(modelName);
     });
-    saveModelButton.on.click.add((MouseEvent e) {
+    saveModelButton.onClick.listen((MouseEvent e) {
       String modelName = modelNameInput.value.trim();
       board.saveModel(modelName);
     });
@@ -236,16 +234,16 @@ In the Board class, the open and save model methods are updated to include a mod
 {% highlight java %}
 
   void openModel(String name) {
-    String json = window.localStorage.getItem(name);
+    String json = window.localStorage[name];
     if (json != null) {
       fromJson(json);
     }
   }
-  
+
   void saveModel(String name) {
     String json = toJson();
     if (json != null) {
-      window.localStorage.setItem(name, json);
+      window.localStorage[name] = json;
     }
   }
 
@@ -259,8 +257,8 @@ An item may be typed. The item type option is added to the ToolBar class, after 
 
 class ToolBar {
   ...
-  OptionElement itemCategoryOption;
-  OptionElement itemTypeOption;
+  SelectElement itemCategoryOption;
+  SelectElement itemTypeOption;
 
 {% endhighlight %}
 
@@ -270,13 +268,13 @@ In the constructor of the ToolBar class, the HTML element with the itemType id i
 
 {% highlight java %}
 
-    itemTypeOption = document.query('#itemType');
-    itemTypeOption.on.change.add((MouseEvent e) {
+    itemTypeOption = document.querySelector('#itemType');
+    itemTypeOption.onChange.listen((Event e) {
       if (currentItem != null) {
         currentItem.name = itemNameInput.value;
         currentItem.type = itemTypeOption.value;
         itemNameInput.select();
-      } 
+      }
       itemInitInput.value = '';
     });
 
@@ -340,8 +338,7 @@ In the Board class, the itemFromJson method is updated to include the type attri
     String name = itemMap["name"];
     String category = itemMap["category"];
     Item item = new Item(box, name, category);
-    String sequenceText = itemMap["sequence"];
-    int sequence = Math.parseInt(sequenceText);
+    int sequence = itemMap["sequence"];
     item.sequence = sequence;
     item.type = itemMap["type"];
     item.init = itemMap["init"];
@@ -349,14 +346,14 @@ In the Board class, the itemFromJson method is updated to include the type attri
 
 {% endhighlight %}
 
-In the ToolBar class, the focus event of the box name input is updated to present the Date type as the default type for box items.
+In the ToolBar class, the focus event of the box name input is updated to present the String type as the default type for box items.
 
 **Code 11-12.22**: Box name input.
 
 {% highlight java %}
 
-    boxNameInput = document.query('#boxName');
-    boxNameInput.on.focus.add((Event e) {
+    boxNameInput = document.querySelector('#boxName');
+    boxNameInput.onFocus.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         boxNameInput.value = box.title;
@@ -377,8 +374,8 @@ The click event on the add item button is updated to include the type attribute.
 
 {% highlight java %}
 
-    addItemButton = document.query('#addItem');
-    addItemButton.on.click.add((MouseEvent e) {
+    addItemButton = document.querySelector('#addItem');
+    addItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         String itemName = itemNameInput.value.trim();
@@ -401,8 +398,8 @@ The click event on the get item button is updated to include the type attribute.
 
 {% highlight java %}
 
-    getItemButton = document.query('#getItem');
-    getItemButton.on.click.add((MouseEvent e) {
+    getItemButton = document.querySelector('#getItem');
+    getItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         Item item = box.findItem(itemNameInput.value);
@@ -427,8 +424,8 @@ The click event on the up item button is updated to include the type attribute.
 
 {% highlight java %}
 
-    upItemButton = document.query('#upItem');
-    upItemButton.on.click.add((MouseEvent e) {
+    upItemButton = document.querySelector('#upItem');
+    upItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -446,7 +443,7 @@ The click event on the up item button is updated to include the type attribute.
             itemTypeOption.value = 'String';
             itemInitInput.value = '';
           }
-        } 
+        }
       }
     });
 
@@ -458,8 +455,8 @@ The click event on the down item button is updated to include the type attribute
 
 {% highlight java %}
 
-    downItemButton = document.query('#downItem');
-    downItemButton.on.click.add((MouseEvent e) {
+    downItemButton = document.querySelector('#downItem');
+    downItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -489,8 +486,8 @@ The click event on the set item button is updated to include the type attribute.
 
 {% highlight java %}
 
-    setItemButton = document.query('#setItem');
-    setItemButton.on.click.add((MouseEvent e) {
+    setItemButton = document.querySelector('#setItem');
+    setItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -517,8 +514,8 @@ The click event on the remove item button is updated to include the type attribu
 
 {% highlight java %}
 
-    removeItemButton = document.query('#removeItem');
-    removeItemButton.on.click.add((MouseEvent e) {
+    removeItemButton = document.querySelector('#removeItem');
+    removeItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -532,6 +529,7 @@ The click event on the remove item button is updated to include the type attribu
         }
       }
     });
+
 
 {% endhighlight %}
 
@@ -554,8 +552,8 @@ If there is a selected box and the current item of the box exists, the findNextI
 
 {% highlight java %}
 
-    getNextItemButton = document.query('#getNextItem');
-    getNextItemButton.on.click.add((MouseEvent e) {
+    getNextItemButton = document.querySelector('#getNextItem');
+    getNextItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -574,7 +572,7 @@ If there is a selected box and the current item of the box exists, the findNextI
             itemTypeOption.value = 'String';
             itemInitInput.value = '';
           }
-        } 
+        }
       }
     });
 
@@ -639,7 +637,8 @@ If there is no current item, the next item will become the first item.
 
 {% highlight java %}
 
-    getNextItemButton.on.click.add((MouseEvent e) {
+    getNextItemButton = document.querySelector('#getNextItem');
+    getNextItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -659,7 +658,7 @@ If there is no current item, the next item will become the first item.
             itemInitInput.value = '';
           }
         } else {
-          if (!box.items.isEmpty()) {
+          if (!box.items.isEmpty) {
             Item firstItem = box.findFirstItem();
             currentItem = firstItem;
             itemNameInput.value = firstItem.name;
@@ -668,7 +667,7 @@ If there is no current item, the next item will become the first item.
             itemInitInput.value = firstItem.init;
             itemNameInput.select();
           }
-        } 
+        }
       }
     });
 
@@ -713,10 +712,10 @@ The close button is initialized in the constructor of the MenuBar class.
 {% highlight java %}
 
   MenuBar(this.board) {  
-    modelNameInput = document.query('#model-name');
-    openModelButton = document.query('#open-model');
-    saveModelButton = document.query('#save-model');
-    closeModelButton = document.query('#close-model');
+    modelNameInput = document.querySelector('#model-name');
+    openModelButton = document.querySelector('#open-model');
+    saveModelButton = document.querySelector('#save-model');
+    closeModelButton = document.querySelector('#close-model');
 
 {% endhighlight %}
 
@@ -726,7 +725,7 @@ The close model button calls the closeModel method.
 
 {% highlight java %}
 
-    closeModelButton.on.click.add((MouseEvent e) {
+    closeModelButton.onClick.listen((MouseEvent e) {
       modelNameInput.value = '';
       board.closeModel();
     });
@@ -757,31 +756,31 @@ When a model is transformed to its JSON representation, the JSON text in the JSO
 {% highlight java %}
 
 class JsonPanel {
-  
+
   final Board board;
-  
+
   TextAreaElement modelJsonTextArea;
   ButtonElement fromModelToJsonButton;
   ButtonElement fromJsonToModelButton;
   ButtonElement clearButton;
-  
+
   JsonPanel(this.board) {
-    modelJsonTextArea = document.query('#modelJson');
-    fromModelToJsonButton = document.query('#fromModelToJson');
-    fromModelToJsonButton.on.click.add((MouseEvent e) {
+    modelJsonTextArea = document.querySelector('#modelJson');
+    fromModelToJsonButton = document.querySelector('#fromModelToJson');
+    fromModelToJsonButton.onClick.listen((MouseEvent e) {
       modelJsonTextArea.value =  board.toJson();
       modelJsonTextArea.select();
     });
-    fromJsonToModelButton = document.query('#fromJsonToModel');
-    fromJsonToModelButton.on.click.add((MouseEvent e) {
+    fromJsonToModelButton = document.querySelector('#fromJsonToModel');
+    fromJsonToModelButton.onClick.listen((MouseEvent e) {
       board.fromJson(modelJsonTextArea.value);
     });
-    clearButton = document.query('#clearJson');
-    clearButton.on.click.add((MouseEvent e) {
+    clearButton = document.querySelector('#clearJson');
+    clearButton.onClick.listen((MouseEvent e) {
       clear();
     });
   }
-  
+
   void clear() {
     modelJsonTextArea.value = '';
   }
@@ -811,34 +810,35 @@ The PNG image of a model may be now hidden and the shown again. The clear button
 
 {% highlight java %}
 
-class PngPanel { 
-  final Board board;
-  
+class PngPanel {
+
+final Board board;
+
   ImageElement modelImage;
   ButtonElement fromModelToPngButton;
   ButtonElement clearButton;
-  
+
   PngPanel(this.board) {
-    modelImage = document.query('#modelImage');
-    fromModelToPngButton = document.query('#fromModelToPng');
-    fromModelToPngButton.on.click.add((MouseEvent e) {
-      modelImage.src = board.canvas.toDataURL("image/png");
+    modelImage = document.querySelector('#modelImage');
+    fromModelToPngButton = document.querySelector('#fromModelToPng');
+    fromModelToPngButton.onClick.listen((MouseEvent e) {
+      modelImage.src = board.canvas.toDataUrl("image/png");
       show();
     });
-    clearButton = document.query('#clearImage');
-    clearButton.on.click.add((MouseEvent e) {
+    clearButton = document.querySelector('#clearImage');
+    clearButton.onClick.listen((MouseEvent e) {
       hide();
     });
   }
-  
+
   void hide() {
     modelImage.hidden = true;
   }
-  
+
   void show() {
     modelImage.hidden = false;
   }
-  
+
 }
 
 {% endhighlight %}
@@ -909,13 +909,13 @@ The new version of the toggleSelection method delegates its task to the select a
     board.lastBoxSelected = this;
     board.toolBar.bringSelectedBox();
   }
-  
+
   void deselect() {
     _selected = false;
     board.lastBoxSelected = null;
   }
-  
-  void toggleSelection() { 
+
+  void toggleSelection() {
     if (isSelected()) {
       deselect();
     } else {
@@ -933,7 +933,7 @@ In the ToolBar class, the focus event has been removed.
 
     boxNameInput = document.query('#boxName');
     /*
-    boxNameInput.on.focus.add((Event e) {
+    boxNameInput.onFocus.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         boxNameInput.value = box.title;
@@ -976,13 +976,13 @@ Similarly, in the Line class, the new version of the toggleSelection method dele
     board.lastLineSelected = this;
     board.toolBar.bringSelectedLine();
   }
-  
+
   void deselect() {
     _selected = false;
     board.lastLineSelected = null;
   }
-  
-  void toggleSelection() { 
+
+  void toggleSelection() {
     if (isSelected()) {
       deselect();
     } else {
@@ -1003,14 +1003,14 @@ The bringSelectedLine method is added to the ToolBar class.
     if (line != null) {
       lineOption.value = line.category;
       lineInternalCheckbox.checked = line.internal;
-      
+
       line12Box1Label.text = line.box1.title;
       line12Box2Label.text = line.box2.title;
       line12MinInput.value = line.box1box2Min;
       line12MaxInput.value = line.box1box2Max;
       line12IdCheckbox.checked = line.box1box2Id;
       line12NameInput.value = line.box1box2Name;
-      
+
       line21Box2Label.text = line.box2.title;
       line21Box1Label.text = line.box1.title;
       line21MinInput.value = line.box2box1Min;
@@ -1031,14 +1031,15 @@ There is no more Set item button in the tool bar.
 class ToolBar {
   ...
   InputElement itemNameInput;
-  OptionElement itemCategoryOption;
-  OptionElement itemTypeOption;
+  SelectElement itemCategoryOption;
+  SelectElement itemTypeOption;
   InputElement itemInitInput;
   ButtonElement addItemButton;
+  ButtonElement getPreviousItemButton;
   ButtonElement getItemButton;
   ButtonElement getNextItemButton;
-  ButtonElement upItemButton;
-  ButtonElement downItemButton;
+  ButtonElement moveUpItemButton;
+  ButtonElement moveDownItemButton;
   ButtonElement removeItemButton;
 
 {% endhighlight %}
@@ -1049,7 +1050,8 @@ An item name of the current item may be updated, without using the Set item butt
 
 {% highlight java %}
 
-    itemNameInput.on.input.add((Event e) {
+    itemNameInput = document.querySelector('#itemName');
+    itemNameInput.onInput.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -1073,14 +1075,13 @@ The item category of the current item may be changed. The commented code is actu
 
 {% highlight java %}
 
-    itemCategoryOption = document.query('#itemCategory');
-    itemCategoryOption.on.change.add((MouseEvent e) {
+    itemCategoryOption = document.querySelector('#itemCategory');
+    itemCategoryOption.onChange.listen((Event e) {
       if (currentItem != null) {
         //currentItem.name = itemNameInput.value;
         currentItem.category = itemCategoryOption.value;
         itemNameInput.select();
-      } 
-      //itemInitInput.value = '';
+      }
     });
 
 {% endhighlight %}
@@ -1091,13 +1092,13 @@ The item type of the current item may be changed. The commented code is actually
 
 {% highlight java %}
 
-    itemTypeOption = document.query('#itemType');
-    itemTypeOption.on.change.add((MouseEvent e) {
+    itemTypeOption = document.querySelector('#itemType');
+    itemTypeOption.onChange.listen((Event e) {
       if (currentItem != null) {
         //currentItem.name = itemNameInput.value;
         currentItem.type = itemTypeOption.value;
         itemNameInput.select();
-      } 
+      }
       itemInitInput.value = '';
     });
 
@@ -1109,8 +1110,8 @@ There is a new input event for the item init input.
 
 {% highlight java %}
 
-    itemInitInput = document.query('#itemInit');
-    itemInitInput.on.input.add((Event e) {
+    itemInitInput = document.querySelector('#itemInit');
+    itemInitInput.onInput.listen((Event e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -1130,7 +1131,7 @@ There is no more Set line button in the tool bar.
 
 class ToolBar {
   ...
-  OptionElement lineOption;
+  SelectElement lineOption;
   InputElement lineInternalCheckbox;
   //ButtonElement setLineButton;
 
@@ -1142,8 +1143,8 @@ The following code snippets (Code 11-12.57 -- Code 11-12.61) show updated line e
 
 {% highlight java %}
 
-    lineOption = document.query('#lineCategory');
-    lineOption.on.change.add((MouseEvent e) {
+    lineOption = document.querySelector('#lineCategory');
+    lineOption.onChange.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.category = lineOption.value;
@@ -1156,8 +1157,8 @@ The following code snippets (Code 11-12.57 -- Code 11-12.61) show updated line e
 
 {% highlight java %}
 
-    line12MinInput = document.query('#line12Min');
-    line12MinInput.on.input.add((Event e) {
+    line12MinInput = document.querySelector('#line12Min');
+    line12MinInput.onInput.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.box1box2Min = line12MinInput.value.trim();
@@ -1170,8 +1171,8 @@ The following code snippets (Code 11-12.57 -- Code 11-12.61) show updated line e
 
 {% highlight java %}
 
-    line12MaxInput = document.query('#line12Max');
-    line12MaxInput.on.input.add((Event e) {
+    line12MaxInput = document.querySelector('#line12Max');
+    line12MaxInput.onInput.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.box1box2Max = line12MaxInput.value.trim();
@@ -1184,8 +1185,8 @@ The following code snippets (Code 11-12.57 -- Code 11-12.61) show updated line e
 
 {% highlight java %}
 
-    line12IdCheckbox = document.query('#line12Id');
-    line12IdCheckbox.on.change.add((Event e) {
+    line12IdCheckbox = document.querySelector('#line12Id');
+    line12IdCheckbox.onChange.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         if (line.box1box2Min == '1' && line.box1box2Max == '1') {
@@ -1203,8 +1204,8 @@ The following code snippets (Code 11-12.57 -- Code 11-12.61) show updated line e
 
 {% highlight java %}
 
-    line12NameInput = document.query('#line12Name');
-    line12NameInput.on.input.add((Event e) {
+    line12NameInput = document.querySelector('#line12Name');
+    line12NameInput.onInput.listen((Event e) {
       Line line = board.lastLineSelected;
       if (line != null) {
         line.box1box2Name = line12NameInput.value.trim();
@@ -1283,8 +1284,8 @@ If there is no current item, the previous item will become the last item.
 
 {% highlight java %}
 
-    getPreviousItemButton = document.query('#getPreviousItem');
-    getPreviousItemButton.on.click.add((MouseEvent e) {
+    getPreviousItemButton = document.querySelector('#getPreviousItem');
+    getPreviousItemButton.onClick.listen((MouseEvent e) {
       Box box = board.lastBoxSelected;
       if (box != null) {
         if (currentItem != null) {
@@ -1304,7 +1305,7 @@ If there is no current item, the previous item will become the last item.
             itemInitInput.value = '';
           }
         } else {
-          if (!box.items.isEmpty()) {
+          if (!box.items.isEmpty) {
             Item lastItem = box.findLastItem();
             currentItem = lastItem;
             itemNameInput.value = lastItem.name;
@@ -1313,7 +1314,7 @@ If there is no current item, the previous item will become the last item.
             itemInitInput.value = lastItem.init;
             itemNameInput.select();
           }
-        } 
+        }
       }
     });
 
@@ -1359,9 +1360,9 @@ An external line gets a softer gray color, so that a visual difference between i
 
 class Board {
   ...
-  static final int DEFAULT_LINE_WIDTH = 1;
-  static final String DEFAULT_LINE_COLOR = '#000000'; // black
-  static final String SOFT_LINE_COLOR = '#999493'; // gray; old: 736f6e
+  static const int DEFAULT_LINE_WIDTH = 1;
+  static const String DEFAULT_LINE_COLOR = '#000000'; // black
+  static const String SOFT_LINE_COLOR = '#999493'; // gray; old: 736f6e
 
 {% endhighlight %}
 
@@ -1380,12 +1381,12 @@ In the Board class, the onMouseDown method allows now a creation of maximum of t
         ...
       } else if (toolBar.isLineToolOn()) {
         // Create a line between the last two clicked boxes.
-        if (beforeLastBoxClicked != null && lastBoxClicked != null && 
-          _boxExists(beforeLastBoxClicked) && _boxExists(lastBoxClicked) &&
-          countLinesBetween(beforeLastBoxClicked, lastBoxClicked) < 2) {   
-          Line line = new Line(this, beforeLastBoxClicked, lastBoxClicked);
-          lines.add(line);
-        }
+        if (beforeLastBoxClicked != null && lastBoxClicked != null &&
+            _boxExists(beforeLastBoxClicked) && _boxExists(lastBoxClicked) &&
+            countLinesBetween(beforeLastBoxClicked, lastBoxClicked) < 2) {
+            Line line = new Line(this, beforeLastBoxClicked, lastBoxClicked);
+            lines.add(line);
+          }
       }
       toolBar.backToFixedTool();
     }
@@ -1436,19 +1437,5 @@ Similar, in the constructor of the Box class, the type of the List element is sp
 
 {% endhighlight %}
 
-In Dart, the double click event name has changed from dblClick to doubleClick.
 
-**Code 11-12.73**: Double click event change in Dart.
-
-{% highlight java %}
-
-  ToolBar(this.board) {
-    ...
-    selectButton.on.doubleClick.add((MouseEvent e) {
-      onTool(SELECT);
-      _fixedTool = SELECT;
-    });
-
-
-{% endhighlight %}
 
