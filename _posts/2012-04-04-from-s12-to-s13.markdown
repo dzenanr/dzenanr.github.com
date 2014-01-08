@@ -11,8 +11,6 @@ The code for the Model Concepts project is at [model_concepts on GitHub](https:/
 
 The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github.com/dzenanr/mb_spirals). For teaching or learning purposes, each spiral in Magic Boxes is decomposed into several sub-spirals.
 
-If you use spirals of the MagicBoxes project, checkout branches s00a ... s13a. They are updates of s00 ... s13 tags, but only minimal updates, so that the code may be executed with newer versions of Dart.
-
 Overview
 --------
 
