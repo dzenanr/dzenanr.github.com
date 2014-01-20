@@ -70,9 +70,9 @@ This code was a starting point for producing Spiral 01 (Figure 00-01.02).
 
 Here, the changes from Spiral 00 to Spiral 01 will be presented as sub-spirals.
 
-The first change is the simplification of the main method.
+The first change is the simplification of the main function.
 
-**Code 00-01.03**: The minimal main method.
+**Code 00-01.03**: The minimal main function.
 
 {% highlight java %}
 
@@ -86,7 +86,7 @@ main() {
 
 {% endhighlight %}
 
-The main method does not have any parameters. The print function belongs to the dart:core library. It prints a text given as the argument of the function to the Console of the Chrome browser. The console is opened by using the Ctrl-Shift-J keys.
+The main function does not have any parameters. The print function belongs to the dart:core library. It prints a text given as the argument of the function to the Console of the Chrome browser. The console is opened by using the Ctrl-Shift-J keys.
 
 **Code 00-01.04**: The minimal html code.
 
@@ -191,7 +191,7 @@ void main() {
 
 The CanvasElement class defines a canvas. The CanvasRenderingContext2D class defines a two-dimensional context of canvas. The int class represents integer values. The main method delegates its work to methods of the CanvasRenderingContext2D class. However, it does not return a value or an object of a class, which is pointed out by the void keyword.
 
-The main method is used as the entry point for the code execution. In general, it should be made short by delegating work to other functions.
+The main function is used as the entry point for the code execution. In general, it should be made short by delegating work to other functions.
 
 **Code 00-01.08**: Function.
 
@@ -267,7 +267,7 @@ The objective of the main function is to obtain canvas and to delegate drawings 
 
 Up to now, our code consists of functions. The same can be accomplished by defining the Board class that will handle drawings. The class is defined within Dart Editor by using the File menu and the New File… menu item. The new file is named Border.dart. 
 
-The main method of mb.dart creates a board as an object of the Board class. This is accomplished by using the new keyword and by the constructor method of the Board class.
+The main function of mb.dart creates a board as an object of the Board class. This is accomplished by using the new keyword and by the constructor method of the Board class.
 
 **Code 00-01.10**: The main function creates an object of the Board class.
 
@@ -446,6 +446,8 @@ class Board {
 {% endhighlight %}
 
 The main method adds a redundant object. Since the board object is not used further in the main method, there was no reason to introduce it. 
+
+Also, the document object may be avoided.
 
 **Code 00-01.15**: Box source.
 
