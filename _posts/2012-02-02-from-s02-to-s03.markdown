@@ -10,7 +10,7 @@ The code for the Magic Boxes project is at [mb_spirals on GitHub](https://github
 
 In Spiral 02, three boxes may be moved within the board. In Spiral 03, a box may be created by clicking on an empty space in the board, selected and then moved.
 
-In order to create many boxes, the [List](https://api.dartlang.org/docs/channels/stable/latest/dart_core/List.html) data structure is added to the Board class as a new attribute. List is a part of the Collection library of Dart that includes different ways to organize data. List is an indexable collection of objects that may be sorted. In our example (Code 02-03.01), the List has the Box class as a parameter. As a consequence, the boxes attribute may accept only objects of the Box class.
+In order to create many boxes, the [List](https://api.dartlang.org/docs/channels/stable/latest/dart_core/List.html) data structure is added to the Board class as a new attribute. List is an indexable collection of objects that may be sorted. In our example (Code 02-03.01), the List has the Box class as a parameter. As a consequence, the boxes attribute may accept only objects of the Box class.
 
 **Code 02-03.01**: The boxes attribute of the List type.
 
@@ -42,7 +42,7 @@ class Board {
 
 {% endhighlight %}
 
-The boxes attribute is created in the constructor of the Board class. After the creation, the list of boxes is empty. A new box will be created by clicking on the board. This event will be implemented by the onMouseDown method (Code 02-03.02) of the Board class. When a mouse down event happens, a listener of that event is informed by Dart and the registered method is executed by Dart with the event argument (of the MouseEvent type) prepared by Dart.
+The boxes attribute is created in the constructor of the Board class. After the creation, the list of boxes is empty. A new box will be created by clicking anywhere on the board. This event will be implemented by the onMouseDown method (Code 02-03.02) of the Board class. When a mouse down event happens, a listener of that event is informed by Dart and the registered method is executed by Dart with the event argument (of the MouseEvent type) prepared by Dart.
 
 **Code 02-03.02**: The onMouseDown method of the Board class.
 
@@ -56,14 +56,14 @@ The boxes attribute is created in the constructor of the Board class. After the 
 
 {% endhighlight %}
 
-A new box created by the constructor of the Box class is added to the boxes attribute. The add method belongs to the [List abstract class](https://api.dartlang.org/docs/channels/stable/latest/dart_core/List.html). 
+A new box created by the constructor of the Box class is added to the boxes attribute. The add method belongs to the [List class](https://api.dartlang.org/docs/channels/stable/latest/dart_core/List.html). 
 The redraw method is changed to traverse (iterate over) the list of created boxes and to display all of them (Figure 02-03.01). 
 
 ![Alt Figure 02-03.01: Creating boxes by clicking on the board](/img/s02s03/CreatedBoxes.png)
 
 **Figure 02-03.01**: Creating boxes by clicking on the board.
 
-The iteration is done by the **for** loop (statement). Each box of the Box type in the boxes attribute is visited and then drawn.
+The iteration is done by the **for in** loop (statement). Each box of the Box type in the boxes attribute is visited and then drawn.
 
 **Code 02-03.03**: The redraw method of the Board class.
 
@@ -90,8 +90,8 @@ If a Web browser does not support the canvas element of HTML5, the message about
 
 {% endhighlight %}
 
-A new box may be created only if a user clicks on an empty space on the board.  This check is done by traversing boxes and verifying if the event’s click is done within an existing box. If so, the **for** iteration is interrupted by the **break** statement and the execution of the code is continued immediately after the **for** loop. 
-The negation symbol (!) is used to switch the Boolean (bool) value of the clickedOnExistingBox variable. If that variable is **false**, and it is false only if no box was clicked on, the switch will produce **true**, which will allow the new box to be added to the boxes attribute.
+A new box may be created only if a user clicks on an empty space on the board.  This check is done by traversing boxes and verifying if the event’s click is done within an existing box. If so, the **for in** iteration is interrupted by the **break** statement and the execution of the code is continued immediately after the **for in** loop. 
+The negation symbol (!) is used to switch the bool value of the clickedOnExistingBox variable. If that variable is **false**, and it is false only if no box was clicked on, the switch will produce **true**, which will allow the new box to be added to the boxes attribute.
 
 **Code 02-03.05**: A new box cannot be created by clicking on an existing box.
 
@@ -130,7 +130,9 @@ The isPointInside method of the Box class is renamed to the contains verb in ord
 
 {% endhighlight %}
 
-If, during a new box creation, a mouse click is close to the west or to the south border of the board (or even outside the border), so that the new box would be positioned outside the border, its position is brought back to the board. The mouse event object has the offset attributes that position a mouse click with respect to the canvas object. In order to understand better a difference between x and y of a box and different positions of a mouse event, display different points within a box, but only after increasing the box size.
+If, during a new box creation, a mouse click is close to the west or to the south border of the board (or even outside the border), so that the new box would be positioned outside the border, its position is brought back to the board. The mouse event object has the offset attributes that position a mouse click with respect to the canvas object. 
+
+In order to understand better a difference between x and y of a box and different positions of a mouse event, display different points within a box, but only after increasing the box size.
 
 **Code 02-03.07**: A new box stays within the board on the west or south side.
 
