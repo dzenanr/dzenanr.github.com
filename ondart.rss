@@ -10,11 +10,22 @@
   <category>Web development</category>
   <image>
     <title>On Dart</title>
-    <url>http://dzenanr.github.com/img/ondartb1.png</url>
-    <link>http://dzenanr.github.com</link>
+    <url>http://dzenanr.github.io/img/ondartb1.png</url>
+    <link>http://dzenanr.github.io/</link>
     <width>50</width>
     <height>60</height>
   </image>
+
+  <item>
+    <title>I have paid my Dart community dues</title>
+    <link>http://dzenanr.github.io/2014/05/06/i-have-paid-my-dart-community-dues.html</link>
+    <guid>http://dzenanr.github.io/2014/05/06/i-have-paid-my-dart-community-dues.html</guid>
+    <description>
+      I have paid my Dart community dues.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Tue, 6 May 2014 10:28:00 -0500</pubDate>
+  </item>
   
   <item>
     <title>Category Links Web Components</title>
