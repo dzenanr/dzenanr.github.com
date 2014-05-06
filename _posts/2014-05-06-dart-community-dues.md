@@ -1,10 +1,10 @@
 ---
 layout: default
-title: I have paid my Dart community dues
+title: Dart community dues
 comments: true
 ---
 
-I have paid my [Dart community dues](http://goo.gl/ICIb9K):
+I believe that I have paid my [dues](http://goo.gl/ICIb9K) to the Dart community:
 
 + [GitHub projects](https://github.com/dzenanr)
 + [Learning Dart book](http://learningdart.org/)
