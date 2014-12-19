@@ -15,6 +15,17 @@
     <width>50</width>
     <height>60</height>
   </image>
+  
+  <item>
+    <title>Dart Cookbook</title>
+    <link>http://dzenanr.github.io/2014/12/19/dart-coobook.html</link>
+    <guid>http://dzenanr.github.io/2014/12/19/dart-coobook.html</guid>
+    <description>
+      Dart Cookbook is about quick answers to common problems.
+    </description>
+    <author>Dzenan Ridjanovic</author>
+    <pubDate>Fri, 19 December 2014 10:31:00 -0500</pubDate>
+  </item>
 
   <item>
     <title>Dart community dues</title>

@@ -34,7 +34,7 @@ cd blogs/dzenanr.github.com
 
 Windows:
 Git Bash
-cd git/blog/dzenanr.github.com
+cd dart/blog/dzenanr.github.com
 
 Check readme files in dzenanr.github.com blog, MagicBoxes and mb.
 
